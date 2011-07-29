@@ -95,16 +95,16 @@ LatexTranslator.prototype.visitDivide = function(expr) {
 };
 
 LatexTranslator.prototype.visitExponent = function(expr) {
-    expr.base.accept(this);
+    expr.left.accept(this);
     this.latex += '^{';
-    expr.power.accept(this);
+    expr.right.accept(this);
     this.latex += '}';
 };
 
 LatexTranslator.prototype.visitSubscript = function(expr) {
-    expr.base.accept(this);
+    expr.left.accept(this);
     this.latex += '^{';
-    expr.index.accept(this);
+    expr.right.accept(this);
     this.latex += '}';
 };
 
@@ -128,16 +128,16 @@ LatexTranslator.prototype.visitNumber = function(expr) {
 };
 
 LatexTranslator.prototype.visitVariable = function(expr) {
-    if (undefined !== specialVarNames[expr.name]) {
-        this.latex += '{' + specialVarNames[expr.name] + '}';
+    if (undefined !== this.specialVarNames[expr.name]) {
+        this.latex += '{' + this.specialVarNames[expr.name] + '}';
     } else {
         this.latex += expr.name;
     }
 };
 
 LatexTranslator.prototype.visitConstant = function(expr) {
-    if (undefined !== constants[expr.name]) {
-        this.latex += '{' + constants[expr.name] + '}';
+    if (undefined !== this.constants[expr.name]) {
+        this.latex += '{' + this.constants[expr.name] + '}';
     } else {
         this.latex += '\\#' + expr.name;
     }

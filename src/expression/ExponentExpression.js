@@ -1,7 +1,4 @@
-function ExponentExpression() {
-    this.base = this.left;
-    this.power = this.right;
-}
+function ExponentExpression() {}
 
 ExponentExpression.prototype = new BinaryExpression
 

@@ -1,7 +1,4 @@
-function SubscriptExpression() {
-    this.base = this.left;
-    this.index = this.right;
-}
+function SubscriptExpression() {}
 
 SubscriptExpression.prototype = new BinaryExpression();
 
