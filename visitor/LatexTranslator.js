@@ -1,5 +1,5 @@
 function LatexTranslator() {
-    this.translatedString = '';
+    this.latex = '';
     
     this.specialVarNames = {
         'alpha': '\\alpha',
@@ -62,19 +62,15 @@ function LatexTranslator() {
 
 LatexTranslator.prototype = new ExpressionVisitor();
 
-LatexTranslator.prototype.latex = function() {
-    return translatedString;
-};
-
 LatexTranslator.prototype.visitPlus = function(expr) {
     expr.left.accept(this);
-    translatedString += '+';
+    this.latex += '+';
     expr.right.accept(this);
 };
 
 LatexTranslator.prototype.visitMinus = function(expr) {
     expr.left.accept(this);
-    translatedString += '-';
+    this.latex += '-';
     expr.right.accept(this);
 };
 
@@ -86,63 +82,63 @@ LatexTranslator.prototype.visitTimes = function(expr) {
         op = '';
     }
     expr.left.accept(this);
-    translatedString += op;
+    this.latex += op;
     expr.right.accept(this);
 };
 
 LatexTranslator.prototype.visitDivide = function(expr) {
-    translatedString += '\\frac{';
+    this.latex += '\\frac{';
     expr.left.accept(this);
-    translatedString += '}{';
+    this.latex += '}{';
     expr.right.accept(this);
-    translatedString += '}';
+    this.latex += '}';
 };
 
 LatexTranslator.prototype.visitExponent = function(expr) {
     expr.base.accept(this);
-    translatedString += '^{';
+    this.latex += '^{';
     expr.power.accept(this);
-    translatedString += '}';
+    this.latex += '}';
 };
 
 LatexTranslator.prototype.visitSubscript = function(expr) {
     expr.base.accept(this);
-    translatedString += '^{';
+    this.latex += '^{';
     expr.index.accept(this);
-    translatedString += '}';
+    this.latex += '}';
 };
 
 LatexTranslator.prototype.visitParentheses = function(expr) {
     if (expr.parent instanceof DivideExpression) {
         expr.child.accept(this);
     } else {
-        translatedString += '\\left(';
+        this.latex += '\\left(';
         expr.child.accept(this);
-        translatedString += '\\right)';
+        this.latex += '\\right)';
     }
 };
 
 LatexTranslator.prototype.visitNegation = function(expr) {
-    translatedString += '-';
+    this.latex += '-';
     expr.child.accept(this);
 };
 
 LatexTranslator.prototype.visitNumber = function(expr) {
-    translatedString += expr.value + '';
+    this.latex += expr.value + '';
 };
 
 LatexTranslator.prototype.visitVariable = function(expr) {
     if (undefined !== specialVarNames[expr.name]) {
-        translatedString += '{' + specialVarNames[expr.name] + '}';
+        this.latex += '{' + specialVarNames[expr.name] + '}';
     } else {
-        translatedString += expr.name;
+        this.latex += expr.name;
     }
 };
 
 LatexTranslator.prototype.visitConstant = function(expr) {
     if (undefined !== constants[expr.name]) {
-        translatedString += '{' + constants[expr.name] + '}';
+        this.latex += '{' + constants[expr.name] + '}';
     } else {
-        translatedString += '\\#' + expr.name;
+        this.latex += '\\#' + expr.name;
     }
 };

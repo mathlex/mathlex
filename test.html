@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>JS Math Interpreter Test</title>
+        <script src="interpreter.min.js"></script>
+        <script>
+            var plus = new PlusExpression();
+            plus.left = new NumberExpression(1);
+            plus.right = new ExponentExpression();
+            plus.right.base = new NumberExpression(2);
+            plus.right.power = new NumberExpression(3);
+
+            var translator = new LatexTranslator();
+            plus.accept(translator);
+            document.write(translator.latex);
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
