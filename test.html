@@ -5,18 +5,36 @@
         <title>JS Math Interpreter Test</title>
         <script src="interpreter.min.js"></script>
         <script>
-            var plus = new PlusExpression();
-            plus.left = new NumberExpression(1);
-            plus.right = new ExponentExpression();
-            plus.right.base = new NumberExpression(2);
-            plus.right.power = new NumberExpression(3);
-
-            var translator = new LatexTranslator();
-            plus.accept(translator);
-            document.write(translator.latex);
+            var tokenizer = new Tokenizer();
+            var parser = new Parser(new ExpressionBuilder());
+            
+            function translate(math) {
+                tokenizer.tokenize(math);
+                var expression = parser.parse(tokenizer);
+            
+                var translator = new LatexTranslator();
+                expression.accept(translator);
+                return translator.latex;
+            }
+            
+            tokenizer.tokenize("#pi");
+            console.log(tokenizer);
         </script>
     </head>
     <body>
-        
+        <label for="input">Input:</label> <input id="input" type="text" />
+        <div id="output"></div>
+        <script>
+            var input = document.getElementById('input');
+            var output = document.getElementById('output');
+            input.onkeyup = function() {
+                try {
+                    input.style.color = 'black'
+                    output.innerHTML = translate(this.value)
+                } catch (err) {
+                    input.style.color = 'red';
+                }
+            };
+        </script>
     </body>
 </html>

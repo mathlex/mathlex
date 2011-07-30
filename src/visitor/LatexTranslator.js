@@ -40,7 +40,7 @@ function LatexTranslator() {
     
     this.constants = {
         'pi': '\\pi',
-        'p': '\\p',
+        'p': '\\pi',
         'i': 'i',
         'e': '\\mathrm{e}',
         'vi': '\\hat\\imath',
