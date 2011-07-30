@@ -32,10 +32,11 @@ Tokenizer.prototype.tokenize = function(input) {
 Tokenizer.prototype.tokenizeOperator = function() {
     var end, currChar;
     
-    // check for digraph (multicharacter token operator)
+    // look through all tokens and check for digraphs (multicharacter token operators)
     for (type in TokenType) {
         if (TokenType[type].length > 1) {
             end = this.currPos + TokenType[type].length;
+            // check if current and succeeding chars match digraph
             if (this.input.substring(this.currPos, end) == TokenType[type]) {
                 this.tokens.push(new Token(type));
                 this.currPos += TokenType[type].length;
@@ -44,13 +45,15 @@ Tokenizer.prototype.tokenizeOperator = function() {
         }
     }
     
-    // if the current symbol is a '#', then it must belong to a constant.
-    if (this.input[this.currPos] == '#') {
+    // tokenize constant if current char is '#' and next is a letter
+    if (this.input[this.currPos] == '#' && this.input[this.currPos + 1].match(/a-zA-Z/)) {
         this.tokenizeSymbol();
-    } else {
-        // tokenize operator
-        this.tokenizeCharacter();
+        return;
     }
+    
+    // default to a single character token
+    this.tokens.push(new Token(this.input[this.currPos]));
+    this.currPos++;
 };
 
 Tokenizer.prototype.tokenizeNumber = function() {
@@ -64,6 +67,7 @@ Tokenizer.prototype.tokenizeNumber = function() {
 Tokenizer.prototype.tokenizeSymbol = function() {
     // expect a variable by default
     var type = TokenType.VARIABLE;
+    var value;
     
     // check for constant (forwarded request from tokenizeOperator)
     if (this.input[this.currPos] == '#') {
@@ -72,27 +76,26 @@ Tokenizer.prototype.tokenizeSymbol = function() {
         this.currPos++;
     }
     
-    // to prevent infinite loop below, check that the current symbol is a letter
-    if (!this.input[this.currPos].match(/[a-zA-Z]/)) {
-        // if not a letter, tokenize unknown character
-        this.tokenizeCharacter(TokenType.UNKNOWN);
-        return;
+    if (this.input[this.currPos].match(/[a-zA-Z]/)) {
+        // group letters together
+        var start = this.currPos;
+        while (this.currPos < this.input.length && this.input[this.currPos].match(/[a-zA-Z]/)) {
+            this.currPos++;
+        }
+        
+        value = this.input.substring(start, this.currPos);
+        
+        // TODO: Check if symbol is a reserved keyword:
+        // if (is_keyword(value)) type = get_type_from_keyword(value);
+    } else {
+        //tokenize a single junk character
+        type = TokenType.UNKNOWN;
+        value = this.input[this.currPos];
+        currPos++;
     }
     
-    var start = this.currPos;
-    while (this.currPos < this.input.length && this.input[this.currPos].match(/[a-zA-Z]/)) {
-        this.currPos++;
-    }
-    
-    this.tokens.push(new Token(type, this.input.substring(start, this.currPos)));
+    this.tokens.push(new Token(type, value));
 };
-
-Tokenizer.prototype.tokenizeCharacter = function(type) {
-    type = type ? type : this.input[this.currPos];
-    this.tokens.push(new Token(type, this.input[this.currPos]));
-    this.currPos++;
-};
-
 
 Tokenizer.prototype.hasNext = function() {
     return (this.tokens.length > 0);
