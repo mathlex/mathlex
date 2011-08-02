@@ -3,17 +3,19 @@
     <head>
         <meta charset="UTF-8" />
         <title>JS Math Interpreter Test</title>
-        <script src="interpreter.min.js"></script>
+        <script src="interpreter.js"></script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
         <script>
             var tokenizer = new Tokenizer();
             var parser = new Parser(new ExpressionBuilder());
             
             function translate(math) {
                 tokenizer.tokenize(math);
-                var expression = parser.parse(tokenizer);
+                parser.parse(tokenizer.getIterator());
             
                 var translator = new LatexTranslator();
-                expression.accept(translator);
+                parser.parseTree.accept(translator);
                 return translator.latex;
             }
             
@@ -22,17 +24,22 @@
         </script>
     </head>
     <body>
-        <label for="input">Input:</label> <input id="input" type="text" />
+        <label for="input">Input:</label> <input id="input" type="text" size="120" />
         <div id="output"></div>
+        <div id="texOut">\[{}\]</div>
         <script>
             var input = document.getElementById('input');
             var output = document.getElementById('output');
+            var texOut = document.getElementById('texOut');
             input.onkeyup = function() {
                 try {
-                    input.style.color = output.style.color = 'black'
-                    output.innerHTML = translate(this.value)
+                    input.style.color = output.style.color = texOut.style.color = 'black'
+                    var latex = translate(this.value.replace(/\s/g, ''));
+                    output.innerHTML = latex
+                    MathJax.Hub.Queue(['Text', MathJax.Hub.getAllJax('texOut')[0], latex])
                 } catch (err) {
-                    input.style.color = output.style.color = 'red';
+                    input.style.color = output.style.color = texOut.style.color = 'red';
+                    console.log(err);
                 }
             };
         </script>

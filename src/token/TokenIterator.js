@@ -14,7 +14,7 @@ function TokenIterator(tokens) {
     };
     
     this.getCurrent = function() {
-        return tokens.get(currentIndex);
+        return tokens[currentIndex];
     };
     
     this.isDone = function() {
