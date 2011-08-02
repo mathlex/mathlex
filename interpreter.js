@@ -905,12 +905,10 @@ LatexTranslator.prototype.visitTimes = function(expr) {
     while (lhs instanceof BinaryExpression) {
         lhs = lhs.right;
     }
-    lhs = lhs.right;
     
     while (rhs instanceof BinaryExpression) {
         rhs = rhs.left;
     }
-    rhs = rhs.left;
     
     if (lhs instanceof VariableExpression || rhs instanceof VariableExpression
             || lhs instanceof ConstantExpression || rhs instanceof ConstantExpression
