@@ -103,7 +103,7 @@ LatexTranslator.prototype.visitExponent = function(expr) {
 
 LatexTranslator.prototype.visitSubscript = function(expr) {
     expr.left.accept(this);
-    this.latex += '^{';
+    this.latex += '_{';
     expr.right.accept(this);
     this.latex += '}';
 };

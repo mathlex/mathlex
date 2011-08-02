@@ -29,10 +29,10 @@
             var output = document.getElementById('output');
             input.onkeyup = function() {
                 try {
-                    input.style.color = 'black'
+                    input.style.color = output.style.color = 'black'
                     output.innerHTML = translate(this.value)
                 } catch (err) {
-                    input.style.color = 'red';
+                    input.style.color = output.style.color = 'red';
                 }
             };
         </script>
