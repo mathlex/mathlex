@@ -1,10 +1,11 @@
 function Parser(builder) {
     this.builder = builder;
+    this.parseTree = null;
 }
 
 Parser.prototype.parse = function(tokens) {
     this.tokens = tokens;
-    return this.parseSum();
+    this.parseTree = this.parseSum();
 };
 
 Parser.prototype.parseSum = function() {
