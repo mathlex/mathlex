@@ -105,11 +105,11 @@ LatexTranslator.prototype.visitTimes = function(expr) {
         lhs = expr.left,
         rhs = expr.right;
     
-    while (lhs instanceof BinaryExpression) {
+    while (lhs.right) {
         lhs = lhs.right;
     }
     
-    while (rhs instanceof BinaryExpression) {
+    while (rhs.left) {
         rhs = rhs.left;
     }
     
