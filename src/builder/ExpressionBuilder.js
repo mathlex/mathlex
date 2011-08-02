@@ -16,6 +16,30 @@ function buildBinaryExpression(bExpr, left, right) {
     return bExpr;
 }
 
+ExpressionBuilder.prototype.newLessRelation = function(left, right) {
+    return buildBinaryExpression(new LessRelationExpression(), left, right);
+};
+
+ExpressionBuilder.prototype.newLessEqualRelation = function(left, right) {
+    return buildBinaryExpression(new LessEqualRelationExpression(), left, right);
+};
+
+ExpressionBuilder.prototype.newEqualRelation = function(left, right) {
+    return buildBinaryExpression(new EqualRelationExpression(), left, right);
+};
+
+ExpressionBuilder.prototype.newNotEqualRelation = function(left, right) {
+    return buildBinaryExpression(new NotEqualRelationExpression(), left, right);
+};
+
+ExpressionBuilder.prototype.newGreaterEqualRelation = function(left, right) {
+    return buildBinaryExpression(new GreaterEqualRelationExpression(), left, right);
+};
+
+ExpressionBuilder.prototype.newGreaterRelation = function(left, right) {
+    return buildBinaryExpression(new GreaterRelationExpression(), left, right);
+};
+
 ExpressionBuilder.prototype.newPlus = function(left, right) {
     return buildBinaryExpression(new PlusExpression(), left, right);
 };
@@ -48,6 +72,14 @@ ExpressionBuilder.prototype.newNegation = function(subExpr) {
     return buildUnaryExpression(new NegationExpression(), subExpr);
 };
 
+ExpressionBuilder.prototype.newPositive = function(subExpr) {
+    return buildUnaryExpression(new PositiveExpression(), subExpr);
+};
+
+ExpressionBuilder.prototype.newFactorial = function(subExpr) {
+    return buildUnaryExpression(new FactorialExpression(), subExpr);
+};
+
 ExpressionBuilder.prototype.newNumber = function(value) {
     return new NumberExpression(value);
 };
@@ -58,4 +90,8 @@ ExpressionBuilder.prototype.newVariable = function(name) {
 
 ExpressionBuilder.prototype.newConstant = function(name) {
     return new ConstantExpression(name);
+};
+
+ExpressionBuilder.prototype.newNull = function() {
+    return new NullExpression();
 };
