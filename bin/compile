@@ -1,12 +1,16 @@
 #!/bin/bash
 
-if [ -d build ]; then
-    rm -fr build
+BIN_DIR=`dirname $0`
+ROOT_DIR=`realpath $BIN_DIR/..`
+BUILD_DIR="$ROOT_DIR/build"
+
+if [ -d "$BUILD_DIR" ]; then
+    rm -fr "$BUILD_DIR"
 fi
 
-mkdir build
+mkdir "$BUILD_DIR"
 
-FILES=`find src -name "*.js"`
-for FILE in $FILES; do cat $FILE >> build/interpreter.js; done
+FILES=`find "$ROOT_DIR/src" -name "*.js"`
+for FILE in $FILES; do cat "$FILE" >> "$BUILD_DIR/interpreter.js"; done
 
-yui -o build/interpreter.min.js build/interpreter.js
+yui -o "$BUILD_DIR/interpreter.min.js" "$BUILD_DIR/interpreter.js"
