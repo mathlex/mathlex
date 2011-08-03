@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -d build ]; then
+    rm -fr build
+fi
+
+mkdir build
+
+FILES=`find src -name "*.js"`
+for FILE in $FILES; do cat $FILE >> build/interpreter.js; done
+
+yui -o build/interpreter.min.js build/interpreter.js
