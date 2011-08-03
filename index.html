@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>JS Math Interpreter Test</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            
+            body {
+                padding: 10px;
+                font-size: 16px;
+                font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+                text-rendering: optimizeLegibility;
+            }
+            
+            #input, #output {
+                width: 100%;
+                font-size: 15px;
+                margin: 3px 0;
+            }
+            
+            #input {
+                border: 1px solid #333;
+            }
+            
+            #output {
+                border: 1px solid #999;
+            }
+            
+            label {
+                font-weight: bold;
+                display: block;
+            }
+            
+            div.field {
+                position: relative;
+                margin-bottom: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="field">
+            <label for="input">Input:</label>
+            <input id="input" type="text" />
+        </div>
+        <div class="field">
+            <label for="output">Output:</label>
+            <input id="output" type="text" disabled="disabled" />
+        </div>
+        <div class="field">
+            <strong>Rendered LaTeX:</strong>
+            <div id="texOut">\[{}\]</div>
+        </div>
+        
+        <script src="build/interpreter.js"></script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script>
+            var tokenizer = new Tokenizer(),
+                parser = new Parser(new ExpressionBuilder()),
+                translator,
+                latex,
+                input = document.getElementById('input'),
+                output = document.getElementById('output'),
+                texOut = document.getElementById('texOut');
+            
+            function translate(math) {
+                tokenizer.tokenize(math);
+                parser.parse(tokenizer.getIterator());
+            
+                translator = new LatexTranslator();
+                parser.parseTree.accept(translator);
+                return translator.latex;
+            }
+
+            input.onkeyup = function() {
+                try {
+                    input.style.color = output.style.color = texOut.style.color = 'black'
+                    latex = translate(this.value.replace(/\s/g, ''));
+                    output.value = latex;
+                    MathJax.Hub.Queue(['Text', MathJax.Hub.getAllJax('texOut')[0], latex]);
+                } catch (err) {
+                    input.style.color = output.style.color = texOut.style.color = 'red';
+                }
+            };
+        </script>
+    </body>
+</html>
