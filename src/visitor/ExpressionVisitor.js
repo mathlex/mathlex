@@ -51,6 +51,10 @@ ExpressionVisitor.prototype.visitParentheses = function(expr) {
     console.log("visitParentheses not implemented");
 };
 
+ExpressionVisitor.prototype.visitAbsoluteValue = function(expr) {
+    console.log("visitAbsoluteValue not implemented");
+};
+
 ExpressionVisitor.prototype.visitNegation = function(expr) {
     console.log("visitNegation not implemented");
 };

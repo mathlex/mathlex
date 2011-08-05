@@ -1,6 +1,11 @@
 function Token(type, value) {
-    this.type = value ? type : Token.typeOf(type);
-    this.value = value ? value : type;
+    if (typeof(type) === 'string') {
+        this.type = Token.typeOf(type);
+        this.value = value ? value : type;
+    } else {
+        this.type = type;
+        this.value = value ? value : '';
+    }
 }
 
 Token.Type = {
@@ -13,20 +18,21 @@ Token.Type = {
     UNDERSCORE: 6,
     LPAREN: 7,
     RPAREN: 8,
-    BANG: 9,
-    DOT: 10,
-    CROSS: 11,
-    COMPOSITION: 12,
-    VECTORIZE: 13,
-    GREATER_EQUAL: 14,
-    GREATER_THAN: 15,
-    EQUAL: 16,
-    NOT_EQUAL: 17,
-    LESS_THAN: 18,
-    LESS_EQUAL: 19,
-    NUMBER: 20,
-    CONSTANT: 21,
-    VARIABLE: 22,
+    PIPE: 9,
+    BANG: 10,
+    DOT: 11,
+    CROSS: 12,
+    COMPOSITION: 13,
+    VECTORIZE: 14,
+    GREATER_EQUAL: 15,
+    GREATER_THAN: 16,
+    EQUAL: 17,
+    NOT_EQUAL: 18,
+    LESS_THAN: 19,
+    LESS_EQUAL: 20,
+    NUMBER: 21,
+    CONSTANT: 22,
+    VARIABLE: 23,
 };
 
 Token.typeMap = {
@@ -38,6 +44,7 @@ Token.typeMap = {
     '_': Token.Type.UNDERSCORE,
     '(': Token.Type.LPAREN,
     ')': Token.Type.RPAREN,
+    '|': Token.Type.PIPE,
     '!': Token.Type.BANG,
     '&.': Token.Type.DOT,
     '&x': Token.Type.CROSS,

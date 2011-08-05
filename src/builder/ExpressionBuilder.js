@@ -68,6 +68,10 @@ ExpressionBuilder.prototype.newParentheses = function(subExpr) {
     return buildUnaryExpression(new ParenthesesExpression(), subExpr);
 };
 
+ExpressionBuilder.prototype.newAbsoluteValue = function(subExpr) {
+    return buildUnaryExpression(new AbsoluteValueExpression(), subExpr);
+};
+
 ExpressionBuilder.prototype.newNegation = function(subExpr) {
     return buildUnaryExpression(new NegationExpression(), subExpr);
 };
