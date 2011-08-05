@@ -158,6 +158,12 @@ LatexTranslator.prototype.visitParentheses = function(expr) {
     }
 };
 
+LatexTranslator.prototype.visitAbsoluteValue = function(expr) {
+    this.latex += '\\left|';
+    expr.child.accept(this);
+    this.latex += '\\right|';
+};
+
 LatexTranslator.prototype.visitNegation = function(expr) {
     this.latex += '-';
     expr.child.accept(this);

@@ -1,29 +1,30 @@
 function Tokenizer() {
-    this.input = this.tokens = this.currPos = this.tokenized = null;
+    this._input = this._tokens = this._currPos = null;
+    this._tokenized = false;
     this.reset();
 }
 
 Tokenizer.prototype.getIterator = function() {
-    if (!this.tokenized) {
+    if (!this._tokenized) {
         throw 'Nothing has been tokenized!';
     }
-    return new TokenIterator(this.tokens);
+    return new TokenIterator(this._tokens);
 };
 
 Tokenizer.prototype.reset = function() {
-    this.input = '';
-    this.currPos = 0;
-    this.tokens = [];
-    this.tokenized = false;
+    this._input = '';
+    this._currPos = 0;
+    this._tokens = [];
+    this._tokenized = false;
 };
 
 Tokenizer.prototype.tokenize = function(input) {
     this.reset();
-    this.input = input;
+    this._input = input;
     
-    while (this.currPos < this.input.length) {
-        var currChar = this.input[this.currPos];
-        if (currChar.match(/[\*\/\+\-\^\_\(\)\&\!\=\<\>]/)) {
+    while (this._currPos < this._input.length) {
+        var currChar = this._input[this._currPos];
+        if (currChar.match(/[\*\/\+\-\^\_\(\)\|\&\!\=\<\>]/)) {
             this.tokenizeOperator();
         } else if (currChar.match(/[\d\.]/)) {
             this.tokenizeNumber();
@@ -31,7 +32,7 @@ Tokenizer.prototype.tokenize = function(input) {
             this.tokenizeSymbol();
         }
     }
-    this.tokenized = true;
+    this._tokenized = true;
 };
 
 Tokenizer.prototype.tokenizeOperator = function() {
@@ -41,11 +42,11 @@ Tokenizer.prototype.tokenizeOperator = function() {
         
     while (keys.length > 0) {
         i++;
-        if (this.currPos + i >= this.input.length) {
+        if (this._currPos + i >= this._input.length) {
             break;
         }
         
-        s = this.input.substring(this.currPos, this.currPos + i);
+        s = this._input.substring(this._currPos, this._currPos + i);
         possibilities = [];
         for (var k in keys) {
             if (k.substring(0, s.length) === s) {
@@ -60,17 +61,17 @@ Tokenizer.prototype.tokenizeOperator = function() {
         i++;
     }
     
-    this.tokens.push(new Token(this.input.substring(this.currPos, this.currPos + i-1)));
-    this.currPos += i-1;
+    this._tokens.push(new Token(this._input.substring(this._currPos, this._currPos + i-1)));
+    this._currPos += i-1;
 };
 
 Tokenizer.prototype.tokenizeNumber = function() {
-    var start = this.currPos;
-    while (this.currPos < this.input.length && this.input[this.currPos].match(/[\d\.]/)) {
-        this.currPos++;
+    var start = this._currPos;
+    while (this._currPos < this._input.length && this._input[this._currPos].match(/[\d\.]/)) {
+        this._currPos++;
     }
     
-    this.tokens.push(new Token(Token.Type.NUMBER, this.input.substring(start, this.currPos)));
+    this._tokens.push(new Token(Token.Type.NUMBER, this._input.substring(start, this._currPos)));
 };
 
 Tokenizer.prototype.tokenizeSymbol = function() {
@@ -78,29 +79,29 @@ Tokenizer.prototype.tokenizeSymbol = function() {
         value;
     
     // check for constant
-    if (this.input[this.currPos] == '#') {
+    if (this._input[this._currPos] == '#') {
         type = Token.Type.CONSTANT;
         // skip over '#' character and tokenize constant name
-        this.currPos++;
+        this._currPos++;
     }
     
-    if (this.input[this.currPos].match(/[a-zA-Z]/)) {
+    if (this._input[this._currPos].match(/[a-zA-Z]/)) {
         // group letters together
-        var start = this.currPos;
-        while (this.currPos < this.input.length && this.input[this.currPos].match(/[a-zA-Z\d]/)) {
-            this.currPos++;
+        var start = this._currPos;
+        while (this._currPos < this._input.length && this._input[this._currPos].match(/[a-zA-Z\d]/)) {
+            this._currPos++;
         }
         
-        value = this.input.substring(start, this.currPos);
+        value = this._input.substring(start, this._currPos);
         
         // TODO: Check if symbol is a reserved keyword:
         // if (is_keyword(value)) type = get_type_from_keyword(value);
     } else {
         // tokenize a single junk character
         type = Token.Type.UNKNOWN;
-        value = this.input[this.currPos];
-        this.currPos++;
+        value = this._input[this._currPos];
+        this._currPos++;
     }
     
-    this.tokens.push(new Token(type, value));
+    this._tokens.push(new Token(type, value));
 };

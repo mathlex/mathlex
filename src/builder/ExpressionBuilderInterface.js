@@ -52,6 +52,10 @@ ExpressionBuilderInterface.prototype.newParentheses = function(subExpr) {
     console.log('ExpressionBuilderInterface.newParentheses() is not implemented');
 };
 
+ExpressionBuilderInterface.prototype.newAbsoluteValue = function(subExpr) {
+    console.log('ExpressionBuilderInterface.newAbsoluteValue() is not implemented');
+};
+
 ExpressionBuilderInterface.prototype.newNegation = function(subExpr) {
     console.log('ExpressionBuilderInterface.newNegation() is not implemented');
 };
