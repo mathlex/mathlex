@@ -1,6 +1,5 @@
 function Parser(builder) {
-    this._tokens = this._leftInjectionPoint = null;
-    this.parseTree = null;
+    this._tokens = this._leftInjectionPoint = this.parseTree = null;
     this._builder = builder;
 }
 
@@ -85,7 +84,7 @@ Parser.prototype.parseRelation = function() {
 };
 
 Parser.prototype.parseSum = function() {
-    var left = this.parseTerm();
+    var left = this.parseDifference();
     
     if (this._tokens.isDone()) {
         return left;
@@ -97,6 +96,21 @@ Parser.prototype.parseSum = function() {
         case Token.Type.PLUS:
             this._tokens.next();
             return this._builder.newPlus(left, this.parseSum());
+        default:
+            return left;
+    }
+};
+
+Parser.prototype.parseDifference = function() {
+    var left = this.parseTerm();
+    
+    if (this._tokens.isDone()) {
+        return left;
+    }
+    
+    var t = this._tokens.getCurrent();
+    
+    switch (t.type) {
         case Token.Type.MINUS:
             this._tokens.next();
             return this._builder.newMinus(left, this.parseSum());
@@ -201,6 +215,22 @@ Parser.prototype.parseFactorial = function() {
     }
 };
 
+Parser.prototype.parseFuncArgs = function() {
+    var args = [];
+    
+    if (this._tokens.isDone()) {
+        return args;
+    }
+    
+    args.push(this.parseRelation());
+    while (!this._tokens.isDone() && this._tokens.getCurrent().type == Token.Type.COMMA) {
+        this._tokens.next();
+        args.push(this.parseRelation());
+    }
+    
+    return args;
+};
+
 Parser.prototype.parsePrimary = function() {
     if (this._tokens.isDone()) {
         return this._builder.newNull();
@@ -236,7 +266,19 @@ Parser.prototype.parsePrimary = function() {
             return this._builder.newConstant(t.value);
         case Token.Type.VARIABLE:
             this._tokens.next();
-            return this._builder.newVariable(t.value);
+            if (!this._tokens.isDone() && this._tokens.getCurrent().type == Token.Type.LPAREN) {
+                this._tokens.next();
+                ex = this._builder.newFunction(t.value, this.parseFuncArgs());
+                if (!this._tokens.isDone() && this._tokens.getCurrent().type == Token.Type.RPAREN) {
+                    // skip over closing paren
+                    this._tokens.next();
+                }
+                return ex;
+            } else {
+                return this._builder.newVariable(t.value);
+            }
+        case Token.Type.UNKNOWN:
+            throw "Unrecognized token";
         default:
             return this._builder.newNull();
     }

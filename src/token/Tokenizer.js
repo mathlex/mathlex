@@ -24,7 +24,7 @@ Tokenizer.prototype.tokenize = function(input) {
     
     while (this._currPos < this._input.length) {
         var currChar = this._input[this._currPos];
-        if (currChar.match(/[\*\/\+\-\^\_\(\)\|\&\!\=\<\>]/)) {
+        if (currChar.match(/[\*\/\+\-\^\_\(\)\|\&\!\,\=\<\>]/)) {
             this.tokenizeOperator();
         } else if (currChar.match(/[\d\.]/)) {
             this.tokenizeNumber();
@@ -39,10 +39,22 @@ Tokenizer.prototype.tokenizeOperator = function() {
     var i = 1,
         keys = Token.getMultiChars(),
         s, possibilities;
-        
-    while (keys.length > 0) {
+    
+    
+    function count(obj) {
+        var count = 0;
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    // FIXME: Object.length is not defined
+    while (count(keys) > 0) {
         i++;
-        if (this._currPos + i >= this._input.length) {
+        if (this._currPos + i-1 >= this._input.length) {
             break;
         }
         
