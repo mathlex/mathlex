@@ -40,6 +40,13 @@
                 position: relative;
                 margin-bottom: 1em;
             }
+            
+            footer {
+                font-size: 0.7em;
+                color: #999;
+                text-align: center;
+                margin-top: 100px;
+            }
         </style>
     </head>
     <body>
@@ -59,33 +66,34 @@
         <script src="build/interpreter.js"></script>
         <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script>
-            var tokenizer = new Tokenizer(),
-                parser = new Parser(new ExpressionBuilder()),
-                translator,
-                latex,
-                input = document.getElementById('input'),
-                output = document.getElementById('output'),
-                texOut = document.getElementById('texOut');
+            window.onload = function() {
+                var input       = document.getElementById('input'),
+                    output      = document.getElementById('output'),
+                    texOut      = document.getElementById('texOut'),
+                    interpreter = new Interpreter();
             
-            function translate(math) {
-                tokenizer.tokenize(math);
-                parser.parse(tokenizer.getIterator());
-            
-                translator = new LatexTranslator();
-                parser.parseTree.accept(translator);
-                return translator.latex;
-            }
-
-            input.onkeyup = function() {
-                try {
-                    input.style.color = output.style.color = texOut.style.color = 'black'
-                    latex = translate(this.value.replace(/\s/g, ''));
-                    output.value = latex;
-                    MathJax.Hub.Queue(['Text', MathJax.Hub.getAllJax('texOut')[0], latex]);
-                } catch (err) {
-                    input.style.color = output.style.color = texOut.style.color = 'red';
+                function translate(math) {
+                    interpreter.interpret(math);
+                    var translator = new LatexTranslator();
+                    interpreter.accept(translator);
+                    return translator.latex;
                 }
+
+                input.onkeyup = function() {
+                    try {
+                        input.style.color = output.style.color = texOut.style.color = 'black'
+                        var latex = translate(this.value.replace(/\s/g, ''));
+                        output.value = latex;
+                        MathJax.Hub.Queue(['Text', MathJax.Hub.getAllJax('texOut')[0], latex]);
+                    } catch (err) {
+                        input.style.color = output.style.color = texOut.style.color = 'red';
+                        console.log(err);
+                    }
+                };
             };
         </script>
+        <footer>
+            Copyright &copy;<span id="copyright_year">2011</span> Matthew J. Barry. All rights reserved.
+        </footer>
     </body>
 </html>

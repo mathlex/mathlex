@@ -1,6 +1,6 @@
 function ExpressionBuilder() {}
 
-ExpressionBuilder.prototype = new ExpressionBuilderInterface();
+ExpressionBuilder.prototype = new AbstractExpressionBuilder();
 
 function buildUnaryExpression(uExpr, child) {
     child.parent = uExpr;
@@ -98,4 +98,17 @@ ExpressionBuilder.prototype.newConstant = function(name) {
 
 ExpressionBuilder.prototype.newNull = function() {
     return new NullExpression();
+};
+
+ExpressionBuilder.prototype.newFunction = function(name, args) {
+    func = this.getFunction(name);
+    if (null == func) {
+        return this.newNull();
+    }
+    
+    for (arg in args) {
+        func.addArgument(args[arg]);
+    }
+    
+    return func;
 };

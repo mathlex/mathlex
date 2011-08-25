@@ -202,3 +202,125 @@ LatexTranslator.prototype.visitConstant = function(expr) {
 LatexTranslator.prototype.visitNull = function(expr) {
     this.latex += '{}';
 };
+
+
+LatexTranslator.prototype.visitSquareRootFunction = function(func) {
+    this.latex += '\\sqrt{';
+    func.getExpression().accept(this);
+    this.latex += '}';
+};
+
+LatexTranslator.prototype.visitRadicalFunction = function(func) {
+    this.latex += '\\sqrt[';
+    func.getRoot().accept(this);
+    this.latex += ']{';
+    func.getExpression().accept(this);
+    this.latex += '}';
+};
+
+
+LatexTranslator.prototype.visitSineFunction = function(func) {
+    this.latex += '\\sin{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitCosineFunction = function(func) {
+    this.latex += '\\cos{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitTangentFunction = function(func) {
+    this.latex += '\\tan{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitCosecantFunction = function(func) {
+    this.latex += '\\csc{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitSecantFunction = function(func) {
+    this.latex += '\\sec{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitCotangentFunction = function(func) {
+    this.latex += '\\cot{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitArcSineFunction = function(func) {
+    this.latex += '\\sin^{-1}{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitArcCosineFunction = function(func) {
+    this.latex += '\\cos^{-1}{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitArcTangentFunction = function(func) {
+    this.latex += '\\tan^{-1}{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitArcCosecantFunction = function(func) {
+    this.latex += '\\csc^{-1}{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitArcSecantFunction = function(func) {
+    this.latex += '\\sec^{-1}{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitArcCotangentFunction = function(func) {
+    this.latex += '\\cot^{-1}{\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)}';
+};
+
+LatexTranslator.prototype.visitLimitFunction = function(func) {
+    this.latex += '\\lim_{';
+    func.getVariable().accept(this);
+    this.latex += '{\\to}';
+    func.getLimit().accept(this);
+    this.latex += '}\\,{';
+    func.getExpression().accept(this);
+    this.latex += '}';
+};
+
+LatexTranslator.prototype.visitDerivativeFunction = function(func) {
+    this.latex += '\\frac{\\mathrm{d}}{\\mathrm{d}';
+    func.getDiffVar().accept(this);
+    this.latex += '}\\left(';
+    func.getExpression().accept(this);
+    this.latex += '\\right)';
+};
+
+LatexTranslator.prototype.visitIntegralFunction = function(func) {
+    this.latex += '\\int';
+    if (func.hasLimits()) {
+        this.latex += '_{';
+        func.getLowerLimit().accept(this);
+        this.latex += '}^{';
+        func.getUpperLimit().accept(this);
+        this.latex += '}';
+    }
+    this.latex += '{';
+    func.getIntegrand().accept(this);
+    this.latex += '\\,\\mathrm{d}';
+    func.getIntVar().accept(this);
+    this.latex += '}';
+};
