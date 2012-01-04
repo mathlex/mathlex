@@ -30,6 +30,11 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=0); /* IE6-9 */
 }
 
+.monospaced() {
+    font-family: Inconsolata, Monaco, "Courier New", monospace;
+    font-weight: 400;
+}
+
 body {
     text-rendering: optimizeLegibility;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -65,6 +70,7 @@ ul, ol {
 }
 
 tt, code {
+    .monospaced();
     margin-left: .3em;
     
     a {
@@ -74,37 +80,37 @@ tt, code {
 }
 
 pre {
+    .monospaced();
     margin: 0;
 }
 
-#math_input, #ast_output {
+#math_input, #ast_output, #tex_output {
     .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
     .border-radius(3px);
 }
 
 #math_input {
+    .monospaced();
     border: 1px solid #999;
     width: 100%;
     font-size: 18px;
     padding: 3px 0;
     text-indent: 3px;
-    
-    &, tt, code, pre {
-        font-family: Inconsolata, "Andale Mono", "Courier New", monospace;
-    }
 }
+
 
 #math_output {
     padding: 10px;
     font-size: 20px;
 }
 
-#ast_output {
+#ast_output, #tex_output {
     max-height: 400px;
     overflow: auto;
     border: 1px solid #999;
     font-size: 0.8em;
     padding: 5px;
+    margin: 20px 0;
     line-height: normal;
     background: #ddd;
 }

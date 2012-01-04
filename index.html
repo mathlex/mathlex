@@ -19,6 +19,7 @@
     <div role="main">
         <input type="text" name="math" id="math_input" />
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
+        <div id="tex_output"><code>Raw LaTeX Output</code></div>
         <div id="ast_output"><code>Parse Tree</code></div>
 
         <h2>Instructions</h2>
@@ -69,6 +70,7 @@
             var mathInput  = $('#math_input'),
                 mathOutput = $('#math_output'),
                 astOutput  = $('#ast_output'),
+                rawOutput  = $('#tex_output'),
                 mjQueue    = MathJax.Hub.queue,
                 mjOutBox;
 
@@ -85,8 +87,9 @@
                     if (math.length > 0) {
                         // attempt to parse mathematical input and display rendered LaTeX
                         ast = MathParser.parse(math);
-                        result = MathParser.render(ast, 'latex');
-                        mjQueue.Push(['Text', mjOutBox, "\\displaystyle{" + result + "}"]);
+                        latex = MathParser.render(ast, 'latex');
+                        mjQueue.Push(['Text', mjOutBox, "\\displaystyle{" + latex + "}"]);
+                        rawOutput.html('<pre>' + latex + '<\/pre>')
                         astOutput.html('<pre>' + MathParser.render(ast, 'text-tree') + '<\/pre>');
                     } else {    
                         mjQueue.Push(['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]);
