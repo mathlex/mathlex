@@ -27,15 +27,16 @@ task 'build:css', 'compile LESS files into CSS', ->
     files = fs.readdirSync './less'
     run 'mkdir', ['-p', "./css"], ->
         for file in files when file.match /\.less$/
+            console.log "building #{file}..."
             parser = new less.Parser
                 paths: ['./less']
                 filename: file
-            fs.readFile "./less/#{file}", (err, data) ->
+            data = fs.readFileSync "./less/#{file}"
+            parser.parse data.toString(), (err, tree) ->
                 return console.log err if err
-                parser.parse data.toString(), (err, tree) ->
-                    return console.log err if err
-                    dest = "./css/#{file.replace /\.less$/, '.min.css'}"
-                    fs.writeFile dest, tree.toCSS { compress: true }
+                dest = "./css/#{file.replace /\.less$/, '.min.css'}"
+                fs.writeFile dest, tree.toCSS { compress: true }, ->
+                    console.log 'done!'
 
 task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = ''
