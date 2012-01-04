@@ -1,99 +1,120 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>JS Math Interpreter Test</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <style>
-            * {
-                padding: 0;
-                margin: 0;
-            }
-            
-            body {
-                padding: 10px;
-                font-size: 16px;
-                font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-                text-rendering: optimizeLegibility;
-            }
-            
-            #input, #output {
-                width: 100%;
-                font-size: 15px;
-                margin: 3px 0;
-            }
-            
-            #input {
-                border: 1px solid #333;
-            }
-            
-            #output {
-                border: 1px solid #999;
-            }
-            
-            label {
-                font-weight: bold;
-                display: block;
-            }
-            
-            div.field {
-                position: relative;
-                margin-bottom: 1em;
-            }
-            
-            footer {
-                font-size: 0.7em;
-                color: #999;
-                text-align: center;
-                margin-top: 100px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="field">
-            <label for="input">Input:</label>
-            <input id="input" type="text" />
-        </div>
-        <div class="field">
-            <label for="output">LaTeX Output:</label>
-            <input id="output" type="text" disabled="disabled" />
-        </div>
-        <div class="field">
-            <strong>Rendered LaTeX:</strong>
-            <div id="texOut">\[{}\]</div>
-        </div>
-        
-        <script src="build/interpreter.js"></script>
-        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script>
-            window.onload = function() {
-                var input       = document.getElementById('input'),
-                    output      = document.getElementById('output'),
-                    texOut      = document.getElementById('texOut'),
-                    interpreter = new Interpreter();
-            
-                function translate(math) {
-                    interpreter.interpret(math);
-                    var translator = new LatexTranslator();
-                    interpreter.accept(translator);
-                    return translator.latex;
-                }
+<html lang="en">
 
-                input.onkeyup = function() {
-                    try {
-                        input.style.color = output.style.color = texOut.style.color = 'black'
-                        var latex = translate(this.value.replace(/\s/g, ''));
-                        output.value = latex;
-                        MathJax.Hub.Queue(['Text', MathJax.Hub.getAllJax('texOut')[0], latex]);
-                    } catch (err) {
-                        input.style.color = output.style.color = texOut.style.color = 'red';
-                        console.log(err);
+<head>
+    <meta charset="utf-8" />
+    <title>Math Parser and Renderer</title>
+    <link rel="stylesheet" href="css/normalize.min.css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata" />
+    <link rel="stylesheet" href="css/style.min.css" />
+
+    <!-- Attempt to load MathJax from CDN; fall back to local if offline -->
+    <script src="//d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>window.MathJax || document.write('<script src="js/libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>');</script>
+</head>
+<body>
+    <header>
+        <h1>Math Parser and Renderer</h1>
+    </header>
+    <div role="main">
+        <input type="text" name="math" id="math_input" />
+        <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
+        <div id="ast_output"><code>Parse Tree</code></div>
+
+        <h2>Instructions</h2>
+        <p>
+            Enter a mathematical expression and watch the rendering and parse tree evolve as you type.
+            Please note that no LaTeX/AST output will be rendered until a successful parse.
+        </p>
+
+        <h2>Sample Inputs</h2>
+        <p>
+            Click on an expression below to use it as the mathematical input above.
+        <ul>
+            <li>Slope-Intercept form: <code class="math"><a href="#math_input">y = m*x + b</a></code></li>
+            <li>Quadratic form: <code class="math"><a href="#math_input">a*x^2 + b*x + c = 0</a></code></li>
+            <li>Quadratic equation:
+                <ul>
+                    <li>Traditional: <code class="math"><a href="#math_input">x = (-b &amp;pm sqrt(b^2 - 4*a*c))/(2*a)</a></code></li>
+                    <li>Set form: <code class="math"><a href="#math_input">x = {(-b+sqrt(b^2-4*a*c))/(2*a), (-b-sqrt(b^2-4*a*c))/(2*a)}</a></code></li>
+                </ul>
+            </li>
+            <li>Integration: <code class="math"><a href="#math_input">int(1/(1+x^2), x, 0, 1) = #p/4</a></code></li>
+            <li>Differentiation: <code class="math"><a href="#math_input">diff(arcsin(x), x) = 1/sqrt(1-x^2)</a></code></li>
+            <li>Limits: <code class="math"><a href="#math_input">f'(x) = lim((f(x+h)-f(x))/h, h, 0)</a></code></li>
+            <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = &lt;u_x, u_y, u_z&gt; &amp;. &lt;v_x, v_y, v_z&gt; &amp;x &lt;w_x, w_y, w_z&gt;</a></code></li>
+            <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) = p &amp;&amp; q || p &amp;&amp; r</a></code></li>
+            <li>Definition of the <em>subset</em> relation: <code class="math"><a href="#math_input">A subset B &lt;-&gt; a in A implies a in B</a></code></li>
+            <li>Definition of Big-Oh: <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x_0 in #Z, exists C in #R, forall x&gt;x_0, (|f(x)|&lt;=C*|g(x)|)</a></code></li>
+        </ul>
+    </div>
+    <footer>
+        <p>
+            Copyright &copy;2012 Matthew Barry.
+            All rights reserved.
+        </p>
+        <p>
+            Version 1.0 &beta;1
+        </p>
+    </footer>
+
+    <script src="build/browser/parser.js"></script>
+
+    <!-- Attempt to load jQuery from Google CDN; fall back to local if offline -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>');</script>
+
+    <script>
+        $(document).ready(function() {
+            var mathInput  = $('#math_input'),
+                mathOutput = $('#math_output'),
+                astOutput  = $('#ast_output'),
+                mjQueue    = MathJax.Hub.queue,
+                mjOutBox;
+
+            // make ouput box variable available to dynamic content setter
+            mjQueue.Push(function() {
+                mjOutBox = MathJax.Hub.getAllJax('math_output')[0];
+            });
+            
+            function updateMath(math) {
+                var ast, result;
+                mathOutput.css({'color': '#000'});
+
+                try {
+                    if (math.length > 0) {
+                        // attempt to parse mathematical input and display rendered LaTeX
+                        ast = MathParser.parse(math);
+                        result = MathParser.render(ast, 'latex');
+                        mjQueue.Push(['Text', mjOutBox, "\\displaystyle{" + result + "}"]);
+                        astOutput.html('<pre>' + MathParser.render(ast, 'text-tree') + '<\/pre>');
+                    } else {    
+                        mjQueue.Push(['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]);
+                        astOutput.html('<code>Parse Tree<\/code');
                     }
-                };
-            };
-        </script>
-        <footer>
-            Copyright &copy;<span id="copyright_year">2012</span> Matthew J. Barry. All rights reserved.
-        </footer>
-    </body>
+                } catch (e) {
+                    // if we encounter a parse error, change color of output box
+                    mathOutput.css({'color': '#f00'});
+                    console.log(e.message);
+                }
+            }
+
+            $('code.math a').click(function(e) {
+                var math = $(this).text();
+                mathInput.val(math);
+                updateMath(math);
+            });
+
+            // keyup event binding to input text box
+            mathInput
+                .keyup(function(e) {
+                    updateMath($(this).val());
+                })
+                .val('')
+                .focus()
+            ;
+        });
+    </script>
+</body>
+
 </html>

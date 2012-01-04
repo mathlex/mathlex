@@ -1,1 +1,11 @@
-/build/
+/build
+/css
+
+Thumbs.db
+Desktop.ini
+.DS_Store
+.*.sw[a-z]
+*.un~
+Session.vim
+._*
+*~
