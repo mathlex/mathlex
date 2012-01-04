@@ -1,0 +1,121 @@
+.box-shadow(@ox, @oy, @ob, @oc, @ix: 0, @iy: 0, @ib: 0, @ic: transparent) {
+    -webkit-box-shadow: @ox @oy @ob @oc,
+                        inset @ix @iy @ib @ic;
+       -moz-box-shadow: @ox @oy @ob @oc,
+                        inset @ix @iy @ib @ic;
+        -ms-box-shadow: @ox @oy @ob @oc,
+                        inset @ix @iy @ib @ic;
+         -o-box-shadow: @ox @oy @ob @oc,
+                        inset @ix @iy @ib @ic;
+            box-shadow: @ox @oy @ob @oc,
+                        inset @ix @iy @ib @ic;
+}
+
+.border-radius(@r) {
+    -webkit-border-radius: @r; 
+       -moz-border-radius: @r; 
+        -ms-border-radius: @r; 
+         -o-border-radius: @r; 
+            border-radius: @r; 
+}
+
+.gradient(@from, @to) {
+    background: @from; /* Old browsers */
+    background: -moz-linear-gradient(top, @from 0%, @to 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @from), color-stop(100%, @to)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, @from 0%, @to 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, @from 0%, @to 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, @from 0%, @to 100%); /* IE10+ */
+    background: linear-gradient(top, @from 0%, @to 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=0); /* IE6-9 */
+}
+
+body {
+    text-rendering: optimizeLegibility;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    padding: 20px;
+}
+
+header {
+    margin: 30px 0;
+}
+
+h1, h2, h3 {
+    margin: 1.5em 0 1em;
+    line-height: normal;
+}
+
+ul, ol {
+    padding-left: 2em;
+    
+    &, p {
+        margin-bottom: 1em;
+        line-height: 1.3em;
+    }
+    
+    ul, ol {
+        margin-bottom: 0;
+    }
+    
+    li {
+        margin: .6em 0;
+    }
+}
+
+tt, code {
+    margin-left: .3em;
+    
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+}
+
+pre {
+    margin: 0;
+}
+
+#math_input, #ast_output {
+    .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
+    .border-radius(3px);
+}
+
+#math_input {
+    border: 1px solid #999;
+    width: 100%;
+    font-size: 18px;
+    padding: 3px 0;
+    text-indent: 3px;
+    
+    &, tt, code, pre {
+        font-family: Inconsolata, Monaco, "Courier New", monospace;
+    }
+}
+
+#math_output {
+    padding: 10px;
+    font-size: 20px;
+}
+
+#ast_output {
+    max-height: 400px;
+    overflow: auto;
+    border: 1px solid #999;
+    font-size: 0.8em;
+    padding: 5px;
+    line-height: normal;
+    background: #ddd;
+}
+
+footer {
+    margin-top: 50px;
+    color: #999;
+    text-align: center;
+    font-size: 0.8em;
+
+    p {
+        margin: 0;
+    }
+}
