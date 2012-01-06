@@ -93,6 +93,7 @@
                         astOutput.html('<pre>' + MathParser.render(ast, 'text-tree') + '<\/pre>');
                     } else {    
                         mjQueue.Push(['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]);
+                        rawOutput.html('<code>Raw LaTeX Output</code>');
                         astOutput.html('<code>Parse Tree<\/code');
                     }
                 } catch (e) {
