@@ -12,6 +12,12 @@ grammar =
     start: [
         o 'expression'
     ]
+    
+    opt_expression: [
+        o 'expression'
+        o '',           -> ['Empty']
+    ]
+
 
     expression: [
         o 'logical'
@@ -26,6 +32,7 @@ grammar =
 
     logical: [
         o 'quantification'
+        o 'relation'
         o 'logical TIff logical',                       -> ['Iff', $1, $3]
         o 'logical TImplies logical',                   -> ['Implies', $1, $3]
         o 'logical TOr logical',                        -> ['Or', $1, $3]
@@ -41,10 +48,14 @@ grammar =
     ]
 
     quantification: [
-        o 'relation'
-        o 'TQForall relation TComma quantification',    -> ['Forall', $2, $4]
-        o 'TQExists relation TComma quantification',    -> ['Exists', $2, $4]
-        o 'TQUnique relation TComma quantification',    -> ['Unique', $2, $4]
+        o 'TQForall relation bound_statement',  -> ['Forall', $2, $3]
+        o 'TQExists relation bound_statement',  -> ['Exists', $2, $3]
+        o 'TQUnique relation bound_statement',  -> ['Unique', $2, $3]
+    ]
+    
+    bound_statement: [
+        o 'such_that relation',     -> $2
+        o 'TComma quantification',  -> $2
     ]
 
     relation: [
@@ -88,6 +99,7 @@ grammar =
     ]
 
     primary: [
+        o 'TEmpty',                                             -> ['Empty']
         o 'TIdent',                                             -> ['Variable', $1]
         o 'TIntLit',                                            -> ['Literal', 'Int', $1]
         o 'TFloatLit',                                          -> ['Literal', 'Float', $1]
@@ -96,7 +108,7 @@ grammar =
         o 'TLCurlyBrace set TRCurlyBrace',                      -> $2
         o 'range_start algebraic TComma algebraic range_end',   -> ['Range', $1, $2, $4, $5]
         o 'TPipe algebraic TPipe',                              -> ['AbsVal', $2]
-        o 'TLParen expression TRParen',                         -> ['Parentheses', $2]
+        o 'TLParen opt_expression TRParen',                     -> ['Parentheses', $2]
     ]
     
     range_start: [

@@ -1,5 +1,6 @@
 exports.render = render = (ast) ->
     switch ast[0]
+        when 'Empty' then "{}"
         when 'Iff' then "#{render ast[1]} \\longleftrightarrow #{render ast[2]}"
         when 'Implies' then "#{render ast[1]} \\rightarrow #{render ast[2]}"
         when 'And' then "#{render ast[1]} \\wedge #{render ast[2]}"

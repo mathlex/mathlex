@@ -26,6 +26,7 @@
         <p>
             Enter a mathematical expression and watch the rendering and parse tree evolve as you type.
             Please note that no LaTeX/AST output will be rendered until a successful parse.
+            To help maximize the frequency of successful parses, the Lexer will attempt to fix unmatched delimiters as you type.
         </p>
 
         <h2>Sample Inputs</h2>
@@ -46,7 +47,13 @@
             <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = &lt;u_x, u_y, u_z&gt; &amp;. &lt;v_x, v_y, v_z&gt; &amp;x &lt;w_x, w_y, w_z&gt;</a></code></li>
             <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) = p &amp;&amp; q || p &amp;&amp; r</a></code></li>
             <li>Definition of the <em>subset</em> relation: <code class="math"><a href="#math_input">A subset B &lt;-&gt; a in A implies a in B</a></code></li>
-            <li>Definition of Big-Oh: <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x_0 in #Z, exists C in #R, forall x&gt;x_0, (|f(x)|&lt;=C*|g(x)|)</a></code></li>
+            <li>Definition of Big-Oh: <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x_0 in #Z, exists C in #R, forall x&gt;x_0: |f(x)|&lt;=C*|g(x)|</a></code></li>
+            <li>Ranges:
+                <ul>
+                    <li>Inclusive Bounds: <code class="math"><a href="#math_input">x = [a,b]</a></code></li>
+                    <li>Exclusive Bounds: <code class="math"><a href="#math_input">x = ]a,b[</a></code></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <footer>

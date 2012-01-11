@@ -3,6 +3,19 @@ NUMBER = /^\d*\.?\d+(?:[Ee][+-]?\d+)?/
 IDENTIFIER = /^[a-zA-Z][a-zA-Z0-9]*/
 CONSTANT = /^#([a-zA-Z0-9]*)/
 
+# SqBrackets not included since [a,b], [a,b[, ]a,b], and ]a,b[ are valid ranges
+# Pipe not included since it can be used as a "such that" operator
+BALANCED_PAIRS = [
+    ['TLParen', 'TRParen']
+    ['TLCurlyBrace', 'TRCurlyBrace']
+]
+
+INVERSES = {}
+
+for [l,r] in BALANCED_PAIRS
+    INVERSES[r] = l
+    INVERSES[l] = r
+
 RESERVED = (str) ->
     switch str
         when 'false', '&F' then 'TConstant'
@@ -77,6 +90,9 @@ exports.Lexer = class Lexer
                     @opOrSep(2) or
                     @opOrSep(1)
             i += consumed
+
+        @token tok, "auto-ins-#{tok}" while tok = @delims.pop()
+
         @tokens
 
     token: (tag, val) ->
@@ -108,5 +124,19 @@ exports.Lexer = class Lexer
     opOrSep: (len) ->
         op = @chunk[0..len-1]
         return 0 unless tag = RESERVED op
+
+        switch tag
+            when 'TLParen', 'TLCurlyBrace' then @delims.push INVERSES[tag]
+            when 'TRParen', 'TRCurlyBrace' then @pair tag
+
         @token tag, op
         len
+
+
+    pair: (tag) ->
+        if tag not in @delims
+            inverse = INVERSES[tag]
+            @tokens.unshift [inverse, "auto-ins-#{inverse}"]
+            @delims.unshift tag
+        while tag isnt expected = @delims.pop()
+            @token expected, "auto-ins-#{expected}"

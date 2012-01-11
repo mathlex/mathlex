@@ -13,6 +13,9 @@ exports.render = render = (ast, depth) ->
         when 'Set', 'Vector'
             out += "#{ast[0]}\n"
             out += render elem, depth+1 for elem in ast[1]
+        when 'Range'
+            out += "#{ast[0]} (#{if ast[1] then 'inclusive' else 'exclusive'}-#{if ast[4] then 'inclusive' else 'exclusive'}):\n"
+            out += render ast, depth+1 for ast in ast[2..3]
         when 'Function'
             args = "#{repeat indent, depth+1}Arguments:\n"
             args += render arg, depth+2 for arg in ast[2]
@@ -21,5 +24,5 @@ exports.render = render = (ast, depth) ->
             out += "#{ast[0]}: #{ast[1]}\n"
         else
             out += "#{ast[0]}\n"
-            out += render child, depth+1 for child in ast.splice 1
+            out += render child, depth+1 for child in ast.slice 1 when child instanceof Array
     out
