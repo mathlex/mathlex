@@ -11,7 +11,10 @@ exports.render = render = (ast) ->
         when 'Forall' then "\\forall #{render ast[1]} \\; #{render ast[2]}"
         when 'Exists' then "\\exists #{render ast[1]} \\; #{render ast[2]}"
         when 'Unique' then "\\exists ! #{render ast[1]} \\; #{render ast[2]}"
-
+        
+        when 'Equivalent' then "#{render ast[1]} \\equiv #{render ast[2]}"
+        when 'NotEquivalent' then "#{render ast[1]} \\not\\equiv #{render ast[2]}"
+        
         when 'Less' then "#{render ast[1]} < #{render ast[2]}"
         when 'LessEqual' then "#{render ast[1]} \\le #{render ast[2]}"
         when 'Equal' then "#{render ast[1]} = #{render ast[2]}"
@@ -55,6 +58,7 @@ exports.render = render = (ast) ->
 
         when 'Parentheses' then "\\left( #{render ast[1]} \\right)"
         when 'AbsVal' then "\\left| #{render ast[1]} \\right|"
+        when 'Norm' then "\\left\\| #{render ast[1]} \\right\\|"
         when 'Literal' then ast[2]
         when 'Variable' then ast[1]
         when 'Range'
@@ -68,15 +72,19 @@ exports.render = render = (ast) ->
         when 'Set'
             elements = (render elem for elem in ast[1])
             "\\left\\{ #{elements.join " ,\\, "} \\right\\}"
+        when 'List'
+            elements = (render elem for elem in ast[1])
+            "\\left[ #{elements.join " ,\\, "} \\right]"
         when 'SetBuilder'
             preds = (render pred for pred in ast[2])
-            "\\left\\{ #{render ast[1]} ~|~ #{preds.join " ,\\, "} \\right\\}"
+            "\\left\\{ #{render ast[1]} ~#{if ast[3] then '|' else ':'}~ #{preds.join " ,\\, "} \\right\\}"
 
         when 'Function'
             args = (render arg for arg in ast[2])
             if ast[1][0] is 'Variable'
                 switch ast[1][1]
                     when 'sqrt' then "\\sqrt{#{render ast[2][0]}}"
+                    when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
                     when 'sin','cos','tan','csc','sec','cot', 'ln' then "\\#{ast[1][1]}{\\left( #{args} \\right)}"
                     when 'arcsin','arccos','arctan','arccsc','arcsec','arccot' then "\\#{ast[1][1].substr 3}^{-1} \\left( #{args} \\right)"
                     when 'int'
@@ -86,7 +94,17 @@ exports.render = render = (ast) ->
                     when 'log'
                         base = if ast[2].length == 2 then "_{#{render ast[2][1]}}" else ''
                         "\\log#{base}{\\left( #{render ast[2][0]} \\right)}"
+                    when 'exp'
+                        "\\mathrm{e}^{#{render ast[2][0]}}"
                     when 'lim', 'limit' then "\\lim_{#{render ast[2][1]} \\to #{render ast[2][2]}} #{render ast[2][0]}"
+                    when 'sum'
+                        lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
+                        upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
+                        "\\sum_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                    when 'prod', 'product'
+                        lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
+                        upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
+                        "\\prod_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
                     else "#{ast[1][1]} \\left( #{args} \\right)"
             else
                 "#{render ast[1]} \\left( #{args.join " ,\\, "} \\right)"
@@ -94,8 +112,10 @@ exports.render = render = (ast) ->
         when 'Constant' then switch ast[1]
             when 'p', 'pi' then "\\pi"
             when 'gamma' then "\\gamma"
-            when 'true', '&T', 't', 'T' then "\\mathbf{T}"
-            when 'false', '&F', 'f', 'F' then "\\mathbf{F}"
+            when 'e' then "\\mathrm{e}"
+            when 'infinity' then "\\infty"
+            when 'true', 't', 'T' then "\\mathbf{T}"
+            when 'false', 'f', 'F' then "\\mathbf{F}"
             when 'R' then "\\mathbb{R}"
             when 'Q' then "\\mathbb{Q}"
             when 'Z' then "\\mathbb{Z}"

@@ -21,8 +21,8 @@ grammar =
 
     expression: [
         o 'logical'
-        o 'logical TEqual logical',     -> ['Equal', $1, $3]
-        o 'logical TNotEqual logical',  -> ['NotEqual', $1, $3]
+        o 'logical TEquiv logical',     -> ['Equivalent', $1, $3]
+        o 'logical TNotEquiv logical',  -> ['NotEquivalent', $1, $3]
     ]
 
     expression_list: [
@@ -60,6 +60,8 @@ grammar =
 
     relation: [
         o 'algebraic'
+        o 'algebraic TEqual algebraic',         -> ['Equal', $1, $3]
+        o 'algebraic TNotEqual algebraic',      -> ['NotEqual', $1, $3]
         o 'algebraic TLess algebraic',          -> ['Less', $1, $3]
         o 'algebraic TLessEqual algebraic',     -> ['LessEqual', $1, $3]
         o 'algebraic TGreaterEqual algebraic',  -> ['GreaterEqual', $1, $3]
@@ -69,6 +71,11 @@ grammar =
         o 'algebraic TPropSubset algebraic',    -> ['ProperSubset', $1, $3]
         o 'algebraic TPropSuperset algebraic',  -> ['ProperSuperset', $1, $3]
         o 'algebraic TIn algebraic',            -> ['Inclusion', $1, $3]
+    ]
+    
+    opt_algebraic: [
+        o 'algebraic'
+        o '',           -> ['Empty']
     ]
 
     algebraic: [
@@ -106,30 +113,39 @@ grammar =
         o 'TConstant',                                          -> ['Constant', $1]
         o 'TLess algebraic_list TGreater',                      -> ['Vector', $2]
         o 'TLCurlyBrace set TRCurlyBrace',                      -> $2
+        o 'TLSqBracket list TRSqBracket',                       -> ['List', $2]
         o 'range_start algebraic TComma algebraic range_end',   -> ['Range', $1, $2, $4, $5]
         o 'TPipe algebraic TPipe',                              -> ['AbsVal', $2]
+        o 'TLPipe opt_algebraic TRPipe',                        -> ['AbsVal', $2]
+        o 'TOr algebraic TOr',                                  -> ['Norm', $2]
+        o 'TLDoublePipe opt_algebraic TRDoublePipe',            -> ['Norm', $2]
         o 'TLParen opt_expression TRParen',                     -> ['Parentheses', $2]
     ]
     
     range_start: [
-        o 'TLSqBracket',    -> true
-        o 'TRSqBracket',    -> false
+        o 'TLRangeInclusive',   -> true
+        o 'TLRangeExclusive',   -> false
     ]
     
     range_end: [
-        o 'TLSqBracket',    -> false
-        o 'TRSqBracket',    -> true
+        o 'TRRangeInclusive',   -> true
+        o 'TRRangeExclusive',   -> false
     ]
 
     set: [
         o '',                                   -> ['EmptySet']
         o 'expression_list',                    -> ['Set', $1]
-        o 'relation such_that logical_list',    -> ['SetBuilder', $1, $3]
+        o 'relation such_that logical_list',    -> ['SetBuilder', $1, $3, $2]
     ]
 
     such_that: [
-        o 'TPipe'
-        o 'TColon'
+        o 'TPipe',  -> true
+        o 'TColon', -> false
+    ]
+    
+    list: [
+        o 'expression_list'
+        o '',   -> [['Empty']]
     ]
 
 

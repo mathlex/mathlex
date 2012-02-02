@@ -41,19 +41,42 @@
                     <li>Set form: <code class="math"><a href="#math_input">x = {(-b+sqrt(b^2-4*a*c))/(2*a), (-b-sqrt(b^2-4*a*c))/(2*a)}</a></code></li>
                 </ul>
             </li>
+            <li>Volume of a Sphere: <code class="math"><a href="#math_input">V = 4/3*#pi*r^3</a></code></li>
             <li>Integration: <code class="math"><a href="#math_input">int(1/(1+x^2), x, 0, 1) = #p/4</a></code></li>
             <li>Differentiation: <code class="math"><a href="#math_input">diff(arcsin(x), x) = 1/sqrt(1-x^2)</a></code></li>
-            <li>Limits: <code class="math"><a href="#math_input">f'(x) = lim((f(x+h)-f(x))/h, h, 0)</a></code></li>
-            <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = &lt;u_x, u_y, u_z&gt; &amp;. &lt;v_x, v_y, v_z&gt; &amp;x &lt;w_x, w_y, w_z&gt;</a></code></li>
-            <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) = p &amp;&amp; q || p &amp;&amp; r</a></code></li>
-            <li>Definition of the <em>subset</em> relation: <code class="math"><a href="#math_input">A subset B &lt;-&gt; a in A implies a in B</a></code></li>
-            <li>Definition of Big-Oh: <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x_0 in #Z, exists C in #R, forall x&gt;x_0: |f(x)|&lt;=C*|g(x)|</a></code></li>
-            <li>Ranges:
+            <li>Limits:
                 <ul>
-                    <li>Inclusive Bounds: <code class="math"><a href="#math_input">x = [a,b]</a></code></li>
-                    <li>Exclusive Bounds: <code class="math"><a href="#math_input">x = ]a,b[</a></code></li>
+                    <li><code class="math"><a href="#math_input">f'(x) = lim((f(x+h)-f(x))/h, h, 0)</a></code></li>
+                    <li><code class="math"><a href="#math_input">limit(1/x, x, infinity) = 0</a></code></li>
                 </ul>
             </li>
+            <li>Logarithms: <code class="math"><a href="#math_input">ln(x) = log(x, #e)</a></code></li>
+            <li>Sums and Products:
+                <ul>
+                    <li>On Relations: <code class="math"><a href="#math_input">sum(root(a, 3), a in A)</a></code>,
+                        <code class="math"><a href="#math_input">prod(exp(5/n), n > 3)</a></code></li>
+                    <li>Over Ranges: <code class="math"><a href="#math_input">sum(1/n, n, 0, #infinity) = infinity</a></code>,
+                        <code class="math"><a href="#math_input">prod(x^2, x, a, b)</a></code></li>
+                </ul>
+            </li>
+            <li>Vectors:
+                <ul>
+                    <li>Unit Vectors: <code class="math"><a href="#math_input">#vi = x*#vi/||x*#vi||</a></code></li>
+                    <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = &lt;u_x, u_y, u_z&gt; &amp;. &lt;v_x, v_y, v_z&gt; &amp;x &lt;w_x, w_y, w_z&gt;</a></code></li>
+                    <li>Area of a Parallelogram: <code class="math"><a href="#math_input">A = ||: v &amp;x w :||</a></code></li>
+                </ul>
+            </li>
+            <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) === p &amp;&amp; q || p &amp;&amp; r</a></code></li>
+            <li>Definition of the <em>subset</em> relation: <code class="math"><a href="#math_input">A subset B &lt;-&gt; a in A implies a in B</a></code></li>
+            <li>Definition of Big-Oh (Notice two different forms for "absolute value"): <br/>
+                <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x_0 in #Z, exists C in #R, forall x&gt;x_0: |f(x)|&lt;=C*|:g(x):|</a></code></li>
+            <li>Ranges:
+                <ul>
+                    <li>Inclusive Bounds: <code class="math"><a href="#math_input">x = [:a,b:]</a></code></li>
+                    <li>Exclusive Bounds: <code class="math"><a href="#math_input">x = (:a,b:)</a></code></li>
+                </ul>
+            </li>
+            <li>Lists: <code class="math"><a href="#math_input">[#pi, #e, #gamma]</a></code>
         </ul>
     </div>
     <footer>

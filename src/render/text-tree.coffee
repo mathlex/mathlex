@@ -10,7 +10,7 @@ exports.render = render = (ast, depth) ->
     switch ast[0]
         when 'Literal' then out += "#{ast[0]}: #{ast[2]}\n"
         when 'Parentheses' then out = render ast[1], depth
-        when 'Set', 'Vector'
+        when 'Set', 'Vector', 'List'
             out += "#{ast[0]}\n"
             out += render elem, depth+1 for elem in ast[1]
         when 'Range'
