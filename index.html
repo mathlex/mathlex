@@ -27,6 +27,12 @@
             Enter a mathematical expression and watch the rendering and parse tree evolve as you type.
             Please note that no LaTeX/AST output will be rendered until a successful parse.
             To help maximize the frequency of successful parses, the Lexer will attempt to fix unmatched delimiters as you type.
+            Also note that some delimiters have more than one format either with or without colons. Namely, absolute value can be written as
+            <code class="math">| ... |</code> or <code class="math">|: ... :|</code>, norm can be written as <code class="math">|| ... ||</code>
+            or <code class="math">||: ... :||</code>, and vector literals can be surrounded by either <code class="math">&lt; ... &gt;</code>
+            or <code class="math">&lt;: ... :&gt;</code>. Delimiters without colons are <em>context-aware</em> in that they have different meanings
+            other than as delimiters and therefore cannot be automatically matched by the Lexer. Additionally, if an expression opened
+            with one type of delimiter, it must be closed with the same type (i.e. context-aware vs. specialized).
         </p>
 
         <h2>Sample Inputs</h2>
@@ -38,7 +44,7 @@
             <li>Quadratic equation:
                 <ul>
                     <li>Traditional: <code class="math"><a href="#math_input">x = (-b &amp;pm sqrt(b^2 - 4*a*c))/(2*a)</a></code></li>
-                    <li>Set form: <code class="math"><a href="#math_input">x = {(-b+sqrt(b^2-4*a*c))/(2*a), (-b-sqrt(b^2-4*a*c))/(2*a)}</a></code></li>
+                    <li>Set form: <code class="math"><a href="#math_input">x in {(-b+sqrt(b^2-4*a*c))/(2*a), (-b-sqrt(b^2-4*a*c))/(2*a)}</a></code></li>
                 </ul>
             </li>
             <li>Volume of a Sphere: <code class="math"><a href="#math_input">V = 4/3*#pi*r^3</a></code></li>
@@ -47,7 +53,7 @@
             <li>Limits:
                 <ul>
                     <li><code class="math"><a href="#math_input">f'(x) = lim((f(x+h)-f(x))/h, h, 0)</a></code></li>
-                    <li><code class="math"><a href="#math_input">limit(1/x, x, infinity) = 0</a></code></li>
+                    <li><code class="math"><a href="#math_input">limit((1+r/n)^(t/n), n, infinity) = #e^(r*t)</a></code></li>
                 </ul>
             </li>
             <li>Logarithms: <code class="math"><a href="#math_input">ln(x) = log(x, #e)</a></code></li>
@@ -62,8 +68,8 @@
             <li>Vectors:
                 <ul>
                     <li>Unit Vectors: <code class="math"><a href="#math_input">#vi = x*#vi/||x*#vi||</a></code></li>
-                    <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = &lt;u_x, u_y, u_z&gt; &amp;. &lt;v_x, v_y, v_z&gt; &amp;x &lt;w_x, w_y, w_z&gt;</a></code></li>
-                    <li>Area of a Parallelogram: <code class="math"><a href="#math_input">A = ||: v &amp;x w :||</a></code></li>
+                    <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = | &lt;u_x, u_y, u_z&gt; &amp;. &lt;: v_x, v_y, v_z :&gt; &amp;x &lt;w_x, w_y, w_z&gt; |</a></code></li>
+                    <li>Area of a Parallelogram: <code class="math"><a href="#math_input">A = ||: &amp;v v &amp;x &amp;v w :||</a></code></li>
                 </ul>
             </li>
             <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) === p &amp;&amp; q || p &amp;&amp; r</a></code></li>
@@ -72,8 +78,9 @@
                 <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x_0 in #Z, exists C in #R, forall x&gt;x_0: |f(x)|&lt;=C*|:g(x):|</a></code></li>
             <li>Ranges:
                 <ul>
-                    <li>Inclusive Bounds: <code class="math"><a href="#math_input">x = [:a,b:]</a></code></li>
-                    <li>Exclusive Bounds: <code class="math"><a href="#math_input">x = (:a,b:)</a></code></li>
+                    <li>Open: <code class="math"><a href="#math_input">x = [:a,b:]</a></code></li>
+                    <li>Closed: <code class="math"><a href="#math_input">x = (:a,b:)</a></code></li>
+                    <li>Half-Open: <code class="math"><a href="#math_input">x = [:a,#infinity:)</a></code></li>
                 </ul>
             </li>
             <li>Lists: <code class="math"><a href="#math_input">[#pi, #e, #gamma]</a></code>

@@ -95,6 +95,9 @@ grammar =
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
         o 'TMinus algebraic',                           (-> ['Negative', $2]), prec: 'UnaryPrefix'
+        o 'TVectorizer algebraic',                      -> ['Vectorizer', $2]
+        o 'TPartial algebraic',                         -> ['Partial', $2]
+        o 'TDifferential algebraic',                    -> ['Differential', $2]
         o 'algebraic TBang',                            -> ['Factorial', $1]
         o 'algebraic TPrime',                           -> ['Prime', $1]
         o 'algebraic TLParen expression_list TRParen',  -> ['Function', $1, $3]
@@ -112,6 +115,7 @@ grammar =
         o 'TFloatLit',                                          -> ['Literal', 'Float', $1]
         o 'TConstant',                                          -> ['Constant', $1]
         o 'TLess algebraic_list TGreater',                      -> ['Vector', $2]
+        o 'TLVector algebraic_list TRVector',                   -> ['Vector', $2]
         o 'TLCurlyBrace set TRCurlyBrace',                      -> $2
         o 'TLSqBracket list TRSqBracket',                       -> ['List', $2]
         o 'range_start algebraic TComma algebraic range_end',   -> ['Range', $1, $2, $4, $5]
@@ -154,7 +158,7 @@ operators = [
     ['left', 'TCompose']
     ['right', 'TPower', 'TUnderscore']
     ['left', 'TLParen', 'TRParen']
-    ['right', 'UnaryPrefix', 'TNot']
+    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TVectorizer']
     ['left', 'TCross']
     ['nonassoc', 'TDot']
     ['left', 'TTimes', 'TDivide', 'TModulus']

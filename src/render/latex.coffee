@@ -1,3 +1,23 @@
+unwrap = (ast, recursive, rules) ->
+    recursive ?= false
+    rules     ?= Parentheses: 1
+
+    if i = rules[ast[0]]
+        if recursive then unwrap ast[i] else ast[i]
+    else
+        ast
+
+implicitMultiplication = (ast, left) ->
+    node = unwrap ast, true,
+        Times: if left then 2 else 1
+        Modulus: if left then 2 else 1
+        Vectorizer: 1
+        Factorial: 1
+        Prime: 1
+        Power: 1
+        Subscript: 1
+    node in ['Divide', 'Parentheses', 'AbsVal', 'Vector', 'Vectorizer', 'Variable', 'Constant', 'Function']
+
 exports.render = render = (ast) ->
     switch ast[0]
         when 'Empty' then "{}"
@@ -31,18 +51,9 @@ exports.render = render = (ast) ->
         when 'Minus' then "#{render ast[1]} - #{render ast[2]}"
         when 'PlusMinus' then "#{render ast[1]} \\pm #{render ast[2]}"
         when 'Times'
-            varOrConstant = (ast, left) ->
-                switch ast[0]
-                    when 'Times', 'Modulus' then varOrConstant(ast[if left then 2 else 1], left)
-                    when 'Factorial', 'Prime', 'Power', 'Subscript' then varOrConstant(ast[1], left)
-                    when 'Divide', 'Parentheses', 'AbsVal', 'Vector', 'Variable', 'Constast' then true
-                    else false
-            op = if varOrConstant(ast[1], true) or varOrConstant(ast[2], false) then " \\, " else " \\cdot "
+            op = if implicitMultiplication(ast[1], true) or implicitMultiplication(ast[2], false) then " \\, " else " \\cdot "
             (render ast[1]) + op + (render ast[2])
-        when 'Divide'
-            top = if ast[1][0] is 'Parentheses' then ast[1][1] else ast[1]
-            bottom = if ast[2][0] is 'Parentheses' then ast[2][1] else ast[2]
-            "\\frac{#{render top}}{#{render bottom}}"
+        when 'Divide' then "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
         when 'Modulus' then "#{render ast[1]} \\pmod{#{render ast[2]}}"
         when 'Power' then "#{render ast[1]}^{#{render ast[2]}}"
         when 'Subscript' then "#{render ast[1]}_{#{render ast[2]}}"
@@ -51,8 +62,17 @@ exports.render = render = (ast) ->
         when 'Compose' then "#{render ast[1]} \\circ #{render ast[2]}"
         when 'Union' then "#{render ast[1]} \\cup #{render ast[2]}"
         when 'Intersection' then "#{render ast[1]} \\cap #{render ast[2]}"
+        
         when 'Positive' then "+#{render ast[1]}"
         when 'Negative' then "-#{render ast[1]}"
+        when 'Partial' then "\\partial #{render ast[1]}"
+        when 'Differential' then "\\mathrm{d} #{render ast[1]}"
+        when 'Vectorizer'
+            nextNode = unwrap ast[1], true
+            if nextNode[0] is 'Variable' and nextNode[1].length is 1
+                "\\vec{#{render nextNode}}"
+            else
+                "\\overrightarrow{#{render nextNode}}"
         when 'Factorial' then "#{render ast[1]}!"
         when 'Prime' then "#{render ast[1]}'"
 

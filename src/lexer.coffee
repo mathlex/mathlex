@@ -15,6 +15,7 @@ BALANCED_PAIRS = [
     ['TLCurlyBrace', 'TRCurlyBrace']
     ['TLPipe', 'TRPipe']
     ['TLDoublePipe', 'TRDoublePipe']
+    ['TLVector', 'TRVector']
 ]
 
 INVERSES = {}
@@ -72,8 +73,11 @@ RESERVED = (str) ->
 
         when '&Re' then 'TReal'
         when '&Im' then 'TImaginary'
+        when '&pd' then 'TPartial'
+        when '&d' then 'TDifferential'
         when '&x' then 'TCross'
         when '&.' then 'TDot'
+        when '&v' then 'TVectorizer'
         when '&pm' then 'TPlusMinus'
 
         when '(' then 'TLParen'
@@ -91,6 +95,8 @@ RESERVED = (str) ->
         when '|' then 'TPipe'
         when '||:' then 'TLDoublePipe'
         when ':||' then 'TRDoublePipe'
+        when '<:' then 'TLVector'
+        when ':>' then 'TRVector'
         when ':' then 'TColon'
         when ',' then 'TComma'
 
