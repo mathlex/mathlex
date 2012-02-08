@@ -46,7 +46,7 @@ RESERVED = (str) ->
 
         when '<' then 'TLess'
         when '<=' then 'TLessEqual'
-        when '===' then 'TEquiv'
+        when '===', 'equiv' then 'TEquiv'
         when '!==', '/==' then 'TNotEquiv'
         when '=', '==' then 'TEqual'
         when '!=', '/=', '<>' then 'TNotEqual'

@@ -1,7 +1,11 @@
-unwrap = (ast, recursive, rules) ->
-    recursive ?= false
-    rules     ?= Parentheses: 1
+rules = {
+    Parentheses: 1,
+    AbsValue: 1,
+    Plus: 2
+};
 
+
+unwrap = (ast, recursive = false, rules = Parentheses: 1) ->
     if i = rules[ast[0]]
         if recursive then unwrap ast[i] else ast[i]
     else
@@ -19,6 +23,7 @@ implicitMultiplication = (ast, left) ->
 
     node[0] in ['Divide', 'Parentheses', 'AbsVal', 'Vector', 'Vectorizer', 'Variable', 'Constant', 'Function']
 
+
 exports.render = render = (ast) ->
     switch ast[0]
         when 'Empty' then "{}"
@@ -27,15 +32,15 @@ exports.render = render = (ast) ->
         when 'And' then "#{render ast[1]} \\wedge #{render ast[2]}"
         when 'Xor' then "#{render ast[1]} \\oplus #{render ast[2]}"
         when 'Or' then "#{render ast[1]} \\vee #{render ast[2]}"
-        when 'Not' then "\\neg #{render ast[1]}"
+        when 'Not' then "!(#{render ast[1]})"
 
         when 'Forall' then "\\forall #{render ast[1]} \\; #{render ast[2]}"
         when 'Exists' then "\\exists #{render ast[1]} \\; #{render ast[2]}"
         when 'Unique' then "\\exists ! #{render ast[1]} \\; #{render ast[2]}"
-        
+
         when 'Equivalent' then "#{render ast[1]} \\equiv #{render ast[2]}"
         when 'NotEquivalent' then "#{render ast[1]} \\not\\equiv #{render ast[2]}"
-        
+
         when 'Less' then "#{render ast[1]} < #{render ast[2]}"
         when 'LessEqual' then "#{render ast[1]} \\le #{render ast[2]}"
         when 'Equal' then "#{render ast[1]} = #{render ast[2]}"
@@ -63,7 +68,7 @@ exports.render = render = (ast) ->
         when 'Compose' then "#{render ast[1]} \\circ #{render ast[2]}"
         when 'Union' then "#{render ast[1]} \\cup #{render ast[2]}"
         when 'Intersection' then "#{render ast[1]} \\cap #{render ast[2]}"
-        
+
         when 'Positive' then "+#{render ast[1]}"
         when 'Negative' then "-#{render ast[1]}"
         when 'Partial' then "\\partial #{render ast[1]}"
@@ -80,8 +85,7 @@ exports.render = render = (ast) ->
         when 'Parentheses' then "\\left( #{render ast[1]} \\right)"
         when 'AbsVal' then "\\left| #{render ast[1]} \\right|"
         when 'Norm' then "\\left\\| #{render ast[1]} \\right\\|"
-        when 'Literal' then ast[2]
-        when 'Variable' then ast[1]
+
         when 'Range'
             ldelim = if ast[1] then '[' else '('
             rdelim = if ast[4] then ']' else ')'
@@ -104,19 +108,21 @@ exports.render = render = (ast) ->
             args = (render arg for arg in ast[2])
             if ast[1][0] is 'Variable'
                 switch ast[1][1]
+                    when 'abs' then "\\left| #{render ast[2][0]}}"
                     when 'sqrt' then "\\sqrt{#{render ast[2][0]}}"
                     when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
-                    when 'sin','cos','tan','csc','sec','cot', 'ln' then "\\#{ast[1][1]}{\\left( #{args} \\right)}"
-                    when 'arcsin','arccos','arctan','arccsc','arcsec','arccot' then "\\#{ast[1][1].substr 3}^{-1} \\left( #{args} \\right)"
+                    when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'arccsc', 'arcsec', 'arccot'
+                        "\\#{ast[1][1]}{\\left( #{args} \\right)}"
                     when 'int'
                         bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
                     when 'diff' then "\\frac{\\mathrm{d}}{\\mathrm{d}#{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
+                    when 'pdiff' then "\\frac{\\partial}{\\partial #{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
                     when 'log'
                         base = if ast[2].length == 2 then "_{#{render ast[2][1]}}" else ''
                         "\\log#{base}{\\left( #{render ast[2][0]} \\right)}"
                     when 'exp'
-                        "\\mathrm{e}^{#{render ast[2][0]}}"
+                        "\\mathrm{exp}{\\left( #{render ast[2][0]} \\right)}"
                     when 'lim', 'limit' then "\\lim_{#{render ast[2][1]} \\to #{render ast[2][2]}} #{render ast[2][0]}"
                     when 'sum'
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
@@ -130,6 +136,39 @@ exports.render = render = (ast) ->
             else
                 "#{render ast[1]} \\left( #{args.join " ,\\, "} \\right)"
 
+        when 'Literal' then ast[2]
+        when 'Variable' then switch ast[1]
+            when 'alpha' then "\\alpha"
+            when 'beta' then "\\beta"
+            when 'gamma' then "\\gamma"
+            when 'delta' then "\\delta"
+            when 'epsilon' then "\\epsilon"
+            when 'vepsilon', 'epsilonv', 'varepsilon', 'epsilonvar' then "\\varepsilon"
+            when 'zeta' then "\\zeta"
+            when 'eta' then "\\eta"
+            when 'theta' then "\\theta"
+            when 'vtheta', 'thetav', 'vartheta', 'thetavar' then "\\vartheta"
+            when 'iota' then "\\iota"
+            when 'kappa' then "\\kappa"
+            when 'lambda' then "\\lambda"
+            when 'mu' then "\\mu"
+            when 'nu' then "\\nu"
+            when 'xi' then "\\xi"
+            when 'omicron' then "o"
+            when 'pi' then "\\pi"
+            when 'vpi', 'piv', 'varpi', 'pivar' then "\\varpi"
+            when 'rho' then "\\rho"
+            when 'vrho', 'rhov', 'varrho', 'rhovar' then "\\varrho"
+            when 'sigma' then "\\sigma"
+            when 'vsigma', 'sigmav', 'varsigma', 'sigmavar' then "\\varsigma"
+            when 'tau' then "\\tau"
+            when 'upsilon' then "\\upsilon"
+            when 'phi' then "\\phi"
+            when 'vphi', 'phiv', 'varphi', 'phivar' then "\\varphi"
+            when 'chi' then "\\chi"
+            when 'psi' then "\\psi"
+            when 'omega' then "\\omega"
+
         when 'Constant' then switch ast[1]
             when 'p', 'pi' then "\\pi"
             when 'gamma' then "\\gamma"
@@ -137,13 +176,19 @@ exports.render = render = (ast) ->
             when 'infinity' then "\\infty"
             when 'true', 't', 'T' then "\\mathbf{T}"
             when 'false', 'f', 'F' then "\\mathbf{F}"
+            when 'O' then "\\mathbb{O}"
+            when 'H' then "\\mathbb{H}"
+            when 'C' then "\\mathbb{C}"
             when 'R' then "\\mathbb{R}"
             when 'Q' then "\\mathbb{Q}"
             when 'Z' then "\\mathbb{Z}"
             when 'N' then "\\mathbb{N}"
+            when 'v0' then "\\vec{0}"
             when 'vi' then "\\hat\\imath"
             when 'vj' then "\\hat\\jmath"
             when 'vk' then "\\hat{k}"
+            when '0' then "\\mathbb{O}"
+            when '1' then "\\mathbb{I}"
             else ast[1]
 
         else " (? #{ast[0]} ?) "
