@@ -16,7 +16,8 @@ implicitMultiplication = (ast, left) ->
         Prime: 1
         Power: 1
         Subscript: 1
-    node in ['Divide', 'Parentheses', 'AbsVal', 'Vector', 'Vectorizer', 'Variable', 'Constant', 'Function']
+
+    node[0] in ['Divide', 'Parentheses', 'AbsVal', 'Vector', 'Vectorizer', 'Variable', 'Constant', 'Function']
 
 exports.render = render = (ast) ->
     switch ast[0]
