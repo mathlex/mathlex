@@ -60,9 +60,9 @@ exports.render = render = (ast) ->
             op = if implicitMultiplication(ast[1], true) or implicitMultiplication(ast[2], false) then " \\, " else " \\cdot "
             (render ast[1]) + op + (render ast[2])
         when 'Divide' then "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
-        when 'Modulus' then "#{render ast[1]} \\pmod{#{render ast[2]}}"
-        when 'Power' then "#{render ast[1]}^{#{render ast[2]}}"
-        when 'Subscript' then "#{render ast[1]}_{#{render ast[2]}}"
+        when 'Modulus' then "#{render ast[1]} \\pmod{#{render unwrap ast[2]}}"
+        when 'Power' then "#{render ast[1]}^{#{render unwrap ast[2]}}"
+        when 'Subscript' then "#{render ast[1]}_{#{render unwrap ast[2]}}"
         when 'DotProduct' then "#{render ast[1]} \\cdot #{render ast[2]}"
         when 'CrossProduct' then "#{render ast[1]} \\times #{render ast[2]}"
         when 'Compose' then "#{render ast[1]} \\circ #{render ast[2]}"
@@ -73,14 +73,33 @@ exports.render = render = (ast) ->
         when 'Negative' then "-#{render ast[1]}"
         when 'Partial' then "\\partial #{render ast[1]}"
         when 'Differential' then "\\mathrm{d} #{render ast[1]}"
+        when 'Gradient' then "\\nabla #{render ast[1]}"
         when 'Vectorizer'
             nextNode = unwrap ast[1], true
             if nextNode[0] is 'Variable' and nextNode[1].length is 1
                 "\\vec{#{render nextNode}}"
             else
                 "\\overrightarrow{#{render nextNode}}"
+        when 'UnitVectorizer' then "\\hat{#{render ast[1]}}"
         when 'Factorial' then "#{render ast[1]}!"
         when 'Prime' then "#{render ast[1]}'"
+        when 'DotDiff'
+            depth = 1
+            node = ast[1]
+            start = end = ""
+            while node[0] == 'DotDiff'
+                depth += 1
+                if depth == 4
+                    start += "\\ddddot{" 
+                    end += "}"
+                    depth = 0
+                node = node[1]
+            inside = start + (render node) + end
+            switch depth
+                when 0 then inside
+                when 1 then "\\dot{#{inside}}"
+                when 2 then "\\ddot{#{inside}}"
+                when 3 then "\\dddot{#{inside}}"
 
         when 'Parentheses' then "\\left( #{render ast[1]} \\right)"
         when 'AbsVal' then "\\left| #{render ast[1]} \\right|"
@@ -111,7 +130,7 @@ exports.render = render = (ast) ->
                     when 'abs' then "\\left| #{render ast[2][0]}}"
                     when 'sqrt' then "\\sqrt{#{render ast[2][0]}}"
                     when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
-                    when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'arccsc', 'arcsec', 'arccot'
+                    when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'arccsc', 'arcsec', 'arccot', 'sinh', 'cosh', 'tanh', 'csch', 'sech', 'coth', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth'
                         "\\#{ast[1][1]}{\\left( #{args} \\right)}"
                     when 'int'
                         bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
@@ -168,6 +187,7 @@ exports.render = render = (ast) ->
             when 'chi' then "\\chi"
             when 'psi' then "\\psi"
             when 'omega' then "\\omega"
+            else ast[1]
 
         when 'Constant' then switch ast[1]
             when 'p', 'pi' then "\\pi"
@@ -183,12 +203,14 @@ exports.render = render = (ast) ->
             when 'Q' then "\\mathbb{Q}"
             when 'Z' then "\\mathbb{Z}"
             when 'N' then "\\mathbb{N}"
+            when 'U' then "\\mathbb{U}"
             when 'v0' then "\\vec{0}"
             when 'vi' then "\\hat\\imath"
             when 'vj' then "\\hat\\jmath"
             when 'vk' then "\\hat{k}"
             when '0' then "\\mathbb{O}"
             when '1' then "\\mathbb{I}"
+            when 'empty' then "\\emptyset"
             else ast[1]
 
         else " (? #{ast[0]} ?) "

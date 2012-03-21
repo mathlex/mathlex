@@ -75,9 +75,12 @@ RESERVED = (str) ->
         when '&Im' then 'TImaginary'
         when '&pd' then 'TPartial'
         when '&d' then 'TDifferential'
+        when '&del' then 'TGradient'
         when '&x' then 'TCross'
+        when '.' then 'TDotDiff'
         when '&.' then 'TDot'
         when '&v' then 'TVectorizer'
+        when '&u' then 'TUnitVectorizer'
         when '&pm' then 'TPlusMinus'
 
         when '(' then 'TLParen'
@@ -98,6 +101,7 @@ RESERVED = (str) ->
         when '<:' then 'TLVector'
         when ':>' then 'TRVector'
         when ':' then 'TColon'
+        when ';' then 'TSemicolon'
         when ',' then 'TComma'
 
         else false
@@ -113,6 +117,7 @@ exports.Lexer = class Lexer
                     @numLiteral() or
                     @identifierOrKeywordToken() or
                     @constantToken() or
+                    @opOrSep(4) or
                     @opOrSep(3) or
                     @opOrSep(2) or
                     @opOrSep(1)

@@ -6,6 +6,7 @@
     <title>Math Parser and Renderer</title>
     <link rel="stylesheet" href="css/normalize.min.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata" />
+    <link rel="stylesheet" href="css/jquery-ui-1.8.18.custom.css">
     <link rel="stylesheet" href="css/style.min.css" />
 
     <!-- Attempt to load MathJax from CDN; fall back to local if offline -->
@@ -17,6 +18,67 @@
         <h1>Math Parser and Renderer</h1>
     </header>
     <div role="main">
+        <div id="toolbars">
+            <ul>
+                <li><a href="#functionality">Functionality Toolbar</a></li>
+                <li><a href="#topical">Topical Toolbar</a></li>
+            </ul>
+            
+            <div id="functionality">
+                <div class="toolbar ui-widget-header ui-corner-all">
+                    <a href="#" class="menu-button" data-target=".subbar.constants">Constants</a>
+                    <a href="#" class="menu-button" data-target=".subbar.unaryops">Unary Operators</a>
+                    <a href="#" class="menu-button" data-target=".subbar.binaryops">Binary Operators</a>
+                    <a href="#" class="menu-button" data-target=".subbar.relations">Relations</a>
+                    <a href="#" class="menu-button" data-target=".subbar.delimiters">Delimiters</a>
+                    <a href="#" class="menu-button" data-target=".subbar.functions">Functions</a>
+                </div>
+                <div class="subbar constants ui-widget-header ui-corner-all" style="display:none;">
+                    <a href="#" class="button" data-content="#pi">\(\pi\)</a>
+                    <a href="#" class="button" data-content="#e">\(\mathrm{e}\)</a>
+                    <a href="#" class="button" data-content="#gamma">\(\gamma\)</a>
+                </div>
+                <div class="subbar unaryops ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar binaryops ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar relations ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar delimiters ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar functions ui-widget-header ui-corner-all">
+                </div>
+            </div>
+            
+            <div id="topical">
+                <div class="toolbar ui-widget-header ui-corner-all">
+                    <a href="#" class="menu-button" data-target=".subbar.arithmetic">Arithmetic</a>
+                    <a href="#" class="menu-button" data-target=".subbar.algebra">Algebra</a>
+                    <a href="#" class="menu-button" data-target=".subbar.geometry">Geometry</a>
+                    <a href="#" class="menu-button" data-target=".subbar.discrete">Discrete</a>
+                    <a href="#" class="menu-button" data-target=".subbar.calculus">Calculus</a>
+                    <a href="#" class="menu-button" data-target=".subbar.settheory">Set Theory</a>
+                    <a href="#" class="menu-button" data-target=".subbar.logic">Logic</a>
+                    <a href="#" class="menu-button" data-target=".subbar.linearalgebra">Linear Algebra</a>
+                </div>
+                <div class="subbar arithmetic ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar algebra ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar geometry ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar discrete ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar calculus ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar settheory ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar logic ui-widget-header ui-corner-all">
+                </div>
+                <div class="subbar linearalgebra ui-widget-header ui-corner-all">
+                </div>
+            </div>
+        </div>
         <input type="text" name="math" id="math_input" placeholder="Enter a mathematical expression..." />
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
         <div id="tex_output"><code>Raw LaTeX Output</code></div>
@@ -101,6 +163,8 @@
     <!-- Attempt to load jQuery from Google CDN; fall back to local if offline -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>');</script>
+    
+    <script src="js/libs/jquery-ui-1.8.18.custom.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -153,6 +217,41 @@
                 })
                 .val('')
                 .focus()
+            ;
+            
+            
+            // toolbars
+            $('#toolbars').tabs({
+                collapsible: true,
+                selected: -1
+            });
+            $('.toolbar a.menu-button')
+                .button({
+                    icons: {
+                        secondary: "ui-icon-plus"
+                    }
+                })
+                .click(function(e) {
+                    e.preventDefault();
+                    var icon = "ui-icon-" + (($(this).button('option', 'icons').secondary == "ui-icon-plus") ? "minus" : "plus");
+                    $(this)
+                        .button('option', 'icons', { secondary: icon })
+                        .parent().toggleClass('ui-corner-all').toggleClass('ui-corner-top')
+                    ;
+                    $(this.dataset['target']).slideToggle(200);
+                })
+            ;
+
+            $('a.button')
+                .button()
+                .click(function(e) {
+                    e.preventDefault();
+                    // TODO: insert at cursor position
+                    var math = $('#math_input').val() + this.dataset['content']
+                    $('#math_input').val(math).focus();
+                    updateMath(math);
+
+                })
             ;
         });
     </script>

@@ -84,9 +84,22 @@ pre {
     margin: 0;
 }
 
+#toolbars {
+    font-size: 12px;
+    
+    .toolbar, .subbar {
+        padding: 4px;
+    }
+    
+    .subbar {
+        display: none;
+    }
+}
+
 #math_input, #ast_output, #tex_output {
     .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
     .border-radius(3px);
+    margin: 20px 0;
 }
 
 #math_input {
@@ -110,7 +123,6 @@ pre {
     border: 1px solid #999;
     font-size: 0.8em;
     padding: 5px;
-    margin: 20px 0;
     line-height: normal;
     background: #ddd;
 }

@@ -54,8 +54,8 @@ grammar =
     ]
     
     bound_statement: [
-        o 'such_that relation',     -> $2
-        o 'TComma quantification',  -> $2
+        o 'such_that relation',         -> $2
+        o 'TSemicolon quantification',  -> $2
     ]
 
     relation: [
@@ -93,13 +93,17 @@ grammar =
         o 'algebraic TCompose algebraic',               -> ['Compose', $1, $3]
         o 'algebraic TUnion algebraic',                 -> ['Union', $1, $3]
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
+        o 'TPlusMinus algebraic',                       (-> ['PlusMinus', $2]), prec: 'UnaryPrefix'
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
         o 'TMinus algebraic',                           (-> ['Negative', $2]), prec: 'UnaryPrefix'
         o 'TVectorizer algebraic',                      -> ['Vectorizer', $2]
+        o 'TUnitVectorizer algebraic',                  -> ['UnitVectorizer', $2]
         o 'TPartial algebraic',                         -> ['Partial', $2]
         o 'TDifferential algebraic',                    -> ['Differential', $2]
+        o 'TGradient algebraic',                        -> ['Gradient', $2]
         o 'algebraic TBang',                            -> ['Factorial', $1]
         o 'algebraic TPrime',                           -> ['Prime', $1]
+        o 'algebraic TDotDiff',                         -> ['DotDiff', $1]
         o 'algebraic TLParen expression_list TRParen',  -> ['Function', $1, $3]
     ]
 
@@ -154,11 +158,11 @@ grammar =
 
 
 operators = [
-    ['left', 'TBang', 'TPrime']
+    ['left', 'TBang', 'TPrime', 'TDotDiff']
     ['left', 'TCompose']
     ['right', 'TPower', 'TUnderscore']
     ['left', 'TLParen', 'TRParen']
-    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TVectorizer']
+    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TVectorizer', 'TUnitVectorizer', 'TGradient']
     ['left', 'TCross']
     ['nonassoc', 'TDot']
     ['left', 'TTimes', 'TDivide', 'TModulus']
