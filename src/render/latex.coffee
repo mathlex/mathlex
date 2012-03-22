@@ -32,7 +32,7 @@ exports.render = render = (ast) ->
         when 'And' then "#{render ast[1]} \\wedge #{render ast[2]}"
         when 'Xor' then "#{render ast[1]} \\oplus #{render ast[2]}"
         when 'Or' then "#{render ast[1]} \\vee #{render ast[2]}"
-        when 'Not' then "!(#{render ast[1]})"
+        when 'Not' then "\\neg #{render ast[1]}"
 
         when 'Forall' then "\\forall #{render ast[1]} \\; #{render ast[2]}"
         when 'Exists' then "\\exists #{render ast[1]} \\; #{render ast[2]}"
@@ -71,6 +71,7 @@ exports.render = render = (ast) ->
 
         when 'Positive' then "+#{render ast[1]}"
         when 'Negative' then "-#{render ast[1]}"
+        when 'PosNeg' then "\\pm #{render ast[1]}"
         when 'Partial' then "\\partial #{render ast[1]}"
         when 'Differential' then "\\mathrm{d} #{render ast[1]}"
         when 'Gradient' then "\\nabla #{render ast[1]}"

@@ -93,7 +93,7 @@ grammar =
         o 'algebraic TCompose algebraic',               -> ['Compose', $1, $3]
         o 'algebraic TUnion algebraic',                 -> ['Union', $1, $3]
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
-        o 'TPlusMinus algebraic',                       (-> ['PlusMinus', $2]), prec: 'UnaryPrefix'
+        o 'TPlusMinus algebraic',                       (-> ['PosNeg', $2]), prec: 'UnaryPrefix'
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
         o 'TMinus algebraic',                           (-> ['Negative', $2]), prec: 'UnaryPrefix'
         o 'TVectorizer algebraic',                      -> ['Vectorizer', $2]
