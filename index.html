@@ -18,73 +18,205 @@
         <h1>Math Parser and Renderer</h1>
     </header>
     <div role="main">
-        <div id="toolbars">
-            <ul>
-                <li><a href="#functionality">Functionality Toolbar</a></li>
-                <li><a href="#topical">Topical Toolbar</a></li>
-            </ul>
-            
-            <div id="functionality">
-                <div class="toolbar ui-widget-header ui-corner-all">
-                    <a href="#" class="menu-button" data-target=".subbar.constants">Constants</a>
-                    <a href="#" class="menu-button" data-target=".subbar.unaryops">Unary Operators</a>
-                    <a href="#" class="menu-button" data-target=".subbar.binaryops">Binary Operators</a>
-                    <a href="#" class="menu-button" data-target=".subbar.relations">Relations</a>
-                    <a href="#" class="menu-button" data-target=".subbar.delimiters">Delimiters</a>
-                    <a href="#" class="menu-button" data-target=".subbar.functions">Functions</a>
+        <div class="toolbars">
+            <div class="ribbon">
+                <div class="tabs">
+                    <strong>Function:</strong>
+                    <a href=".constants">Constants</a>
+                    <a href=".unaryops">Unary</a>
+                    <a href=".binaryops">Binary</a>
+                    <a href=".relations">Relations</a>
+                    <a href=".delimiters">Delimiters</a>
+                    <a href=".functions">Functions</a>
                 </div>
-                <div class="subbar constants ui-widget-header ui-corner-all" style="display:none;">
-                    <a href="#" class="button" data-content="#pi">\(\pi\)</a>
-                    <a href="#" class="button" data-content="#e">\(\mathrm{e}\)</a>
-                    <a href="#" class="button" data-content="#gamma">\(\gamma\)</a>
+                <div class="constants toolbar">
+                    <a href="#" data-content="#pi">\(\pi\)</a>
+                    <a href="#" data-content="#e">\(\mathrm{e}\)</a>
+                    <a href="#" data-content="#gamma">\(\gamma\)</a>
+                    <a href="#" data-content="#i">\(i\)</a>
+                    <a href="#" data-content="infinity">\(\infty\)</a>
+                    <a href="#" data-content="true">\(\mathbf{T}\)</a>
+                    <a href="#" data-content="false">\(\mathbf{F}\)</a>
+                    <a href="#" data-content="#N">\(\mathbb{N}\)</a>
+                    <a href="#" data-content="#Z">\(\mathbb{Z}\)</a>
+                    <a href="#" data-content="#Q">\(\mathbb{Q}\)</a>
+                    <a href="#" data-content="#R">\(\mathbb{R}\)</a>
+                    <a href="#" data-content="#C">\(\mathbb{C}\)</a>
+                    <a href="#" data-content="#H">\(\mathbb{H}\)</a>
+                    <a href="#" data-content="#O">\(\mathbb{O}\)</a>
+                    <a href="#" data-content="#U">\(\mathbb{U}\)</a>
+                    <a href="#" data-content="{}">\(\emptyset\)</a>
+                    <a href="#" data-content="#v0">\(\vec{0}\)</a>
+                    <a href="#" data-content="#vi">\(\hat\imath\)</a>
+                    <a href="#" data-content="#vj">\(\hat\jmath\)</a>
+                    <a href="#" data-content="#vk">\(\hat{k}\)</a>
+                    <a href="#" data-content="#0">\(\mathbb{O}\)</a>
+                    <a href="#" data-content="#1">\(\mathbb{I}\)</a>
                 </div>
-                <div class="subbar unaryops ui-widget-header ui-corner-all">
+                <div class="unaryops toolbar">
+                    <a href="#" data-content="+">\(+\)</a>
+                    <a href="#" data-content="-">\(-\)</a>
+                    <a href="#" data-content="&amp;pm">\(\pm\)</a>
+                    <a href="#" data-content="sqrt()">\(\sqrt{}\)</a>
+                    <a href="#" data-content="ln()">\(\ln{}\)</a>
+                    <a href="#" data-content="exp()">\(\exp{}\)</a>
+                    <a href="#" data-content="!">\(!\)</a>
+                    <a href="#" data-content="~">\(\neg\)</a>
                 </div>
-                <div class="subbar binaryops ui-widget-header ui-corner-all">
+                <div class="binaryops toolbar">
+                    <a href="#" data-content="+">\(+\)</a>
+                    <a href="#" data-content="-">\(-\)</a>
+                    <a href="#" data-content="&amp;pm">\(\pm\)</a>
+                    <a href="#" data-content="*">\(\cdot\)</a>
+                    <a href="#" data-content="/">\(\tfrac{\square}{\square}\)</a>
+                    <a href="#" data-content="%">\(\mathrm{mod}\)</a>
+                    <a href="#" data-content="^">\(\square^\square\)</a>
+                    <a href="#" data-content="log(a,b)">\(\log_b{a}\)</a>
+                    <a href="#" data-content="root(a,n)">\(\sqrt[n]{}\)</a>
+                    <a href="#" data-content="_">\(\square_\square\)</a>
+                    <a href="#" data-content="<->">\(\leftrightarrow\)</a>
+                    <a href="#" data-content="->">\(\rightarrow\)</a>
+                    <a href="#" data-content="&amp;&amp;">\(\wedge\)</a>
+                    <a href="#" data-content="||">\(\vee\)</a>
+                    <a href="#" data-content=" xor ">\(\oplus\)</a>
+                    <a href="#" data-content=":">\(:\)</a>
                 </div>
-                <div class="subbar relations ui-widget-header ui-corner-all">
+                <div class="relations toolbar">
+                    <a href="#" data-content="=">\(=\)</a>
+                    <a href="#" data-content="!=">\(\ne\)</a>
+                    <a href="#" data-content="&lt;">\(&lt;\)</a>
+                    <a href="#" data-content="&gt;">\(&gt;\)</a>
+                    <a href="#" data-content="&lt;=">\(\le\)</a>
+                    <a href="#" data-content="&gt;=">\(\ge\)</a>
+                    <a href="#" data-content=" subset ">\(\subseteq\)</a>
+                    <a href="#" data-content=" superset ">\(\supseteq\)</a>
+                    <a href="#" data-content=" propsubset ">\(\subset\)</a>
+                    <a href="#" data-content=" propsuperset ">\(\supset\)</a>
+                    <a href="#" data-content="===">\(\equiv\)</a>
+                    <a href="#" data-content="!==">\(\not\equiv\)</a>
+                    <a href="#" data-content=" in ">\(\in\)</a>
                 </div>
-                <div class="subbar delimiters ui-widget-header ui-corner-all">
+                <div class="delimiters toolbar">
+                    <a href="#" data-content="_">\(\square_\square\)</a>
+                    <a href="#" data-content=":">\(:\)</a>
                 </div>
-                <div class="subbar functions ui-widget-header ui-corner-all">
+                <div class="functions toolbar">
+                    <a href="#" data-content=" forall ">\(\forall\)</a>
+                    <a href="#" data-content=" exists ">\(\exists\)</a>
+                    <a href="#" data-content=" unique ">\(\exists!\)</a>
                 </div>
             </div>
-            
-            <div id="topical">
-                <div class="toolbar ui-widget-header ui-corner-all">
-                    <a href="#" class="menu-button" data-target=".subbar.arithmetic">Arithmetic</a>
-                    <a href="#" class="menu-button" data-target=".subbar.algebra">Algebra</a>
-                    <a href="#" class="menu-button" data-target=".subbar.geometry">Geometry</a>
-                    <a href="#" class="menu-button" data-target=".subbar.discrete">Discrete</a>
-                    <a href="#" class="menu-button" data-target=".subbar.calculus">Calculus</a>
-                    <a href="#" class="menu-button" data-target=".subbar.settheory">Set Theory</a>
-                    <a href="#" class="menu-button" data-target=".subbar.logic">Logic</a>
-                    <a href="#" class="menu-button" data-target=".subbar.linearalgebra">Linear Algebra</a>
+            <div class="ribbon">
+                <div class="tabs">
+                    <strong>Topic:</strong>
+                    <a href=".arithmetic">Arithmetic</a>
+                    <a href=".algebra">Algebra</a>
+                    <a href=".geometry">Geometry</a>
+                    <a href=".discrete">Discrete</a>
+                    <a href=".calculus">Calculus</a>
+                    <a href=".settheory">Set Theory</a>
+                    <a href=".logic">Logic</a>
+                    <a href=".linalg">Linear Algebra</a>
                 </div>
-                <div class="subbar arithmetic ui-widget-header ui-corner-all">
+                <div class="arithmetic toolbar">
+                    <a href="#" data-content="+">\(+\)</a>
+                    <a href="#" data-content="-">\(-\)</a>
+                    <a href="#" data-content="&amp;pm">\(\pm\)</a>
+                    <a href="#" data-content="*">\(\cdot\)</a>
+                    <a href="#" data-content="/">\(\tfrac{\square}{\square}\)</a>
+                    <a href="#" data-content="%">\(\mathrm{mod}\)</a>
+                    <a href="#" data-content="^">\(\square^\square\)</a>
+                    <a href="#" data-content="exp()">\(\exp{}\)</a>
+                    <a href="#" data-content="ln()">\(\ln{}\)</a>
+                    <a href="#" data-content="log(a,b)">\(\log_b{a}\)</a>
+                    <a href="#" data-content="sqrt()">\(\sqrt{}\)</a>
+                    <a href="#" data-content="root(a,n)">\(\sqrt[n]{}\)</a>
+                    <a href="#" data-content="=">\(=\)</a>
+                    <a href="#" data-content="!=">\(\ne\)</a>
+                    <a href="#" data-content="&lt;">\(&lt;\)</a>
+                    <a href="#" data-content="&gt;">\(&gt;\)</a>
+                    <a href="#" data-content="&lt;=">\(\le\)</a>
+                    <a href="#" data-content="&gt;=">\(\ge\)</a>
                 </div>
-                <div class="subbar algebra ui-widget-header ui-corner-all">
+                <div class="algebra toolbar">
+                    <a href="#" data-content="#i">\(i\)</a>
+                    <a href="#" data-content="#N">\(\mathbb{N}\)</a>
+                    <a href="#" data-content="#Z">\(\mathbb{Z}\)</a>
+                    <a href="#" data-content="#Q">\(\mathbb{Q}\)</a>
+                    <a href="#" data-content="#R">\(\mathbb{R}\)</a>
+                    <a href="#" data-content="#C">\(\mathbb{C}\)</a>
                 </div>
-                <div class="subbar geometry ui-widget-header ui-corner-all">
+                <div class="geometry toolbar">
+                    <a href="#" data-content="#pi">\(\pi\)</a>
                 </div>
-                <div class="subbar discrete ui-widget-header ui-corner-all">
+                <div class="discrete toolbar">
+                    <a href="#" data-content="#N">\(\mathbb{N}\)</a>
+                    <a href="#" data-content="#Z">\(\mathbb{Z}\)</a>
+                    <a href="#" data-content="!">\(!\)</a>
+                    <a href="#" data-content="%">\(\mathrm{mod}\)</a>
                 </div>
-                <div class="subbar calculus ui-widget-header ui-corner-all">
+                <div class="calculus toolbar">
+                    <a href="#" data-content="#e">\(\mathrm{e}\)</a>
+                    <a href="#" data-content="#gamma">\(\gamma\)</a>
+                    <a href="#" data-content="#v0">\(\vec{0}\)</a>
+                    <a href="#" data-content="#vi">\(\hat\imath\)</a>
+                    <a href="#" data-content="#vj">\(\hat\jmath\)</a>
+                    <a href="#" data-content="#vk">\(\hat{k}\)</a>
+                    <a href="#" data-content="ln()">\(\ln{}\)</a>
+                    <a href="#" data-content="exp()">\(\exp{}\)</a>
                 </div>
-                <div class="subbar settheory ui-widget-header ui-corner-all">
+                <div class="settheory toolbar">
+                    <a href="#" data-content="#U">\(\mathbb{U}\)</a>
+                    <a href="#" data-content="{}">\(\emptyset\)</a>
+                    <a href="#" data-content="#N">\(\mathbb{N}\)</a>
+                    <a href="#" data-content="#Z">\(\mathbb{Z}\)</a>
+                    <a href="#" data-content="#Q">\(\mathbb{Q}\)</a>
+                    <a href="#" data-content="#R">\(\mathbb{R}\)</a>
+                    <a href="#" data-content="#C">\(\mathbb{C}\)</a>
+                    <a href="#" data-content="#H">\(\mathbb{H}\)</a>
+                    <a href="#" data-content="#O">\(\mathbb{O}\)</a>
+                    <a href="#" data-content=" subset ">\(\subseteq\)</a>
+                    <a href="#" data-content=" superset ">\(\supseteq\)</a>
+                    <a href="#" data-content=" propsubset ">\(\subset\)</a>
+                    <a href="#" data-content=" propsuperset ">\(\supset\)</a>
+                    <a href="#" data-content=" in ">\(\in\)</a>
                 </div>
-                <div class="subbar logic ui-widget-header ui-corner-all">
+                <div class="logic toolbar">
+                    <a href="#" data-content="true">\(\mathbf{T}\)</a>
+                    <a href="#" data-content="false">\(\mathbf{F}\)</a>
+                    <a href="#" data-content="===">\(\equiv\)</a>
+                    <a href="#" data-content="!==">\(\not\equiv\)</a>
                 </div>
-                <div class="subbar linearalgebra ui-widget-header ui-corner-all">
+                <div class="linalg toolbar">
+                    <a href="#" data-content="#v0">\(\vec{0}\)</a>
+                    <a href="#" data-content="#vi">\(\hat\imath\)</a>
+                    <a href="#" data-content="#vj">\(\hat\jmath\)</a>
+                    <a href="#" data-content="#vk">\(\hat{k}\)</a>
+                    <a href="#" data-content="#0">\(\mathbb{O}\)</a>
+                    <a href="#" data-content="#1">\(\mathbb{I}\)</a>
+                    <a href="#" data-content=" forall ">\(\forall\)</a>
+                    <a href="#" data-content=" exists ">\(\exists\)</a>
+                    <a href="#" data-content=" unique ">\(\exists!\)</a><a href="#" data-content="<->">\(\leftrightarrow\)</a>
+                    <a href="#" data-content="->">\(\rightarrow\)</a>
+                    <a href="#" data-content="&amp;&amp;">\(\wedge\)</a>
+                    <a href="#" data-content="||">\(\vee\)</a>
+                    <a href="#" data-content=" xor ">\(\oplus\)</a>
+                    <a href="#" data-content="~">\(\neg\)</a>
                 </div>
             </div>
         </div>
+        
         <input type="text" name="math" id="math_input" placeholder="Enter a mathematical expression..." />
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
         <div id="tex_output"><code>Raw LaTeX Output</code></div>
         <div id="ast_output"><code>Parse Tree</code></div>
 
         <h2>Instructions</h2>
+        <p>
+            The toolbars above are just for your convenience; there are multiple alternatives for many of the symbol and operator tokens.
+            For example, the "not equal" relation can be written as <code>&lt;&gt;</code> (from SQL), <code>!=</code> (traditional), or <code>/=</code> (from Haskell).
+            The language is designed to be intuitive, so feel free to experiment. Try finding all six keywords for "proper superset".
+        </p>
         <p>
             Enter a mathematical expression and watch the rendering and parse tree evolve as you type.
             Please note that no LaTeX/AST output will be rendered until a successful parse.
@@ -167,6 +299,41 @@
     <script src="js/libs/jquery-ui-1.8.18.custom.min.js"></script>
 
     <script>
+        function insertAtCursor(fieldElement, text) {
+            var scrollPos = fieldElement.scrollTop,
+                strPos = 0,
+                br = (fieldElement.selectionStart || fieldElement.selectionStart == '0') ? "ff" : (document.selection ? "ie" : false),
+                range, front, back
+            
+            if (br == "ie") { 
+                fieldElement.focus();
+                range = document.selection.createRange();
+                range.moveStart('character', -fieldElement.value.length);
+                strPos = range.text.length;
+            } else if (br == "ff") {
+                strPos = fieldElement.selectionStart;
+            }
+        
+            front = fieldElement.value.substring(0, strPos);  
+            back = fieldElement.value.substring(strPos, fieldElement.value.length); 
+            fieldElement.value = front+text+back;
+            strPos = strPos + text.length;
+        
+            if (br == "ie") { 
+                fieldElement.focus();
+                range = document.selection.createRange();
+                range.moveStart('character', -fieldElement.value.length);
+                range.moveStart('character', strPos);
+                range.moveEnd('character', 0);
+                range.select();
+            } else if (br == "ff") {
+                fieldElement.selectionStart = strPos;
+                fieldElement.selectionEnd = strPos;
+                fieldElement.focus();
+            }
+            fieldElement.scrollTop = scrollPos;
+        }
+    
         $(document).ready(function() {
             var mathInput  = $('#math_input'),
                 mathOutput = $('#math_output'),
@@ -221,36 +388,31 @@
             
             
             // toolbars
-            $('#toolbars').tabs({
-                collapsible: true,
-                selected: -1
-            });
-            $('.toolbar a.menu-button')
-                .button({
-                    icons: {
-                        secondary: "ui-icon-plus"
-                    }
-                })
+            $('.toolbars .ribbon .tabs a')
                 .click(function(e) {
                     e.preventDefault();
-                    var icon = "ui-icon-" + (($(this).button('option', 'icons').secondary == "ui-icon-plus") ? "minus" : "plus");
-                    $(this)
-                        .button('option', 'icons', { secondary: icon })
-                        .parent().toggleClass('ui-corner-all').toggleClass('ui-corner-top')
+                    $(this).toggleClass('pinned').parent().siblings($(this).attr('href'))
+                        .toggleClass('pinned')
+                        .slideDown(200)
                     ;
-                    $(this.dataset['target']).slideToggle(200);
+                })
+                .mouseover(function(e) {
+                    $(this).addClass('open').parent().siblings($(this).attr('href')).slideDown(200);
                 })
             ;
-
-            $('a.button')
+            
+            
+            $('.toolbars').mouseleave(function(e) {
+                $(this).find('.toolbar:not(.pinned)').slideUp(200);
+                $(this).find('a.open:not(.pinned)').removeClass('open');
+            });
+            
+            $('.toolbar a[data-content]')
                 .button()
                 .click(function(e) {
                     e.preventDefault();
-                    // TODO: insert at cursor position
-                    var math = $('#math_input').val() + this.dataset['content']
-                    $('#math_input').val(math).focus();
-                    updateMath(math);
-
+                    insertAtCursor(document.getElementById('math_input'), this.dataset['content'])
+                    updateMath(mathInput.val());
                 })
             ;
         });
