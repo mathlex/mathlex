@@ -127,8 +127,6 @@
     <!-- Attempt to load jQuery from Google CDN; fall back to local if offline -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>');</script>
-    
-    <script src="js/libs/jquery-ui-1.8.18.custom.min.js"></script>
 
     <script>
         function insertAtCursor(fieldElement, text) {
@@ -231,7 +229,6 @@
             ;
             
             $('.toolbar a[data-content]')
-//                .button()
                 .click(function(e) {
                     e.preventDefault();
                     insertAtCursor(document.getElementById('math_input'), this.dataset['content'])
