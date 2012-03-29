@@ -86,8 +86,9 @@ grammar =
         o 'algebraic TTimes algebraic',                 -> ['Times', $1, $3]
         o 'algebraic TDivide algebraic',                -> ['Divide', $1, $3]
         o 'algebraic TModulus algebraic',               -> ['Modulus', $1, $3]
-        o 'algebraic TPower algebraic',                 -> ['Power', $1, $3]
-        o 'algebraic TUnderscore algebraic',            -> ['Subscript', $1, $3]
+        o 'algebraic TExponent algebraic',              -> ['Exponent', $1, $3]
+        o 'algebraic TSuperscript algebraic',           -> ['Superscript', $1, $3]
+        o 'algebraic TSubscript algebraic',             -> ['Subscript', $1, $3]
         o 'algebraic TDot algebraic',                   -> ['DotProduct', $1, $3]
         o 'algebraic TCross algebraic',                 -> ['CrossProduct', $1, $3]
         o 'algebraic TCompose algebraic',               -> ['Compose', $1, $3]
@@ -158,9 +159,10 @@ grammar =
 
 
 operators = [
+    ['left', 'TSubscript', 'TSuperscript']
     ['left', 'TBang', 'TPrime', 'TDotDiff']
     ['left', 'TCompose']
-    ['right', 'TPower', 'TUnderscore']
+    ['right', 'TExponent']
     ['left', 'TLParen', 'TRParen']
     ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TVectorizer', 'TUnitVectorizer', 'TGradient']
     ['left', 'TCross']

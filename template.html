@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Math Parser and Renderer</title>
+    <link rel="stylesheet" href="css/normalize.min.css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata" />
+    <link rel="stylesheet" href="css/jquery-ui-1.8.18.custom.css">
+    <link rel="stylesheet" href="css/style.min.css" />
+
+    <!-- Attempt to load MathJax from CDN; fall back to local if offline -->
+    <script src="//d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>window.MathJax || document.write('<script src="js/libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>');</script>
+</head>
+<body>
+    <header>
+        <h1>Math Parser and Renderer</h1>
+    </header>
+    <div role="main">
+        <div class="toolbars">
+            {{#palettes}}
+                <div class="ribbon">
+                    <div class="tabs">
+                        <strong>{{name}}:</strong>
+                        {{#toolbars}}
+                            <a href="#" data-target=".{{slugify name}}">{{name}}</a>
+                        {{/toolbars}}
+                    </div>
+                    {{#toolbars}}
+                        <div class="{{slugify name}} toolbar">
+                            {{#buttons}}
+                                <a href="#" data-content="{{content}}" title="{{tooltip}}">\({{label}}\)</a>
+                            {{/buttons}}
+                        </div>
+                    {{/toolbars}}
+                </div>
+            {{/palettes}}
+        </div>
+        
+        <input type="text" name="math" id="math_input" placeholder="Enter a mathematical expression..." />
+        <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
+        <div id="tex_output"><code>Raw LaTeX Output</code></div>
+        <div id="ast_output"><code>Parse Tree</code></div>
+
+        <h2>Instructions</h2>
+        <p>
+            The toolbars above are just for your convenience; there are multiple alternatives for many of the symbol and operator tokens.
+            For example, the "not equal" relation can be written as <code>&lt;&gt;</code> (from SQL), <code>!=</code> (traditional), or <code>/=</code> (from Haskell).
+            The language is designed to be intuitive, so feel free to experiment. Try finding all six keywords for "proper superset".
+        </p>
+        <p>
+            Enter a mathematical expression and watch the rendering and parse tree evolve as you type.
+            Please note that no LaTeX/AST output will be rendered until a successful parse.
+            To help maximize the frequency of successful parses, the Lexer will attempt to fix unmatched delimiters as you type.
+            Also note that some delimiters have more than one format either with or without colons. Namely, absolute value can be written as
+            <code class="math">| ... |</code> or <code class="math">|: ... :|</code>, norm can be written as <code class="math">|| ... ||</code>
+            or <code class="math">||: ... :||</code>, and vector literals can be surrounded by either <code class="math">&lt; ... &gt;</code>
+            or <code class="math">&lt;: ... :&gt;</code>. Delimiters without colons are <em>context-aware</em> in that they have different meanings
+            other than as delimiters and therefore cannot be automatically matched by the Lexer. Additionally, if an expression opened
+            with one type of delimiter, it must be closed with the same type (i.e. context-aware vs. specialized).
+        </p>
+
+        <h2>Sample Inputs</h2>
+        <p>
+            Click on an expression below to use it as the mathematical input above.
+        <ul>
+            <li>Slope-Intercept form: <code class="math"><a href="#math_input">y = m*x + b</a></code></li>
+            <li>Quadratic form: <code class="math"><a href="#math_input">a*x^2 + b*x + c = 0</a></code></li>
+            <li>Quadratic equation:
+                <ul>
+                    <li>Traditional: <code class="math"><a href="#math_input">x = (-b &amp;pm sqrt(b^2 - 4*a*c))/(2*a)</a></code></li>
+                    <li>Set form: <code class="math"><a href="#math_input">x in {(-b+sqrt(b^2-4*a*c))/(2*a), (-b-sqrt(b^2-4*a*c))/(2*a)}</a></code></li>
+                </ul>
+            </li>
+            <li>Volume of a Sphere: <code class="math"><a href="#math_input">V = 4/3*#pi*r^3</a></code></li>
+            <li>Integration: <code class="math"><a href="#math_input">int(1/(1+x^2), x, 0, 1) = #p/4</a></code></li>
+            <li>Differentiation: <code class="math"><a href="#math_input">diff(arcsin(x), x) = 1/sqrt(1-x^2)</a></code></li>
+            <li>Limits:
+                <ul>
+                    <li><code class="math"><a href="#math_input">f'(x) = lim((f(x+h)-f(x))/h, h, 0)</a></code></li>
+                    <li><code class="math"><a href="#math_input">limit((1+r/n)^(t/n), n, infinity) = #e^(r*t)</a></code></li>
+                </ul>
+            </li>
+            <li>Logarithms: <code class="math"><a href="#math_input">ln(x) = log(x, #e)</a></code></li>
+            <li>Sums and Products:
+                <ul>
+                    <li>On Relations: <code class="math"><a href="#math_input">sum(root(a, 3), a in A)</a></code>,
+                        <code class="math"><a href="#math_input">prod(exp(5/n), n > 3)</a></code></li>
+                    <li>Over Ranges: <code class="math"><a href="#math_input">sum(1/n, n, 0, #infinity) = infinity</a></code>,
+                        <code class="math"><a href="#math_input">prod(x^2, x, a, b)</a></code></li>
+                </ul>
+            </li>
+            <li>Vectors:
+                <ul>
+                    <li>Unit Vectors: <code class="math"><a href="#math_input">#vi = x*#vi/||x*#vi||</a></code></li>
+                    <li>Volume of Parallelepiped: <code class="math"><a href="#math_input">V = | &lt;u_x, u_y, u_z&gt; &amp;. &lt;: v_x, v_y, v_z :&gt; &amp;x &lt;w_x, w_y, w_z&gt; |</a></code></li>
+                    <li>Area of a Parallelogram: <code class="math"><a href="#math_input">A = ||: &amp;v v &amp;x &amp;v w :||</a></code></li>
+                </ul>
+            </li>
+            <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) === p &amp;&amp; q || p &amp;&amp; r</a></code></li>
+            <li>Definition of the <em>subset</em> relation: <code class="math"><a href="#math_input">A subset B &lt;-&gt; a in A implies a in B</a></code></li>
+            <li>Definition of Big-Oh (Notice two different forms for "absolute value"): <br/>
+                <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x&amp;_0 in #Z; exists C in #R; forall x&gt;x&amp;_0: |f(x)|&lt;=C*|:g(x):|</a></code></li>
+            <li>Ranges:
+                <ul>
+                    <li>Open: <code class="math"><a href="#math_input">x = [:a,b:]</a></code></li>
+                    <li>Closed: <code class="math"><a href="#math_input">x = (:a,b:)</a></code></li>
+                    <li>Half-Open: <code class="math"><a href="#math_input">x = [:a,#infinity:)</a></code></li>
+                </ul>
+            </li>
+            <li>Lists: <code class="math"><a href="#math_input">[#pi, #e, #gamma]</a></code>
+        </ul>
+    </div>
+    <footer>
+        <p>
+            Copyright &copy;2012 Matthew Barry.
+            All rights reserved.
+        </p>
+        <p>
+            Version 1.0 &beta;1
+        </p>
+    </footer>
+
+    <script src="build/browser/parser.js"></script>
+
+    <!-- Attempt to load jQuery from Google CDN; fall back to local if offline -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>');</script>
+    
+    <script src="js/libs/jquery-ui-1.8.18.custom.min.js"></script>
+
+    <script>
+        function insertAtCursor(fieldElement, text) {
+            var scrollPos = fieldElement.scrollTop,
+                strPos = 0,
+                br = (fieldElement.selectionStart || fieldElement.selectionStart == '0') ? "ff" : (document.selection ? "ie" : false),
+                range, front, back
+            
+            if (br == "ie") { 
+                fieldElement.focus();
+                range = document.selection.createRange();
+                range.moveStart('character', -fieldElement.value.length);
+                strPos = range.text.length;
+            } else if (br == "ff") {
+                strPos = fieldElement.selectionStart;
+            }
+        
+            front = fieldElement.value.substring(0, strPos);  
+            back = fieldElement.value.substring(strPos, fieldElement.value.length); 
+            fieldElement.value = front+text+back;
+            strPos = strPos + text.length;
+        
+            if (br == "ie") { 
+                fieldElement.focus();
+                range = document.selection.createRange();
+                range.moveStart('character', -fieldElement.value.length);
+                range.moveStart('character', strPos);
+                range.moveEnd('character', 0);
+                range.select();
+            } else if (br == "ff") {
+                fieldElement.selectionStart = strPos;
+                fieldElement.selectionEnd = strPos;
+                fieldElement.focus();
+            }
+            fieldElement.scrollTop = scrollPos;
+        }
+    
+        $(document).ready(function() {
+            var mathInput  = $('#math_input'),
+                mathOutput = $('#math_output'),
+                astOutput  = $('#ast_output'),
+                rawOutput  = $('#tex_output'),
+                mjQueue    = MathJax.Hub.queue,
+                mjOutBox;
+
+            // make ouput box variable available to dynamic content setter
+            mjQueue.Push(function() {
+                mjOutBox = MathJax.Hub.getAllJax('math_output')[0];
+            });
+            
+            function updateMath(math) {
+                var ast, result;
+                mathOutput.css({'color': '#000'});
+
+                try {
+                    if (math.length > 0) {
+                        // attempt to parse mathematical input and display rendered LaTeX
+                        ast = MathParser.parse(math);
+                        latex = MathParser.render(ast, 'latex');
+                        mjQueue.Push(['Text', mjOutBox, "\\displaystyle{" + latex + "}"]);
+                        rawOutput.html('<pre>' + latex + '<\/pre>')
+                        astOutput.html('<pre>' + MathParser.render(ast, 'text-tree') + '<\/pre>');
+                    } else {    
+                        mjQueue.Push(['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]);
+                        rawOutput.html('<code>Raw LaTeX Output</code>');
+                        astOutput.html('<code>Parse Tree<\/code');
+                    }
+                } catch (e) {
+                    // if we encounter a parse error, change color of output box
+                    mathOutput.css({'color': '#f00'});
+                    console.log(e.message);
+                }
+            }
+
+            $('code.math a').click(function(e) {
+                var math = $(this).text();
+                mathInput.val(math);
+                updateMath(math);
+            });
+
+            // keyup event binding to input text box
+            mathInput
+                .keyup(function(e) {
+                    updateMath($(this).val());
+                })
+                .val('')
+                .focus()
+            ;
+            
+            
+            // toolbars
+            $('.toolbars .ribbon .tabs a')
+                .click(function(e) {
+                    e.preventDefault();
+                    $(this).toggleClass('open').parent().siblings(this.dataset['target'])
+                        .toggleClass('open')
+                        .slideToggle(200)
+                    ;
+                })
+            ;
+            
+            $('.toolbar a[data-content]')
+//                .button()
+                .click(function(e) {
+                    e.preventDefault();
+                    insertAtCursor(document.getElementById('math_input'), this.dataset['content'])
+                    updateMath(mathInput.val());
+                })
+            ;
+        });
+    </script>
+</body>
+
+</html>

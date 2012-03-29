@@ -5,7 +5,7 @@ if typeof String.prototype.startsWith != 'function'
 
 WHITESPACE = /^[\s]+/
 NUMBER = /^\d*\.?\d+(?:[Ee][+-]?\d+)?/
-IDENTIFIER = /^[a-zA-Z][a-zA-Z0-9]*/
+IDENTIFIER = /^[a-zA-Z][a-zA-Z0-9_]*/
 CONSTANT = /^#([a-zA-Z0-9]*)/
 
 # Pipe not included since it can be used as a "such that" operator
@@ -65,8 +65,9 @@ RESERVED = (str) ->
         when '*' then 'TTimes'
         when '/' then 'TDivide'
         when 'mod', '%' then 'TModulus'
-        when '^', '**' then 'TPower'
-        when '_' then 'TUnderscore'
+        when '^', '**' then 'TExponent'
+        when '&^' then 'TSuperscript'
+        when '&_' then 'TSubscript'
         when '!' then 'TBang'
         when '\'' then 'TPrime'
         when '@' then 'TCompose'
