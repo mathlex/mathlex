@@ -68,6 +68,7 @@ exports.render = render = (ast) ->
         when 'Compose' then "#{render ast[1]} \\circ #{render ast[2]}"
         when 'Union' then "#{render ast[1]} \\cup #{render ast[2]}"
         when 'Intersection' then "#{render ast[1]} \\cap #{render ast[2]}"
+        when 'SetDiff' then "#{render ast[1]} \\setminus #{render ast[2]}"
 
         when 'Positive' then "+#{render ast[1]}"
         when 'Negative' then "-#{render ast[1]}"

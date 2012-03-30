@@ -94,6 +94,7 @@ grammar =
         o 'algebraic TCompose algebraic',               -> ['Compose', $1, $3]
         o 'algebraic TUnion algebraic',                 -> ['Union', $1, $3]
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
+        o 'algebraic TSetDiff algebraic',               -> ['SetDiff', $1, $3]
         o 'TPlusMinus algebraic',                       (-> ['PosNeg', $2]), prec: 'UnaryPrefix'
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
         o 'TMinus algebraic',                           (-> ['Negative', $2]), prec: 'UnaryPrefix'
@@ -170,6 +171,7 @@ operators = [
     ['left', 'TTimes', 'TDivide', 'TModulus']
     ['left', 'TIntersect']
     ['left', 'TUnion']
+    ['left', 'TSetDiff']
     ['left', 'TPlusMinus', 'TPlus', 'TMinus']
     ['nonassoc', 'TEqual', 'TNotEqual']
     ['left', 'TAnd']

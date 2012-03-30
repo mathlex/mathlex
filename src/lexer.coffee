@@ -59,6 +59,7 @@ RESERVED = (str) ->
         when 'in' then 'TIn'
         when 'union' then 'TUnion'
         when 'intersect' then 'TIntersect'
+        when '\\' then 'TSetDiff'
 
         when '+' then 'TPlus'
         when '-' then 'TMinus'
