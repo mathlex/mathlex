@@ -29,9 +29,11 @@
                     </div>
                     {{#toolbars}}
                         <div class="{{slugify name}} toolbar">
-                            {{#buttons}}
-                                <a href="#" data-content="{{content}}" title="{{tooltip}}">\({{label}}\)</a>
-                            {{/buttons}}
+                            {{#buttonGroups}}
+                                <div>
+                                    {{#each this}}<a href="#" data-content="{{content}}" title="{{tooltip}}">\({{label}}\)</a>{{/each}}
+                                </div>
+                            {{/buttonGroups}}
                         </div>
                     {{/toolbars}}
                 </div>
