@@ -27,7 +27,7 @@ task 'build:frontend', 'compile frontend interface', ->
     Handlebars.registerHelper 'slugify', (str) ->
         str.toLowerCase().replace /\s+/g, '_'
     
-    fs.writeFile 'index.html', Handlebars.compile(source.toString())(context)
+    fs.writeFileSync 'index.html', Handlebars.compile(source.toString())(context)
     
     console.log "building CSS..."
     less = require 'less'
@@ -42,12 +42,12 @@ task 'build:frontend', 'compile frontend interface', ->
             parser.parse data.toString(), (err, tree) ->
                 return console.log err if err
                 dest = "./css/#{file.replace /\.less$/, '.min.css'}"
-                fs.writeFile dest, tree.toCSS { compress: true }
+                fs.writeFileSync dest, tree.toCSS { compress: true }
 
 task 'build:parser', 'rebuild Jison parser (run build first)', ->
     require 'jison'
     parser = require("#{BUILD_DIR}/grammar").parser
-    fs.writeFile "#{BUILD_DIR}/parser.js", parser.generate()
+    fs.writeFileSync "#{BUILD_DIR}/parser.js", parser.generate()
 
 task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = ''
@@ -76,7 +76,7 @@ task 'build:browser', 'merge scripts for inclusion in browser', ->
     {parser, uglify} = require 'uglify-js'
     code = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle parser.parse code
     run 'mkdir', ['-p', "#{BUILD_DIR}/browser"], ->
-        fs.writeFile "#{BUILD_DIR}/browser/parser.js", code
+        fs.writeFileSync "#{BUILD_DIR}/browser/parser.js", code
 
 task 'clean', 'remove build files', ->
     run 'rm', ['-rf', BUILD_DIR, './css', 'index.html']
