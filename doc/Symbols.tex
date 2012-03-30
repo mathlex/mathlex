@@ -4,18 +4,28 @@
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{url}
 
 \setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
 
 \begin{document}
-  \title{Comprehensive List of Tokens}
-  \author{Matthew J. Barry \\ Philip B. Yasskin}
-  \date{\today}
+  \title{List of Symbols\thanks{Supported in part by NSF DUE CCLI/TUES Grants 0737248 / 1123255.}\\
+  AMS Regional Meeting, Lawrence, KS}
+  \author{Matthew J. Barry  <komputerwiz.matt@gmail.com> \\
+          Philip B. Yasskin <yasskin@math.tamu.edu>\\
+          Department of Mathematics, Texas A\&M University}
+  \date{March 31, 2012}
   \maketitle
   
-  \setlength{\parskip}{1em}
+  \vspace{-15 pt}
   
-  \section{Tokens by Syntax Usage} % (fold)
+  Matthew Barry is writing an HTML5/javascript/MathJax parser/renderer as an Honors Senior Thesis. It may be viewed at: \qquad \url{http://custom.komputerwiz.net:8000/~matthew/interpreter-2/} \qquad
+  Below is a list of the symbols that can be entered, organized syntax usage and by mathematical topic. Please send comments and suggestions for additions and changes to the authors.
+  
+  \vspace{-10 pt}
+
+  \section{Symbols by Syntax Usage} % (fold)
   \label{sec:syntax}
   \subsection{Constants} % (fold)
   \label{sub:constants}
@@ -25,10 +35,9 @@
       \hline
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
-      
-      Pi & \( \pi \) & \texttt{\#p}, \texttt{\#pi} & \\
-      Natural Exponential Base & \( \mathrm{e} \) & \texttt{\#e} & Euler's/Napier's Number, ``e'', etc. \\
-      Euler-Mascheroni Constant & \( \gamma \) & \texttt{\#gamma} & \\
+      Pi & \( \pi \) & \texttt{\#pi, \#p} & 3.14\(\cdots\)\\
+      E & \( \mathrm{e} \) & \texttt{\#e} & 2.718\(\cdots\), Natural Base, Euler-Napier number \\
+      gamma & \( \gamma \) & \texttt{\#gamma} & 0.577\(\cdots\), Euler-Mascheroni constant\\
       Imaginary Unit & \( i \) & \texttt{\#i} & \( \sqrt{-1} \) \\
       Infinity & \( \infty \) & \texttt{\#infinity}, \texttt{infinity} & \\
       \hline
@@ -50,15 +59,16 @@
       \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#vi} & \\
       \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#vj} & \\
       \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#vk} & \\
+      \hline
       Zero Matrix & \( \mathbb{O} \) & \texttt{\#0} & Type ``zero''.\\
-      Unit Matrix & \( \mathbb{I} \) & \texttt{\#1} & \\
+      Unit Matrix & \( \mathbb{I} \) & \texttt{\#1} & Type ``one''.\\
       \hline
     \end{tabular}
   \end{table}
   % subsection constants (end)
-  
+
   \newpage
-  
+
   \subsection{Unary Operators} % (fold)
   \label{sub:unary_ops}
   \begin{table}[!h]
@@ -67,26 +77,28 @@
       \hline
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
-      
+
       Positive & \( +a \) & \texttt{+a} & \\
       Negative & \( -a \) & \texttt{-a} & \\
-      Positive/Negative & \( \pm a \) & \texttt{\&pm a} & \\
-      Natural Exponential & \( \exp(a) \) & \texttt{exp(a)} & \\
-      Natural Logarithm & \( \ln(a) \) & \texttt{ln(a)} & \\
+      Positive/Negative & \( \pm a \) & \texttt{\&pm a, +/-a} & \\
+      Negative/Positive & \( \mp a \) & \texttt{\&mp a, -/+a} & \\
       Square Root & \( \sqrt{a} \) & \texttt{sqrt(a)} & \\
       Factorial & \( n! \) & \texttt{n!} & \\
-      Logical Negation & \( \neg p \) & \texttt{not p}, \texttt{\~{}p}, \texttt{!p} & \\
+      Natural Exponential & \( \exp(a) \) & \texttt{exp(a)} & \\
+      Natural Logarithm & \( \ln(a) \) & \texttt{ln(a)} & \\
+      Logical Negation & \( \neg p \) & \texttt{not p, \~{}p, !p} & \\
+      \hline
+      Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable\\
+      Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable\\
       Differential & \( \mathrm{d}x \) & \texttt{\&d x} & \\
       Partial Differential & \( \partial x \) & \texttt{\&pd x} & \\
-      Prime & \( f' \) & \texttt{f'} & \\
-      Dot derivative & \( \dot{x} \) & \texttt{x.} & Multiple dots are automatically grouped. \\
       Vector & \( \vec{u} \) & \texttt{\&v u} & \\
       Unit Vector & \( \hat{u} \) & \texttt{\&u u} & \\
       \hline
     \end{tabular}
   \end{table}
   % subsection unary_ops (end)
-  
+
   \subsection{Binary Operators} % (fold)
   \label{sub:binary_ops}
   \begin{table}[!h]
@@ -95,37 +107,47 @@
       \hline
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
-      
-      Addition & \( a + b \) & \texttt{a+b} & \\
-      Subtraction & \( a - b \) & \texttt{a-b} & \\
-      Plus/Minus & \( a \pm b \) & \texttt{a \&pm b} & \\
-      Multiplication & \( a \cdot b \) & \texttt{a*b} & \\
-      Division & \( \dfrac{a}{b} \) & \texttt{a/b} & \\
-      Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
-      Exponentiation & \( a^b \) & \texttt{a\^{}b}, \texttt{a**b} & \\
+
+      Plus & \( a + b \) & \texttt{a+b} & Addition \\
+      Minus & \( a - b \) & \texttt{a-b} & Subtraction \\
+      Plus/Minus & \( a \pm b \) & \texttt{a \&pm b, a+/-b} & \\
+      Minus/Plus & \( a \mp b \) & \texttt{a \&mp b, a-/+b} & \\
+      Times & \( a \cdot b \) & \texttt{a*b} & Multiplication \\
+      Divide & \( \dfrac{a}{b} \) & \texttt{a/b} & Division \\
+      Power & \( a^b \) & \texttt{a\^{}b}, \texttt{a**b} & Exponentiation \\
+      \( n \)-th Root & \( \sqrt[n]{a} \) & \texttt{root(a, n)} & \\
       Logarithm with Base & \( \log_b{a} \) & \texttt{log(a, b)} & \\
-      \( n \)th Root & \( \sqrt[n]{a} \) & \texttt{root(a, n)} & \\
+      Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
+      \hline
       Subscript & \( a_b \) & \texttt{a \&\_ b} & Indexing \\
       Superscript & \( a^b \) & \texttt{a \&\^{} b} & Indexing \\
+      \hline
       Set Union & \( a \cup b \) & \texttt{a union b} & \\
       Set Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
       Set Difference & \( a \setminus b \) & \texttt{a \textbackslash \ b} & \\
-      Biconditional & \( p \longleftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & \\
-      Conditional & \( p \rightarrow q \) & \texttt{p implies q}, \texttt{p -> q} & \\
+      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p:q, p|q} & Used with set builder and quantifiers \\
+      \hline
       Conjunction & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Logical AND \\
       Disjunction & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Logical OR \\
       Exclusion & \( p \oplus q \) & \texttt{p xor q} & Logical XOR \\
-      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p : \!\!q}, \texttt{p | q} & Used with set builder and quantifiers \\
-      Dot Product & \( \vec{u} \cdot \vec{v} \) & \texttt{\&v u \&. \&v v} & \\
-      Cross Product & \( \vec{u} \times \vec{v} \) & \texttt{\&v u \&x \&v v} & \\
+      Conditional & \( p \rightarrow q \) & 
+        \begin{tabular}{c}
+          \texttt{p implies q}, \texttt{p -> q}, \texttt{q if p}, \\
+          \texttt{q when p}, \texttt{q whenever p}
+        \end{tabular} & \\
+      Biconditional & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & \\
+      \hline
       Function Composition & \( f \circ g \) & \texttt{f @ g} & \\
+      \hline
+      Dot Product & \( \vec{a} \cdot \vec{b} \) & \texttt{\&v a \&. \&v b} & \\
+      Cross Product & \( \vec{a} \times \vec{b} \) & \texttt{\&v a \&x \&v b} & \\
       \hline
     \end{tabular}
   \end{table}
   % subsection binary_ops (end)
-  
+
   \newpage
-  
+
   \subsection{Relations} % (fold)
   \label{sub:relations}
   \begin{table}[!h]
@@ -134,26 +156,32 @@
       \hline
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
-      
+
       Equal & \( = \) & \texttt{=}, \texttt{==} & \\
       Not Equal & \( \ne \) & \texttt{!=}, \texttt{/=}, \texttt{<>} & \\
       Less than & \( < \) & \texttt{<} & \\
       Greater than & \( > \) & \texttt{>} & \\
-      Less than or Equal to & \( \le \) & \texttt{<=} & \\
-      Greater than or Equal to & \( \ge \) & \texttt{>=} & \\
+      Less than or Equal & \( \le \) & \texttt{<=} & \\
+      Greater than or Equal & \( \ge \) & \texttt{>=} & \\
+      \hline
       Subset & \( \subseteq \) & \texttt{subset} & \\
-      Superset & \( \supseteq \) & \texttt{superset}, \texttt{supset} & \\
-      Proper Subset & \( \subset \) & \texttt{propersubset}, \texttt{propsubset}, \texttt{psubset} & \\
-      Proper Superset & \( \supset \) & \texttt{propersuperset}, \texttt{propsuperset}, \texttt{psuperset} & \\
-            & & \texttt{propersupset}, \texttt{propsupset}, \texttt{psupset} & \\
+      Superset & \( \supseteq \) & \texttt{superset, supset} & \\
+      Proper Subset & \( \subset \) &
+        \texttt{propersubset, propsubset, psubset} & \\
+      Proper Superset & \( \supset \) &
+        \begin{tabular}{c}
+          \texttt{propersuperset, propsuperset, psuperset} \\
+          \texttt{propersupset, propsupset, psupset}
+        \end{tabular} &  \\
       Inclusion & \( \in \) & \texttt{in} & \\
+      \hline
       Equivalent & \( \equiv \) & \texttt{===}, \texttt{equiv} & \\
       Not Equivalent & \( \not\equiv \) & \texttt{!==}, \texttt{/==}, \texttt{nequiv} & \\
       \hline
     \end{tabular}
   \end{table}
   % subsection relations (end)
-  
+
   \subsection{Delimiters} % (fold)
   \label{sub:delimiters}
   \begin{table}[!h]
@@ -162,16 +190,16 @@
       \hline
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
-      
-      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p : \!\!q}, \texttt{p | q} & Used with set builder and quantifiers \\
       Parentheses & \( \left( \ \right) \) & \texttt{( )} & Order of operation \\
       Square Brackets & \( \left[ \ \right] \) & \texttt{[ ]} & Lists \\
-      Curly Braces & \( \left\{ \ \right\} \) & \texttt{\{ \}} & Set Notation \\
+      Curly Braces & \( \left\{ \ \right\} \) & \texttt{\{ \}} & Sets \\
       Angle Brackets & \( \left\langle \ \right\rangle \) & \texttt{< >}, \texttt{<: :>} & Vectors \\
-      Vertical Bars & \( \left| \ \right| \) & \texttt{| |}, \texttt{|: :|} & Absolute value, length, determinant, norm \\
-      Double Bars & \( \left\| \ \right\| \) & \texttt{|| ||}, \texttt{||: :||} & Length or norm \\
+      Vertical Bars & \( \left| \ \right| \) & \texttt{| |}, \texttt{|: :|} & Absolute Value, Length, Determinant, Norm \\
+      Double Bars & \( \left\| \ \right\| \) & \texttt{|| ||}, \texttt{||: :||} & Length, Norm \\
+      \hline
       Subscript & \( a_b \) & \texttt{a \&\_ b} & Indexing \\
       Superscript & \( a^b \) & \texttt{a \&\^{} b} & Indexing \\
+      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p : \!\!q}, \texttt{p | q} & Used with set builder and quantifiers \\
       \hline
       Open Interval & \( \left( a,b \right) \) & \texttt{(:a,b:)} & Exclusive Range Delimiters \\
       Closed Interval & \( \left[ a,b \right] \) & \texttt{[:a,b:]} & Inclusive Range Delimiters \\
@@ -186,9 +214,9 @@
   matched by the Lexer. Additionally, if an expression opened with one type of delimiter, it must be closed with the
   same type (i.e. context-aware vs. specialized).
   % subsection delimiters (end)
-  
+
   \newpage
-  
+
   \subsection{Functions} % (fold)
   \label{sub:functions}
   \begin{table}[!h]
@@ -197,7 +225,7 @@
       \hline
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
-      
+
       Trig & \( \sin(\theta) \), \ldots & \texttt{sin(theta)}, \ldots & Also cos, tan, cot, sec, csc \\
       Inverse Trig & \( \arcsin(x) \), \ldots & \texttt{arcsin(x)}, \ldots & Also arccos, arctan, arccot, arcsec, arccsc \\
       Hyperbolic Trig & \( \sinh(\lambda) \), \ldots & \texttt{sinh(lambda)}, \ldots & Also cosh, tanh, coth, sech, csch \\
@@ -208,19 +236,29 @@
       \(n\)th Root & \( \sqrt[n]{a} \) & \texttt{root(a, n)} & \\
       Natural Exponential & \( \exp(a) \) & \texttt{exp(a)} & \\
       Natural Logarithm & \( \ln(a) \) & \texttt{ln(a)} & \\
-      Logarithm \& Base & \( \log_b{a} \) & \texttt{log(a, b)} & \\[2pt]
-      Limit & \( \displaystyle\lim_{x\to a} f(x) \) & \texttt{lim(f(x), a, x)} & \\
-            & & \texttt{limit(f(x), x, a)} & \\
-      Derivative & \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \) & \texttt{diff(f(x), x)} & \\[6pt]
+      Logarithm with Base & \( \log_b{a} \) & \texttt{log(a, b)} & \\[2pt]
+      \hline
+      Limit & \( \displaystyle\lim_{x\to a} f(x) \) &
+        \begin{tabular}{c}
+          \texttt{lim(f(x), a, x)} \\
+          \texttt{limit(f(x), x, a)}
+        \end{tabular} &  \\[2pt]
+      Derivative & \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \) & \texttt{diff(f(x), x)} & \\[8pt]
       Partial Derivative & \( \displaystyle \frac{\partial}{\partial x} \left( f(x,y) \right) \) & \texttt{pdiff(f(x,y), x)} & \\
-      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x)} & \\[2pt]
-      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x,a,b)} & \\[4pt]
-      Sum Over Set & \( \displaystyle \sum_i n_i \) & \texttt{sum(n\&\_i, i)} & Can also be used with relations \\[2pt]
-      Sum Over Range & \( \displaystyle \sum_{n=a}^b n_i \) & \texttt{sum(n\&\_i,i,a,b)} & \\[6pt]
-      Product Over Set & \( \displaystyle \prod_i n_i \) & \texttt{prod(n\&\_i, i)} & Can also be used with relations \\[2pt]
-            & & \texttt{product(n\&\_i,i,a,b)} & \\
-      Product Over Range & \( \displaystyle \prod_{n=a}^b n_i \) & \texttt{prod(n\&\_i,i,a,b)} & \\
-            & & \texttt{product(n\&\_i,i,a,b)} & \\
+      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x)} & \\[8pt]
+      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x,a,b)} & \\[8pt]
+      Sum Over Set & \( \displaystyle \sum_{i \in S} a_i \) & \texttt{sum(a\&\_i, i in S)} & \\[8pt]
+      Sum Over Range & \( \displaystyle \sum_{i=a}^b a_i \) & \texttt{sum(a\&\_i,i,a,b)} & \\[8pt]
+      Product Over Set & \( \displaystyle \prod_{i \in S} a_i \) &
+        \begin{tabular}{c}
+          \texttt{prod(a\&\_i, i in S)} \\
+          \texttt{product(a\&\_i, i in S)}
+        \end{tabular} &  \\[8pt]
+      Product Over Range & \( \displaystyle \prod_{i=a}^b a_i \) &
+        \begin{tabular}{c}
+          \texttt{prod(a\&\_i,a,b)} \\
+          \texttt{product(a\&\_i,a,b)}
+        \end{tabular} &  \\[8pt]
       \hline
       Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x : \!\!P(x)} & ``For all''; chain nested quantifiers with \texttt{;} \\
       Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x : \!\!P(x)} & ``There exists'' \\
@@ -230,4 +268,294 @@
   \end{table}
   % subsection functions (end)
   % section syntax (end)
+
+  \newpage
+
+  \section{Symbols by Topic} % (fold)
+  \label{sec:topic}
+  \subsection{Arithmetic} % (fold)
+  \label{sub:arithmetic}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      \( i \) & \( i \) & \texttt{i} & \( \sqrt{-1} \)\\
+      Plus, Positive & \( + \) & \texttt{+} & binary or unary\\
+      Minus, Negative & \( - \) & \texttt{-} & binary or unary\\
+      Plus/Minus & \( \pm \) & \texttt{\&pm, +/-} & binary or unary\\
+      Minus/Plus & \( \mp \) & \texttt{\&mp, -/+} & binary or unary\\
+      Times & \( \cdot \) & \texttt{*} & \\
+      Divide & \( / \) & \texttt{/} & \\
+      Power & \( a^b \) & \texttt{a\^{}b} & \\
+      Square Root & \( \sqrt{a} \) & \texttt{sqrt(a)} & \\
+      n-th Root & \( \sqrt[n]{a} \) & \texttt{root(a,n)} & \\
+      Log Base n & \( \log_n{a} \) & \texttt{log(a,n)} & \\
+      Natural Exponential & \( \exp(a), e^a \) & \texttt{exp(a), e\^{}a} & \\
+      Natural Logarithm & \( \ln(a) \) & \texttt{ln(a)} & \\
+      Absolute Value & \( \left| a \right| \) & \texttt{abs(a)} & \\
+      Factorial & \( ! \) & \texttt{!} & \\
+      Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
+      \hline
+      Equal & \( = \) & \texttt{=}, \texttt{==} & \\
+      Not Equal & \( \ne \) & \texttt{!=}, \texttt{/=}, \texttt{<>} & \\
+      Less Than & \( < \) & \texttt{<} & \\
+      Greater Than & \( > \) & \texttt{>} & \\
+      Less Than or Equal & \( \le \) & \texttt{<=} & \\
+      Greater Than or Equal & \( \ge \) & \texttt{>=} & \\
+      Parentheses & \( ( \quad ) \) & \texttt{( )} & \\
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Arithmetic (end)
+
+  \subsection{Algebra} % (fold)
+  \label{sub:algebra}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Natural Numbers & \( \mathbb{N} \) & \texttt{\#N} & \\
+      Integers & \( \mathbb{Z} \) & \texttt{\#Z} & \\
+      Rational Numbers & \( \mathbb{Q} \) & \texttt{\#Q} & \\
+      Real Numbers & \( \mathbb{R} \) & \texttt{\#R} & \\
+      Complex Numbers & \( \mathbb{C} \) & \texttt{\#C} & \\
+      \hline
+      Function Composition & \( f \circ g \) & \texttt{f @ g} & \\[2pt]
+      \hline
+      Sum Over Set & \( \displaystyle \sum_{i \in S} a_i \) & \texttt{sum(a\&\_i, i in S)} & \\[8pt]
+      Sum Over Range & \( \displaystyle \sum_{i=a}^b a_i \) & \texttt{sum(a\&\_i,i,a,b)} & \\[4pt]
+      Product Over Set & \( \displaystyle \prod_{i \in S} a_i \) &
+        \begin{tabular}{c}
+          \texttt{prod(a\&\_i, i in S)} \\
+          \texttt{product(a\&\_i, i in S)}
+        \end{tabular} &  \\[8pt]
+      Product Over Range & \( \displaystyle \prod_{i=a}^b a_i \) &
+        \begin{tabular}{c}
+          \texttt{prod(a\&\_i,a,b)} \\
+          \texttt{product(a\&\_i,a,b)}
+        \end{tabular} &  \\[8pt]
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Algebra (end)
+
+  \newpage
+
+  \subsection{Geometry} % (fold)
+  \label{sub:geometry}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Pi & \( \pi \) & \texttt{\#pi, \#p} & 3.14\(\cdots\)\\
+      Open Interval & \( \left( a,b \right) \) & \texttt{(:a,b:)} & Exclusive Range Delimiters \\
+      Closed Interval & \( \left[ a,b \right] \) & \texttt{[:a,b:]} & Inclusive Range Delimiters \\
+      Half-Open Intervals & \( \left[ a,b \right) \) & \texttt{[:a,b:)} & Mixed Range Delimiters \\
+      \hline
+      Vector Components & \( \left\langle a,b,c \right\rangle \) & \texttt{<a,b,c>}, \texttt{<:a,b,c:>} & \\
+      Vector & \( \vec{a} \) & \texttt{\&v a} & \\
+      Unit Vector & \( \hat{a} \) & \texttt{\&u a} & \\
+      Vector Length & \( \left| \vec{a} \right|, \left\| \vec{a} \right\| \) &
+        \begin{tabular}{c}
+          \texttt{|\&v a|}, \texttt{|:\&v a:|}, \\
+          \texttt{||\&v a||}, \texttt{||:\&v a:||}
+        \end{tabular} & \\[2pt]
+      Zero Vector & \( \vec0 \) & \texttt{\#v0} & \\
+      \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#vi} & \\
+      \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#vj} & \\
+      \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#vk} & \\
+      Dot Product & \( \vec{a} \cdot \vec{b} \) & \texttt{\&v a \&. \&v b} & \\
+      Cross Product & \( \vec{a} \times \vec{b} \) & \texttt{\&v a \&x \&v b} & \\
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Geometry (end)
+
+  \subsection{Trigonometry} % (fold)
+  \label{sub:trigonometry}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Trig & \( \sin(\theta) \), \ldots & \texttt{sin(theta)}, \ldots & Also cos, tan, cot, sec, csc \\
+      Inverse Trig & \( \arcsin(x) \), \ldots & \texttt{arcsin(x)}, \ldots & Also arccos, arctan, arccot, arcsec, arccsc \\
+      Hyperbolic Trig & \( \sinh(\lambda) \), \ldots & \texttt{sinh(lambda)}, \ldots & Also cosh, tanh, coth, sech, csch \\
+      Inv. Hyp. Trig & \( \mathrm{arcsinh}(x) \), \ldots & \texttt{arcsinh(x)}, \ldots & Also arccosh, arctanh, arccoth, arcsech, arccsch \\
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Trigonometry (end)
+
+  \subsection{Discrete} % (fold)
+  \label{sub:discrete}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Natural Numbers & \( \mathbb{N} \) & \texttt{\#N} & \\
+      Integers & \( \mathbb{Z} \) & \texttt{\#Z} & \\
+      \hline
+      Factorial & \( ! \) & \texttt{!} & \\
+      Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
+      \hline
+      Sum Over Set & \( \displaystyle \sum_{i \in S} a_i \) & \texttt{sum(a\&\_i, i in S)} & \\[8pt]
+      Sum Over Range & \( \displaystyle \sum_{i=a}^b a_i \) & \texttt{sum(a\&\_i,i,a,b)} & \\[8pt]
+      Product Over Set & \( \displaystyle \prod_{i \in S} a_i \) &
+        \begin{tabular}{c}
+          \texttt{prod(a\&\_i, i in S)} \\
+          \texttt{product(a\&\_i, i in S)}
+        \end{tabular} &  \\[8pt]
+      Product Over Range & \( \displaystyle \prod_{i=a}^b a_i \) &
+        \begin{tabular}{c}
+          \texttt{prod(a\&\_i,a,b)} \\
+          \texttt{product(a\&\_i,a,b)}
+        \end{tabular} &  \\[8pt]
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Discrete (end)
+
+  \newpage
+
+  \subsection{Calculus} % (fold)
+  \label{sub:calculus}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Pi & \( \pi \) & \texttt{\#pi, \#p} & 3.14\(\cdots\)\\
+      e & \( \mathrm{e} \) & \texttt{\#e} & 2.718\(\cdots\), Natural Base, Euler-Napier number \\
+      gamma & \( \gamma \) & \texttt{\#gamma} & 0.577\(\cdots\), Euler-Mascheroni constant\\
+      \hline
+      Limit & \( \displaystyle\lim_{x\to a} f(x) \) &
+        \begin{tabular}{c}
+          \texttt{lim(f(x), a, x)} \\
+          \texttt{limit(f(x), x, a)}
+        \end{tabular} &  \\
+      Derivative & \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \) & \texttt{diff(f(x), x)} & \\[8pt]
+      Partial Derivative & \( \displaystyle \frac{\partial}{\partial x} \left( f(x,y) \right) \) & \texttt{pdiff(f(x,y), x)} & \\
+      Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable\\
+      Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable\\
+      Finite Sum & \( \displaystyle \sum_{i=1}^n f(x_i) \Delta_i  \) & \texttt{sum(f(x\&\_i)*Delta\&\_i,i,1,n)} & \\[8pt]
+      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x)} & \\[8pt]
+      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x,a,b)} & \\[4pt]
+      Differential & \( \mathrm{d}x \) & \texttt{\&d x} & \\
+      Partial Differential & \( \partial x \) & \texttt{\&pd x} & \\
+      Infinite Series & \( \displaystyle \sum_{i=1}^\infty a_i \) & \texttt{sum(a\&\_i,i,1,infinity)} & \\[4pt]
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Calculus (end)
+
+  \subsection{Set Theory} % (fold)
+  \label{sub:settheory}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Set Delimiters & \( \left\{ \ \right\} \) & \texttt{\{ \}} & \\
+      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p : \!\!q}, \texttt{p | q} & \\
+      \hline
+      Universal Set & \( \mathbb{U} \) & \texttt{\#U} & \\
+      Empty Set & \( \emptyset \) & \texttt{\#empty}, \texttt{\{\}} & \\
+      \hline
+      Natural Numbers & \( \mathbb{N} \) & \texttt{\#N} & \\
+      Integer Ring & \( \mathbb{Z} \) & \texttt{\#Z} & \\
+      Rational Field & \( \mathbb{Q} \) & \texttt{\#Q} & \\
+      Real Field & \( \mathbb{R} \) & \texttt{\#R} & \\
+      Complex Field & \( \mathbb{C} \) & \texttt{\#C} & \\
+      Quaternion Ring & \( \mathbb{H} \) & \texttt{\#H} & Hamilton numbers\\
+      Octonion Algebra & \( \mathbb{O} \) & \texttt{\#O} & Cayley numbers, Type ``Oh''.\\
+      \hline
+      Subset & \( \subseteq \) & \texttt{subset} & \\
+      Superset & \( \supseteq \) & \texttt{superset, supset} & \\
+      Proper Subset & \( \subset \) &
+        \texttt{propersubset, propsubset, psubset} & \\
+      Proper Superset & \( \supset \) &
+        \begin{tabular}{c}
+          \texttt{propersuperset, propsuperset, psuperset} \\
+          \texttt{propersupset, propsupset, psupset}
+        \end{tabular} &  \\
+      Inclusion & \( \in \) & \texttt{in} & \\
+      \hline
+      Set Union & \( a \cup b \) & \texttt{a union b} & \\
+      Set Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
+      Set Difference & \( a \setminus b \) & \texttt{a \textbackslash \ b} & \\
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Set Theory (end)
+
+  \newpage
+
+  \subsection{Logic} % (fold)
+  \label{sub:logic}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      True & \( \mathbf{T} \) & \texttt{\#T}, \texttt{\#t}, \texttt{\#true}, \texttt{true} & \\
+      False & \( \mathbf{F} \) & \texttt{\#F}, \texttt{\#f}, \texttt{\#false}, \texttt{false} & \\
+      \hline
+      Conjunction & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Logical AND \\
+      Disjunction & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Logical OR \\
+      Exclusion & \( p \oplus q \) & \texttt{p xor q} & Logical XOR \\
+      Logical Negation & \( \neg p \) & \texttt{not p, \~{}p, !p} & \\
+      Conditional & \( p \rightarrow q \) & 
+        \begin{tabular}{c}
+          \texttt{p implies q}, \texttt{p -> q}, \texttt{q if p}, \\
+          \texttt{q when p}, \texttt{q whenever p}
+        \end{tabular} & \\
+      Biconditional & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & \\
+      Equivalent & \( \equiv \) & \texttt{===}, \texttt{equiv} & \\
+      Not Equivalent & \( \not\equiv \) & \texttt{!==}, \texttt{/==}, \texttt{nequiv} & \\
+      \hline
+      Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x : \!\!P(x)} & ``For all''; chain nested quantifiers with \texttt{;} \\
+      Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x : \!\!P(x)} & ``There exists'' \\
+      Unique Quantifier & \( \exists ! x P(x) \) & \texttt{unique x : \!\!P(x)} & ``There exists a unique'' \\
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Logic (end)
+
+  \subsection{Linear Algebra} % (fold)
+  \label{sub:linearalgebra}
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{|c|c|c|l|}
+      \hline
+      \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
+      \hline\hline
+      Vector Delimiters & \( \left\langle \ \right\rangle \) & \texttt{< >}, \texttt{<: :>} & \\[2 pt]
+      Zero Vector & \( \vec0 \) & \texttt{\#v0} & \\
+      \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#vi} & \\
+      \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#vj} & \\
+      \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#vk} & \\
+      \hline
+      Matrix Delimiters & \( \left[ \ \right] \) & \texttt{[ ]}, \texttt{[: :]} & \\
+      Zero Matrix & \( \mathbb{O} \) & \texttt{\#0} & Type ``zero''.\\
+      Unit Matrix & \( \mathbb{I} \) & \texttt{\#1} & Type ``one''.\\
+      \hline
+    \end{tabular}
+  \end{table}
+  % subsection Linear Algebra (end)
+
+  % section topics (end)
+
 \end{document}

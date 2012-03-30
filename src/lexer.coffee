@@ -39,6 +39,7 @@ RESERVED = (str) ->
         when 'unique' then 'TQUnique'
         when '<->', 'iff' then 'TIff'
         when '->', 'implies' then 'TImplies'
+        when 'if', 'when', 'whenever' then 'TIf'
         when '&&', 'and' then 'TAnd'
         when '||', 'or' then 'TOr'
         when 'xor' then 'TXor'
@@ -83,7 +84,8 @@ RESERVED = (str) ->
         when '&.' then 'TDot'
         when '&v' then 'TVectorizer'
         when '&u' then 'TUnitVectorizer'
-        when '&pm' then 'TPlusMinus'
+        when '&pm', '+/-' then 'TPlusMinus'
+        when '&mp', '-/+' then 'TMinusPlus'
 
         when '(' then 'TLParen'
         when ')' then 'TRParen'

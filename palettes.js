@@ -31,7 +31,7 @@ module.exports.palettes = [
                     ]
                 ]
             },
-        
+
             {
                 name: 'Unary',
                 buttonGroups: [
@@ -39,21 +39,22 @@ module.exports.palettes = [
                         { content: '+', label: '+', tooltip: 'positive' },
                         { content: '-', label: '-', tooltip: 'negative' },
                         { content: '&pm', label: '\\pm', tooltip: 'positive or negative' },
-                        { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
-                        { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
+                        { content: '&mp', label: '\\mp', tooltip: 'negative or positive' },
                         { content: 'sqrt()', label: '\\sqrt{}', tooltip: 'square root' },
                         { content: '!', label: '!', tooltip: 'factorial' },
+                        { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
+                        { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
                         { content: '~', label: '\\neg', tooltip: 'logical negation' },
                         { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
                         { content: '&pd', label: '\\partial', tooltip: 'partial differential' },
-                        { content: '\'', label: 'f\'', tooltip: 'prime' },
+                        { content: '\'', label: 'f\'', tooltip: 'prime derivative' },
                         { content: '.', label: '\\dot{x}', tooltip: 'dot derivative' },
                         { content: '&v', label: '\\vec{u}', tooltip: 'vector' },
                         { content: '&u', label: '\\hat{u}', tooltip: 'unit vector' }
                     ]
                 ]
             },
-        
+
             {
                 name: 'Binary',
                 buttonGroups: [
@@ -61,30 +62,31 @@ module.exports.palettes = [
                         { content: '+', label: '+', tooltip: 'addition' },
                         { content: '-', label: '-', tooltip: 'subtraction' },
                         { content: '&pm', label: '\\pm', tooltip: 'plus or minus' },
+                        { content: '&mp', label: '\\mp', tooltip: 'minus or plus' },
                         { content: '*', label: '\\cdot', tooltip: 'multiplication' },
                         { content: '/', label: '/', tooltip: 'division' },
-                        { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
                         { content: '^', label: '{}^\\wedge', tooltip: 'exponent' },
-                        { content: 'log(a,b)', label: '\\log_b{a}', tooltip: 'logarithm with base' },
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
+                        { content: 'log(a,b)', label: '\\log_b{a}', tooltip: 'logarithm with base' },
+                        { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
                         { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
                         { content: ' union ', label: '\\cup', tooltip: 'union' },
                         { content: ' intersect ', label: '\\cap', tooltip: 'intersection' },
                         { content: '\\', label: '\\setminus', tooltip: 'set difference' },
-                        { content: '<->', label: '\\leftrightarrow', tooltip: 'biconditional' },
-                        { content: '->', label: '\\rightarrow', tooltip: 'implication' },
+                        { content: ':', label: ':', tooltip: 'such that' },
                         { content: '&&', label: '\\wedge', tooltip: 'logical and' },
                         { content: '||', label: '\\vee', tooltip: 'logical or' },
                         { content: ' xor ', label: '\\oplus', tooltip: 'logical exclusive or' },
-                        { content: ':', label: ':', tooltip: 'such that' },
+                        { content: '->', label: '\\rightarrow', tooltip: 'implication' },
+                        { content: '<->', label: '\\leftrightarrow', tooltip: 'biconditional' },
+                        { content: '@', label: '\\circ', tooltip: 'function composition' },
                         { content: '&.', label: '\\cdot', tooltip: 'dot product' },
-                        { content: '&x', label: '\\times', tooltip: 'cross product' },
-                        { content: '@', label: '\\circ', tooltip: 'function composition' }
+                        { content: '&x', label: '\\times', tooltip: 'cross product' }
                     ]
                 ]
             },
-            
+
             {
                 name: 'Relations',
                 buttonGroups: [
@@ -105,12 +107,11 @@ module.exports.palettes = [
                     ]
                 ]
             },
-        
+
             {
                 name: 'Delimiters',
                 buttonGroups: [
                     [
-                        { content: ':', label: ':', tooltip: 'such that' },
                         { content: '( )', label: '(\\,)', tooltip: 'parentheses' },
                         { content: '[ ]', label: '[\\,]', tooltip: 'square brackets (list)' },
                         { content: '{ }', label: '\\{\\,\\}', tooltip: 'curly braces (set)' },
@@ -118,11 +119,12 @@ module.exports.palettes = [
                         { content: '|: :|', label: '|\\,|', tooltip: 'vertical bars (abs val)' },
                         { content: '||: :||', label: '\\|\\,\\|', tooltip: 'double vertical bars (norm / vector length)' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
-                        { content: '&^', label: '\\square^\\square', tooltip: 'superscript' }
+                        { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
+                        { content: ':', label: ':', tooltip: 'such that' }
                     ]
                 ]
             },
-            
+
             {
                 name: 'Intervals',
                 buttonGroups: [
@@ -134,7 +136,7 @@ module.exports.palettes = [
                     ]
                 ]
             },
-            
+
             {
                 name: 'Trig Functions',
                 buttonGroups: [
@@ -168,7 +170,7 @@ module.exports.palettes = [
                     ]
                 ]
             },
-        
+
             {
                 name: 'Functions',
                 buttonGroups: [
@@ -178,7 +180,7 @@ module.exports.palettes = [
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
                         { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
                         { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
-                        { content: 'log(a,b)', label: '\\log_b{a}', tooltip: 'logarithm with base' },
+                        { content: 'log(a,n)', label: '\\log_n{a}', tooltip: 'logarithm with base' },
                         { content: 'lim(f,x,a)', label: '\\lim_{x\\to a} f', tooltip: 'limit' },
                         { content: 'diff(f,x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
                         { content: 'pdiff(f,x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
@@ -196,8 +198,8 @@ module.exports.palettes = [
             }
         ]
     },
-    
-    
+
+
     {
         name: 'Topic',
         toolbars: [
@@ -209,14 +211,17 @@ module.exports.palettes = [
                         { content: '+', label: '+', tooltip: 'addition/positive' },
                         { content: '-', label: '-', tooltip: 'subtraction/negative' },
                         { content: '&pm', label: '\\pm', tooltip: 'plus or minus / positive or negative' },
+                        { content: '&mp', label: '\\mp', tooltip: 'minus or plus / negative or positive' },
                         { content: '*', label: '\\cdot', tooltip: 'multiplication' },
                         { content: '/', label: '/', tooltip: 'division' },
                         { content: '^', label: '{}^\\wedge', tooltip: 'exponent' },
-                        { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
-                        { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
-                        { content: 'log(a,b)', label: '\\log_b{a}', tooltip: 'logarithm with base' },
                         { content: 'sqrt()', label: '\\sqrt{}', tooltip: 'square root' },
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
+                        { content: 'log(a,n)', label: '\\log_n{a}', tooltip: 'logarithm with base' },
+                        { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
+                        { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
+                        { content: '|: :|', label: '|\\,|', tooltip: 'absolute value' },
+                        { content: '!', label: '!', tooltip: 'factorial' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
                         { content: '=', label: '=', tooltip: 'equal' },
                         { content: '!=', label: '\\ne', tooltip: 'not equal' },
@@ -224,13 +229,11 @@ module.exports.palettes = [
                         { content: '>', label: '>', tooltip: 'greater than' },
                         { content: '<=', label: '\\le', tooltip: 'less than or equal' },
                         { content: '>=', label: '\\ge', tooltip: 'greater than or equal' },
-                        { content: '( )', label: '(\\,)', tooltip: 'parentheses' },
-                        { content: '|: :|', label: '|\\,|', tooltip: 'vertical bars (abs val)' },
-                        { content: '!', label: '!', tooltip: 'factorial' }
+                        { content: '( )', label: '(\\,)', tooltip: 'parentheses' }
                     ]
                 ]
             },
-            
+
             {
                 name: 'Algebra',
                 buttonGroups: [
@@ -248,7 +251,7 @@ module.exports.palettes = [
                     ]
                 ]
             },
-            
+
             {
                 name: 'Geometry',
                 buttonGroups: [
@@ -259,15 +262,20 @@ module.exports.palettes = [
                         { content: '[: :)', label: '\\left[\\,\\right)', tooltip: 'half-open interval (right)' },
                         { content: '[: :]', label: '\\left[\\,\\right]', tooltip: 'closed interval' },
                         { content: '<: :>', label: '\\langle\\,\\rangle', tooltip: 'vector brackets' },
-                        { content: '||: :||', label: '\\|\\,\\|', tooltip: 'norm / vector length' },
                         { content: '&v', label: '\\vec{u}', tooltip: 'vector' },
                         { content: '&u', label: '\\hat{u}', tooltip: 'unit vector' },
+                        { content: '|: :|', label: '|\\,|', tooltip: 'vector length' },
+                        { content: '||: :||', label: '\\|\\,\\|', tooltip: 'norm / vector length' },
+                        { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
+                        { content: '#vi', label: '\\hat\\imath', tooltip: 'i unit vector' },
+                        { content: '#vj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
+                        { content: '#vk', label: '\\hat{k}', tooltip: 'k unit vector' },
                         { content: '&.', label: '\\cdot', tooltip: 'dot product' },
                         { content: '&x', label: '\\times', tooltip: 'cross product' }
                     ]
                 ]
             },
-            
+
             {
                 name: 'Trigonometry',
                 buttonGroups: [
@@ -301,7 +309,7 @@ module.exports.palettes = [
                     ]
                 ]
             },
-        
+
             {
                 name: 'Discrete',
                 buttonGroups: [
@@ -317,36 +325,44 @@ module.exports.palettes = [
                     ]
                 ]
             },
-            
+
             {
                 name: 'Calculus',
                 buttonGroups: [
                     [
+                        { content: '#pi', label: '\\pi', tooltip: 'pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
-                        { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
-                        { content: '#vi', label: '\\hat\\imath', tooltip: 'i unit vector' },
-                        { content: '#vj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
-                        { content: '#vk', label: '\\hat{k}', tooltip: 'k unit vector' },
-                        { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
-                        { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' }
+                        { content: 'lim(f,x,a)', label: '\\lim_{x\\to a} f', tooltip: 'limit' },
+                        { content: 'diff(f,x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
+                        { content: 'pdiff(f,x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
+                        { content: '\'', label: 'f\'', tooltip: 'prime derivative' },
+                        { content: '.', label: '\\dot{x}', tooltip: 'dot derivative' },
+                        { content: 'sum(f(x&_i) Delta&_i,i,1,n)', label: '\\sum_{i=1}^n f(x_i) \\Delta_i', tooltip: 'finite sum' },
+                        { content: 'int(f,x)', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
+                        { content: 'int(f,x,a,b)', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
+                        { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
+                        { content: '&pd', label: '\\partial', tooltip: 'partial differential' },
+                        { content: 'sum(a&_i,i,1,infinity)', label: '\\sum_{i=1}^\\infty a_i', tooltip: 'infinite series' },
                     ]
                 ]
             },
-            
+
             {
                 name: 'Set Theory',
                 buttonGroups: [
                     [
+                        { content: '{ }', label: '\\{\\,\\}', tooltip: 'set delimiter' },
+                        { content: '|', label: '|', tooltip: 'such that' },
                         { content: '#U', label: '\\mathbb{U}', tooltip: 'universal set' },
                         { content: '{}', label: '\\emptyset', tooltip: 'empty set' },
                         { content: '#N', label: '\\mathbb{N}', tooltip: 'natural numbers' },
-                        { content: '#Z', label: '\\mathbb{Z}', tooltip: 'integers' },
-                        { content: '#Q', label: '\\mathbb{Q}', tooltip: 'rational numbers' },
-                        { content: '#R', label: '\\mathbb{R}', tooltip: 'real numbers' },
-                        { content: '#C', label: '\\mathbb{C}', tooltip: 'complex numbers' },
-                        { content: '#H', label: '\\mathbb{H}', tooltip: 'quaternion numbers' },
-                        { content: '#O', label: '\\mathbb{O}', tooltip: 'octonian numbers' },
+                        { content: '#Z', label: '\\mathbb{Z}', tooltip: 'integer ring' },
+                        { content: '#Q', label: '\\mathbb{Q}', tooltip: 'rational field' },
+                        { content: '#R', label: '\\mathbb{R}', tooltip: 'real field' },
+                        { content: '#C', label: '\\mathbb{C}', tooltip: 'complex field' },
+                        { content: '#H', label: '\\mathbb{H}', tooltip: 'quaternion ring' },
+                        { content: '#O', label: '\\mathbb{O}', tooltip: 'octonian algebra' },
                         { content: ' subset ', label: '\\subseteq', tooltip: 'subset' },
                         { content: ' superset ', label: '\\supseteq', tooltip: 'super set' },
                         { content: ' propsubset ', label: '\\subset', tooltip: 'proper subset' },
@@ -354,45 +370,44 @@ module.exports.palettes = [
                         { content: ' in ', label: '\\in', tooltip: 'inclusion' },
                         { content: ' union ', label: '\\cup', tooltip: 'union' },
                         { content: ' intersect ', label: '\\cap', tooltip: 'intersection' },
-                        { content: '\\', label: '\\setminus', tooltip: 'set difference' },
-                        { content: '{ }', label: '\\{\\,\\}', tooltip: 'set delimiter' }
+                        { content: '\\', label: '\\setminus', tooltip: 'set difference' }
                     ]
                 ]
             },
-            
+
             {
                 name: 'Logic',
                 buttonGroups: [
                     [
                         { content: 'true', label: '\\mathbf{T}', tooltip: 'true' },
                         { content: 'false', label: '\\mathbf{F}', tooltip: 'false' },
+                        { content: '&&', label: '\\wedge', tooltip: 'and' },
+                        { content: '||', label: '\\vee', tooltip: 'or' },
+                        { content: ' xor ', label: '\\oplus', tooltip: 'exclusive or' },
+                        { content: '~', label: '\\neg', tooltip: 'negation' },
+                        { content: '->', label: '\\rightarrow', tooltip: 'implication' },
+                        { content: '<->', label: '\\leftrightarrow', tooltip: 'biconditional' },
                         { content: '===', label: '\\equiv', tooltip: 'equivalent' },
                         { content: '!==', label: '\\not\\equiv', tooltip: 'not equivalent' },
                         { content: ' forall ', label: '\\forall', tooltip: 'universal quantification ("for all")' },
                         { content: ' exists ', label: '\\exists', tooltip: 'existential quantification ("there exists")' },
-                        { content: ' unique ', label: '\\exists !', tooltip: 'unique quantification ("there exists exactly one")' },
-                        { content: '<->', label: '\\leftrightarrow', tooltip: 'biconditional' },
-                        { content: '->', label: '\\rightarrow', tooltip: 'implication' },
-                        { content: '&&', label: '\\wedge', tooltip: 'and' },
-                        { content: '||', label: '\\vee', tooltip: 'or' },
-                        { content: ' xor ', label: '\\oplus', tooltip: 'exclusive or' },
-                        { content: '~', label: '\\neg', tooltip: 'negation' }
+                        { content: ' unique ', label: '\\exists !', tooltip: 'unique quantification ("there exists exactly one")' }
                     ]
                 ]
             },
-        
+
             {
                 name: 'Linear Algebra',
                 buttonGroups: [
                     [
+                        { content: '<: :>', label: '\\langle\\,\\rangle', tooltip: 'vector delimiter' },
                         { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
                         { content: '#vi', label: '\\hat\\imath', tooltip: 'i unit vector' },
                         { content: '#vj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
                         { content: '#vk', label: '\\hat{k}', tooltip: 'k unit vector' },
-                        { content: '#0', label: '\\mathbb{O}', tooltip: 'zero matrix' },
-                        { content: '#1', label: '\\mathbb{I}', tooltip: 'one matrix' },
                         { content: '[ ]', label: '[\\,]', tooltip: 'list/matrix delimiter' },
-                        { content: '<: :>', label: '\\langle\\,\\rangle', tooltip: 'vector delimiter' }
+                        { content: '#0', label: '\\mathbb{O}', tooltip: 'zero matrix' },
+                        { content: '#1', label: '\\mathbb{I}', tooltip: 'one matrix' }
                     ]
                 ]
             }

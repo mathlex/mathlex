@@ -35,6 +35,7 @@ grammar =
         o 'relation'
         o 'logical TIff logical',                       -> ['Iff', $1, $3]
         o 'logical TImplies logical',                   -> ['Implies', $1, $3]
+        o 'logical TIf logical',                        -> ['Implies', $3, $1]
         o 'logical TOr logical',                        -> ['Or', $1, $3]
         o 'logical TXor logical',                       -> ['Xor', $1, $3]
         o 'logical TAnd logical',                       -> ['And', $1, $3]
@@ -81,6 +82,7 @@ grammar =
     algebraic: [
         o 'primary'
         o 'algebraic TPlusMinus algebraic',             -> ['PlusMinus', $1, $3]
+        o 'algebraic TMinusPlus algebraic',             -> ['MinusPlus', $1, $3]
         o 'algebraic TPlus algebraic',                  -> ['Plus', $1, $3]
         o 'algebraic TMinus algebraic',                 -> ['Minus', $1, $3]
         o 'algebraic TTimes algebraic',                 -> ['Times', $1, $3]
@@ -96,6 +98,7 @@ grammar =
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
         o 'algebraic TSetDiff algebraic',               -> ['SetDiff', $1, $3]
         o 'TPlusMinus algebraic',                       (-> ['PosNeg', $2]), prec: 'UnaryPrefix'
+        o 'TMinusPlus algebraic',                       (-> ['NegPos', $2]), prec: 'UnaryPrefix'
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
         o 'TMinus algebraic',                           (-> ['Negative', $2]), prec: 'UnaryPrefix'
         o 'TVectorizer algebraic',                      -> ['Vectorizer', $2]
@@ -172,12 +175,12 @@ operators = [
     ['left', 'TIntersect']
     ['left', 'TUnion']
     ['left', 'TSetDiff']
-    ['left', 'TPlusMinus', 'TPlus', 'TMinus']
+    ['left', 'TPlusMinus', 'TMinusPlus', 'TPlus', 'TMinus']
     ['nonassoc', 'TEqual', 'TNotEqual']
     ['left', 'TAnd']
     ['left', 'TXor']
     ['left', 'TOr']
-    ['left', 'TImplies']
+    ['left', 'TImplies', 'TIf']
     ['nonassoc', 'TIff']
 ]
 
