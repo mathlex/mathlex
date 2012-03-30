@@ -13,21 +13,28 @@ run = (prgm, args, cb) ->
 task 'build', 'compile CoffeeScript files', ->
     files = ['grammar', 'lexer', 'main', 'render/latex', 'render/text-tree']
     for file in files
+        console.log "compiling #{file}..."
         idx = file.lastIndexOf '/'
         odir = if idx > 0 then "/#{file.substr 0, idx}" else ''
         run 'coffee', ['-c', '-o', BUILD_DIR + odir, "src/#{file}.coffee"]
 
-task 'build:parser', 'rebuild Jison parser (run build first)', ->
-    require 'jison'
-    parser = require("#{BUILD_DIR}/grammar").parser
-    fs.writeFile "#{BUILD_DIR}/parser.js", parser.generate()
-
-task 'build:css', 'compile LESS files into CSS', ->
+task 'build:frontend', 'compile frontend interface', ->
+    console.log "building index.html..."
+    Handlebars = require 'handlebars'
+    context = require './palettes.js'
+    source = fs.readFileSync './template.html'
+    
+    Handlebars.registerHelper 'slugify', (str) ->
+        str.toLowerCase().replace /\s+/g, '_'
+    
+    fs.writeFile 'index.html', Handlebars.compile(source.toString())(context)
+    
+    console.log "building CSS..."
     less = require 'less'
     files = fs.readdirSync './less'
     run 'mkdir', ['-p', "./css"], ->
         for file in files when file.match /\.less$/
-            console.log "building #{file}..."
+            console.log "compiling #{file}..."
             parser = new less.Parser
                 paths: ['./less']
                 filename: file
@@ -35,8 +42,12 @@ task 'build:css', 'compile LESS files into CSS', ->
             parser.parse data.toString(), (err, tree) ->
                 return console.log err if err
                 dest = "./css/#{file.replace /\.less$/, '.min.css'}"
-                fs.writeFile dest, tree.toCSS { compress: true }, ->
-                    console.log 'done!'
+                fs.writeFile dest, tree.toCSS { compress: true }
+
+task 'build:parser', 'rebuild Jison parser (run build first)', ->
+    require 'jison'
+    parser = require("#{BUILD_DIR}/grammar").parser
+    fs.writeFile "#{BUILD_DIR}/parser.js", parser.generate()
 
 task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = ''
@@ -68,4 +79,4 @@ task 'build:browser', 'merge scripts for inclusion in browser', ->
         fs.writeFile "#{BUILD_DIR}/browser/parser.js", code
 
 task 'clean', 'remove build files', ->
-    run 'rm', ['-rf', BUILD_DIR, './css']
+    run 'rm', ['-rf', BUILD_DIR, './css', 'index.html']

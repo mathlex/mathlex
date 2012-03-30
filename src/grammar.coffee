@@ -12,11 +12,17 @@ grammar =
     start: [
         o 'expression'
     ]
+    
+    opt_expression: [
+        o 'expression'
+        o '',           -> ['Empty']
+    ]
+
 
     expression: [
         o 'logical'
-        o 'logical TEqual logical',     -> ['Equal', $1, $3]
-        o 'logical TNotEqual logical',  -> ['NotEqual', $1, $3]
+        o 'logical TEquiv logical',     -> ['Equivalent', $1, $3]
+        o 'logical TNotEquiv logical',  -> ['NotEquivalent', $1, $3]
     ]
 
     expression_list: [
@@ -26,6 +32,7 @@ grammar =
 
     logical: [
         o 'quantification'
+        o 'relation'
         o 'logical TIff logical',                       -> ['Iff', $1, $3]
         o 'logical TImplies logical',                   -> ['Implies', $1, $3]
         o 'logical TOr logical',                        -> ['Or', $1, $3]
@@ -41,14 +48,20 @@ grammar =
     ]
 
     quantification: [
-        o 'relation'
-        o 'TQForall relation TComma quantification',    -> ['Forall', $2, $4]
-        o 'TQExists relation TComma quantification',    -> ['Exists', $2, $4]
-        o 'TQUnique relation TComma quantification',    -> ['Unique', $2, $4]
+        o 'TQForall relation bound_statement',  -> ['Forall', $2, $3]
+        o 'TQExists relation bound_statement',  -> ['Exists', $2, $3]
+        o 'TQUnique relation bound_statement',  -> ['Unique', $2, $3]
+    ]
+    
+    bound_statement: [
+        o 'such_that relation',         -> $2
+        o 'TSemicolon quantification',  -> $2
     ]
 
     relation: [
         o 'algebraic'
+        o 'algebraic TEqual algebraic',         -> ['Equal', $1, $3]
+        o 'algebraic TNotEqual algebraic',      -> ['NotEqual', $1, $3]
         o 'algebraic TLess algebraic',          -> ['Less', $1, $3]
         o 'algebraic TLessEqual algebraic',     -> ['LessEqual', $1, $3]
         o 'algebraic TGreaterEqual algebraic',  -> ['GreaterEqual', $1, $3]
@@ -59,6 +72,11 @@ grammar =
         o 'algebraic TPropSuperset algebraic',  -> ['ProperSuperset', $1, $3]
         o 'algebraic TIn algebraic',            -> ['Inclusion', $1, $3]
     ]
+    
+    opt_algebraic: [
+        o 'algebraic'
+        o '',           -> ['Empty']
+    ]
 
     algebraic: [
         o 'primary'
@@ -68,17 +86,25 @@ grammar =
         o 'algebraic TTimes algebraic',                 -> ['Times', $1, $3]
         o 'algebraic TDivide algebraic',                -> ['Divide', $1, $3]
         o 'algebraic TModulus algebraic',               -> ['Modulus', $1, $3]
-        o 'algebraic TPower algebraic',                 -> ['Power', $1, $3]
-        o 'algebraic TUnderscore algebraic',            -> ['Subscript', $1, $3]
+        o 'algebraic TExponent algebraic',              -> ['Exponent', $1, $3]
+        o 'algebraic TSuperscript algebraic',           -> ['Superscript', $1, $3]
+        o 'algebraic TSubscript algebraic',             -> ['Subscript', $1, $3]
         o 'algebraic TDot algebraic',                   -> ['DotProduct', $1, $3]
         o 'algebraic TCross algebraic',                 -> ['CrossProduct', $1, $3]
         o 'algebraic TCompose algebraic',               -> ['Compose', $1, $3]
         o 'algebraic TUnion algebraic',                 -> ['Union', $1, $3]
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
+        o 'TPlusMinus algebraic',                       (-> ['PosNeg', $2]), prec: 'UnaryPrefix'
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
         o 'TMinus algebraic',                           (-> ['Negative', $2]), prec: 'UnaryPrefix'
+        o 'TVectorizer algebraic',                      -> ['Vectorizer', $2]
+        o 'TUnitVectorizer algebraic',                  -> ['UnitVectorizer', $2]
+        o 'TPartial algebraic',                         -> ['Partial', $2]
+        o 'TDifferential algebraic',                    -> ['Differential', $2]
+        o 'TGradient algebraic',                        -> ['Gradient', $2]
         o 'algebraic TBang',                            -> ['Factorial', $1]
         o 'algebraic TPrime',                           -> ['Prime', $1]
+        o 'algebraic TDotDiff',                         -> ['DotDiff', $1]
         o 'algebraic TLParen expression_list TRParen',  -> ['Function', $1, $3]
     ]
 
@@ -88,45 +114,57 @@ grammar =
     ]
 
     primary: [
+        o 'TEmpty',                                             -> ['Empty']
         o 'TIdent',                                             -> ['Variable', $1]
         o 'TIntLit',                                            -> ['Literal', 'Int', $1]
         o 'TFloatLit',                                          -> ['Literal', 'Float', $1]
         o 'TConstant',                                          -> ['Constant', $1]
         o 'TLess algebraic_list TGreater',                      -> ['Vector', $2]
+        o 'TLVector algebraic_list TRVector',                   -> ['Vector', $2]
         o 'TLCurlyBrace set TRCurlyBrace',                      -> $2
+        o 'TLSqBracket list TRSqBracket',                       -> ['List', $2]
         o 'range_start algebraic TComma algebraic range_end',   -> ['Range', $1, $2, $4, $5]
         o 'TPipe algebraic TPipe',                              -> ['AbsVal', $2]
-        o 'TLParen expression TRParen',                         -> ['Parentheses', $2]
+        o 'TLPipe opt_algebraic TRPipe',                        -> ['AbsVal', $2]
+        o 'TOr algebraic TOr',                                  -> ['Norm', $2]
+        o 'TLDoublePipe opt_algebraic TRDoublePipe',            -> ['Norm', $2]
+        o 'TLParen opt_expression TRParen',                     -> ['Parentheses', $2]
     ]
     
     range_start: [
-        o 'TLSqBracket',    -> true
-        o 'TRSqBracket',    -> false
+        o 'TLRangeInclusive',   -> true
+        o 'TLRangeExclusive',   -> false
     ]
     
     range_end: [
-        o 'TLSqBracket',    -> false
-        o 'TRSqBracket',    -> true
+        o 'TRRangeInclusive',   -> true
+        o 'TRRangeExclusive',   -> false
     ]
 
     set: [
         o '',                                   -> ['EmptySet']
         o 'expression_list',                    -> ['Set', $1]
-        o 'relation such_that logical_list',    -> ['SetBuilder', $1, $3]
+        o 'relation such_that logical_list',    -> ['SetBuilder', $1, $3, $2]
     ]
 
     such_that: [
-        o 'TPipe'
-        o 'TColon'
+        o 'TPipe',  -> true
+        o 'TColon', -> false
+    ]
+    
+    list: [
+        o 'expression_list'
+        o '',   -> [['Empty']]
     ]
 
 
 operators = [
-    ['left', 'TBang', 'TPrime']
+    ['left', 'TSubscript', 'TSuperscript']
+    ['left', 'TBang', 'TPrime', 'TDotDiff']
     ['left', 'TCompose']
-    ['right', 'TPower', 'TUnderscore']
+    ['right', 'TExponent']
     ['left', 'TLParen', 'TRParen']
-    ['right', 'UnaryPrefix', 'TNot']
+    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TVectorizer', 'TUnitVectorizer', 'TGradient']
     ['left', 'TCross']
     ['nonassoc', 'TDot']
     ['left', 'TTimes', 'TDivide', 'TModulus']

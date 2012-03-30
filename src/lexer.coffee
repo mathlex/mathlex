@@ -1,12 +1,37 @@
+# 'startsWith' function for String Object
+if typeof String.prototype.startsWith != 'function'
+    String.prototype.startsWith = (str) -> @indexOf str == 0
+
+
 WHITESPACE = /^[\s]+/
 NUMBER = /^\d*\.?\d+(?:[Ee][+-]?\d+)?/
-IDENTIFIER = /^[a-zA-Z][a-zA-Z0-9]*/
+IDENTIFIER = /^[a-zA-Z][a-zA-Z0-9_]*/
 CONSTANT = /^#([a-zA-Z0-9]*)/
+
+# Pipe not included since it can be used as a "such that" operator
+BALANCED_PAIRS = [
+    ['TLParen', 'TRParen']
+    ['TLSqBracket', 'TRSqBracket']
+    ['TLCurlyBrace', 'TRCurlyBrace']
+    ['TLPipe', 'TRPipe']
+    ['TLDoublePipe', 'TRDoublePipe']
+    ['TLVector', 'TRVector']
+]
+
+INVERSES = {}
+LEFT_DELIMS = []
+RIGHT_DELIMS = []
+
+for [l,r] in BALANCED_PAIRS
+    INVERSES[r] = l
+    INVERSES[l] = r
+    LEFT_DELIMS.push l
+    RIGHT_DELIMS.push r
 
 RESERVED = (str) ->
     switch str
-        when 'false', '&F' then 'TConstant'
-        when 'true', '&T' then 'TConstant'
+        when 'false' then 'TConstant'
+        when 'true' then 'TConstant'
         when 'infinity' then 'TConstant'
 
         when 'forall' then 'TQForall'
@@ -21,14 +46,16 @@ RESERVED = (str) ->
 
         when '<' then 'TLess'
         when '<=' then 'TLessEqual'
+        when '===', 'equiv' then 'TEquiv'
+        when '!==', '/==', 'nequiv' then 'TNotEquiv'
         when '=', '==' then 'TEqual'
-        when '!=', '<>' then 'TNotEqual'
+        when '!=', '/=', '<>' then 'TNotEqual'
         when '>=' then 'TGreaterEqual'
         when '>' then 'TGreater'
         when 'subset' then 'TSubset'
-        when 'propsubset' then 'TPropSubset'
-        when 'superset' then 'TSuperset'
-        when 'propsuperset' then 'TPropSuperset'
+        when 'psubset', 'propsubset', 'propersubset' then 'TPropSubset'
+        when 'superset', 'supset' then 'TSuperset'
+        when 'psuperset', 'psupset', 'propsuperset', 'propsupset', 'propersuperset', 'propersupset' then 'TPropSuperset'
         when 'in' then 'TIn'
         when 'union' then 'TUnion'
         when 'intersect' then 'TIntersect'
@@ -38,16 +65,23 @@ RESERVED = (str) ->
         when '*' then 'TTimes'
         when '/' then 'TDivide'
         when 'mod', '%' then 'TModulus'
-        when '^', '**' then 'TPower'
-        when '_' then 'TUnderscore'
+        when '^', '**' then 'TExponent'
+        when '&^' then 'TSuperscript'
+        when '&_' then 'TSubscript'
         when '!' then 'TBang'
         when '\'' then 'TPrime'
         when '@' then 'TCompose'
 
         when '&Re' then 'TReal'
         when '&Im' then 'TImaginary'
+        when '&pd' then 'TPartial'
+        when '&d' then 'TDifferential'
+        when '&del' then 'TGradient'
         when '&x' then 'TCross'
+        when '.' then 'TDotDiff'
         when '&.' then 'TDot'
+        when '&v' then 'TVectorizer'
+        when '&u' then 'TUnitVectorizer'
         when '&pm' then 'TPlusMinus'
 
         when '(' then 'TLParen'
@@ -56,8 +90,19 @@ RESERVED = (str) ->
         when '}' then 'TRCurlyBrace'
         when '[' then 'TLSqBracket'
         when ']' then 'TRSqBracket'
+        when '[:' then 'TLRangeInclusive'
+        when ':]' then 'TRRangeInclusive'
+        when '(:' then 'TLRangeExclusive'
+        when ':)' then 'TRRangeExclusive'
+        when '|:' then 'TLPipe'
+        when ':|' then 'TRPipe'
         when '|' then 'TPipe'
+        when '||:' then 'TLDoublePipe'
+        when ':||' then 'TRDoublePipe'
+        when '<:' then 'TLVector'
+        when ':>' then 'TRVector'
         when ':' then 'TColon'
+        when ';' then 'TSemicolon'
         when ',' then 'TComma'
 
         else false
@@ -73,10 +118,14 @@ exports.Lexer = class Lexer
                     @numLiteral() or
                     @identifierOrKeywordToken() or
                     @constantToken() or
+                    @opOrSep(4) or
                     @opOrSep(3) or
                     @opOrSep(2) or
                     @opOrSep(1)
             i += consumed
+
+        @token tok, "auto-ins1-#{tok}" while tok = @delims.pop()
+
         @tokens
 
     token: (tag, val) ->
@@ -108,5 +157,18 @@ exports.Lexer = class Lexer
     opOrSep: (len) ->
         op = @chunk[0..len-1]
         return 0 unless tag = RESERVED op
+
+        @delims.push INVERSES[tag] if tag in LEFT_DELIMS
+        @pair tag if tag in RIGHT_DELIMS
+        
         @token tag, op
         len
+
+
+    pair: (tag) ->
+        if tag not in @delims
+            inverse = INVERSES[tag]
+            @tokens.unshift [inverse, "auto-ins2-#{inverse}"]
+            @delims.unshift tag
+        while tag isnt expected = @delims.pop()
+            @token expected, "auto-ins3-#{expected}"

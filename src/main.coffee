@@ -3,6 +3,7 @@
 
 Latex = require './render/latex'
 TextTree = require './render/text-tree'
+# Sage = require './render/sage'
 
 lexer = new Lexer
 

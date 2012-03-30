@@ -1,4 +1,5 @@
-.box-shadow(@ox, @oy, @ob, @oc, @ix: 0, @iy: 0, @ib: 0, @ic: transparent) {
+.box-shadow(@ox: 0, @oy: 0, @ob: 5px, @oc: rgba(0,0,0,0.7), @ix: 0, @iy: 0, @ib: 0, @ic: transparent) {
+    /*
     -webkit-box-shadow: @ox @oy @ob @oc,
                         inset @ix @iy @ib @ic;
        -moz-box-shadow: @ox @oy @ob @oc,
@@ -6,16 +7,16 @@
         -ms-box-shadow: @ox @oy @ob @oc,
                         inset @ix @iy @ib @ic;
          -o-box-shadow: @ox @oy @ob @oc,
-                        inset @ix @iy @ib @ic;
+                        inset @ix @iy @ib @ic; */
             box-shadow: @ox @oy @ob @oc,
                         inset @ix @iy @ib @ic;
 }
 
 .border-radius(@r) {
-    -webkit-border-radius: @r; 
+/*    -webkit-border-radius: @r; 
        -moz-border-radius: @r; 
         -ms-border-radius: @r; 
-         -o-border-radius: @r; 
+         -o-border-radius: @r; */
             border-radius: @r; 
 }
 
@@ -28,6 +29,20 @@
     background: -ms-linear-gradient(top, @from 0%, @to 100%); /* IE10+ */
     background: linear-gradient(top, @from 0%, @to 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=0); /* IE6-9 */
+}
+
+.monospaced() {
+    font-family: Inconsolata, Monaco, "Courier New", monospace;
+    font-weight: 400;
+}
+
+
+.clearfix {
+    &:after {
+        content: '';
+        clear: both;
+        display: block;
+    }
 }
 
 body {
@@ -45,6 +60,12 @@ header {
 h1, h2, h3 {
     margin: 1.5em 0 1em;
     line-height: normal;
+}
+
+a {
+    &:focus {
+        outline: 0;
+    }
 }
 
 ul, ol {
@@ -65,6 +86,7 @@ ul, ol {
 }
 
 tt, code {
+    .monospaced();
     margin-left: .3em;
     
     a {
@@ -74,32 +96,97 @@ tt, code {
 }
 
 pre {
+    .monospaced();
     margin: 0;
 }
 
-#math_input, #ast_output {
+.toolbars {
+    .box-shadow();
+    font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    
+    .ribbon {
+        .tabs {
+            .clearfix;
+            .gradient(#ccc, #aaa);
+            line-height: 30px;
+            
+            a, strong {
+                display: block;
+                float: left;
+                padding: 0 10px;
+                border-right: 2px groove #ccc;
+            }
+            
+            strong {
+                width: 60px;
+            }
+        
+            a {
+                color: #fff;
+                text-align: center;
+                text-decoration: none;
+                text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+                
+                &.open {
+                    /*
+                    .gradient(#ddd, #bbb);
+                    
+                    &.pinned {
+                    */
+                        .gradient(#ccc, #eee);
+                        color: #222;
+                        text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+                    //}
+                }
+            }
+        }
+    
+        .toolbar {
+            background: #eee;
+            padding: 5px 10px;
+            clear: left;
+            display: none;
+            
+            a {
+                .border-radius(4px);
+                .gradient(#eee, #ccc);
+                border: 1px solid #aaa;
+                color: #222;
+                font-size: 16px;
+                display: inline-block;
+                text-decoration: none;
+                white-space: nowrap;
+                height: 20px;
+                padding: 4px 8px;
+                margin: 2px;
+            }
+        }
+    }
+}
+
+#math_input, #ast_output, #tex_output {
     .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
     .border-radius(3px);
+    margin: 20px 0;
 }
 
 #math_input {
+    .monospaced();
     border: 1px solid #999;
     width: 100%;
     font-size: 18px;
     padding: 3px 0;
     text-indent: 3px;
-    
-    &, tt, code, pre {
-        font-family: Inconsolata, "Andale Mono", "Courier New", monospace;
-    }
 }
+
 
 #math_output {
     padding: 10px;
     font-size: 20px;
 }
 
-#ast_output {
+#ast_output, #tex_output {
     max-height: 400px;
     overflow: auto;
     border: 1px solid #999;
