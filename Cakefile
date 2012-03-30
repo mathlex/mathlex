@@ -3,12 +3,14 @@ fs = require 'fs'
 
 BUILD_DIR = './build'
 
+# run a command inside the shell
 run = (prgm, args, cb) ->
     proc = spawn prgm, args
     proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
     proc.on        'exit', (status) ->
         process.exit(1) if status != 0
         cb() if typeof cb is 'function'
+
 
 task 'build', 'compile CoffeeScript files', ->
     files = ['grammar', 'lexer', 'main', 'render/latex', 'render/text-tree']
@@ -17,6 +19,7 @@ task 'build', 'compile CoffeeScript files', ->
         idx = file.lastIndexOf '/'
         odir = if idx > 0 then "/#{file.substr 0, idx}" else ''
         run 'coffee', ['-c', '-o', BUILD_DIR + odir, "src/#{file}.coffee"]
+
 
 task 'build:frontend', 'compile frontend interface', ->
     console.log "building index.html..."
@@ -44,10 +47,12 @@ task 'build:frontend', 'compile frontend interface', ->
                 dest = "./css/#{file.replace /\.less$/, '.min.css'}"
                 fs.writeFileSync dest, tree.toCSS { compress: true }
 
+
 task 'build:parser', 'rebuild Jison parser (run build first)', ->
     require 'jison'
     parser = require("#{BUILD_DIR}/grammar").parser
     fs.writeFileSync "#{BUILD_DIR}/parser.js", parser.generate()
+
 
 task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = ''
@@ -77,6 +82,7 @@ task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle parser.parse code
     run 'mkdir', ['-p', "#{BUILD_DIR}/browser"], ->
         fs.writeFileSync "#{BUILD_DIR}/browser/parser.js", code
+
 
 task 'clean', 'remove build files', ->
     run 'rm', ['-rf', BUILD_DIR, './css', 'index.html']
