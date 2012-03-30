@@ -61,7 +61,7 @@ exports.render = render = (ast) ->
             (render ast[1]) + op + (render ast[2])
         when 'Divide' then "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
         when 'Modulus' then "#{render ast[1]} \\pmod{#{render unwrap ast[2]}}"
-        when 'Power' then "#{render ast[1]}^{#{render unwrap ast[2]}}"
+        when 'Exponent', 'Superscript' then "#{render ast[1]}^{#{render unwrap ast[2]}}"
         when 'Subscript' then "#{render ast[1]}_{#{render unwrap ast[2]}}"
         when 'DotProduct' then "#{render ast[1]} \\cdot #{render ast[2]}"
         when 'CrossProduct' then "#{render ast[1]} \\times #{render ast[2]}"
@@ -131,8 +131,10 @@ exports.render = render = (ast) ->
                     when 'abs' then "\\left| #{render ast[2][0]}}"
                     when 'sqrt' then "\\sqrt{#{render ast[2][0]}}"
                     when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
-                    when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'arccsc', 'arcsec', 'arccot', 'sinh', 'cosh', 'tanh', 'csch', 'sech', 'coth', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth'
+                    when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'sinh', 'cosh', 'tanh', 'coth'
                         "\\#{ast[1][1]}{\\left( #{args} \\right)}"
+                    when 'arccsc', 'arcsec', 'arccot', 'csch', 'sech', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth'
+                        "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
                     when 'int'
                         bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
@@ -142,7 +144,7 @@ exports.render = render = (ast) ->
                         base = if ast[2].length == 2 then "_{#{render ast[2][1]}}" else ''
                         "\\log#{base}{\\left( #{render ast[2][0]} \\right)}"
                     when 'exp'
-                        "\\mathrm{exp}{\\left( #{render ast[2][0]} \\right)}"
+                        "\\exp{\\left( #{render ast[2][0]} \\right)}"
                     when 'lim', 'limit' then "\\lim_{#{render ast[2][1]} \\to #{render ast[2][2]}} #{render ast[2][0]}"
                     when 'sum'
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
@@ -158,37 +160,61 @@ exports.render = render = (ast) ->
 
         when 'Literal' then ast[2]
         when 'Variable' then switch ast[1]
+            when 'Alpha' then "A"
             when 'alpha' then "\\alpha"
+            when 'Beta' then "B"
             when 'beta' then "\\beta"
+            when 'Gamma' then "\\Gamma"
             when 'gamma' then "\\gamma"
+            when 'Delta' then "\\Delta"
             when 'delta' then "\\delta"
+            when 'Epsilon' then "E"
             when 'epsilon' then "\\epsilon"
             when 'vepsilon', 'epsilonv', 'varepsilon', 'epsilonvar' then "\\varepsilon"
+            when 'Zeta' then "Z"
             when 'zeta' then "\\zeta"
+            when 'Eta' then "H"
             when 'eta' then "\\eta"
+            when 'Theta' then "\\Theta"
             when 'theta' then "\\theta"
             when 'vtheta', 'thetav', 'vartheta', 'thetavar' then "\\vartheta"
+            when 'Iota' then "I"
             when 'iota' then "\\iota"
+            when 'Kappa' then "K"
             when 'kappa' then "\\kappa"
+            when 'Lambda' then "\\Lambda"
             when 'lambda' then "\\lambda"
+            when 'Mu' then "M"
             when 'mu' then "\\mu"
+            when 'Nu' then "N"
             when 'nu' then "\\nu"
+            when 'Xi' then "\\Xi"
             when 'xi' then "\\xi"
+            when 'Omicron' then "O"
             when 'omicron' then "o"
+            when 'Pi' then "\\Pi"
             when 'pi' then "\\pi"
             when 'vpi', 'piv', 'varpi', 'pivar' then "\\varpi"
+            when 'Rho' then "P"
             when 'rho' then "\\rho"
             when 'vrho', 'rhov', 'varrho', 'rhovar' then "\\varrho"
+            when 'Sigma' then "\\Sigma"
             when 'sigma' then "\\sigma"
             when 'vsigma', 'sigmav', 'varsigma', 'sigmavar' then "\\varsigma"
+            when 'Tau' then "T"
             when 'tau' then "\\tau"
+            when 'Upsilon' then "Y"
             when 'upsilon' then "\\upsilon"
+            when 'Phi' then "\\Phi"
             when 'phi' then "\\phi"
             when 'vphi', 'phiv', 'varphi', 'phivar' then "\\varphi"
+            when 'Chi' then "X"
             when 'chi' then "\\chi"
+            when 'Psi' then "\\Psi"
             when 'psi' then "\\psi"
+            when 'Omega' then "\\Omega"
             when 'omega' then "\\omega"
-            else ast[1]
+            else ast[1].replace /_/g, '\\_'
 
         when 'Constant' then switch ast[1]
             when 'p', 'pi' then "\\pi"

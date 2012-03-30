@@ -62,6 +62,12 @@ h1, h2, h3 {
     line-height: normal;
 }
 
+a {
+    &:focus {
+        outline: 0;
+    }
+}
+
 ul, ol {
     padding-left: 2em;
     
@@ -113,7 +119,7 @@ pre {
             }
             
             strong {
-                width: 80px;
+                width: 60px;
             }
         
             a {
@@ -123,13 +129,15 @@ pre {
                 text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
                 
                 &.open {
+                    /*
                     .gradient(#ddd, #bbb);
                     
                     &.pinned {
+                    */
                         .gradient(#ccc, #eee);
                         color: #222;
                         text-shadow: 0 1px 0 rgba(255,255,255,0.7);
-                    }
+                    //}
                 }
             }
         }
@@ -139,6 +147,20 @@ pre {
             padding: 5px 10px;
             clear: left;
             display: none;
+            
+            a {
+                .border-radius(4px);
+                .gradient(#eee, #ccc);
+                border: 1px solid #aaa;
+                color: #222;
+                font-size: 16px;
+                display: inline-block;
+                text-decoration: none;
+                white-space: nowrap;
+                height: 20px;
+                padding: 4px 8px;
+                margin: 2px;
+            }
         }
     }
 }
