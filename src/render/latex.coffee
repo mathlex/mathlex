@@ -56,6 +56,7 @@ exports.render = render = (ast) ->
         when 'Plus' then "#{render ast[1]} + #{render ast[2]}"
         when 'Minus' then "#{render ast[1]} - #{render ast[2]}"
         when 'PlusMinus' then "#{render ast[1]} \\pm #{render ast[2]}"
+        when 'MinusPlus' then "#{render ast[1]} \\mp #{render ast[2]}"
         when 'Times'
             op = if implicitMultiplication(ast[1], true) or implicitMultiplication(ast[2], false) then " \\, " else " \\cdot "
             (render ast[1]) + op + (render ast[2])
@@ -73,6 +74,7 @@ exports.render = render = (ast) ->
         when 'Positive' then "+#{render ast[1]}"
         when 'Negative' then "-#{render ast[1]}"
         when 'PosNeg' then "\\pm #{render ast[1]}"
+        when 'NegPos' then "\\mp #{render ast[1]}"
         when 'Partial' then "\\partial #{render ast[1]}"
         when 'Differential' then "\\mathrm{d} #{render ast[1]}"
         when 'Gradient' then "\\nabla #{render ast[1]}"
