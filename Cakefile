@@ -15,7 +15,7 @@ run = (prgm, args, cb) ->
 task 'build', 'compile CoffeeScript files', ->
     files = ['grammar', 'lexer', 'main', 'render/latex', 'render/text-tree']
     for file in files
-        console.log "compiling #{file}..."
+        console.log "compiling src/#{file}.coffee..."
         idx = file.lastIndexOf '/'
         odir = if idx > 0 then "/#{file.substr 0, idx}" else ''
         run 'coffee', ['-c', '-o', BUILD_DIR + odir, "src/#{file}.coffee"]
@@ -51,12 +51,15 @@ task 'build:frontend', 'compile frontend interface', ->
 task 'build:parser', 'rebuild Jison parser (run build first)', ->
     require 'jison'
     parser = require("#{BUILD_DIR}/grammar").parser
+    console.log "building parser..."
     fs.writeFileSync "#{BUILD_DIR}/parser.js", parser.generate()
 
 
 task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = ''
+    console.log "building browser script..."
     for name in ['lexer', 'parser', 'render/latex', 'render/text-tree', 'main']
+        console.log "consolidating #{name} module..."
         code += """
             require['./#{name}'] = new function() {
                 var exports = this;
@@ -79,10 +82,11 @@ task 'build:browser', 'merge scripts for inclusion in browser', ->
         }(this));
     """
     {parser, uglify} = require 'uglify-js'
+    console.log "compacting code..."
     code = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle parser.parse code
     run 'mkdir', ['-p', "#{BUILD_DIR}/browser"], ->
         fs.writeFileSync "#{BUILD_DIR}/browser/parser.js", code
 
 
 task 'clean', 'remove build files', ->
-    run 'rm', ['-rf', BUILD_DIR, './css', 'index.html']
+    run 'rm', ['-rf', BUILD_DIR, './css', 'index.html', 'doc/*.{aux,log,pdf,synctex.gz}']
