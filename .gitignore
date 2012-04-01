@@ -1,6 +1,7 @@
 index.html
 /build
 /css
+/doc/*.pdf
 
 *.acn
 *.acr
