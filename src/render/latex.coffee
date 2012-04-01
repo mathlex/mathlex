@@ -1,24 +1,21 @@
-rules = {
-    Parentheses: 1,
-    AbsValue: 1,
-    Plus: 2
-};
-
-
 unwrap = (ast, recursive = false, rules = Parentheses: 1) ->
     if i = rules[ast[0]]
         if recursive then unwrap ast[i] else ast[i]
     else
         ast
 
-implicitMultiplication = (ast, left) ->
+LEFT = 'left'
+RIGHT = 'right'
+
+implicitMultiplication = (ast, immediateDir) ->
     node = unwrap ast, true,
-        Times: if left then 2 else 1
-        Modulus: if left then 2 else 1
+        Times: if immediateDir is LEFT then 2 else 1
+        Modulus: if immediateDir is LEFT then 2 else 1
         Vectorizer: 1
         Factorial: 1
         Prime: 1
-        Power: 1
+        Exponent: 1
+        Superscript: 1
         Subscript: 1
 
     node[0] in ['Divide', 'Parentheses', 'AbsVal', 'Vector', 'Vectorizer', 'Variable', 'Constant', 'Function']
@@ -58,7 +55,7 @@ exports.render = render = (ast) ->
         when 'PlusMinus' then "#{render ast[1]} \\pm #{render ast[2]}"
         when 'MinusPlus' then "#{render ast[1]} \\mp #{render ast[2]}"
         when 'Times'
-            op = if implicitMultiplication(ast[1], true) or implicitMultiplication(ast[2], false) then " \\, " else " \\cdot "
+            op = if implicitMultiplication(ast[1], LEFT) or implicitMultiplication(ast[2], RIGHT) then " \\, " else " \\cdot "
             (render ast[1]) + op + (render ast[2])
         when 'Divide' then "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
         when 'Modulus' then "#{render ast[1]} \\pmod{#{render unwrap ast[2]}}"
@@ -94,7 +91,7 @@ exports.render = render = (ast) ->
             while node[0] == 'DotDiff'
                 depth += 1
                 if depth == 4
-                    start += "\\ddddot{" 
+                    start += "\\ddddot{"
                     end += "}"
                     depth = 0
                 node = node[1]
