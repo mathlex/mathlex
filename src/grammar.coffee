@@ -34,8 +34,9 @@ grammar =
         o 'quantification'
         o 'relation'
         o 'logical TIff logical',                       -> ['Iff', $1, $3]
-        o 'logical TImplies logical',                   -> ['Implies', $1, $3]
-        o 'logical TIf logical',                        -> ['Implies', $3, $1]
+        o 'logical TImplies logical',                   -> ['Implies', $1, $3, false]
+        o 'logical TIf logical',                        -> ['Implies', $3, $1, true]
+        o 'TIf logical TThen logical',                  -> ['Implies', $2, $4, false]
         o 'logical TOr logical',                        -> ['Or', $1, $3]
         o 'logical TXor logical',                       -> ['Xor', $1, $3]
         o 'logical TAnd logical',                       -> ['And', $1, $3]
@@ -55,14 +56,15 @@ grammar =
     ]
     
     bound_statement: [
-        o 'such_that relation',         -> $2
+        o 'TColon relation',            -> $2
         o 'TSemicolon quantification',  -> $2
     ]
 
     relation: [
-        o 'algebraic'
+        o 'ratio'
         o 'algebraic TEqual algebraic',         -> ['Equal', $1, $3]
         o 'algebraic TNotEqual algebraic',      -> ['NotEqual', $1, $3]
+        o 'ratio TRatioEqual ratio',            -> ['RatioEqual', $1, $3]
         o 'algebraic TLess algebraic',          -> ['Less', $1, $3]
         o 'algebraic TLessEqual algebraic',     -> ['LessEqual', $1, $3]
         o 'algebraic TGreaterEqual algebraic',  -> ['GreaterEqual', $1, $3]
@@ -72,6 +74,14 @@ grammar =
         o 'algebraic TPropSubset algebraic',    -> ['ProperSubset', $1, $3]
         o 'algebraic TPropSuperset algebraic',  -> ['ProperSuperset', $1, $3]
         o 'algebraic TIn algebraic',            -> ['Inclusion', $1, $3]
+        o 'algebraic TDivides algebraic',       -> ['Divides', $1, $3]
+        o 'algebraic TPipe algebraic',          -> ['Divides', $1, $3]
+        o 'algebraic TNotDivides algebraic',    -> ['NotDivides', $1, $3]
+    ]
+    
+    ratio: [
+        o 'algebraic'
+        o 'algebraic TRatio algebraic',         -> ['Ratio', $1, $3]
     ]
     
     opt_algebraic: [
@@ -86,13 +96,16 @@ grammar =
         o 'algebraic TPlus algebraic',                  -> ['Plus', $1, $3]
         o 'algebraic TMinus algebraic',                 -> ['Minus', $1, $3]
         o 'algebraic TTimes algebraic',                 -> ['Times', $1, $3]
-        o 'algebraic TDivide algebraic',                -> ['Divide', $1, $3]
+        o 'algebraic TDivide algebraic',                -> ['Divide', $1, $3, true]
+        o 'algebraic TSlash algebraic',                 -> ['Divide', $1, $3, false]
         o 'algebraic TModulus algebraic',               -> ['Modulus', $1, $3]
         o 'algebraic TExponent algebraic',              -> ['Exponent', $1, $3]
         o 'algebraic TSuperscript algebraic',           -> ['Superscript', $1, $3]
         o 'algebraic TSubscript algebraic',             -> ['Subscript', $1, $3]
         o 'algebraic TDot algebraic',                   -> ['DotProduct', $1, $3]
         o 'algebraic TCross algebraic',                 -> ['CrossProduct', $1, $3]
+        o 'algebraic TWedge algebraic',                 -> ['WedgeProduct', $1, $3]
+        o 'algebraic TTensor algebraic',                -> ['TensorProduct', $1, $3]
         o 'algebraic TCompose algebraic',               -> ['Compose', $1, $3]
         o 'algebraic TUnion algebraic',                 -> ['Union', $1, $3]
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
@@ -105,7 +118,10 @@ grammar =
         o 'TUnitVectorizer algebraic',                  -> ['UnitVectorizer', $2]
         o 'TPartial algebraic',                         -> ['Partial', $2]
         o 'TDifferential algebraic',                    -> ['Differential', $2]
+        o 'TChangeDelta algebraic',                     -> ['Change', $2]
         o 'TGradient algebraic',                        -> ['Gradient', $2]
+        o 'TDivergence algebraic',                      -> ['Divergence', $2]
+        o 'TCurl algebraic',                            -> ['Curl', $2]
         o 'algebraic TBang',                            -> ['Factorial', $1]
         o 'algebraic TPrime',                           -> ['Prime', $1]
         o 'algebraic TDotDiff',                         -> ['DotDiff', $1]
@@ -125,6 +141,10 @@ grammar =
         o 'TConstant',                                          -> ['Constant', $1]
         o 'TLess algebraic_list TGreater',                      -> ['Vector', $2]
         o 'TLVector algebraic_list TRVector',                   -> ['Vector', $2]
+        o 'TLess algebraic TPipe',                              -> ['Bra', $2]
+        o 'TPipe algebraic TGreater',                           -> ['Ket', $2]
+        o 'TLess algebraic TOr algebraic TGreater',             -> ['BraKet', $2, $4]
+        o 'TLVector algebraic TPipe algebraic TRVector',        -> ['BraKet', $2, $4]
         o 'TLCurlyBrace set TRCurlyBrace',                      -> $2
         o 'TLSqBracket list TRSqBracket',                       -> ['List', $2]
         o 'range_start algebraic TComma algebraic range_end',   -> ['Range', $1, $2, $4, $5]
@@ -146,14 +166,9 @@ grammar =
     ]
 
     set: [
-        o '',                                   -> ['EmptySet']
-        o 'expression_list',                    -> ['Set', $1]
-        o 'relation such_that logical_list',    -> ['SetBuilder', $1, $3, $2]
-    ]
-
-    such_that: [
-        o 'TPipe',  -> true
-        o 'TColon', -> false
+        o '',                               -> ['EmptySet']
+        o 'expression_list',                -> ['Set', $1]
+        o 'relation TColon logical_list',   -> ['SetBuilder', $1, $3]
     ]
     
     list: [
@@ -168,10 +183,10 @@ operators = [
     ['left', 'TCompose']
     ['right', 'TExponent']
     ['left', 'TLParen', 'TRParen']
-    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TVectorizer', 'TUnitVectorizer', 'TGradient']
-    ['left', 'TCross']
+    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TChangeDelta', 'TVectorizer', 'TUnitVectorizer', 'TGradient', 'TDivergence', 'TCurl']
+    ['left', 'TCross', 'TWedge', 'TTensor']
     ['nonassoc', 'TDot']
-    ['left', 'TTimes', 'TDivide', 'TModulus']
+    ['left', 'TTimes', 'TSlash', 'TDivide', 'TModulus']
     ['left', 'TIntersect']
     ['left', 'TUnion']
     ['left', 'TSetDiff']

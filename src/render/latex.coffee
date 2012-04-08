@@ -25,7 +25,11 @@ exports.render = render = (ast) ->
     switch ast[0]
         when 'Empty' then "{}"
         when 'Iff' then "#{render ast[1]} \\longleftrightarrow #{render ast[2]}"
-        when 'Implies' then "#{render ast[1]} \\rightarrow #{render ast[2]}"
+        when 'Implies'
+            if ast[3]
+                "#{render ast[2]} \\leftarrow #{render ast[1]}"
+            else
+                "#{render ast[1]} \\rightarrow #{render ast[2]}"
         when 'And' then "#{render ast[1]} \\wedge #{render ast[2]}"
         when 'Xor' then "#{render ast[1]} \\oplus #{render ast[2]}"
         when 'Or' then "#{render ast[1]} \\vee #{render ast[2]}"
@@ -42,6 +46,7 @@ exports.render = render = (ast) ->
         when 'LessEqual' then "#{render ast[1]} \\le #{render ast[2]}"
         when 'Equal' then "#{render ast[1]} = #{render ast[2]}"
         when 'NotEqual' then "#{render ast[1]} \\ne #{render ast[2]}"
+        when 'RatioEqual' then "#{render ast[1]} \\ \\mathrm{as}\\ #{render ast[2]}"
         when 'GreaterEqual' then "#{render ast[1]} \\ge #{render ast[2]}"
         when 'Greater' then "#{render ast[1]} > #{render ast[2]}"
         when 'Subset' then "#{render ast[1]} \\subseteq #{render ast[2]}"
@@ -49,6 +54,8 @@ exports.render = render = (ast) ->
         when 'ProperSubset' then "#{render ast[1]} \\subset #{render ast[2]}"
         when 'ProperSuperset' then "#{render ast[1]} \\supset #{render ast[2]}"
         when 'Inclusion' then "#{render ast[1]} \\in #{render ast[2]}"
+        when 'Divides' then "#{render ast[1]} \\mid #{render ast[2]}"
+        when 'NotDivides' then "#{render ast[1]} \\nmid #{render ast[2]}"
 
         when 'Plus' then "#{render ast[1]} + #{render ast[2]}"
         when 'Minus' then "#{render ast[1]} - #{render ast[2]}"
@@ -57,12 +64,34 @@ exports.render = render = (ast) ->
         when 'Times'
             op = if implicitMultiplication(ast[1], LEFT) or implicitMultiplication(ast[2], RIGHT) then " \\, " else " \\cdot "
             (render ast[1]) + op + (render ast[2])
-        when 'Divide' then "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
+        when 'Divide'
+            if ast[3]
+                "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
+            else
+                "#{render ast[1]} / #{render ast[2]}"
+        when 'Ratio' then "#{render ast[1]} :: #{render ast[2]}"
         when 'Modulus' then "#{render ast[1]} \\pmod{#{render unwrap ast[2]}}"
-        when 'Exponent', 'Superscript' then "#{render ast[1]}^{#{render unwrap ast[2]}}"
-        when 'Subscript' then "#{render ast[1]}_{#{render unwrap ast[2]}}"
+        when 'Exponent' then "#{render ast[1]}^{#{render unwrap ast[2]}}"
+        when 'Superscript'
+            rhs = unwrap ast[2]
+            if rhs[0] is 'List'
+                elements = (render elem for elem in rhs[1])
+                sup = elements.join " ,\\, "
+            else
+                sup = render rhs
+            "{#{render ast[1]}^{#{sup}}}"
+        when 'Subscript'
+            rhs = unwrap ast[2]
+            if rhs[0] is 'List'
+                elements = (render elem for elem in rhs[1])
+                sub = elements.join " ,\\, "
+            else
+                sub = render rhs
+            "{#{render ast[1]}_{#{sub}}}"
         when 'DotProduct' then "#{render ast[1]} \\cdot #{render ast[2]}"
         when 'CrossProduct' then "#{render ast[1]} \\times #{render ast[2]}"
+        when 'WedgeProduct' then "#{render ast[1]} \\wedge #{render ast[2]}"
+        when 'TensorProduct' then "#{render ast[1]} \\otimes #{render ast[2]}"
         when 'Compose' then "#{render ast[1]} \\circ #{render ast[2]}"
         when 'Union' then "#{render ast[1]} \\cup #{render ast[2]}"
         when 'Intersection' then "#{render ast[1]} \\cap #{render ast[2]}"
@@ -74,7 +103,10 @@ exports.render = render = (ast) ->
         when 'NegPos' then "\\mp #{render ast[1]}"
         when 'Partial' then "\\partial #{render ast[1]}"
         when 'Differential' then "\\mathrm{d} #{render ast[1]}"
-        when 'Gradient' then "\\nabla #{render ast[1]}"
+        when 'Change' then "\\Delta #{render ast[1]}"
+        when 'Gradient' then "\\vec\\nabla #{render ast[1]}"
+        when 'Divergence' then "\\vec\\nabla \\cdot #{render ast[1]}"
+        when 'Curl' then "\\vec\\nabla \\times #{render ast[1]}"
         when 'Vectorizer'
             nextNode = unwrap ast[1], true
             if nextNode[0] is 'Variable' and nextNode[1].length is 1
@@ -122,13 +154,16 @@ exports.render = render = (ast) ->
             "\\left[ #{elements.join " ,\\, "} \\right]"
         when 'SetBuilder'
             preds = (render pred for pred in ast[2])
-            "\\left\\{ #{render ast[1]} ~#{if ast[3] then '|' else ':'}~ #{preds.join " ,\\, "} \\right\\}"
+            "\\left\\{ #{render ast[1]} ~:~ #{preds.join " ,\\, "} \\right\\}"
+        when 'Bra' then "\\left\\langle #{render ast[1]} \\right|"
+        when 'Ket' then "\\left| #{render ast[1]} \\right\\rangle"
+        when 'BraKet' then "\\left\\langle #{render ast[1]} \\mid #{render ast[2]} \\right\\rangle"
 
         when 'Function'
             args = (render arg for arg in ast[2])
             if ast[1][0] is 'Variable'
                 switch ast[1][1]
-                    when 'abs' then "\\left| #{render ast[2][0]}}"
+                    when 'abs' then "\\left| #{render ast[2][0]} \\right|"
                     when 'sqrt' then "\\sqrt{#{render ast[2][0]}}"
                     when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
                     when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'sinh', 'cosh', 'tanh', 'coth'
@@ -138,8 +173,18 @@ exports.render = render = (ast) ->
                     when 'int'
                         bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
-                    when 'diff' then "\\frac{\\mathrm{d}}{\\mathrm{d}#{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
-                    when 'pdiff' then "\\frac{\\partial}{\\partial #{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
+                    when 'diff'
+                        if ast[2][0][0] in ['Variable', 'Constant']
+                            "\\frac{\\mathrm{d}#{render ast[2][0]}}{\\mathrm{d}#{render ast[2][1]}}"
+                        else
+                            "\\frac{\\mathrm{d}}{\\mathrm{d}#{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
+                    when 'pdiff'
+                        if ast[2][0][0] in ['Variable', 'Constant']
+                            "\\frac{\\partial #{render ast[2][0]}}{\\partial #{render ast[2][1]}}"
+                        else
+                            "\\frac{\\partial}{\\partial #{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
+                    when 'grad', 'div', 'curl'
+                        "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
                     when 'log'
                         base = if ast[2].length == 2 then "_{#{render ast[2][1]}}" else ''
                         "\\log#{base}{\\left( #{render ast[2][0]} \\right)}"
@@ -154,6 +199,8 @@ exports.render = render = (ast) ->
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
                         "\\prod_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                    when 'Gamma'
+                        "\\Gamma{\\left( #{render ast[2][0]} \\right)}"
                     else "#{ast[1][1]} \\left( #{args} \\right)"
             else
                 "#{render ast[1]} \\left( #{args.join " ,\\, "} \\right)"
@@ -232,11 +279,11 @@ exports.render = render = (ast) ->
             when 'N' then "\\mathbb{N}"
             when 'U' then "\\mathbb{U}"
             when 'v0' then "\\vec{0}"
-            when 'vi' then "\\hat\\imath"
-            when 'vj' then "\\hat\\jmath"
-            when 'vk' then "\\hat{k}"
-            when '0' then "\\mathbb{O}"
-            when '1' then "\\mathbb{I}"
+            when 'vi', 'ui' then "\\hat\\imath"
+            when 'vj', 'uj' then "\\hat\\jmath"
+            when 'vk', 'uk' then "\\hat{k}"
+            when '0' then "\\mathbf{O}"
+            when '1' then "\\mathbf{I}"
             when 'empty' then "\\emptyset"
             else ast[1]
 

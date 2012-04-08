@@ -39,7 +39,8 @@ RESERVED = (str) ->
         when 'unique' then 'TQUnique'
         when '<->', 'iff' then 'TIff'
         when '->', 'implies' then 'TImplies'
-        when 'if', 'when', 'whenever' then 'TIf'
+        when '<-', 'if', 'when', 'whenever' then 'TIf'
+        when 'then' then 'TThen'
         when '&&', 'and' then 'TAnd'
         when '||', 'or' then 'TOr'
         when 'xor' then 'TXor'
@@ -51,6 +52,7 @@ RESERVED = (str) ->
         when '!==', '/==', 'nequiv' then 'TNotEquiv'
         when '=', '==' then 'TEqual'
         when '!=', '/=', '<>' then 'TNotEqual'
+        when 'as' then 'TRatioEqual'
         when '>=' then 'TGreaterEqual'
         when '>' then 'TGreater'
         when 'subset' then 'TSubset'
@@ -58,6 +60,11 @@ RESERVED = (str) ->
         when 'superset', 'supset' then 'TSuperset'
         when 'psuperset', 'psupset', 'propsuperset', 'propsupset', 'propersuperset', 'propersupset' then 'TPropSuperset'
         when 'in' then 'TIn'
+        when '|' then 'TPipe'
+        when 'divides' then 'TDivides'
+        when '!|', 'ndivides', 'notdivides', 'ndivide', 'notdivide' then 'TNotDivides'
+        
+        
         when 'union' then 'TUnion'
         when 'intersect' then 'TIntersect'
         when '\\' then 'TSetDiff'
@@ -66,22 +73,29 @@ RESERVED = (str) ->
         when '-' then 'TMinus'
         when '*' then 'TTimes'
         when '/' then 'TDivide'
+        when '&/' then 'TSlash'
+        when '::' then 'TRatio'
         when 'mod', '%' then 'TModulus'
         when '^', '**' then 'TExponent'
         when '&^' then 'TSuperscript'
         when '&_' then 'TSubscript'
         when '!' then 'TBang'
         when '\'' then 'TPrime'
+        when '.' then 'TDotDiff'
         when '@' then 'TCompose'
 
         when '&Re' then 'TReal'
         when '&Im' then 'TImaginary'
         when '&pd' then 'TPartial'
         when '&d' then 'TDifferential'
+        when '&D' then 'TChangeDelta'
         when '&del' then 'TGradient'
+        when '&del.' then 'TDivergence'
+        when '&delx' then 'TCurl'
         when '&x' then 'TCross'
-        when '.' then 'TDotDiff'
         when '&.' then 'TDot'
+        when '&w' then 'TWedge'
+        when '&ox' then 'TTensor'
         when '&v' then 'TVectorizer'
         when '&u' then 'TUnitVectorizer'
         when '&pm', '+/-' then 'TPlusMinus'
@@ -99,7 +113,6 @@ RESERVED = (str) ->
         when ':)' then 'TRRangeExclusive'
         when '|:' then 'TLPipe'
         when ':|' then 'TRPipe'
-        when '|' then 'TPipe'
         when '||:' then 'TLDoublePipe'
         when ':||' then 'TRDoublePipe'
         when '<:' then 'TLVector'
@@ -121,6 +134,7 @@ exports.Lexer = class Lexer
                     @numLiteral() or
                     @identifierOrKeywordToken() or
                     @constantToken() or
+                    @opOrSep(5) or
                     @opOrSep(4) or
                     @opOrSep(3) or
                     @opOrSep(2) or

@@ -9,7 +9,7 @@ module.exports.palettes = [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
-                        { content: '#i', label: 'i', tooltip: 'imaginary number' },
+                        { content: '#i', label: 'i', tooltip: 'imaginary unit' },
                         { content: 'infinity', label: '\\infty', tooltip: 'infinity' },
                         { content: 'true', label: '\\mathbf{T}', tooltip: 'true' },
                         { content: 'false', label: '\\mathbf{F}', tooltip: 'false' },
@@ -23,11 +23,11 @@ module.exports.palettes = [
                         { content: '#U', label: '\\mathbb{U}', tooltip: 'universal set' },
                         { content: '{}', label: '\\emptyset', tooltip: 'empty set' },
                         { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
-                        { content: '#vi', label: '\\hat\\imath', tooltip: 'i unit vector' },
-                        { content: '#vj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
-                        { content: '#vk', label: '\\hat{k}', tooltip: 'k unit vector' },
-                        { content: '#0', label: '\\mathbb{O}', tooltip: 'zero matrix' },
-                        { content: '#1', label: '\\mathbb{I}', tooltip: 'one matrix' }
+                        { content: '#ui', label: '\\hat\\imath', tooltip: 'i unit vector' },
+                        { content: '#uj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
+                        { content: '#uk', label: '\\hat{k}', tooltip: 'k unit vector' },
+                        { content: '#0', label: '\\mathbf{0}', tooltip: 'zero matrix' },
+                        { content: '#1', label: '\\mathbf{I}', tooltip: 'identity/one matrix' }
                     ]
                 ]
             },
@@ -45,12 +45,16 @@ module.exports.palettes = [
                         { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
                         { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
                         { content: '~', label: '\\neg', tooltip: 'logical negation' },
-                        { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
-                        { content: '&pd', label: '\\partial', tooltip: 'partial differential' },
                         { content: '\'', label: 'f\'', tooltip: 'prime derivative' },
                         { content: '.', label: '\\dot{x}', tooltip: 'dot derivative' },
+                        { content: '&D', label: '\\Delta', tooltip: 'coordinate difference' },
+                        { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
+                        { content: '&pd', label: '\\partial', tooltip: 'partial differential' },
                         { content: '&v', label: '\\vec{u}', tooltip: 'vector' },
-                        { content: '&u', label: '\\hat{u}', tooltip: 'unit vector' }
+                        { content: '&u', label: '\\hat{u}', tooltip: 'unit vector' },
+                        { content: '&del', label: '\\vec\\nabla', tooltip: 'gradient' },
+                        { content: '&del.', label: '\\vec\\nabla \\cdot', tooltip: 'divergence' },
+                        { content: '&delx', label: '\\vec\\nabla \\times', tooltip: 'curl' }
                     ]
                 ]
             },
@@ -68,6 +72,7 @@ module.exports.palettes = [
                         { content: '^', label: '{}^\\wedge', tooltip: 'exponent' },
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
                         { content: 'log(a,b)', label: '\\log_b{a}', tooltip: 'logarithm with base' },
+                        { content: '::', label: '::', tooltip: 'ratio' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
                         { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
@@ -79,10 +84,13 @@ module.exports.palettes = [
                         { content: '||', label: '\\vee', tooltip: 'logical or' },
                         { content: ' xor ', label: '\\oplus', tooltip: 'logical exclusive or' },
                         { content: '->', label: '\\rightarrow', tooltip: 'implication' },
+                        { content: '<-', label: '\\leftarrow', tooltip: 'implied by' },
                         { content: '<->', label: '\\leftrightarrow', tooltip: 'biconditional' },
                         { content: '@', label: '\\circ', tooltip: 'function composition' },
                         { content: '&.', label: '\\cdot', tooltip: 'dot product' },
-                        { content: '&x', label: '\\times', tooltip: 'cross product' }
+                        { content: '&x', label: '\\times', tooltip: 'cross product' },
+                        { content: '&w', label: '\\wedge', tooltip: 'wedge product' },
+                        { content: '&ox', label: '\\otimes', tooltip: 'tensor product' }
                     ]
                 ]
             },
@@ -93,10 +101,13 @@ module.exports.palettes = [
                     [
                         { content: '=', label: '=', tooltip: 'equal' },
                         { content: '!=', label: '\\ne', tooltip: 'not equal' },
+                        { content: ' as ', label: '\\mathrm{as}', tooltip: 'ratio equality' },
                         { content: '<', label: '<', tooltip: 'less than' },
                         { content: '>', label: '>', tooltip: 'greater than' },
                         { content: '<=', label: '\\le', tooltip: 'less than or equal' },
                         { content: '>=', label: '\\ge', tooltip: 'greater than or equal' },
+                        { content: '|', label: '\\mid', tooltip: 'divides' },
+                        { contetn: '!|', label: '\\nmid', tooltip: 'does not divide' },
                         { content: ' propsubset ', label: '\\subset', tooltip: 'proper subset' },
                         { content: ' propsuperset ', label: '\\supset ', tooltip: 'proper superset' },
                         { content: ' subset ', label: '\\subseteq', tooltip: 'subset' },
@@ -120,7 +131,10 @@ module.exports.palettes = [
                         { content: '||: :||', label: '\\|\\,\\|', tooltip: 'double vertical bars (norm / vector length)' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
                         { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
-                        { content: ':', label: ':', tooltip: 'such that' }
+                        { content: ':', label: ':', tooltip: 'such that' },
+                        { content: '<: | :>', label: '\\left\\langle\\,\\mid\\,\\right\\rangle', tooltip: 'bra-ket' },
+                        { content: '< |', label: '\\left\\langle\\,\\right|', tooltip: 'bra' },
+                        { content: '| >', label: '\\left|\\,\\right\\rangle', tooltip: 'ket' }
                     ]
                 ]
             },
@@ -175,15 +189,18 @@ module.exports.palettes = [
                 name: 'Functions',
                 buttonGroups: [
                     [
-                        { content: 'abs()', label: '|\,|', tooltip: 'absolute value' },
+                        { content: 'abs()', label: '|\\,|', tooltip: 'absolute value' },
                         { content: 'sqrt()', label: '\\sqrt{}', tooltip: 'square root' },
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
                         { content: 'exp()', label: '\\exp{}', tooltip: 'natural exponentiation' },
                         { content: 'ln()', label: '\\ln{}', tooltip: 'natural logarithm' },
                         { content: 'log(a,n)', label: '\\log_n{a}', tooltip: 'logarithm with base' },
-                        { content: 'lim(f,x,a)', label: '\\lim_{x\\to a} f', tooltip: 'limit' },
+                        { content: 'lim(f,x,a)', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
                         { content: 'diff(f,x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
                         { content: 'pdiff(f,x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
+                        { content: 'grad(f)', label: '\\mathrm{grad}{\\left( f \\right)}', tooltip: 'gradient' },
+                        { content: 'div(f)', label: '\\mathrm{div}{\\left( f \\right)}', tooltip: 'divergence' },
+                        { content: 'curl(f)', label: '\\mathrm{curl}{\\left( f \\right)}', tooltip: 'curl' },
                         { content: 'int(f,x)', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
                         { content: 'int(f,x,a,b)', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
                         { content: 'sum(f,i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
@@ -223,6 +240,8 @@ module.exports.palettes = [
                         { content: '|: :|', label: '|\\,|', tooltip: 'absolute value' },
                         { content: '!', label: '!', tooltip: 'factorial' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
+                        { content: '::', label: '::', tooltip: 'ratio' },
+                        { content: ' as ', label: '\\mathrm{as}', tooltip: 'ratio equality' },
                         { content: '=', label: '=', tooltip: 'equal' },
                         { content: '!=', label: '\\ne', tooltip: 'not equal' },
                         { content: '<', label: '<', tooltip: 'less than' },
@@ -267,11 +286,12 @@ module.exports.palettes = [
                         { content: '|: :|', label: '|\\,|', tooltip: 'vector length' },
                         { content: '||: :||', label: '\\|\\,\\|', tooltip: 'norm / vector length' },
                         { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
-                        { content: '#vi', label: '\\hat\\imath', tooltip: 'i unit vector' },
-                        { content: '#vj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
-                        { content: '#vk', label: '\\hat{k}', tooltip: 'k unit vector' },
+                        { content: '#ui', label: '\\hat\\imath', tooltip: 'i unit vector' },
+                        { content: '#uj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
+                        { content: '#uk', label: '\\hat{k}', tooltip: 'k unit vector' },
                         { content: '&.', label: '\\cdot', tooltip: 'dot product' },
-                        { content: '&x', label: '\\times', tooltip: 'cross product' }
+                        { content: '&x', label: '\\times', tooltip: 'cross product' },
+                        { content: '&w', label: '\\wedge', tooltip: 'wedge product' }
                     ]
                 ]
             },
@@ -318,6 +338,8 @@ module.exports.palettes = [
                         { content: '#Z', label: '\\mathbb{Z}', tooltip: 'integers' },
                         { content: '!', label: '!', tooltip: 'factorial' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
+                        { content: '|', label: '\\mid', tooltip: 'divides' },
+                        { content: '!|', label: '\\nmid', tooltip: 'does not divide' },
                         { content: 'sum(f,i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
                         { content: 'sum(f,i,a,b)', label: '\\sum_{i=a}^b f', tooltip: 'sum over range' },
                         { content: 'prod(f,i)', label: '\\prod_i f', tooltip: 'product over domain set' },
@@ -333,17 +355,20 @@ module.exports.palettes = [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
-                        { content: 'lim(f,x,a)', label: '\\lim_{x\\to a} f', tooltip: 'limit' },
+                        { content: 'lim(f,x,a)', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
                         { content: 'diff(f,x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
                         { content: 'pdiff(f,x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
                         { content: '\'', label: 'f\'', tooltip: 'prime derivative' },
                         { content: '.', label: '\\dot{x}', tooltip: 'dot derivative' },
-                        { content: 'sum(f(x&_i) Delta&_i,i,1,n)', label: '\\sum_{i=1}^n f(x_i) \\Delta_i', tooltip: 'finite sum' },
+                        { content: 'sum(f(x&_i)*Delta&_i,i,1,n)', label: '\\sum_{i=1}^n f(x_i) \\Delta_i', tooltip: 'finite sum' },
                         { content: 'int(f,x)', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
                         { content: 'int(f,x,a,b)', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
                         { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
                         { content: '&pd', label: '\\partial', tooltip: 'partial differential' },
                         { content: 'sum(a&_i,i,1,infinity)', label: '\\sum_{i=1}^\\infty a_i', tooltip: 'infinite series' },
+                        { content: '&del', label: '\\vec\\nabla', tooltip: 'gradient' },
+                        { content: '&del.', label: '\\vec\\nabla \\cdot', tooltip: 'divergence' },
+                        { content: '&delx', label: '\\vec\\nabla \\times', tooltip: 'curl' }
                     ]
                 ]
             },
@@ -402,12 +427,12 @@ module.exports.palettes = [
                     [
                         { content: '<: :>', label: '\\langle\\,\\rangle', tooltip: 'vector delimiter' },
                         { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
-                        { content: '#vi', label: '\\hat\\imath', tooltip: 'i unit vector' },
-                        { content: '#vj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
-                        { content: '#vk', label: '\\hat{k}', tooltip: 'k unit vector' },
+                        { content: '#ui', label: '\\hat\\imath', tooltip: 'i unit vector' },
+                        { content: '#uj', label: '\\hat\\jmath', tooltip: 'j unit vector' },
+                        { content: '#uk', label: '\\hat{k}', tooltip: 'k unit vector' },
                         { content: '[ ]', label: '[\\,]', tooltip: 'list/matrix delimiter' },
-                        { content: '#0', label: '\\mathbb{O}', tooltip: 'zero matrix' },
-                        { content: '#1', label: '\\mathbb{I}', tooltip: 'one matrix' }
+                        { content: '#0', label: '\\mathbf{0}', tooltip: 'zero matrix' },
+                        { content: '#1', label: '\\mathbf{I}', tooltip: 'identity/one matrix' }
                     ]
                 ]
             }

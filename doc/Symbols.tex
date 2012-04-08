@@ -56,12 +56,12 @@
       Empty Set & \( \emptyset \) & \texttt{\#empty}, \texttt{\{\}} & \\
       \hline
       Zero Vector & \( \vec0 \) & \texttt{\#v0} & \\
-      \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#vi} & \\
-      \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#vj} & \\
-      \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#vk} & \\
+      \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#ui}, \texttt{\#vi} & \\
+      \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#uj}, \texttt{\#vj} & \\
+      \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#uk}, \texttt{\#vk} & \\
       \hline
-      Zero Matrix & \( \mathbb{O} \) & \texttt{\#0} & Type ``zero''.\\
-      Unit Matrix & \( \mathbb{I} \) & \texttt{\#1} & Type ``one''.\\
+      Zero Matrix & \( \mathbf{0} \) & \texttt{\#0} & Type ``zero''.\\
+      Unit Matrix & \( \mathbf{I} \) & \texttt{\#1} & Identity Matrix, Type ``one''.\\
       \hline
     \end{tabular}
   \end{table}
@@ -90,14 +90,21 @@
       \hline
       Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable\\
       Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable\\
+      Change & \( \Delta x \) & \texttt{\&D x} & Coordinate Difference \\
       Differential & \( \mathrm{d}x \) & \texttt{\&d x} & \\
       Partial Differential & \( \partial x \) & \texttt{\&pd x} & \\
-      Vector & \( \vec{u} \) & \texttt{\&v u} & \\
-      Unit Vector & \( \hat{u} \) & \texttt{\&u u} & \\
+      Vector & \( \vec{a} \) & \texttt{\&v a} & \\
+      Unit Vector & \( \hat{a} \) & \texttt{\&u a} & \\
+      \hline
+      Gradient & \( \vec{\nabla} f \), \( \mathrm{grad}(f) \) & \texttt{\&del f}, \texttt{grad(f)} & \\
+      Divergence & \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \) & \texttt{\&del. f}, \texttt{div(f)} & \\
+      Curl & \( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \) & \texttt{\&delx f}, \texttt{curl(f)} & \\
       \hline
     \end{tabular}
   \end{table}
   % subsection unary_ops (end)
+  
+  \newpage
 
   \subsection{Binary Operators} % (fold)
   \label{sub:binary_ops}
@@ -113,34 +120,44 @@
       Plus/Minus & \( a \pm b \) & \texttt{a \&pm b, a+/-b} & \\
       Minus/Plus & \( a \mp b \) & \texttt{a \&mp b, a-/+b} & \\
       Times & \( a \cdot b \) & \texttt{a*b} & Multiplication \\
-      Divide & \( \dfrac{a}{b} \) & \texttt{a/b} & Division \\
+      Divide & \( \dfrac{a}{b} \), \( a/b \) & \texttt{a/b}, \texttt{a \&/ b} & Division \\
       Power & \( a^b \) & \texttt{a\^{}b}, \texttt{a**b} & Exponentiation \\
       \( n \)-th Root & \( \sqrt[n]{a} \) & \texttt{root(a, n)} & \\
       Logarithm with Base & \( \log_b{a} \) & \texttt{log(a, b)} & \\
+      Ratio & \( p :: q \) & \texttt{p::q} & \\
       Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
       \hline
       Subscript & \( a_b \) & \texttt{a \&\_ b} & Indexing \\
+      Multiple Subscript & \( a_{i,j,k} \) & \texttt{a \&\_ [i,j,k]} & \\
       Superscript & \( a^b \) & \texttt{a \&\^{} b} & Indexing \\
+      Multiple Superscript & \( a^{i,j,k} \) & \texttt{a \&\^{} [i,j,k]} & \\
       \hline
       Set Union & \( a \cup b \) & \texttt{a union b} & \\
       Set Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
       Set Difference & \( a \setminus b \) & \texttt{a \textbackslash \ b} & \\
-      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p:q, p|q} & Used with set builder and quantifiers \\
+      Such That & \( p : q \) & \texttt{p:q} & Used with set builder and quantifiers \\
       \hline
       Conjunction & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Logical AND \\
       Disjunction & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Logical OR \\
       Exclusion & \( p \oplus q \) & \texttt{p xor q} & Logical XOR \\
       Conditional & \( p \rightarrow q \) & 
         \begin{tabular}{c}
-          \texttt{p implies q}, \texttt{p -> q}, \texttt{q if p}, \\
-          \texttt{q when p}, \texttt{q whenever p}
+          \texttt{p implies q}, \texttt{p -> q}, \\
+          \texttt{if p then q}
         \end{tabular} & \\
+      Reverse Cond. & \( q \leftarrow p \) &
+        \begin{tabular}{c}
+          \texttt{q if p}, \texttt{q when p}, \\
+          \texttt{q whenever p}
+        \end{tabular} & ``Implied by'' \\
       Biconditional & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & \\
       \hline
       Function Composition & \( f \circ g \) & \texttt{f @ g} & \\
       \hline
       Dot Product & \( \vec{a} \cdot \vec{b} \) & \texttt{\&v a \&. \&v b} & \\
       Cross Product & \( \vec{a} \times \vec{b} \) & \texttt{\&v a \&x \&v b} & \\
+      Wedge Product & \( \vec{a} \wedge \vec{b} \) & \texttt{\&v a \&w \&v b} & \\
+      Tensor Product & \( T \otimes S \) & \texttt{T \&ox S} & \\
       \hline
     \end{tabular}
   \end{table}
@@ -159,10 +176,18 @@
 
       Equal & \( = \) & \texttt{=}, \texttt{==} & \\
       Not Equal & \( \ne \) & \texttt{!=}, \texttt{/=}, \texttt{<>} & \\
+      Ratio Equality & \( \mathrm{as} \) & \texttt{as} & \\
       Less than & \( < \) & \texttt{<} & \\
       Greater than & \( > \) & \texttt{>} & \\
       Less than or Equal & \( \le \) & \texttt{<=} & \\
       Greater than or Equal & \( \ge \) & \texttt{>=} & \\
+      \hline
+      Divides & \( p \mid q \) & \texttt{p|q}, \texttt{p divides q} & \\
+      Not Divides & \( p \nmid q \) & 
+        \begin{tabular}{c}
+          \texttt{p!|q}, \texttt{p ndivides q}, \texttt{p ndivide q} \\
+          \texttt{p notdivides q}, \texttt{p notdivide q}
+        \end{tabular} & \\
       \hline
       Subset & \( \subseteq \) & \texttt{subset} & \\
       Superset & \( \supseteq \) & \texttt{superset, supset} & \\
@@ -198,12 +223,18 @@
       Double Bars & \( \left\| \ \right\| \) & \texttt{|| ||}, \texttt{||: :||} & Length, Norm \\
       \hline
       Subscript & \( a_b \) & \texttt{a \&\_ b} & Indexing \\
+      Multiple Subscript & \( a_{i,j,k} \) & \texttt{a \&\_ [i,j,k]} & \\
       Superscript & \( a^b \) & \texttt{a \&\^{} b} & Indexing \\
-      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p:q}, \texttt{p|q} & Used with set builder and quantifiers \\
+      Multiple Superscript & \( a^{i,j,k} \) & \texttt{a \&\^{} [i,j,k]} & \\
+      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p:q} & Used with set builder and quantifiers \\
       \hline
       Open Interval & \( \left( a,b \right) \) & \texttt{(:a,b:)} & Exclusive Range Delimiters \\
       Closed Interval & \( \left[ a,b \right] \) & \texttt{[:a,b:]} & Inclusive Range Delimiters \\
       Half-Open Interval & \( \left[ a,b \right) \) & \texttt{[:a,b:)} & Mixed Range Delimiters \\
+      \hline
+      Bra-Ket Notation & \( \left\langle A \mid B \right\rangle \) & \texttt{<A||B>}, \texttt{<:A|B:>} & \\
+      Bra & \( \left\langle A \right| \) & \texttt{<A|} & \\
+      Ket & \( \left| A \right\rangle \) & \texttt{|A>} & \\
       \hline
     \end{tabular}
   \end{table}
@@ -287,7 +318,7 @@
       Plus/Minus & \( \pm \) & \texttt{\&pm, +/-} & binary or unary\\
       Minus/Plus & \( \mp \) & \texttt{\&mp, -/+} & binary or unary\\
       Times & \( \cdot \) & \texttt{*} & \\
-      Divide & \( / \) & \texttt{/} & \\
+      Divide & \( / \) & \texttt{/}, \texttt{\&/} & \\
       Power & \( a^b \) & \texttt{a\^{}b} & \\
       Square Root & \( \sqrt{a} \) & \texttt{sqrt(a)} & \\
       n-th Root & \( \sqrt[n]{a} \) & \texttt{root(a,n)} & \\
@@ -297,6 +328,9 @@
       Absolute Value & \( \left| a \right| \) & \texttt{abs(a)} & \\
       Factorial & \( ! \) & \texttt{!} & \\
       Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
+      \hline
+      Ratio & \( p::q \) & \texttt{p::q} & \\
+      Ratio Equality & \( p::q ~\mathrm{as}~ r::s \) & \texttt{p::q as r::s} & \\
       \hline
       Equal & \( = \) & \texttt{=}, \texttt{==} & \\
       Not Equal & \( \ne \) & \texttt{!=}, \texttt{/=}, \texttt{<>} & \\
@@ -367,11 +401,12 @@
           \texttt{||\&v a||}, \texttt{||:\&v a:||}
         \end{tabular} & \\[2pt]
       Zero Vector & \( \vec0 \) & \texttt{\#v0} & \\
-      \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#vi} & \\
-      \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#vj} & \\
-      \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#vk} & \\
+      \( x \) Unit Vector & \( \hat\imath \) & \texttt{\#ui}, \texttt{\#vi} & \\
+      \( y \) Unit Vector & \( \hat\jmath \) & \texttt{\#uj}, \texttt{\#vj} & \\
+      \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#uk}, \texttt{\#vk} & \\
       Dot Product & \( \vec{a} \cdot \vec{b} \) & \texttt{\&v a \&. \&v b} & \\
       Cross Product & \( \vec{a} \times \vec{b} \) & \texttt{\&v a \&x \&v b} & \\
+      Wedge Product & \( \vec{a} \wedge \vec{b} \) & \texttt{\&v a \&w \&v b} & \\
       \hline
     \end{tabular}
   \end{table}
@@ -408,6 +443,9 @@
       Factorial & \( ! \) & \texttt{!} & \\
       Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
       \hline
+      Divides & \( p \mid q \) & \texttt{p|q} & \\
+      Not Divides & \( p \nmid q \) & \texttt{p!|q} & \\
+      \hline
       Sum Over Set & \( \displaystyle \sum_{i \in S} a_i \) & \texttt{sum(a\&\_i, i in S)} & \\[8pt]
       Sum Over Range & \( \displaystyle \sum_{i=a}^b a_i \) & \texttt{sum(a\&\_i,i,a,b)} & \\[8pt]
       Product Over Set & \( \displaystyle \prod_{i \in S} a_i \) &
@@ -441,23 +479,30 @@
       \hline
       Limit & \( \displaystyle\lim_{x\to a} f(x) \) &
         \begin{tabular}{c}
-          \texttt{lim(f(x), a, x)} \\
+          \texttt{lim(f(x), x, a)} \\
           \texttt{limit(f(x), x, a)}
         \end{tabular} &  \\
       Derivative & \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \) & \texttt{diff(f(x), x)} & \\[8pt]
       Partial Derivative & \( \displaystyle \frac{\partial}{\partial x} \left( f(x,y) \right) \) & \texttt{pdiff(f(x,y), x)} & \\
-      Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable\\
-      Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable\\
+      Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable \\
+      Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable \\
       Finite Sum & \( \displaystyle \sum_{i=1}^n f(x_i) \Delta_i  \) & \texttt{sum(f(x\&\_i)*Delta\&\_i,i,1,n)} & \\[8pt]
       Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x)} & \\[8pt]
       Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x,a,b)} & \\[4pt]
+      Change & \( \Delta x \) & \texttt{\&D x} & Coordinate Difference \\
       Differential & \( \mathrm{d}x \) & \texttt{\&d x} & \\
       Partial Differential & \( \partial x \) & \texttt{\&pd x} & \\
       Infinite Series & \( \displaystyle \sum_{i=1}^\infty a_i \) & \texttt{sum(a\&\_i,i,1,infinity)} & \\[4pt]
       \hline
+      Gradient & \( \vec{\nabla} f \), \( \mathrm{grad}(f) \) & \texttt{\&del f}, \texttt{grad(f)} & \\
+      Divergence & \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \) & \texttt{\&del. f}, \texttt{div(f)} & \\
+      Curl & \( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \) & \texttt{\&delx f}, \texttt{curl(f)} & \\
+      \hline
     \end{tabular}
   \end{table}
   % subsection Calculus (end)
+  
+  \newpage
 
   \subsection{Set Theory} % (fold)
   \label{sub:settheory}
@@ -468,7 +513,7 @@
       \textbf{Name} & \textbf{Symbol} & \textbf{Code} & \textbf{Description} \\
       \hline\hline
       Set Delimiters & \( \left\{ \ \right\} \) & \texttt{\{ \}} & \\
-      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p:q}, \texttt{p|q} & \\
+      Such That & \( p : q \) & \texttt{p:q} & \\
       \hline
       Universal Set & \( \mathbb{U} \) & \texttt{\#U} & \\
       Empty Set & \( \emptyset \) & \texttt{\#empty}, \texttt{\{\}} & \\
@@ -499,8 +544,6 @@
     \end{tabular}
   \end{table}
   % subsection Set Theory (end)
-
-  \newpage
 
   \subsection{Logic} % (fold)
   \label{sub:logic}
@@ -533,6 +576,8 @@
     \end{tabular}
   \end{table}
   % subsection Logic (end)
+  
+  \newpage
 
   \subsection{Linear Algebra} % (fold)
   \label{sub:linearalgebra}
@@ -549,8 +594,8 @@
       \( z \) Unit Vector & \( \hat{k} \) & \texttt{\#vk} & \\
       \hline
       Matrix Delimiters & \( \left[ \ \right] \) & \texttt{[ ]} & \\
-      Zero Matrix & \( \mathbb{O} \) & \texttt{\#0} & Type ``zero''.\\
-      Unit Matrix & \( \mathbb{I} \) & \texttt{\#1} & Type ``one''.\\
+      Zero Matrix & \( \mathbf{0} \) & \texttt{\#0} & Type ``zero''.\\
+      Unit Matrix & \( \mathbf{I} \) & \texttt{\#1} & Identity Matrix, Type ``one''.\\
       \hline
     \end{tabular}
   \end{table}
