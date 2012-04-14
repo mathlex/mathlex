@@ -41,6 +41,7 @@ grammar =
         o 'logical TXor logical',                       -> ['Xor', $1, $3]
         o 'logical TAnd logical',                       -> ['And', $1, $3]
         o 'TNot logical',                               -> ['Not', $2]
+        o 'TTilde logical',                             (-> ['Not', $2]), prec: 'TNot'
         o 'TBang logical',                              -> ['Not', $2]
     ]
 
@@ -65,6 +66,9 @@ grammar =
         o 'algebraic TEqual algebraic',         -> ['Equal', $1, $3]
         o 'algebraic TNotEqual algebraic',      -> ['NotEqual', $1, $3]
         o 'ratio TRatioEqual ratio',            -> ['RatioEqual', $1, $3]
+        o 'algebraic TCongruent algebraic',     -> ['Congruent', $1, $3]
+        o 'algebraic TSimilar algebraic',       -> ['Similar', $1, $3]
+        o 'algebraic TTilde algebraic',         -> ['Similar', $1, $3]
         o 'algebraic TLess algebraic',          -> ['Less', $1, $3]
         o 'algebraic TLessEqual algebraic',     -> ['LessEqual', $1, $3]
         o 'algebraic TGreaterEqual algebraic',  -> ['GreaterEqual', $1, $3]
@@ -191,7 +195,7 @@ operators = [
     ['left', 'TUnion']
     ['left', 'TSetDiff']
     ['left', 'TPlusMinus', 'TMinusPlus', 'TPlus', 'TMinus']
-    ['nonassoc', 'TEqual', 'TNotEqual']
+    ['nonassoc', 'TEqual', 'TNotEqual', 'TTilde', 'TSimilar', 'TCongruent']
     ['left', 'TAnd']
     ['left', 'TXor']
     ['left', 'TOr']

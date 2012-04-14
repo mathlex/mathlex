@@ -40,7 +40,10 @@
             {{/palettes}}
         </div>
         
-        <input type="text" name="math" id="math_input" placeholder="Enter a mathematical expression..." />
+        <div class="input-wrapper">
+            <a class="delete-icon" href="#" title="clear">clear</a>
+            <textarea name="math" id="math_input" class="expand" placeholder="Enter a mathematical expression..."></textarea>
+        </div>
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
         <div id="tex_output"><code>Raw LaTeX Output</code></div>
         <div id="ast_output"><code>Parse Tree</code></div>
@@ -135,43 +138,13 @@
     <!-- Attempt to load jQuery from Google CDN; fall back to local if offline -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>');</script>
+    <script src="js/jquery.textarea-expander.js"></script>
+    <script src="js/cursor.js"></script>
 
     <script>
-        function insertAtCursor(fieldElement, text) {
-            var scrollPos = fieldElement.scrollTop,
-                strPos = 0,
-                br = (fieldElement.selectionStart || fieldElement.selectionStart == '0') ? "ff" : (document.selection ? "ie" : false),
-                range, front, back
-            
-            if (br == "ie") { 
-                fieldElement.focus();
-                range = document.selection.createRange();
-                range.moveStart('character', -fieldElement.value.length);
-                strPos = range.text.length;
-            } else if (br == "ff") {
-                strPos = fieldElement.selectionStart;
-            }
+        // if this is changed here, don't forget to change it in palettes.js
+        var CURSOR_ID = '{%-CURSOR-%}'
         
-            front = fieldElement.value.substring(0, strPos);  
-            back = fieldElement.value.substring(strPos, fieldElement.value.length); 
-            fieldElement.value = front+text+back;
-            strPos = strPos + text.length;
-        
-            if (br == "ie") { 
-                fieldElement.focus();
-                range = document.selection.createRange();
-                range.moveStart('character', -fieldElement.value.length);
-                range.moveStart('character', strPos);
-                range.moveEnd('character', 0);
-                range.select();
-            } else if (br == "ff") {
-                fieldElement.selectionStart = strPos;
-                fieldElement.selectionEnd = strPos;
-                fieldElement.focus();
-            }
-            fieldElement.scrollTop = scrollPos;
-        }
-    
         $(document).ready(function() {
             var mathInput  = $('#math_input'),
                 mathOutput = $('#math_output'),
@@ -202,14 +175,14 @@
                         rawOutput.html('<code>Raw LaTeX Output</code>');
                         astOutput.html('<code>Parse Tree<\/code');
                     }
-                } catch (e) {
+                } catch (err) {
                     // if we encounter a parse error, change color of output box
                     mathOutput.css({'color': '#f00'});
-                    console.log(e.message);
+                    console.log(err.message);
                 }
             }
 
-            $('code.math a').click(function(e) {
+            $('code.math a').click(function(evt) {
                 var math = $(this).text();
                 mathInput.val(math);
                 updateMath(math);
@@ -217,18 +190,25 @@
 
             // keyup event binding to input text box
             mathInput
-                .keyup(function(e) {
+                .live('keyup', function(evt) {
                     updateMath($(this).val());
                 })
                 .val('')
                 .focus()
             ;
+
+            // clear button
+            $('a.delete-icon').live('click', function(evt) {
+                evt.preventDefault();
+                mathInput.val('');
+                updateMath('');
+            })
             
             
             // toolbars
             $('.toolbars .ribbon .tabs a')
-                .click(function(e) {
-                    e.preventDefault();
+                .click(function(evt) {
+                    evt.preventDefault();
                     $(this).toggleClass('open').parent().siblings(this.dataset['target'])
                         .toggleClass('open')
                         .slideToggle(200)
@@ -237,9 +217,22 @@
             ;
             
             $('.toolbar a[data-content]')
-                .click(function(e) {
-                    e.preventDefault();
-                    insertAtCursor(document.getElementById('math_input'), this.dataset['content'])
+                .click(function(evt) {
+                    evt.preventDefault();
+
+                    var element = document.getElementById('math_input'),
+                        math = this.dataset['content'],
+                        cursorOffset, insertPos;
+
+                    // is there a cursor position?
+                    cursorOffset = math.indexOf(CURSOR_ID)
+                    math = math.replace(CURSOR_ID, '');
+
+                    insertPos = insertAtCursor(element, math, false);
+
+                    if (cursorOffset <= 0) cursorOffset = math.length;
+                    setCursorPosition(element, insertPos + cursorOffset);
+
                     updateMath(mathInput.val());
                 })
             ;

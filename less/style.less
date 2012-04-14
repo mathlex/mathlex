@@ -12,6 +12,14 @@
                         inset @ix @iy @ib @ic;
 }
 
+.box-sizing(@sizing) {
+    -webkit-box-sizing: @sizing;
+       -moz-box-sizing: @sizing;
+        -ms-box-sizing: @sizing;
+         -o-box-sizing: @sizing;
+            box-sizing: @sizing;
+}
+
 .border-radius(@r) {
 /*    -webkit-border-radius: @r; 
        -moz-border-radius: @r; 
@@ -162,16 +170,32 @@ pre {
 #math_input, #ast_output, #tex_output {
     .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
     .border-radius(3px);
+}
+
+.input-wrapper {
+    position: relative;
     margin: 20px 0;
+
+    a.delete-icon {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        width: 16px;
+        height: 16px;
+        text-indent: -9999px;
+        background: url(../images/delete.png) no-repeat 50% 50%;
+        opacity: 0.5;
+    }
 }
 
 #math_input {
     .monospaced();
+    .box-sizing(border-box);
     border: 1px solid #999;
     width: 100%;
     font-size: 18px;
-    padding: 3px 0;
-    text-indent: 3px;
+    line-height: 1.2em;
+    padding: 4px 20px 4px 4px;
 }
 
 
@@ -188,6 +212,7 @@ pre {
     padding: 5px;
     line-height: normal;
     background: #ddd;
+    margin: 20px 0;
 }
 
 footer {

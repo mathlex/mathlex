@@ -12,8 +12,8 @@
 \begin{document}
   \title{List of Symbols\thanks{Supported in part by NSF DUE CCLI/TUES Grants 0737248 / 1123255.}\\
   AMS Regional Meeting, Lawrence, KS}
-  \author{Matthew J. Barry  <komputerwiz.matt@gmail.com> \\
-          Philip B. Yasskin <yasskin@math.tamu.edu>\\
+  \author{Matthew J.~Barry  <komputerwiz.matt@gmail.com> \\
+          Philip B.~Yasskin <yasskin@math.tamu.edu>\\
           Department of Mathematics, Texas A\&M University}
   \date{March 31, 2012}
   \maketitle
@@ -86,7 +86,7 @@
       Factorial & \( n! \) & \texttt{n!} & \\
       Natural Exponential & \( \exp(a) \) & \texttt{exp(a)} & \\
       Natural Logarithm & \( \ln(a) \) & \texttt{ln(a)} & \\
-      Logical Negation & \( \neg p \) & \texttt{not p, \~{}p, !p} & \\
+      Not & \( \neg p \) & \texttt{not p, \~{}p, !p} & Logical Negation \\
       \hline
       Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable\\
       Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable\\
@@ -97,7 +97,7 @@
       Unit Vector & \( \hat{a} \) & \texttt{\&u a} & \\
       \hline
       Gradient & \( \vec{\nabla} f \), \( \mathrm{grad}(f) \) & \texttt{\&del f}, \texttt{grad(f)} & \\
-      Divergence & \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \) & \texttt{\&del. f}, \texttt{div(f)} & \\
+      Divergence & \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \) & \texttt{\&del.~f}, \texttt{div(f)} & \\
       Curl & \( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \) & \texttt{\&delx f}, \texttt{curl(f)} & \\
       \hline
     \end{tabular}
@@ -120,7 +120,7 @@
       Plus/Minus & \( a \pm b \) & \texttt{a \&pm b, a+/-b} & \\
       Minus/Plus & \( a \mp b \) & \texttt{a \&mp b, a-/+b} & \\
       Times & \( a \cdot b \) & \texttt{a*b} & Multiplication \\
-      Divide & \( \dfrac{a}{b} \), \( a/b \) & \texttt{a/b}, \texttt{a \&/ b} & Division \\
+      Divided by & \( \dfrac{a}{b} \), \( a/b \) & \texttt{a/b}, \texttt{a \&/ b} & Division \\
       Power & \( a^b \) & \texttt{a\^{}b}, \texttt{a**b} & Exponentiation \\
       \( n \)-th Root & \( \sqrt[n]{a} \) & \texttt{root(a, n)} & \\
       Logarithm with Base & \( \log_b{a} \) & \texttt{log(a, b)} & \\
@@ -132,29 +132,29 @@
       Superscript & \( a^b \) & \texttt{a \&\^{} b} & Indexing \\
       Multiple Superscript & \( a^{i,j,k} \) & \texttt{a \&\^{} [i,j,k]} & \\
       \hline
-      Set Union & \( a \cup b \) & \texttt{a union b} & \\
-      Set Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
+      Union & \( a \cup b \) & \texttt{a union b} & \\
+      Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
       Set Difference & \( a \setminus b \) & \texttt{a \textbackslash \ b} & \\
       Such That & \( p : q \) & \texttt{p:q} & Used with set builder and quantifiers \\
       \hline
-      Conjunction & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Logical AND \\
-      Disjunction & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Logical OR \\
-      Exclusion & \( p \oplus q \) & \texttt{p xor q} & Logical XOR \\
-      Conditional & \( p \rightarrow q \) & 
+      And & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Conjunction \\
+      Or & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Disjunction \\
+      Exclusive Or & \( p \oplus q \) & \texttt{p xor q} & Exclusion \\
+      Implies & \( p \rightarrow q \) & 
         \begin{tabular}{c}
           \texttt{p implies q}, \texttt{p -> q}, \\
           \texttt{if p then q}
-        \end{tabular} & \\
-      Reverse Cond. & \( q \leftarrow p \) &
+        \end{tabular} & Conditional \\
+      Implied By & \( q \leftarrow p \) &
         \begin{tabular}{c}
           \texttt{q if p}, \texttt{q when p}, \\
-          \texttt{q whenever p}
-        \end{tabular} & ``Implied by'' \\
-      Biconditional & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & \\
+          \texttt{q whenever p}, \texttt{q <- p}
+        \end{tabular} & Reverse Conditional \\
+      If And Only If & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & Biconditional \\
       \hline
       Function Composition & \( f \circ g \) & \texttt{f @ g} & \\
       \hline
-      Dot Product & \( \vec{a} \cdot \vec{b} \) & \texttt{\&v a \&. \&v b} & \\
+      Dot Product & \( \vec{a} \cdot \vec{b} \) & \texttt{\&v a \&.~\&v b} & \\
       Cross Product & \( \vec{a} \times \vec{b} \) & \texttt{\&v a \&x \&v b} & \\
       Wedge Product & \( \vec{a} \wedge \vec{b} \) & \texttt{\&v a \&w \&v b} & \\
       Tensor Product & \( T \otimes S \) & \texttt{T \&ox S} & \\
@@ -176,7 +176,6 @@
 
       Equal & \( = \) & \texttt{=}, \texttt{==} & \\
       Not Equal & \( \ne \) & \texttt{!=}, \texttt{/=}, \texttt{<>} & \\
-      Ratio Equality & \( \mathrm{as} \) & \texttt{as} & \\
       Less than & \( < \) & \texttt{<} & \\
       Greater than & \( > \) & \texttt{>} & \\
       Less than or Equal & \( \le \) & \texttt{<=} & \\
@@ -188,6 +187,7 @@
           \texttt{p!|q}, \texttt{p ndivides q}, \texttt{p ndivide q} \\
           \texttt{p notdivides q}, \texttt{p notdivide q}
         \end{tabular} & \\
+      Ratio Equality & \( \mathrm{as} \) & \texttt{as} & \\
       \hline
       Subset & \( \subseteq \) & \texttt{subset} & \\
       Superset & \( \supseteq \) & \texttt{superset, supset} & \\
@@ -200,6 +200,8 @@
         \end{tabular} &  \\
       Inclusion & \( \in \) & \texttt{in} & \\
       \hline
+      Congruent & \( \cong \) & \texttt{~=}, \texttt{congruent} & \\
+      Similar & \( \sim \) & \texttt{~}, \texttt{sim}, \texttt{similar} & \\
       Equivalent & \( \equiv \) & \texttt{===}, \texttt{equiv} & \\
       Not Equivalent & \( \not\equiv \) & \texttt{!==}, \texttt{/==}, \texttt{nequiv} & \\
       \hline
@@ -239,8 +241,8 @@
     \end{tabular}
   \end{table}
   Note that some delimiters have more than one format either with or without colons. Namely, absolute value can be
-  written as \texttt{| ... |} or \texttt{|: ... :|}, norm can be written as \texttt{|| ... ||} or \texttt{||: ... :||},
-  and vector literals can be surrounded by either \texttt{< ... >} or \texttt{<: ... :>}. Of the listed alternate
+  written as \texttt{| ...~|} or \texttt{|: ...~:|}, norm can be written as \texttt{|| ...~||} or \texttt{||: ...~:||},
+  and vector literals can be surrounded by either \texttt{< ...~>} or \texttt{<: ...~:>}. Of the listed alternate
   delimiters, those without colons are \emph{context-aware} in that they have different meanings and therefore cannot be automatically
   matched by the Lexer. Additionally, if an expression opened with one type of delimiter, it must be closed with the
   same type (i.e. context-aware vs. specialized).
@@ -318,7 +320,7 @@
       Plus/Minus & \( \pm \) & \texttt{\&pm, +/-} & binary or unary\\
       Minus/Plus & \( \mp \) & \texttt{\&mp, -/+} & binary or unary\\
       Times & \( \cdot \) & \texttt{*} & \\
-      Divide & \( / \) & \texttt{/}, \texttt{\&/} & \\
+      Divided by & \( / \) & \texttt{/}, \texttt{\&/} & \\
       Power & \( a^b \) & \texttt{a\^{}b} & \\
       Square Root & \( \sqrt{a} \) & \texttt{sqrt(a)} & \\
       n-th Root & \( \sqrt[n]{a} \) & \texttt{root(a,n)} & \\
@@ -391,6 +393,9 @@
       Open Interval & \( \left( a,b \right) \) & \texttt{(:a,b:)} & Exclusive Range Delimiters \\
       Closed Interval & \( \left[ a,b \right] \) & \texttt{[:a,b:]} & Inclusive Range Delimiters \\
       Half-Open Intervals & \( \left[ a,b \right) \) & \texttt{[:a,b:)} & Mixed Range Delimiters \\
+      \hline
+      Congruent & \( \cong \) & \texttt{~=}, \texttt{congruent} & \\
+      Similar & \( \sim \) & \texttt{~}, \texttt{sim}, \texttt{similar} & \\
       \hline
       Vector Components & \( \left\langle a,b,c \right\rangle \) & \texttt{<a,b,c>}, \texttt{<:a,b,c:>} & \\
       Vector & \( \vec{a} \) & \texttt{\&v a} & \\
@@ -495,7 +500,7 @@
       Infinite Series & \( \displaystyle \sum_{i=1}^\infty a_i \) & \texttt{sum(a\&\_i,i,1,infinity)} & \\[4pt]
       \hline
       Gradient & \( \vec{\nabla} f \), \( \mathrm{grad}(f) \) & \texttt{\&del f}, \texttt{grad(f)} & \\
-      Divergence & \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \) & \texttt{\&del. f}, \texttt{div(f)} & \\
+      Divergence & \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \) & \texttt{\&del.~f}, \texttt{div(f)} & \\
       Curl & \( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \) & \texttt{\&delx f}, \texttt{curl(f)} & \\
       \hline
     \end{tabular}
@@ -537,8 +542,8 @@
         \end{tabular} &  \\
       Inclusion & \( \in \) & \texttt{in} & \\
       \hline
-      Set Union & \( a \cup b \) & \texttt{a union b} & \\
-      Set Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
+      Union & \( a \cup b \) & \texttt{a union b} & \\
+      Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
       Set Difference & \( a \setminus b \) & \texttt{a \textbackslash \ b} & \\
       \hline
     \end{tabular}
@@ -556,16 +561,21 @@
       True & \( \mathbf{T} \) & \texttt{\#T}, \texttt{\#t}, \texttt{\#true}, \texttt{true} & \\
       False & \( \mathbf{F} \) & \texttt{\#F}, \texttt{\#f}, \texttt{\#false}, \texttt{false} & \\
       \hline
-      Conjunction & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Logical AND \\
-      Disjunction & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Logical OR \\
-      Exclusion & \( p \oplus q \) & \texttt{p xor q} & Logical XOR \\
-      Logical Negation & \( \neg p \) & \texttt{not p, \~{}p, !p} & \\
-      Conditional & \( p \rightarrow q \) & 
+      And & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Conjunction \\
+      Or & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Disjunction \\
+      Exclusive Or & \( p \oplus q \) & \texttt{p xor q} & Exclusion \\
+      Not & \( \neg p \) & \texttt{not p, \~{}p, !p} & Logical Negation \\
+      Implies & \( p \rightarrow q \) & 
         \begin{tabular}{c}
-          \texttt{p implies q}, \texttt{p -> q}, \texttt{q if p}, \\
-          \texttt{q when p}, \texttt{q whenever p}
-        \end{tabular} & \\
-      Biconditional & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & \\
+          \texttt{p implies q}, \texttt{p -> q}, \\
+          \texttt{if p then q}
+        \end{tabular} & Conditional \\
+      Implied By & \( q \leftarrow p \) &
+        \begin{tabular}{c}
+          \texttt{q if p}, \texttt{q when p}, \\
+          \texttt{q whenever p}, \texttt{q <- p}
+        \end{tabular} & Reverse Conditional \\
+      If And Only If & \( p \leftrightarrow q \) & \texttt{p iff q}, \texttt{p <-> q} & Biconditional \\
       Equivalent & \( \equiv \) & \texttt{===}, \texttt{equiv} & \\
       Not Equivalent & \( \not\equiv \) & \texttt{!==}, \texttt{/==}, \texttt{nequiv} & \\
       \hline

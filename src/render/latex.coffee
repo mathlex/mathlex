@@ -47,6 +47,8 @@ exports.render = render = (ast) ->
         when 'Equal' then "#{render ast[1]} = #{render ast[2]}"
         when 'NotEqual' then "#{render ast[1]} \\ne #{render ast[2]}"
         when 'RatioEqual' then "#{render ast[1]} \\ \\mathrm{as}\\ #{render ast[2]}"
+        when 'Congruent' then "#{render ast[1]} \\cong #{render ast[2]}"
+        when 'Similar' then "#{render ast[1]} \\sim #{render ast[2]}"
         when 'GreaterEqual' then "#{render ast[1]} \\ge #{render ast[2]}"
         when 'Greater' then "#{render ast[1]} > #{render ast[2]}"
         when 'Subset' then "#{render ast[1]} \\subseteq #{render ast[2]}"
