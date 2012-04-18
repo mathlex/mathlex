@@ -32,7 +32,6 @@ grammar =
 
     logical: [
         o 'quantification'
-        o 'relation'
         o 'logical TIff logical',                       -> ['Iff', $1, $3]
         o 'logical TImplies logical',                   -> ['Implies', $1, $3, false]
         o 'logical TIf logical',                        -> ['Implies', $3, $1, true]
@@ -51,9 +50,10 @@ grammar =
     ]
 
     quantification: [
-        o 'TQForall relation bound_statement',  -> ['Forall', $2, $3]
-        o 'TQExists relation bound_statement',  -> ['Exists', $2, $3]
-        o 'TQUnique relation bound_statement',  -> ['Unique', $2, $3]
+        o 'relation'
+        o 'TQForall relation TComma quantification',  -> ['Forall', $2, $4]
+        o 'TQExists relation TColon quantification',  -> ['Exists', $2, $4]
+        o 'TQUnique relation TColon quantification',  -> ['Unique', $2, $4]
     ]
     
     bound_statement: [

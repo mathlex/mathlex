@@ -56,7 +56,7 @@ RESERVED = (str) ->
         when '=', '==' then 'TEqual'
         when '!=', '/=', '<>' then 'TNotEqual'
         when 'as' then 'TRatioEqual'
-        when 'parallel' then 'TParallel'
+        when 'para', 'parallel' then 'TParallel'
         when 'perp', 'perpendicular' then 'TPerpendicular'
         when '>=' then 'TGreaterEqual'
         when '>' then 'TGreater'

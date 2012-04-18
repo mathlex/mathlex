@@ -24,7 +24,7 @@ implicitMultiplication = (ast, immediateDir) ->
 exports.render = render = (ast) ->
     switch ast[0]
         when 'Empty' then "{}"
-        when 'Iff' then "#{render ast[1]} \\longleftrightarrow #{render ast[2]}"
+        when 'Iff' then "#{render ast[1]} \\leftrightarrow #{render ast[2]}"
         when 'Implies'
             if ast[3]
                 "#{render ast[2]} \\leftarrow #{render ast[1]}"
@@ -258,7 +258,7 @@ exports.render = render = (ast) ->
             when 'vsigma', 'sigmav', 'varsigma', 'sigmavar' then "\\varsigma"
             when 'Tau' then "T"
             when 'tau' then "\\tau"
-            when 'Upsilon' then "Y"
+            when 'Upsilon' then "\\Upsilon"
             when 'upsilon' then "\\upsilon"
             when 'Phi' then "\\Phi"
             when 'phi' then "\\phi"

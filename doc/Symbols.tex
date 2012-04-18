@@ -160,6 +160,10 @@
       Tensor Product & \( T \otimes S \) & \texttt{T \&ox S} & \\
       Direct Sum & \( A \oplus B \) & \texttt{A \&o+ B} & \\
       \hline
+      Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x ,~P(x)} & ``For all \ldots'' \\
+      Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x :~P(x)} & ``There exists \ldots such that'' \\
+      Unique Quantifier & \( \exists ! x P(x) \) & \texttt{unique x :~P(x)} & ``There exists a unique \ldots such that'' \\
+      \hline
     \end{tabular}
   \end{table}
   % subsection binary_ops (end)
@@ -236,7 +240,7 @@
       Multiple Subscript & \( a_{i,j,k} \) & \texttt{a \&\_ [i,j,k]} & \\
       Superscript & \( a^b \) & \texttt{a \&\^{} b} & Indexing \\
       Multiple Superscript & \( a^{i,j,k} \) & \texttt{a \&\^{} [i,j,k]} & \\
-      Such That & \( p : q \), \( p ~|~ q \) & \texttt{p:q} & Used with set builder and quantifiers \\
+      Such That & \( p : q \) & \texttt{p:q} & Used with set builder and quantifiers \\
       \hline
       Open Interval & \( \left( a,b \right) \) & \texttt{(:a,b:)} & Exclusive Range Delimiters \\
       Closed Interval & \( \left[ a,b \right] \) & \texttt{[:a,b:]} & Inclusive Range Delimiters \\
@@ -305,10 +309,6 @@
           \texttt{prod(a\&\_i,a,b)} \\
           \texttt{product(a\&\_i,a,b)}
         \end{tabular} &  \\[8pt]
-      \hline
-      Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x : \!\!P(x)} & ``For all''; chain nested quantifiers with \texttt{;} \\
-      Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x : \!\!P(x)} & ``There exists'' \\
-      Unique Quantifier & \( \exists ! x P(x) \) & \texttt{unique x : \!\!P(x)} & ``There exists a unique'' \\
       \hline
     \end{tabular}
   \end{table}
@@ -603,10 +603,10 @@
       Equivalent & \( \equiv \) & \texttt{===}, \texttt{equiv} & \\
       Not Equivalent & \( \not\equiv \) & \texttt{!==}, \texttt{/==}, \texttt{nequiv} & \\
       \hline
-      Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x : \!\!P(x)} & ``For all''; chain nested quantifiers with \texttt{;} \\
-      Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x : \!\!P(x)} & ``There exists'' \\
-      Unique Quantifier & \( \exists ! x P(x) \) & \texttt{unique x : \!\!P(x)} & ``There exists a unique'' \\
-      \hline
+      Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x ,~P(x)} & ``For all \ldots'' \\
+      Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x :~P(x)} & ``There exists \ldots such that'' \\
+      Unique Quantifier & \( \exists ! x P(x) \) & \texttt{unique x :~P(x)} & ``There exists a unique \ldots such that'' \\
+      \hline  
     \end{tabular}
   \end{table}
   % subsection Logic (end)

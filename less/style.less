@@ -167,12 +167,7 @@ pre {
     }
 }
 
-#math_input, #ast_output, #tex_output, #sage_output  {
-    .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
-    .border-radius(3px);
-}
-
-.input-wrapper {
+.inbox {
     position: relative;
     margin: 20px 0;
 
@@ -190,6 +185,8 @@ pre {
 
 #math_input {
     .monospaced();
+    .border-radius(3px);
+    .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
     .box-sizing(border-box);
     border: 1px solid #999;
     width: 100%;
@@ -204,15 +201,34 @@ pre {
     font-size: 20px;
 }
 
-#ast_output, #tex_output, #sage_output {
-    max-height: 400px;
-    overflow: auto;
-    border: 1px solid #999;
-    font-size: 0.8em;
-    padding: 5px;
-    line-height: normal;
-    background: #ddd;
+.outbox {
     margin: 20px 0;
+    .border-radius(3px);
+    
+    label {
+        .gradient(#6facd5, #497bae);
+        .border-radius(3px);
+        border: 1px solid #456f9a;
+        color: #fff;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        text-shadow: 0 1px 1px #3e6790;
+        padding: 5px 10px 15px;
+        margin-bottom: -10px;
+    }
+    
+    div {
+        .box-shadow(0,0,0,transparent,0,0,4px,rgba(0,0,0,0.7));
+        .border-radius(3px);
+        max-height: 400px;
+        overflow: auto;
+        border: 1px solid #456f9a;
+        font-size: 0.8em;
+        padding: 5px;
+        line-height: normal;
+        background: #ddd;
+    }
 }
 
 footer {

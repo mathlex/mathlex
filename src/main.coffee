@@ -15,6 +15,7 @@ parser.lexer =
     upcomingInput: -> ""
 
 exports.parse = (input) ->
+    @lastInput = input
     return [] if input.length == 0
     parser.parse lexer.tokenize input
 

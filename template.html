@@ -40,14 +40,25 @@
             {{/palettes}}
         </div>
         
-        <div class="input-wrapper">
+        <div class="inbox">
             <a class="delete-icon" href="#" title="clear">clear</a>
             <textarea name="math" id="math_input" class="expand" placeholder="Enter a mathematical expression..."></textarea>
         </div>
+        
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
-        <div id="tex_output"><code>Raw LaTeX Output</code></div>
-        <div id="sage_output"><code>Sage Output</code></div>
-        <div id="ast_output"><code>Parse Tree</code></div>
+        
+        <div class="outbox">
+            <label for="tex_output">Translated LaTeX Code</label>
+            <div id="tex_output"><code>Raw LaTeX Output</code></div>
+        </div>
+        <div class="outbox">
+            <label for="sage_output">Translated Sage Code</label>
+            <div id="sage_output"><code>Sage Output</code></div>
+        </div>
+        <div class="outbox">
+            <label for="ast_output">Interpreted Syntax Tree</label>
+            <div id="ast_output"><code>Parse Tree</code></div>
+        </div>
 
         <h2>Instructions</h2>
         <p>
@@ -113,7 +124,7 @@
             <li>Logical connectives: <code class="math"><a href="#math_input">p and (q or r) === p &amp;&amp; q || p &amp;&amp; r</a></code></li>
             <li>Definition of the <em>subset</em> relation: <code class="math"><a href="#math_input">A subset B &lt;-&gt; a in A implies a in B</a></code></li>
             <li>Definition of Big-Oh (Notice two different forms for "absolute value"): <br/>
-                <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x&amp;_0 in #Z; exists C in #R; forall x&gt;x&amp;_0: |f(x)|&lt;=C*|:g(x):|</a></code></li>
+                <code class="math"><a href="#math_input">f(x) in O(g(x)) iff exists x&amp;_0 in #Z : exists C in #R : forall x&gt;x&amp;_0 , |f(x)|&lt;=C*|:g(x):|</a></code></li>
             <li>Ranges:
                 <ul>
                     <li>Open: <code class="math"><a href="#math_input">x = [:a,b:]</a></code></li>
