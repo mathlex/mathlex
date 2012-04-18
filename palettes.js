@@ -1,4 +1,4 @@
-var CRSR = '{%-CURSOR-%}'
+var CRSR = '{%-CURSOR-%}';
 
 module.exports.palettes = [
     {
@@ -145,6 +145,8 @@ module.exports.palettes = [
                         { content: ' union ', label: '\\cup', tooltip: 'union' },
                         { content: ' intersect ', label: '\\cap', tooltip: 'intersection' },
                         { content: '\\', label: '\\setminus', tooltip: 'set difference' },
+                        { content: '&o+', label: '\\oplus', tooltip: 'direct sum' },
+                        { content: '&*', label: '\\times', tooltip: 'cartesian product' },
                         { content: ':', label: ':', tooltip: 'such that' },
                         { content: '&&', label: '\\wedge', tooltip: 'logical and' },
                         { content: '||', label: '\\vee', tooltip: 'logical or' },
@@ -181,6 +183,8 @@ module.exports.palettes = [
                         { content: ' in ', label: '\\in', tooltip: 'inclusion' },
                         { content: '~=', label: '\\cong', tooltip: 'congruent' },
                         { content: '~', label: '\\sim', tooltip: 'similar' },
+                        { content: ' parallel ', label: '\\parallel', tooltip: 'parallel' },
+                        { content: ' perp ', label: '\\perp', tooltip: 'perpendicular' },
                         { content: '===', label: '\\equiv', tooltip: 'equivalent' },
                         { content: '!==', label: '\\not\\equiv', tooltip: 'not equivalent' }
                     ]
@@ -197,6 +201,8 @@ module.exports.palettes = [
                         { content: '<: '+CRSR+' :>', label: '\\langle\\,\\rangle', tooltip: 'angle brackets (vector)' },
                         { content: '|: '+CRSR+' :|', label: '|\\,|', tooltip: 'vertical bars (abs val, length, det, norm)' },
                         { content: '||: '+CRSR+' :||', label: '\\|\\,\\|', tooltip: 'double vertical bars (norm, length)' },
+                        { content: 'floor('+CRSR+')', label: '\\left\\lfloor\\,\\right\\rfloor', tooltip: 'floor' },
+                        { content: 'ceil('+CRSR+')', label: '\\left\\lceil\\,\\right\\rceil', tooltip: 'ceiling' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
                         { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
                         { content: '<: '+CRSR+' | :>', label: '\\left\\langle\\,\\mid\\,\\right\\rangle', tooltip: 'bra-ket' },
@@ -257,11 +263,15 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: 'abs('+CRSR+')', label: '|\\,|', tooltip: 'absolute value' },
+                        { content: 'floor('+CRSR+')', label: '\\left\\lfloor\\,\\right\\rfloor', tooltip: 'floor' },
+                        { content: 'ceil('+CRSR+')', label: '\\left\\lceil\\,\\right\\rceil', tooltip: 'ceiling' },
                         { content: 'sqrt('+CRSR+')', label: '\\sqrt{}', tooltip: 'square root' },
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
                         { content: 'exp('+CRSR+')', label: '\\exp{}', tooltip: 'natural exponentiation' },
                         { content: 'ln('+CRSR+')', label: '\\ln{}', tooltip: 'natural log' },
                         { content: 'log(a,n)', label: '\\log_n{a}', tooltip: 'log with base' },
+                        { content: 'C(n,r)', label: '\\binom{c}{r}', tooltip: 'bonimal coefficient (choose/combination)' },
+                        { content: 'P(n,r)', label: 'P(n,r)', tooltip: 'permutation' },
                         { content: 'lim(f,x,a)', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
                         { content: 'diff(f,x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
                         { content: 'pdiff(f,x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
@@ -408,9 +418,13 @@ module.exports.palettes = [
                         { content: '#N', label: '\\mathbb{N}', tooltip: 'natural numbers' },
                         { content: '#Z', label: '\\mathbb{Z}', tooltip: 'integers' },
                         { content: '!', label: '!', tooltip: 'factorial' },
+                        { content: 'floor('+CRSR+')', label: '\\left\\lfloor\\,\\right\\rfloor', tooltip: 'floor' },
+                        { content: 'ceil('+CRSR+')', label: '\\left\\lceil\\,\\right\\rceil', tooltip: 'ceiling' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
                         { content: '|', label: '\\mid', tooltip: 'divides' },
                         { content: '!|', label: '\\nmid', tooltip: 'does not divide' },
+                        { content: 'C(n,r)', label: '\\binom{c}{r}', tooltip: 'bonimal coefficient (choose/combination)' },
+                        { content: 'P(n,r)', label: 'P(n,r)', tooltip: 'permutation' },
                         { content: 'sum(f,i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
                         { content: 'sum(f,i,a,b)', label: '\\sum_{i=a}^b f', tooltip: 'sum over range' },
                         { content: 'prod(f,i)', label: '\\prod_i f', tooltip: 'product over domain set' },
@@ -473,7 +487,9 @@ module.exports.palettes = [
                         { content: ' in ', label: '\\in', tooltip: 'inclusion' },
                         { content: ' union ', label: '\\cup', tooltip: 'union' },
                         { content: ' intersect ', label: '\\cap', tooltip: 'intersection' },
-                        { content: '\\', label: '\\setminus', tooltip: 'set difference' }
+                        { content: '\\', label: '\\setminus', tooltip: 'set difference' },
+                        { content: '&o+', label: '\\oplus', tooltip: 'direct sum' },
+                        { content: '&*', label: '\\times', tooltip: 'cartesian product' }
                     ]
                 ]
             },

@@ -3,7 +3,7 @@
 
 Latex = require './render/latex'
 TextTree = require './render/text-tree'
-# Sage = require './render/sage'
+Sage = require './render/sage'
 
 lexer = new Lexer
 
@@ -22,5 +22,6 @@ exports.render = (ast, fmt) ->
     return '' if ast.length == 0
     switch fmt
         when 'latex' then Latex.render ast
+        when 'sage' then Sage.render ast
         when 'text-tree' then TextTree.render ast
         else throw "Invalid Format: #{fmt}"

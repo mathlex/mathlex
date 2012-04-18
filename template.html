@@ -46,6 +46,7 @@
         </div>
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
         <div id="tex_output"><code>Raw LaTeX Output</code></div>
+        <div id="sage_output"><code>Sage Output</code></div>
         <div id="ast_output"><code>Parse Tree</code></div>
 
         <h2>Instructions</h2>
@@ -149,6 +150,7 @@
             var mathInput  = $('#math_input'),
                 mathOutput = $('#math_output'),
                 astOutput  = $('#ast_output'),
+                sageOutput = $('#sage_output'),
                 rawOutput  = $('#tex_output'),
                 mjQueue    = MathJax.Hub.queue,
                 mjOutBox;
@@ -170,10 +172,12 @@
                         mjQueue.Push(['Text', mjOutBox, "\\displaystyle{" + latex + "}"]);
                         rawOutput.html('<pre>' + latex + '<\/pre>')
                         astOutput.html('<pre>' + MathParser.render(ast, 'text-tree') + '<\/pre>');
+                        sageOutput.html('<pre>' + MathParser.render(ast, 'sage') + '<\/pre>');
                     } else {    
                         mjQueue.Push(['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]);
                         rawOutput.html('<code>Raw LaTeX Output</code>');
-                        astOutput.html('<code>Parse Tree<\/code');
+                        astOutput.html('<code>Parse Tree<\/code>');
+                        sageOutput.html('<code>Sage Output<\/code>');
                     }
                 } catch (err) {
                     // if we encounter a parse error, change color of output box
@@ -201,6 +205,7 @@
             $('a.delete-icon').live('click', function(evt) {
                 evt.preventDefault();
                 mathInput.val('');
+                mathInput.TextAreaExpander();
                 updateMath('');
             })
             
@@ -225,7 +230,7 @@
                         cursorOffset, insertPos;
 
                     // is there a cursor position?
-                    cursorOffset = math.indexOf(CURSOR_ID)
+                    cursorOffset = math.indexOf(CURSOR_ID);
                     math = math.replace(CURSOR_ID, '');
 
                     insertPos = insertAtCursor(element, math, false);

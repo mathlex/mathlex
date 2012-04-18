@@ -49,6 +49,8 @@ exports.render = render = (ast) ->
         when 'RatioEqual' then "#{render ast[1]} \\ \\mathrm{as}\\ #{render ast[2]}"
         when 'Congruent' then "#{render ast[1]} \\cong #{render ast[2]}"
         when 'Similar' then "#{render ast[1]} \\sim #{render ast[2]}"
+        when 'Parallel' then "#{render ast[1]} \\parallel #{render ast[2]}"
+        when 'Perpendicular' then "#{render ast[1]} \\perp #{render ast[2]}"
         when 'GreaterEqual' then "#{render ast[1]} \\ge #{render ast[2]}"
         when 'Greater' then "#{render ast[1]} > #{render ast[2]}"
         when 'Subset' then "#{render ast[1]} \\subseteq #{render ast[2]}"
@@ -98,6 +100,8 @@ exports.render = render = (ast) ->
         when 'Union' then "#{render ast[1]} \\cup #{render ast[2]}"
         when 'Intersection' then "#{render ast[1]} \\cap #{render ast[2]}"
         when 'SetDiff' then "#{render ast[1]} \\setminus #{render ast[2]}"
+        when 'DirectSum' then "#{render ast[1]} \\oplus #{render ast[2]}"
+        when 'CartesianProduct' then "#{render ast[1]} \\times #{render ast[2]}"
 
         when 'Positive' then "+#{render ast[1]}"
         when 'Negative' then "-#{render ast[1]}"
@@ -201,8 +205,10 @@ exports.render = render = (ast) ->
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
                         "\\prod_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
-                    when 'Gamma'
-                        "\\Gamma{\\left( #{render ast[2][0]} \\right)}"
+                    when 'Gamma' then "\\Gamma{\\left( #{render ast[2][0]} \\right)}"
+                    when 'C' then "\\binom{#{render ast[2][0]}}{#{render ast[2][1]}}"
+                    when 'floor' then "\\left\\lfloor #{render ast[2][0]} \\right\\rfloor"
+                    when 'ceil', 'ceiling' then "\\left\\lceil #{render ast[2][0]} \\right\\rceil"
                     else "#{ast[1][1]} \\left( #{args} \\right)"
             else
                 "#{render ast[1]} \\left( #{args.join " ,\\, "} \\right)"

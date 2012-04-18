@@ -69,6 +69,8 @@ grammar =
         o 'algebraic TCongruent algebraic',     -> ['Congruent', $1, $3]
         o 'algebraic TSimilar algebraic',       -> ['Similar', $1, $3]
         o 'algebraic TTilde algebraic',         -> ['Similar', $1, $3]
+        o 'algebraic TParallel algebraic',      -> ['Parallel', $1, $3]
+        o 'algebraic TPerpendicular algebraic', -> ['Perpendicular', $1, $3]
         o 'algebraic TLess algebraic',          -> ['Less', $1, $3]
         o 'algebraic TLessEqual algebraic',     -> ['LessEqual', $1, $3]
         o 'algebraic TGreaterEqual algebraic',  -> ['GreaterEqual', $1, $3]
@@ -114,6 +116,8 @@ grammar =
         o 'algebraic TUnion algebraic',                 -> ['Union', $1, $3]
         o 'algebraic TIntersect algebraic',             -> ['Intersection', $1, $3]
         o 'algebraic TSetDiff algebraic',               -> ['SetDiff', $1, $3]
+        o 'algebraic TDirectSum algebraic',             -> ['DirectSum', $1, $3]
+        o 'algebraic TCartesianProduct algebraic',      -> ['CartesianProduct', $1, $3]
         o 'TPlusMinus algebraic',                       (-> ['PosNeg', $2]), prec: 'UnaryPrefix'
         o 'TMinusPlus algebraic',                       (-> ['NegPos', $2]), prec: 'UnaryPrefix'
         o 'TPlus algebraic',                            (-> ['Positive', $2]), prec: 'UnaryPrefix'
@@ -188,11 +192,12 @@ operators = [
     ['right', 'TExponent']
     ['left', 'TLParen', 'TRParen']
     ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TChangeDelta', 'TVectorizer', 'TUnitVectorizer', 'TGradient', 'TDivergence', 'TCurl']
-    ['left', 'TCross', 'TWedge', 'TTensor']
+    ['left', 'TCross', 'TWedge', 'TTensor', 'TCartesianProduct']
     ['nonassoc', 'TDot']
     ['left', 'TTimes', 'TSlash', 'TDivide', 'TModulus']
     ['left', 'TIntersect']
     ['left', 'TUnion']
+    ['left', 'TDirectSum']
     ['left', 'TSetDiff']
     ['left', 'TPlusMinus', 'TMinusPlus', 'TPlus', 'TMinus']
     ['nonassoc', 'TEqual', 'TNotEqual', 'TTilde', 'TSimilar', 'TCongruent']

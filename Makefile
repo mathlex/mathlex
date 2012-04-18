@@ -38,13 +38,16 @@ $(BUILD)/main.js: $(BUILD) $(SRC)/main.coffee
 $(BUILD)/render/latex.js: $(BUILD)/render $(SRC)/render/latex.coffee
 	$(COFFEE) -c -o $(@D) $(SRC)/render/latex.coffee
 
+$(BUILD)/render/sage.js: $(BUILD)/render $(SRC)/render/sage.coffee
+	$(COFFEE) -c -o $(@D) $(SRC)/render/sage.coffee
+
 $(BUILD)/render/text-tree.js: $(BUILD)/render $(SRC)/render/text-tree.coffee
 	$(COFFEE) -c -o $(@D) $(SRC)/render/text-tree.coffee
 
 $(BUILD)/parser.js: $(BUILD) $(BUILD)/grammar.js
 	$(NODE) -e "require('fs').writeFileSync('$@', require('./$(BUILD)/grammar.js').parser.generate());"
 
-$(BUILD)/browser/parser.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer main render/latex render/text-tree))
+$(BUILD)/browser/parser.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer main $(addprefix render/,latex sage text-tree)))
 	$(CAKE) build:browser
 
 $(BUILD)/browser/parser.opt.js: $(BUILD)/browser/parser.js

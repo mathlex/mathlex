@@ -13,7 +13,7 @@ run = (prgm, args, cb) ->
 
 
 task 'build', 'compile CoffeeScript files', ->
-    files = ['grammar', 'lexer', 'main', 'render/latex', 'render/text-tree']
+    files = ['grammar', 'lexer', 'main', 'render/latex', 'render/sage', 'render/text-tree']
     for file in files
         console.log "compiling src/#{file}.coffee..."
         idx = file.lastIndexOf '/'
@@ -69,7 +69,7 @@ task 'build:parser', 'rebuild Jison parser (run build first)', ->
 task 'build:browser', 'merge scripts for inclusion in browser', ->
     code = ''
     console.log "building browser script..."
-    for name in ['lexer', 'parser', 'render/latex', 'render/text-tree', 'main']
+    for name in ['lexer', 'parser', 'render/latex', 'render/sage', 'render/text-tree', 'main']
         console.log "consolidating #{name} module..."
         code += """
             require['./#{name}'] = new function() {

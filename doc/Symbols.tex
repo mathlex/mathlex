@@ -17,12 +17,12 @@
           Department of Mathematics, Texas A\&M University}
   \date{March 31, 2012}
   \maketitle
-  
+
   \vspace{-15 pt}
-  
+
   Matthew Barry is writing an HTML5/javascript/MathJax parser/renderer as an Honors Senior Thesis. It may be viewed at: \qquad \url{http://custom.komputerwiz.net:8000/~matthew/interpreter-2/} \qquad
   Below is a list of the symbols that can be entered, organized syntax usage and by mathematical topic. Please send comments and suggestions for additions and changes to the authors.
-  
+
   \vspace{-10 pt}
 
   \section{Symbols by Syntax Usage} % (fold)
@@ -103,7 +103,7 @@
     \end{tabular}
   \end{table}
   % subsection unary_ops (end)
-  
+
   \newpage
 
   \subsection{Binary Operators} % (fold)
@@ -140,7 +140,7 @@
       And & \( p \wedge q \) & \texttt{p and q}, \texttt{p \&\& q} & Conjunction \\
       Or & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Disjunction \\
       Exclusive Or & \( p \oplus q \) & \texttt{p xor q} & Exclusion \\
-      Implies & \( p \rightarrow q \) & 
+      Implies & \( p \rightarrow q \) &
         \begin{tabular}{c}
           \texttt{p implies q}, \texttt{p -> q}, \\
           \texttt{if p then q}
@@ -158,6 +158,7 @@
       Cross Product & \( \vec{a} \times \vec{b} \) & \texttt{\&v a \&x \&v b} & \\
       Wedge Product & \( \vec{a} \wedge \vec{b} \) & \texttt{\&v a \&w \&v b} & \\
       Tensor Product & \( T \otimes S \) & \texttt{T \&ox S} & \\
+      Direct Sum & \( A \oplus B \) & \texttt{A \&o+ B} & \\
       \hline
     \end{tabular}
   \end{table}
@@ -182,7 +183,7 @@
       Greater than or Equal & \( \ge \) & \texttt{>=} & \\
       \hline
       Divides & \( p \mid q \) & \texttt{p|q}, \texttt{p divides q} & \\
-      Not Divides & \( p \nmid q \) & 
+      Not Divides & \( p \nmid q \) &
         \begin{tabular}{c}
           \texttt{p!|q}, \texttt{p ndivides q}, \texttt{p ndivide q} \\
           \texttt{p notdivides q}, \texttt{p notdivide q}
@@ -202,12 +203,17 @@
       \hline
       Congruent & \( \cong \) & \texttt{~=}, \texttt{congruent} & \\
       Similar & \( \sim \) & \texttt{~}, \texttt{sim}, \texttt{similar} & \\
+      Parallel & \( \parallel \) & \texttt{parallel} & \\
+      Perpendicular & \( \perp \) & \texttt{perp}, \texttt{perpendicular} & \\
+      \hline
       Equivalent & \( \equiv \) & \texttt{===}, \texttt{equiv} & \\
       Not Equivalent & \( \not\equiv \) & \texttt{!==}, \texttt{/==}, \texttt{nequiv} & \\
       \hline
     \end{tabular}
   \end{table}
   % subsection relations (end)
+
+  \newpage
 
   \subsection{Delimiters} % (fold)
   \label{sub:delimiters}
@@ -223,6 +229,8 @@
       Angle Brackets & \( \left\langle \ \right\rangle \) & \texttt{< >}, \texttt{<: :>} & Vectors \\
       Vertical Bars & \( \left| \ \right| \) & \texttt{| |}, \texttt{|: :|} & Absolute Value, Length, Determinant, Norm \\
       Double Bars & \( \left\| \ \right\| \) & \texttt{|| ||}, \texttt{||: :||} & Length, Norm \\
+      Floor & \( \left\lfloor x \right\rfloor \) & \texttt{floor(x)} & \\
+      Ceiling & \( \left\lceil x \right\rceil \) & \texttt{ceil(x)}, \texttt{ceiling(x)} & \\
       \hline
       Subscript & \( a_b \) & \texttt{a \&\_ b} & Indexing \\
       Multiple Subscript & \( a_{i,j,k} \) & \texttt{a \&\_ [i,j,k]} & \\
@@ -265,11 +273,16 @@
       Inv. Hyp. Trig & \( \mathrm{arcsinh}(x) \), \ldots & \texttt{arcsinh(x)}, \ldots & Also arccosh, arctanh, arccoth, arcsech, arccsch \\
       \hline
       Absolute Value & \( \left| a \right| \) & \texttt{abs(a)} & \\
+      Floor & \( \left\lfloor x \right\rfloor \) & \texttt{floor(x)} & \\
+      Ceiling & \( \left\lceil x \right\rceil \) & \texttt{ceil(x)}, \texttt{ceiling(x)} & \\
       Square Root & \( \sqrt{a} \) & \texttt{sqrt(a)} & \\
       \(n\)th Root & \( \sqrt[n]{a} \) & \texttt{root(a, n)} & \\
       Natural Exponential & \( \exp(a) \) & \texttt{exp(a)} & \\
       Natural Logarithm & \( \ln(a) \) & \texttt{ln(a)} & \\
       Logarithm with Base & \( \log_b{a} \) & \texttt{log(a, b)} & \\[2pt]
+      \hline
+      Combination & \( \binom{n}{r} \) & \texttt{C(n,r)} & Binomial Coefficient, ``choose''\\
+      Permutation & \( P(n,r) \) & \texttt{P(n,r)} & \\
       \hline
       Limit & \( \displaystyle\lim_{x\to a} f(x) \) &
         \begin{tabular}{c}
@@ -396,6 +409,8 @@
       \hline
       Congruent & \( \cong \) & \texttt{~=}, \texttt{congruent} & \\
       Similar & \( \sim \) & \texttt{~}, \texttt{sim}, \texttt{similar} & \\
+      Parallel & \( \parallel \) & \texttt{parallel} & \\
+      Perpendicular & \( \perp \) & \texttt{perp}, \texttt{perpendicular} & \\
       \hline
       Vector Components & \( \left\langle a,b,c \right\rangle \) & \texttt{<a,b,c>}, \texttt{<:a,b,c:>} & \\
       Vector & \( \vec{a} \) & \texttt{\&v a} & \\
@@ -434,6 +449,8 @@
   \end{table}
   % subsection Trigonometry (end)
 
+  \newpage
+
   \subsection{Discrete} % (fold)
   \label{sub:discrete}
   \begin{table}[!h]
@@ -446,10 +463,15 @@
       Integers & \( \mathbb{Z} \) & \texttt{\#Z} & \\
       \hline
       Factorial & \( ! \) & \texttt{!} & \\
+      Floor & \( \left\lfloor x \right\rfloor \) & \texttt{floor(x)} & \\
+      Ceiling & \( \left\lceil x \right\rceil \) & \texttt{ceil(x)}, \texttt{ceiling(x)} & \\
       Modulus & \( a \pmod{n} \) & \texttt{a\%n}, \texttt{a mod n} & \\
       \hline
       Divides & \( p \mid q \) & \texttt{p|q} & \\
       Not Divides & \( p \nmid q \) & \texttt{p!|q} & \\
+      \hline
+      Combination & \( \binom{n}{r} \) & \texttt{C(n,r)} & Binomial Coefficient, ``choose''\\
+      Permutation & \( P(n,r) \) & \texttt{P(n,r)} & \\
       \hline
       Sum Over Set & \( \displaystyle \sum_{i \in S} a_i \) & \texttt{sum(a\&\_i, i in S)} & \\[8pt]
       Sum Over Range & \( \displaystyle \sum_{i=a}^b a_i \) & \texttt{sum(a\&\_i,i,a,b)} & \\[8pt]
@@ -506,7 +528,7 @@
     \end{tabular}
   \end{table}
   % subsection Calculus (end)
-  
+
   \newpage
 
   \subsection{Set Theory} % (fold)
@@ -545,6 +567,8 @@
       Union & \( a \cup b \) & \texttt{a union b} & \\
       Intersection & \( a \cap b \) & \texttt{a intersect b} & \\
       Set Difference & \( a \setminus b \) & \texttt{a \textbackslash \ b} & \\
+      Direct Sum & \( a \oplus b \) & \texttt{a \&o+ b} & \\
+      Cartesian Product & \( a \times b \) & \texttt{a \&* b} & \\
       \hline
     \end{tabular}
   \end{table}
@@ -565,7 +589,7 @@
       Or & \( p \vee q \) & \texttt{p or q}, \texttt{p || q} & Disjunction \\
       Exclusive Or & \( p \oplus q \) & \texttt{p xor q} & Exclusion \\
       Not & \( \neg p \) & \texttt{not p, \~{}p, !p} & Logical Negation \\
-      Implies & \( p \rightarrow q \) & 
+      Implies & \( p \rightarrow q \) &
         \begin{tabular}{c}
           \texttt{p implies q}, \texttt{p -> q}, \\
           \texttt{if p then q}
@@ -586,7 +610,7 @@
     \end{tabular}
   \end{table}
   % subsection Logic (end)
-  
+
   \newpage
 
   \subsection{Linear Algebra} % (fold)

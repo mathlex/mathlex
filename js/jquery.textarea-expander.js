@@ -52,6 +52,8 @@
         var h = Math.max(e.expandMin, Math.min(e.scrollHeight, e.expandMax));
 
         e.style.overflow = (e.scrollHeight > h ? "auto" : "hidden");
+        var boxSizing = $(e).css('-webkit-box-sizing') || $(e).css('-moz-box-sizing') || $(e).css('-ms-box-sizing') || $(e).css('-o-box-sizing') || $(e).css('box-sizing');
+        if (boxSizing == 'border-box' && ($.browser.mozilla)) h += $(e).outerHeight() - $(e).height();
         e.style.height = h + "px";
 
         e.valLength = vlen;
