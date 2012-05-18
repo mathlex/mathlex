@@ -3,6 +3,9 @@ index.html
 /css
 /doc/*.pdf
 
+.dropbox
+Icon?
+
 *.acn
 *.acr
 *.alg
