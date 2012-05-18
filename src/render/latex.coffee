@@ -249,7 +249,7 @@ exports.render = render = (ast) ->
             when 'omicron' then "o"
             when 'Pi' then "\\Pi"
             when 'pi' then "\\pi"
-            when 'vpi', 'piv', 'varpi', 'pivar' then "\\varpi"
+            when 'vpi', 'piv', 'varpi', 'pivar', 'pomega' then "\\varpi"
             when 'Rho' then "P"
             when 'rho' then "\\rho"
             when 'vrho', 'rhov', 'varrho', 'rhovar' then "\\varrho"
