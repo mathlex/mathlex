@@ -15,7 +15,9 @@
 </head>
 <body>
     <header>
-        <h1>Math Parser and Renderer</h1>
+        <h1>MathLex</h1>
+        <div class="version-corner-ribbon"><div>v1.0 &beta;4</div></div>
+        <span class="subtitle">Math Parser and Renderer</span>
     </header>
     <div role="main">
         <div class="toolbars">
@@ -39,14 +41,14 @@
                 </div>
             {{/palettes}}
         </div>
-        
+
         <div class="inbox">
             <a class="delete-icon" href="#" title="clear">clear</a>
             <textarea name="math" id="math_input" class="expand" placeholder="Enter a mathematical expression..."></textarea>
         </div>
-        
+
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
-        
+
         <div class="outbox">
             <label for="tex_output">Translated LaTeX Code</label>
             <div id="tex_output"><code>Raw LaTeX Output</code></div>
@@ -77,7 +79,7 @@
             other than as delimiters and therefore cannot be automatically matched by the Lexer. Additionally, if an expression opened
             with one type of delimiter, it must be closed with the same type (i.e. context-aware vs. specialized).
         </p>
-        
+
         <h2>Documentation</h2>
         <p>
             A comprehensive list of symbols and tokens may be downloaded from <a href="doc/Symbols.pdf">here</a> (PDF).
@@ -137,11 +139,10 @@
     </div>
     <footer>
         <p>
-            Copyright &copy;2012 Matthew Barry.
-            All rights reserved.
+            Copyright &copy;2012 Matthew Barry. All rights reserved.
         </p>
         <p>
-            Version 1.0 &beta;4
+            LaTeX Rendered by <a href="http://www.mathjax.org">MathJax</a>.
         </p>
     </footer>
 
@@ -156,7 +157,7 @@
     <script>
         // if this is changed here, don't forget to change it in palettes.js
         var CURSOR_ID = '{%-CURSOR-%}'
-        
+
         $(document).ready(function() {
             var mathInput  = $('#math_input'),
                 mathOutput = $('#math_output'),
@@ -170,7 +171,7 @@
             mjQueue.Push(function() {
                 mjOutBox = MathJax.Hub.getAllJax('math_output')[0];
             });
-            
+
             function updateMath(math) {
                 var ast, result;
                 mathOutput.css({'color': '#000'});
@@ -184,7 +185,7 @@
                         rawOutput.html('<pre>' + latex + '<\/pre>')
                         astOutput.html('<pre>' + MathParser.render(ast, 'text-tree') + '<\/pre>');
                         sageOutput.html('<pre>' + MathParser.render(ast, 'sage') + '<\/pre>');
-                    } else {    
+                    } else {
                         mjQueue.Push(['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]);
                         rawOutput.html('<code>Raw LaTeX Output</code>');
                         astOutput.html('<code>Parse Tree<\/code>');
@@ -219,8 +220,7 @@
                 mathInput.TextAreaExpander();
                 updateMath('');
             })
-            
-            
+
             // toolbars
             $('.toolbars .ribbon .tabs a')
                 .click(function(evt) {
@@ -231,7 +231,7 @@
                     ;
                 })
             ;
-            
+
             $('.toolbar a[data-content]')
                 .click(function(evt) {
                     evt.preventDefault();
