@@ -17,7 +17,7 @@
     <header>
         <h1>MathLex</h1>
         <div class="version-corner-ribbon"><div>v1.0 &beta;5</div></div>
-        <span class="subtitle">Math Parser and Renderer</span>
+        <span class="subtitle">Math Parser and Renderer<br/>Matthew Barry, Texas A&amp;M University</span>
     </header>
     <div role="main">
         <div class="toolbars">
@@ -50,7 +50,7 @@
         <div id="math_output">\[\mathrm{\LaTeX\ Output}\]</div>
 
         <div class="outbox">
-            <label for="tex_output">Translated LaTeX Code</label>
+            <label for="tex_output">Translated LaTeX Code (Rendered above using MathJax)</label>
             <div id="tex_output"><code>Raw LaTeX Output</code></div>
         </div>
         <div class="outbox">
@@ -144,6 +144,9 @@
         <p>
             LaTeX Rendered by <a href="http://www.mathjax.org">MathJax</a>.
         </p>
+        <p>
+            Supported in part by NSF DUE grants 0737209, 0737248, 1123170, and 1123255
+        </p>
     </footer>
 
     <script src="build/browser/parser.opt.min.js"></script>
@@ -210,7 +213,7 @@
                     updateMath($(this).val());
                 })
                 .val('')
-                .focus()
+                // .focus()
             ;
 
             // clear button
