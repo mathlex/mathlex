@@ -12,7 +12,7 @@ grammar =
     start: [
         o 'expression'
     ]
-    
+
     opt_expression: [
         o 'expression'
         o '',           -> ['Empty']
@@ -55,7 +55,7 @@ grammar =
         o 'TQExists relation TColon quantification',  -> ['Exists', $2, $4]
         o 'TQUnique relation TColon quantification',  -> ['Unique', $2, $4]
     ]
-    
+
     bound_statement: [
         o 'TColon relation',            -> $2
         o 'TSemicolon quantification',  -> $2
@@ -84,12 +84,12 @@ grammar =
         o 'algebraic TPipe algebraic',          -> ['Divides', $1, $3]
         o 'algebraic TNotDivides algebraic',    -> ['NotDivides', $1, $3]
     ]
-    
+
     ratio: [
         o 'algebraic'
         o 'algebraic TRatio algebraic',         -> ['Ratio', $1, $3]
     ]
-    
+
     opt_algebraic: [
         o 'algebraic'
         o '',           -> ['Empty']
@@ -142,32 +142,41 @@ grammar =
     ]
 
     primary: [
-        o 'TEmpty',                                             -> ['Empty']
-        o 'TIdent',                                             -> ['Variable', $1]
-        o 'TIntLit',                                            -> ['Literal', 'Int', $1]
-        o 'TFloatLit',                                          -> ['Literal', 'Float', $1]
-        o 'TConstant',                                          -> ['Constant', $1]
-        o 'TLess algebraic_list TGreater',                      -> ['Vector', $2]
-        o 'TLVector algebraic_list TRVector',                   -> ['Vector', $2]
-        o 'TLess algebraic TPipe',                              -> ['Bra', $2]
-        o 'TPipe algebraic TGreater',                           -> ['Ket', $2]
-        o 'TLess algebraic TOr algebraic TGreater',             -> ['BraKet', $2, $4]
-        o 'TLVector algebraic TPipe algebraic TRVector',        -> ['BraKet', $2, $4]
-        o 'TLCurlyBrace set TRCurlyBrace',                      -> $2
-        o 'TLSqBracket list TRSqBracket',                       -> ['List', $2]
-        o 'range_start algebraic TComma algebraic range_end',   -> ['Range', $1, $2, $4, $5]
-        o 'TPipe algebraic TPipe',                              -> ['AbsVal', $2]
-        o 'TLPipe opt_algebraic TRPipe',                        -> ['AbsVal', $2]
-        o 'TOr algebraic TOr',                                  -> ['Norm', $2]
-        o 'TLDoublePipe opt_algebraic TRDoublePipe',            -> ['Norm', $2]
-        o 'TLParen opt_expression TRParen',                     -> ['Parentheses', $2]
+        o 'TEmpty',                                                 -> ['Empty']
+        o 'TIdent',                                                 -> ['Variable', $1]
+        o 'TIntLit',                                                -> ['Literal', 'Int', $1]
+        o 'TFloatLit',                                              -> ['Literal', 'Float', $1]
+        o 'TConstant',                                              -> ['Constant', $1]
+        o 'TLess algebraic_list TGreater',                          -> ['Vector', $2]
+        o 'TLVector algebraic_list TRVector',                       -> ['Vector', $2]
+        o 'TLess algebraic TPipe',                                  -> ['Bra', $2]
+        o 'TPipe algebraic TGreater',                               -> ['Ket', $2]
+        o 'TLess algebraic TOr algebraic TGreater',                 -> ['BraKet', $2, $4]
+        o 'TLVector algebraic TPipe algebraic TRVector',            -> ['BraKet', $2, $4]
+        o 'TLCurlyBrace set TRCurlyBrace',                          -> $2
+        o 'TLSqBracket list TRSqBracket',                           -> ['List', $2]
+        o 'range_start algebraic TComma algebraic range_end',       -> ['Range', $1, $2, $4, $5]
+        o 'TPipe algebraic TPipe',                                  -> ['AbsVal', $2]
+        o 'TLPipe opt_algebraic TRPipe',                            -> ['AbsVal', $2]
+        o 'TOr algebraic TOr',                                      -> ['Norm', $2]
+        o 'TLDoublePipe opt_algebraic TRDoublePipe',                -> ['Norm', $2]
+        o 'TLParen opt_expression TRParen',                         -> ['Parentheses', $2]
+        o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Integral', $3, $5, $2]
     ]
-    
+
+    int_bounds: [
+        o 'TSubscript primary TSuperscript primary',    -> {lo: $2, hi: $4}
+        o 'TSuperscript primary TSubscript primary',    -> {hi: $2, lo: $4}
+        o 'TSubscript primary',                         -> {lo: $2}
+        o 'TSuperscript primary',                       -> {hi: $2}
+        o '',                                           -> {}
+    ]
+
     range_start: [
         o 'TLRangeInclusive',   -> true
         o 'TLRangeExclusive',   -> false
     ]
-    
+
     range_end: [
         o 'TRRangeInclusive',   -> true
         o 'TRRangeExclusive',   -> false
@@ -178,7 +187,7 @@ grammar =
         o 'expression_list',                -> ['Set', $1]
         o 'relation TColon logical_list',   -> ['SetBuilder', $1, $3]
     ]
-    
+
     list: [
         o 'expression_list'
         o '',   -> [['Empty']]

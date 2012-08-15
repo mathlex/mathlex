@@ -26,10 +26,10 @@ task 'build:html', 'compile HTML page', ->
     Handlebars = require 'handlebars'
     context = require './palettes.js'
     source = fs.readFileSync './template.html'
-    
+
     Handlebars.registerHelper 'slugify', (str) ->
         str.toLowerCase().replace /\s+/g, '_'
-    
+
     fs.writeFileSync 'index.html', Handlebars.compile(source.toString())(context)
 
 task 'build:frontend', 'compile frontend interface', ->
@@ -37,12 +37,12 @@ task 'build:frontend', 'compile frontend interface', ->
     Handlebars = require 'handlebars'
     context = require './palettes.js'
     source = fs.readFileSync './template.html'
-    
+
     Handlebars.registerHelper 'slugify', (str) ->
         str.toLowerCase().replace /\s+/g, '_'
-    
+
     fs.writeFileSync 'index.html', Handlebars.compile(source.toString())(context)
-    
+
     console.log "building CSS..."
     less = require 'less'
     files = fs.readdirSync './less'
@@ -84,7 +84,7 @@ task 'build:browser', 'merge scripts for inclusion in browser', ->
                 #{code}
                 return require['./main'];
             }();
-            
+
             if (typeof define === 'function' && define.amd) {
                 define (function() { return MathParser; });
             } else {
@@ -94,7 +94,10 @@ task 'build:browser', 'merge scripts for inclusion in browser', ->
     """
     {parser, uglify} = require 'uglify-js'
     console.log "compacting code..."
-    code_min = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle parser.parse code
+    try
+        code_min = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle parser.parse code
+    catch e
+        console.error e
     run 'mkdir', ['-p', "#{BUILD_DIR}/browser"], ->
         fs.writeFileSync "#{BUILD_DIR}/browser/parser.min.js", code_min
         fs.writeFileSync "#{BUILD_DIR}/browser/parser.js", code

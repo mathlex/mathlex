@@ -1,12 +1,11 @@
-repeat = (str, num) ->
-    new Array(num+1).join str
+repeat = (str, num) -> new Array(num+1).join str
 
 indent = '    '
 
 exports.render = render = (ast, depth) ->
     depth or= 0
     out = repeat indent, depth;
-    
+
     switch ast[0]
         when 'Literal' then out += "#{ast[0]}: #{ast[2]}\n"
         when 'Parentheses' then out = render ast[1], depth
@@ -22,6 +21,11 @@ exports.render = render = (ast, depth) ->
             out += "#{ast[0]}\n#{repeat indent, depth+1}Builder:\n#{render ast[1], depth+2}#{args}"
         when 'Variable', 'Constant'
             out += "#{ast[0]}: #{ast[1]}\n"
+        when 'Integral'
+            out += "#{ast[0]}:\n"
+            out += "#{repeat indent, depth+1}#{bound}:\n#{render val, depth+2}" for bound, val of ast[3]
+            out += "#{repeat indent, depth+1}Integrand:\n#{render ast[1], depth+2}"
+            out += "#{repeat indent, depth+1}w.r.t:\n#{render ast[2], depth+2}"
         else
             out += "#{ast[0]}\n"
             out += render child, depth+1 for child in ast.slice 1 when child instanceof Array

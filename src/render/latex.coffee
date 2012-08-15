@@ -165,6 +165,13 @@ exports.render = render = (ast) ->
         when 'Ket' then "\\left| #{render ast[1]} \\right\\rangle"
         when 'BraKet' then "\\left\\langle #{render ast[1]} \\mid #{render ast[2]} \\right\\rangle"
 
+        when 'Integral'
+            bounds = [
+                if ast[3].lo? then "_{#{render ast[3].lo}}" else ""
+                if ast[3].hi? then "^{#{render ast[3].hi}}" else ""
+            ].join ''
+            "\\int#{bounds} #{render ast[1]} \\, \\mathrm{d}#{render ast[2]}"
+
         when 'Function'
             args = (render arg for arg in ast[2])
             if ast[1][0] is 'Variable'

@@ -68,8 +68,8 @@ RESERVED = (str) ->
         when '|' then 'TPipe'
         when 'divides' then 'TDivides'
         when '!|', 'ndivides', 'notdivides', 'ndivide', 'notdivide' then 'TNotDivides'
-        
-        
+
+
         when 'union' then 'TUnion'
         when 'intersect' then 'TIntersect'
         when '\\' then 'TSetDiff'
@@ -107,6 +107,7 @@ RESERVED = (str) ->
         when '&u' then 'TUnitVectorizer'
         when '&pm', '+/-' then 'TPlusMinus'
         when '&mp', '-/+' then 'TMinusPlus'
+        when '&int', 'int', '&integral', 'integral', '&Int', 'Int', '&Integral', 'Integral' then 'TIntegral'
 
         when '(' then 'TLParen'
         when ')' then 'TRParen'
@@ -184,7 +185,7 @@ exports.Lexer = class Lexer
 
         @delims.push INVERSES[tag] if tag in LEFT_DELIMS
         @pair tag if tag in RIGHT_DELIMS
-        
+
         @token tag, op
         len
 
