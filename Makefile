@@ -2,6 +2,7 @@ COFFEE = coffee
 CAKE = cake
 NODE = node
 LESSC = lessc
+COMPASS = compass compile
 JAVA = java
 PDFLATEX = pdflatex
 
@@ -61,14 +62,14 @@ css:
 	mkdir -p $@
 
 
-css/normalize.css: css less/normalize.less
-	$(LESSC) less/normalize.less $@
+css/normalize.css: css scss/normalize.scss
+	$(COMPASS) scss/normalize.scss
 
 css/normalize.min.css: css/normalize.css
 	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
 
-css/style.css: css less/style.less
-	$(LESSC) less/style.less $@
+css/style.css: css scss/style.scss
+	$(COMPASS) scss/style.scss
 
 css/style.min.css: css/style.css
 	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
