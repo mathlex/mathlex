@@ -1,7 +1,6 @@
 COFFEE = coffee
 CAKE = cake
 NODE = node
-LESSC = lessc
 COMPASS = compass compile
 JAVA = java
 PDFLATEX = pdflatex
@@ -48,6 +47,7 @@ $(BUILD)/render/text-tree.js: $(BUILD)/render $(SRC)/render/text-tree.coffee
 $(BUILD)/parser.js: $(BUILD) $(BUILD)/grammar.js
 	$(NODE) -e "require('fs').writeFileSync('$@', require('./$(BUILD)/grammar.js').parser.generate());"
 
+#Cake
 $(BUILD)/browser/parser.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer main $(addprefix render/,latex sage text-tree)))
 	$(CAKE) build:browser
 
@@ -75,7 +75,7 @@ css/style.min.css: css/style.css
 	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
 
 
-
+#Cake
 index.html: Cakefile template.html palettes.js
 	$(CAKE) build:html
 
