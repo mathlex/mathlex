@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MathLex | Documentation</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shCoreRDark.css">
+  </head>
+  <body>
+    <header>
+      <h1>MathLex
+        <div class="subtitle">A Web-Based Mathematical Entry System</div>
+      </h1>
+      <nav>
+        <ul>
+          <li><a href="index.html"><span>Home</span></a></li>
+          <li class="current"><a href="doc.html" class="current"><span>Documentation</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <article>
+      <h1>Documentation</h1>
+      <p class="note">
+        <strong>NOTE:</strong> MathLex is distributed in a precompiled, optimized, and minified
+        file. Building MathLex from source should not be necessary unless you know what you are
+        doing and need/want to make changes.
+        
+      </p>
+      <p>Make sure you have the following applications and libraries installed:</p>
+      <ul>
+        <li>
+          <a href="http://nodejs.org" target="_blank">Node.js</a> with the following modules:
+          <a href="http://coffeescript.org" target="_blank">CofeeScript</a>,
+          <a href="http://handlebarsjs.com" target="_blank">Handlebars</a>,
+          <a href="http://zaach.github.com/jison" target="_blank">Jison</a>, and
+          <a href="http://github.com/mishoo/UglifyJS2" target="_blank">UglifyJS</a>
+        </li>
+        <li>
+          <a href="http://ruby-lang.org" target="_blank">Ruby</a> with the <a href="compass-style.org" target="_blank">Compass</a> gem.
+          
+        </li>
+      </ul>
+      <p>Run make from your console to run the automated build script:</p>
+      <pre class="brush: shell">% cd /path/to/mathlex-source
+% make</pre>
+      <p>The compiled JS files will be written to <code>build/browser</code></p>
+      <h2 id="how-mathlex-works">How MathLex Works</h2>
+    </article>
+    <footer>
+      <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
+      <p>MathLex is to be used for testing purposes only.</p>
+    </footer>
+    <script src="syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shAutoloader.js"></script><script type="text/javascript">
+(function() {
+  var path,
+    __slice = [].slice;
+
+  path = function() {
+    var arg, args, _i, _len, _results;
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    _results = [];
+    for (_i = 0, _len = args.length; _i < _len; _i++) {
+      arg = args[_i];
+      _results.push(arg.replace('@', 'syntaxhighlighter_3.0.83/scripts/'));
+    }
+    return _results;
+  };
+
+  SyntaxHighlighter.autoloader.apply(null, path('html @shBrushXml.js', 'js @shBrushJScript.js', 'shell @shBrushBash.js'));
+
+  SyntaxHighlighter.all();
+
+}).call(this);
+</script>
+  </body>
+</html>

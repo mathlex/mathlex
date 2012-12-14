@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MathLex</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shCoreRDark.css">
+  </head>
+  <body>
+    <header>
+      <h1>MathLex
+        <div class="subtitle">A Web-Based Mathematical Entry System</div>
+      </h1>
+      <nav>
+        <ul>
+          <li class="current"><a href="index.html" class="current"><span>Home</span></a></li>
+          <li><a href="doc.html"><span>Documentation</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <article>
+      <div class="cols">
+        <div class="left">
+          <p>
+            MathLex is a quick and easy way to start accepting math input on your
+            website. Just download the <code>mathlex.js</code> file and follow the
+            <a href="#quick-start">quick start</a> instructions below.
+          </p>
+        </div>
+        <div class="right"><a data-icon="&#59256;" href="javascripts/mathlex.js" class="download">Download</a></div>
+      </div>
+      <h2 id="quick-start">Quick Start</h2>
+      <p>
+        Include the MathLex JS file in your HTML with the following code. I recommend putting
+        JavaScripts just before the closing <code>&lt;/body&gt;</code> tag, but you can put it in your
+        <code>&lt;head&gt;</code> or wherever works best for you.
+      </p>
+      <pre class="brush: html">&lt;script src=&quot;/path/to/mathlex.js&quot;&gt;&lt;/script&gt;</pre>
+      <p>Now suppose you have an input field somewhere in your <code>&lt;body&gt;</code>:</p>
+      <pre class="brush: html">&lt;input type=&quot;text&quot; id=&quot;#math-input&quot; /&gt;</pre>
+      <p>
+        The value of this text field is easy to obtain. For example, one of the following
+        methods could be used in a <code>&lt;script&gt;</code> tag in your page's HTML or in
+        a separate JS file:
+      </p>
+      <pre class="brush: js">// standard JS:
+var mathText = document.getElementById('math-input').value;
+
+// or jQuery (see http://jquery.com):
+var mathText = $('#math-input').val();
+
+// or whatever your preferred framework's procedure is...</pre>
+      <p>
+        <code>mathText</code> is now the name of this value, but you can use whatever name you want
+        (as long as it's not a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words" target="_blank">reserved keyword</a>).
+        Once you have math input code, pass it to the <code>parse()</code> method of the global
+        <code>MathParser</code> object.
+      </p>
+      <pre class="brush: js">var syntaxTree = MathParser.parse(mathText);</pre>
+      <p>This will give back an abstract syntax tree which can then be passed to the <code>render()</code> method.</p>
+      <p>There are currently three renderers included by default:</p>
+      <ul>
+        <li>
+          <code>latex</code>: for use in typesetting (perhaps using
+          <a href="#mathjax-integration">MathJax</a>.)
+        </li>
+        <li>
+          <code>sage</code> (about 80% complete): Input language for the open source
+          <a href="http://www.sagemanth.org" target="_blank">Sage computer algebra system</a>.
+        </li>
+        <li>
+          <code>text-tree</code>: outputs a plain text indented tree representation of the abstract
+          syntax tree (intended for debugging purposes).
+        </li>
+      </ul>
+      <p>Here is a sample use case for each renderer:</p>
+      <pre class="brush: js">var latexCode = MathParser.render(syntaxTree, 'latex');
+var sageCode  = MathParser.render(syntaxTree, 'sage');
+var treeCode  = MathParser.render(syntaxTree, 'text-tree');
+</pre>
+      <h3 id="mathjax-integration">MathJax Integration</h3>
+      <p>Suppose you have the following tag for rendering LaTeX output with <a href="http://www.mathjax.org" target="_blank">MathJax</a>:</p>
+      <pre class="brush: html">&lt;div id=&quot;math-output&quot;&gt;\[ \]&lt;/div&gt;</pre>
+      <p>The following JavaScript code can be used to dynamically update the display field above:</p>
+      <pre class="brush: js">// get MathJax runtime information on page load
+var mjQueue = MathJax.Hub.queue;
+var mjOutBox;
+
+mjQueue.Push(function () {
+  mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
+});
+
+// update math-output MathJax object
+// this should be in a callback function (i.e. when there's new latexCode to display)
+mjQueue.Push(['Text', mjOutBox, latexCode]);
+</pre>
+      <p>Need more help? <a href="doc.html">Read the full documentation</a>.</p>
+    </article>
+    <footer>
+      <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
+      <p>MathLex is to be used for testing purposes only.</p>
+    </footer>
+    <script src="syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shAutoloader.js"></script><script type="text/javascript">
+(function() {
+  var path,
+    __slice = [].slice;
+
+  path = function() {
+    var arg, args, _i, _len, _results;
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    _results = [];
+    for (_i = 0, _len = args.length; _i < _len; _i++) {
+      arg = args[_i];
+      _results.push(arg.replace('@', 'syntaxhighlighter_3.0.83/scripts/'));
+    }
+    return _results;
+  };
+
+  SyntaxHighlighter.autoloader.apply(null, path('html @shBrushXml.js', 'js @shBrushJScript.js'));
+
+  SyntaxHighlighter.all();
+
+}).call(this);
+</script>
+  </body>
+</html>

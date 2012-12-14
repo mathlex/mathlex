@@ -1,0 +1,60 @@
+!!!5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title MathLex | Documentation
+    link(rel='stylesheet', href='stylesheets/style.css')
+    link(rel='stylesheet', href='syntaxhighlighter_3.0.83/styles/shCoreRDark.css')
+
+  body
+    header
+      h1 MathLex
+        .subtitle A Web-Based Mathematical Entry System
+      nav: ul
+        li: a(href='index.html'): span Home
+        li.current: a.current(href='doc.html'): span Documentation
+    article
+      h1 Documentation
+
+      p.note.
+        <strong>NOTE:</strong> MathLex is distributed in a precompiled, optimized, and minified
+        file. Building MathLex from source should not be necessary unless you know what you are
+        doing and need/want to make changes.
+
+      p Make sure you have the following applications and libraries installed:
+      ul
+        li.
+          <a href="http://nodejs.org" target="_blank">Node.js</a> with the following modules:
+          <a href="http://coffeescript.org" target="_blank">CofeeScript</a>,
+          <a href="http://handlebarsjs.com" target="_blank">Handlebars</a>,
+          <a href="http://zaach.github.com/jison" target="_blank">Jison</a>, and
+          <a href="http://github.com/mishoo/UglifyJS2" target="_blank">UglifyJS</a>
+        li.
+          <a href="http://ruby-lang.org" target="_blank">Ruby</a> with the <a href="compass-style.org" target="_blank">Compass</a> gem.
+
+      p Run make from your console to run the automated build script:
+      pre(class='brush: shell')
+        % cd /path/to/mathlex-source
+        % make
+      p The compiled JS files will be written to <code>build/browser</code>
+
+      h2#how-mathlex-works How MathLex Works
+
+
+    footer
+      p Copyright &copy; 2012 Matthew Barry. All rights reserved.
+      p MathLex is to be used for testing purposes only.
+
+    script(src='syntaxhighlighter_3.0.83/scripts/shCore.js')
+    script(src='syntaxhighlighter_3.0.83/scripts/shAutoloader.js')
+    :coffeescript
+      path = (args...) ->
+        arg.replace '@', 'syntaxhighlighter_3.0.83/scripts/' for arg in args
+
+      SyntaxHighlighter.autoloader.apply null, path(
+        'html @shBrushXml.js'
+        'js @shBrushJScript.js'
+        'shell @shBrushBash.js'
+      )
+
+      SyntaxHighlighter.all()
