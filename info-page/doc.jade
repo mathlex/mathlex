@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset='utf-8')
     title MathLex | Documentation
     link(rel='stylesheet', href='stylesheets/style.css')
-    link(rel='stylesheet', href='syntaxhighlighter_3.0.83/styles/shCoreRDark.css')
+    link(rel='stylesheet', href='javascripts/lib/syntaxhighlighter/styles/shCoreRDark.css')
 
   body
     header
@@ -45,11 +45,11 @@ html(lang='en')
       p Copyright &copy; 2012 Matthew Barry. All rights reserved.
       p MathLex is to be used for testing purposes only.
 
-    script(src='syntaxhighlighter_3.0.83/scripts/shCore.js')
-    script(src='syntaxhighlighter_3.0.83/scripts/shAutoloader.js')
+    script(src='javascripts/lib/syntaxhighlighter/scripts/shCore.js')
+    script(src='javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js')
     :coffeescript
       path = (args...) ->
-        arg.replace '@', 'syntaxhighlighter_3.0.83/scripts/' for arg in args
+        arg.replace '@', 'javascripts/lib/syntaxhighlighter/scripts/' for arg in args
 
       SyntaxHighlighter.autoloader.apply null, path(
         'html @shBrushXml.js'
