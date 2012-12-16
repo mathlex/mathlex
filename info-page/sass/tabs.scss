@@ -1,0 +1,58 @@
+@import 'compass';
+
+.tabs {
+    nav ul {
+        @include reset-box-model;
+        list-style: none;
+        position: relative;
+        top: 1px;
+        left: 1em;
+
+        li {
+            @include reset-box-model;
+            display: inline-block;
+            a {
+                z-index: 0;
+                @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
+                @include border-top-radius;
+                @include text-shadow(0 -1px 0 rgba(black, 0.7));
+                display: block;
+                border: {
+                    width: 1px;
+                    style: solid;
+                    color: #777 #777 #999;
+                };
+                padding: 0.6em 1em;
+                text-decoration: none;
+                color: #bbb;
+
+                &:hover {
+                    color: #eee;
+                }
+
+                &.current {
+                    @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
+                    z-index: 2;
+                    color: #fff;
+                    border-color: #999 #999 darken($bgcolor, 5%);
+                }
+            }
+        }
+    }
+
+    .content  {
+        @include box-shadow(0 0 5px rgba(black, 0.8));
+        background: darken($bgcolor, 5%);
+        z-index: 1;
+        border: 1px solid #999;
+        padding: 0 1em;
+
+        .syntaxhighlighter {
+            @include box-sizing(border-box);
+        }
+
+        & > div[id] {
+            display: none;
+        }
+    }
+}

@@ -2,7 +2,7 @@
 html(lang='en')
   head
     meta(charset='utf-8')
-    title MathLex
+    title MathLex | Demo
     link(rel='stylesheet', href='stylesheets/style.css')
     link(rel='stylesheet', href='javascripts/lib/syntaxhighlighter/styles/shCoreRDark.css')
 
@@ -11,25 +11,14 @@ html(lang='en')
       h1 MathLex
         .subtitle A Web-Based Mathematical Entry System
       nav: ul
-        li.current: a.current(href='index.html'): span Home
+        li: a(href='index.html'): span Home
         li: a(href='quick-start.html'): span Quick-Start
         li: a(href='doc.html'): span Documentation
-        li: a(href='demo.html'): span Demo
+        li.current: a.current(href='demo.html'): span Demo
     article
-      .cols
-        .left
-          p.
-            MathLex is a quick and easy way to start accepting math input on your
-            website. Just download the <code>mathlex.js</code> file and follow the
-            <a href="quick-start.html">quick start</a> instructions.
-        .right
-          a.download(data-icon='&#59256;', href='javascripts/mathlex.js') Download
-
-      h2#demo See MathLex in Action
       p.
-        Check out our <a href="demo.html">demo page</a> for a taste of what
-        MathLex can do.
-
+        Until I have a chance to move it here, the demo page is available
+        <a href="http://mymathapps.com/demos/mathlex">at its original abode</a>.
 
     footer
       p Copyright &copy; 2012 Matthew Barry. All rights reserved.
