@@ -1,0 +1,19 @@
+$bgcolor: #444;
+$bgaccent-light: lighten($bgcolor, 20%);
+$bgaccent-dark: darken($bgcolor, 20%);
+
+$fgcolor: #fff;
+$fgcolor-inactive: #999;
+$link-color: #cfc;
+$code-color: #0ff;
+
+$infobg: #558;
+
+$default-transition-duration: 0.3s;
+
+.dark {
+    @include builder;
+    .tabs {
+        @include tabs;
+    }
+}

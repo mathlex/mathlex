@@ -29,3 +29,13 @@ body {
     content: attr(data-icon);
     speak: none;
 }
+
+.icon-alone {
+    display: inline-block;
+}
+
+.screen-reader-text {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}

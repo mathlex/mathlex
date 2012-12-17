@@ -1,6 +1,6 @@
 @import 'compass';
 
-.tabs {
+@mixin tabs {
     nav ul {
         @include reset-box-model;
         list-style: none;
@@ -24,7 +24,7 @@
                 };
                 padding: 0.6em 1em;
                 text-decoration: none;
-                color: #bbb;
+                color: $fgcolor-inactive;
 
                 &:hover {
                     color: #eee;
@@ -33,7 +33,7 @@
                 &.current {
                     @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
                     z-index: 2;
-                    color: #fff;
+                    color: $fgcolor;
                     border-color: #999 #999 darken($bgcolor, 5%);
                 }
             }

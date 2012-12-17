@@ -1,3 +1,8 @@
+/* line 1, ../sass/fonts.scss */
+body {
+  text-rendering: optimizeLegibility;
+}
+
 @font-face {
   font-family: 'ChunkFive';
   src: url("fonts/chunkfive/chunkfive.eot");
@@ -14,7 +19,7 @@
   font-style: normal;
 }
 
-/* line 23, ../sass/fonts.scss */
+/* line 27, ../sass/fonts.scss */
 [data-icon]:before {
   font-family: entypo;
   content: attr(data-icon);

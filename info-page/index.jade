@@ -4,9 +4,11 @@ html(lang='en')
     meta(charset='utf-8')
     title MathLex
     link(rel='stylesheet', href='stylesheets/style.css')
-    link(rel='stylesheet', href='javascripts/lib/syntaxhighlighter/styles/shCoreRDark.css')
 
-  body
+  body.dark
+    a#power-button
+      span.screen-reader-text Toggle light and dark theme
+      span.icon.icon-only(data-icon='&#128161;', aria-hidden='true')
     header
       h1 MathLex
         .subtitle A Web-Based Mathematical Entry System
