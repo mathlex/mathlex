@@ -2,12 +2,16 @@ $bgcolor: #444;
 $bgaccent-light: lighten($bgcolor, 20%);
 $bgaccent-dark: darken($bgcolor, 20%);
 
+$titlefg: #9f9;
+
 $fgcolor: #fff;
 $fgcolor-inactive: #999;
 $link-color: #cfc;
-$code-color: #0ff;
+$code-color: lighten(#79c, 10%);
 
 $infobg: #558;
+
+$errorfg: #e33;
 
 $default-transition-duration: 0.3s;
 

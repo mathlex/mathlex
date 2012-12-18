@@ -13,7 +13,7 @@
             display: inline-block;
             a {
                 z-index: 0;
-                @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
+                @include background(linear-gradient(top, lighten($bgcolor, 5%), $bgcolor));
                 @include border-top-radius;
                 @include text-shadow(0 -1px 0 rgba(black, 0.7));
                 display: block;
@@ -22,12 +22,14 @@
                     style: solid;
                     color: #777 #777 #999;
                 };
-                padding: 0.6em 1em;
+                font-size: 0.9em;
+                padding: 0 1em;
+                line-height: 24px;
                 text-decoration: none;
                 color: $fgcolor-inactive;
 
                 &:hover {
-                    color: #eee;
+                    color: $fgcolor;
                 }
 
                 &.current {
