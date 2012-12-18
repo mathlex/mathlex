@@ -279,12 +279,13 @@ exports.render = render = (ast) ->
             else ast[1].replace /_/g, '\\_'
 
         when 'Constant' then switch ast[1]
+            when 't', 'tau' then "\\tau"
             when 'p', 'pi' then "\\pi"
             when 'gamma' then "\\gamma"
             when 'e' then "\\mathrm{e}"
             when 'infinity' then "\\infty"
-            when 'true', 't', 'T' then "\\mathbf{T}"
-            when 'false', 'f', 'F' then "\\mathbf{F}"
+            when 'true', 'T' then "\\mathbf{T}"
+            when 'false', 'F' then "\\mathbf{F}"
             when 'O' then "\\mathbb{O}"
             when 'H' then "\\mathbb{H}"
             when 'C' then "\\mathbb{C}"
@@ -299,6 +300,7 @@ exports.render = render = (ast) ->
             when 'vk', 'uk' then "\\hat{k}"
             when '0' then "\\mathbf{O}"
             when '1' then "\\mathbf{I}"
+            when 'I' then "I"
             when 'empty' then "\\emptyset"
             else ast[1]
 
