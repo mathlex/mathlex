@@ -25,24 +25,8 @@ $(BUILD)/render: $(BUILD)
 $(BUILD)/browser: $(BUILD)
 	mkdir -p $@
 
-
-$(BUILD)/grammar.js: $(BUILD) $(SRC)/grammar.coffee
-	$(COFFEE) -c -o $(@D) $(SRC)/grammar.coffee
-
-$(BUILD)/lexer.js: $(BUILD) $(SRC)/lexer.coffee
-	$(COFFEE) -c -o $(@D) $(SRC)/lexer.coffee
-
-$(BUILD)/main.js: $(BUILD) $(SRC)/main.coffee
-	$(COFFEE) -c -o $(@D) $(SRC)/main.coffee
-
-$(BUILD)/render/latex.js: $(BUILD)/render $(SRC)/render/latex.coffee
-	$(COFFEE) -c -o $(@D) $(SRC)/render/latex.coffee
-
-$(BUILD)/render/sage.js: $(BUILD)/render $(SRC)/render/sage.coffee
-	$(COFFEE) -c -o $(@D) $(SRC)/render/sage.coffee
-
-$(BUILD)/render/text-tree.js: $(BUILD)/render $(SRC)/render/text-tree.coffee
-	$(COFFEE) -c -o $(@D) $(SRC)/render/text-tree.coffee
+$(BUILD)/%.js: $(SRC)/%.coffee $(BUILD)
+	$(COFFEE) -c -o $(@D) $<
 
 $(BUILD)/parser.js: $(BUILD) $(BUILD)/grammar.js
 	$(NODE) -e "require('fs').writeFileSync('$@', require('./$(BUILD)/grammar.js').parser.generate());"
@@ -52,10 +36,10 @@ $(BUILD)/browser/parser.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(ad
 	$(CAKE) build:browser
 
 $(BUILD)/browser/parser.opt.js: $(BUILD)/browser/parser.js
-	$(JAVA) -jar $(CLOSURE_LIB) --js=$^ --js_output_file=$@
+	$(JAVA) -jar $(CLOSURE_LIB) --js=$< --js_output_file=$@
 
 $(BUILD)/browser/parser.opt.min.js: $(BUILD)/browser/parser.opt.js
-	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=js > $@
+	cat $< | $(JAVA) -jar $(YUI_LIB) --type=js > $@
 
 
 css:

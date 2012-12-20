@@ -9,6 +9,7 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
+                        { content: '#t', label: '\\tau', tooltip: 'tau = 2*pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
                         { content: '#i', label: 'i', tooltip: 'imaginary unit' },
@@ -281,8 +282,8 @@ module.exports.palettes = [
                         { content: 'grad('+CRSR+')', label: '\\mathrm{grad}{\\left( f \\right)}', tooltip: 'gradient' },
                         { content: 'div(&vF'+CRSR+')', label: '\\mathrm{div}{\\left( f \\right)}', tooltip: 'divergence' },
                         { content: 'curl(&vF'+CRSR+')', label: '\\mathrm{curl}{\\left( f \\right)}', tooltip: 'curl' },
-                        { content: 'int(f'+CRSR+',x)', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
-                        { content: 'int(f'+CRSR+',x,a,b)', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
+                        { content: 'int f'+CRSR+' &dx', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
+                        { content: 'int &_a &^b f'+CRSR+' &dx', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
                         { content: 'sum(f'+CRSR+',i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
                         { content: 'sum(f'+CRSR+',i,a,b)', label: '\\sum_{i=a}^b f', tooltip: 'sum over range' },
                         { content: 'prod(f'+CRSR+',i)', label: '\\prod_i f', tooltip: 'product over domain set' },
@@ -353,6 +354,7 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
+                        { content: '#t', label: '\\tau', tooltip: 'tau = 2*pi' },
                         { content: '(: '+CRSR+' :)', label: '\\left(\\,\\right)', tooltip: 'open interval' },
                         { content: '(: '+CRSR+' :]', label: '\\left(\\,\\right]', tooltip: 'half-open interval (left)' },
                         { content: '[: '+CRSR+' :)', label: '\\left[\\,\\right)', tooltip: 'half-open interval (right)' },
@@ -440,6 +442,7 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
+                        { content: '#t', label: '\\tau', tooltip: 'tau = 2*pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
                         { content: ' infinity ', label: '\\infty', tooltip: 'infinity' },
@@ -451,8 +454,8 @@ module.exports.palettes = [
                         { content: '\'', label: 'f\'', tooltip: 'prime derivative' },
                         { content: '.', label: '\\dot{x}', tooltip: 'dot derivative' },
                         { content: 'sum(f(x&_i)*&Dx&_i,i,1,n)', label: '\\sum_{i=1}^n f(x_i) \\Delta x_i', tooltip: 'finite sum' },
-                        { content: 'int(f'+CRSR+',x)', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
-                        { content: 'int(f'+CRSR+',x,a,b)', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
+                        { content: 'int f'+CRSR+' &dx', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
+                        { content: 'int &_a &^b f'+CRSR+', &dx', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
                         { content: '&D', label: '\\Delta', tooltip: 'change' },
                         { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
                         { content: '&pd', label: '\\partial', tooltip: 'partial differential' },

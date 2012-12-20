@@ -167,12 +167,12 @@ render = (ast) ->
             ast[1]
 
         when 'Constant' then switch ast[1]
-            then 't', 'tau' then "(2*pi)"
+            when 't', 'tau' then "(2*pi)"
             when 'p', 'pi' then "pi"
             when 'gamma' then "euler_gamma"
             when 'e' then "e"
             when 'infinity' then "infinity"
-            when 'true',, 'T' then "True"
+            when 'true', 'T' then "True"
             when 'false', 'F' then "False"
             when 'O' then "\\mathbb{O}" # ***
             when 'H' then "\\mathbb{H}" # ***
