@@ -148,6 +148,10 @@
             .col {
                 @include box-sizing(border-box);
                 padding: 1em;
+                float: left;
+
+                &:first-child { padding-left: 0; }
+                &:last-child { padding-right: 0; }
             }
 
             &.border .col {
@@ -156,21 +160,20 @@
                 &:last-child { border-right: none; }
             }
 
+            &.two-alt {
+                .col { width: 50%; }
+            }
+
             &.two {
                 .col {
-                    float: left;
                     width: 33%;
 
-                    &:first-child {
-                        float: left;
-                        width: 66%;
-                    }
+                    &:first-child { width: 66%; }
                 }
             }
 
             &.four {
                 .col {
-                    float: left;
                     width: 25%;
                     border-left: 1px solid $bgaccent-light;
                 }
@@ -265,8 +268,14 @@
         &:last-child { margin-bottom: 0; }
     }
 
-    li {
-        line-height: 1.3em;
+    ul, ol {
+        ul, ol {
+            margin: {top: 0; bottom: 0;};
+        }
+
+        li {
+            line-height: 1.3em;
+        }
     }
 
     code, tt {
@@ -333,9 +342,10 @@
         @include box-sizing(border-box);
         @include border-radius(5px);
         @include box-shadow(inset 0 0 5px rgba(black, 0.7), 0 1px 0 rgba(white, 0.3), 0 -1px 0 rgba(black, 0.8));
+        border: 1px solid $bgaccent-dark;
         padding: 5px;
+        max-height: 500px;
 
-        .toolbar { display: none; }
         table { @include box-shadow(none);}
     }
 }

@@ -1,0 +1,16 @@
+extends layout
+
+block vars
+  page_id = 'contact'
+
+block append title
+  | - Contact
+
+block content
+  h1 Contact Us
+  ul
+    li General Support: <a href="mailto:support@mymathapps.com">support@mymathapps.com</a>
+    li Authors
+      ul
+        li: a(href='mailto:matthew@mymathapps.com') Matthew Barry &lt;matthew@mymathapps.com&gt;
+        li: a(href='mailto:yasskin@mymathapps.com') Philip Yasskin &lt;yasskin@mymathapps.com&gt;

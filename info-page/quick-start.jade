@@ -1,255 +1,351 @@
-!!!5
-html(lang='en')
-  head
-    meta(charset='utf-8')
-    title MathLex | Quick Start
-    link(rel='stylesheet', href='stylesheets/style.css')
+extend layout
 
-  body.dark
-    a#power-button
-      span.screen-reader-text Toggle light and dark theme
-      span.icon.icon-only(data-icon='&#128161;', aria-hidden='true')
-    header
-      h1 MathLex
-        .subtitle A Web-Based Mathematical Entry System
-      nav: ul
-        li: a(href='index.html'): span Home
-        li.current: a.current(href='quick-start.html'): span Quick-Start
-        li: a(href='doc.html'): span Documentation
-        li: a(href='demo.html'): span Demo
-    article
+block vars
+  page_id = 'quickstart'
+
+block append title
+  | - Quick Start
+
+block content
+  p.
+    This page is meant to be a 10-minute crash-course on how to use the MathLex JavaScript library.
+    In the process, you will learn how to produce a sample page called <code>mathlexsample.html</code>,
+    which contains a simple numerical calculator. For more information, please visit the
+    <a href="doc.html">full documentation</a>.
+
+  h1#quick-start Quick Start
+
+  .two.cols.border
+    .col: p.
+      <em>Step 1</em>: Download the MathLex Javascript file, <code>mathlex.js</code>, by right-clicking
+      on the button at the right and saving the linked file in a location that is accessible from
+      the page in a web browser. In some of the code below, this URL location is referred to as
+      <code>/path/to/mathlex.js</code>. In our sample page, it is located in the <code>javascripts</code>
+      subfolder <em>relative</em> to the same folder as the <code>mathlexsample.html</code> page
+      (thus we can omit the leading <code>/</code>), so its path is <code>javascripts/mathlex.js</code>.
+    .col.align-center: a.download(data-icon='&#59256;', href='javascripts/mathlex.js', download='mathlex') Download
+
+  .two.cols.border
+    .col
       p.
-        This page is meant to be a 5-minute crash-course on how to use the provided MathLex
-        JavaScript library. For more information, please visit the <a href="doc.html">full documentation</a>.
-      h1#quick-start Quick Start
+        <em>Step 2</em>: A MathLex sample page is shown at the right. To pop it out,
+        <a href="quick-start/mathlexsample.html" target="_blank">click here</a>.
       p.
-        Include the MathLex JS file in your HTML with the following code. I recommend putting
-        JavaScripts just before the closing <code>&lt;/body&gt;</code> tag, but you can put it in your
-        <code>&lt;head&gt;</code> or wherever works best for you.
-      p.note.
-        If you would like to code along with me, you can create files on your computer or use an online
-        HTML sandbox tool such as <a href="http://codepen.io" target="_blank">CodePen</a> or
-        <a href="http://jsfiddle.net" target="_blank">JSFiddle</a>.
-      pre(class='brush: html; highlight: 1').
-        &lt;script src="/path/to/mathlex.js"&gt;&lt;/script&gt;
-
-        &lt;!-- optional libraries depending on page preferences --&gt;
-        &lt;script src="/path/to/jquery.js"&gt;&lt;/script&gt;
-        &lt;script src="/path/to/mathjax.js"&gt;&lt;/script&gt;
+        This page contains a simple numerical calculator. There is an input box where a student can
+        enter a formula which may be as complicated as desired, but must evaluate to a pure number.
+        Then there is a preview window where the student can see what they have typed. When the student
+        clicks the Submit button, the formula is sent to a Sage processor which returns the value, which
+        is displayed in the output window.
       p.
-        Now suppose you have an input field, button, and output element somewhere
-        in your <code>&lt;body&gt;</code>:
-      pre(class='brush: html').
-        &lt;input type="text" id="math-input" /&gt;
-        &lt;input type="button" onclick="renderMathLex('math-input', 'math-output');" value="Render Math" /&gt;
-        &lt;div id="math-output"&gt;\[ \]&lt;/div&gt;
-      p.
-        The <code>renderMathLex()</code> JavaScript function referenced by the button will be
-        responsible for processing the mathematical input. The actions taken by this function
-        should be something similar to
-      pre(class='brush: js').
-        var renderMathLex = function (inputID, outputID) {
-          // get MathLex from text field identified by `inputID` parameter
-          // parse MathLex into an abstract syntax tree
-          // render or translate the syntax tree into another format
-          // do something with the translated math code
-        }
-      p.
-        Each step of this function will be discussed in detail below, and all discussed JavaScript code
-        wll be contained within this function.
+        The code for this page is listed below, and each part will be explained in the sections to
+        follow. If you would like to code along with me, you can create files on your computer
+    .col
+      .align-center
+        strong MathLex Sample
+        br
+        strong A Simple Calculator
+        br
+        input#math-input(type='text', placeholder='Type math here')
+        #math-display \[ \]
+        input#send-math(type='button', value='Send to Sage')
+        #math-output \[ \]
 
-      h2 Line 2: Obtaining MathLex input
-      p.
-        The value of the <code>math-input</code> text field is easy to obtain. For example, here
-        is an exhaustive list of several JavaScript toolkits and how they obtain a text field's value.
-        Any one of the following methods (if you are not sure which one to use, just pick the
-        highlighted <em>standard JS</em> code) could be used in a separate JavaScript file or in your page's HTML inside a
-        <code>&lt;script&gt;</code> tag:
-      pre(class='brush: js; highlight: [3,4]').
-        // get MathLex from text field identified by `inputID` parameter
+  pre(class='brush: js; html-script: true').
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <title>MathLex Sample</title>
+        <style>body { text-align: center; }</style>
+      </head>
+      <body>
+        <h1>MathLex Sample</h1>
+        <h2>A Simple Calculator</h2>
+        <input id="math-input" type="text" placeholder="Type math here">
+        <div id="math-display">\[ \]</div>
+        <input id="send-math" type="button" value="Send to Sage">
+        <div id="math-output">\[ \]</div>
 
-        // standard JS:
-        var mathText = document.getElementById(inputID).value;
-
-        // jQuery (see http://jquery.com):
-        var mathText = $('#' + inputID).val();
-
-        // MooTools (see http://mootools.net):
-        var mathText = document.id(inputID).value;
-
-        // Prototype (see http://prototypejs.org):
-        var mathText = $(inputID).value;
-
-        // YUI (see http://yuilibrary.com):
-        var mathText = Y.one('#' + inputID).get('value');
-
-        // Dojo (see http://dojotoolkit.org):
-        var mathText = dom.byId(inputID).value;
-
-      p.
-        <code>mathText</code> is now the name given to the MathLex input value, but you can use whatever name you want
-        as long as it's not a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words" target="_blank">reserved keyword</a>.
-
-      h2 Line 3: Parsing MathLex Input
-      p Once you have some MathLex input, pass it to the <code>MathParser.parse()</code> function.
-      pre(class='brush: js').
-        // parse MathLex into an abstract syntax tree
-        var syntaxTree = MathParser.parse(mathText);
-      p.
-        This will give back an abstract syntax tree representing the interpreted mathematical
-        meaning that can then be rendered/translated into other formats. To improve your web
-        page's performance, only parse the MathLex input once. The syntax tree can be used
-        multiple times without the overhead of reinterpreting the input's meaning.
-
-      h2 Line 4: Rendering the Syntax Tree
-      p Once you have a syntax tree, it can be rendered into several other formats:
-
-      pre(class='brush: js').
-        // render or translate the syntax tree into another format
-        var formattedMathLex = MathParser.render(syntaxTree, targetFormat);
-      p.
-        Where <code>targetFormat</code> is a string containing the name of a renderer.
-        There are currently three renderers included by default:
-      ul
-        li.
-          <code>'latex'</code>: for use in typesetting (perhaps using
-          <a href="#mathjax-integration">MathJax</a>.)
-        li.
-          <code>'sage'</code> (about 80% complete): Input language for the open source
-          <a href="http://www.sagemanth.org" target="_blank">Sage computer algebra system</a>.
-        li.
-          <code>'text-tree'</code>: outputs a plain text indented tree representation of the abstract
-          syntax tree (intended for debugging purposes).
-      p.
-        Renderers simply walk through the syntax tree recursively, performing a certain action at each
-        node. You can look at the provided renderers in the <code>src/render</code> directory and even
-        build your own. A list of all node types produced by the parser is included in
-        <a href="#appendix-b">Appendix B</a>.
-
-      h2 Line 5: Doing Something with Rendered MathLex
-      p If you've been coding along, your JavaScript function should look something like this:
-      pre(class='brush: js').
-        var renderMathLex = function (inputID, outputID) {
-          // get MathLex from text field identified by `inputID` parameter
-          var mathText = document.getElementById(inputID).value;
-
-          // parse MathLex into an abstract syntax tree
-          var syntaxTree = MathParser.parse(mathText);
-
-          // render or translate the syntax tree into another format
-          // do something with the translated math code
-        }
-      p.
-        Once you have your desired translation, you can do whatever you want with it.
-        Below is a sample use case for each renderer:
-
-      .tabs
-        nav: ul
-            li: a(href='#text-tree') Simple Text Tree
-            li: a(href='#sage-jquery') Sage and jQuery AJAX
-            li: a(href='#latex-mathjax') LaTeX and MathJax
-        .content
-          #text-tree: pre(class='brush: js').
-            var treeCode  = MathParser.render(syntaxTree, 'text-tree');
-            document.getElementById(outputID).innerHTML = treeCode;
-
-          #sage-jquery: pre(class='brush: js').
-            var sageCode  = MathParser.render(syntaxTree, 'sage');
-            $.post('http://example.com/sage-handler', {sage: sageCode}, function (data) {
-              alert('Sage Code Sent');
+        <script src="javascripts/mathlex.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script>
+          $(document).ready(function () {
+            // get MathJax output object
+            var mjDisplayBox, mjOutBox;
+            MathJax.Hub.queue.Push(function () {
+              mjDisplayBox = MathJax.Hub.getAllJax('math-display')[0];
+              mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
             });
 
-          #latex-mathjax: pre(class='brush: js').
-            var latexCode = MathParser.render(syntaxTree, 'latex');
+            // "live update" MathJax whenever a key is pressed
+            $('#math-input').on('keyup', function (evt) {
+              var math = $(this).val();
+              $(this).css('color', 'black');
 
-            var mjQueue = MathJax.Hub.queue;
-            mjQueue.Push(function () {
-              var mjOutBox = MathJax.Hub.getAllJax(outputID)[0];
-              mjQueue.Push(['Text', mjOutBox, latexCode]);
+              if (math.length > 0) {
+                try {
+                  var ast = MathParser.parse(math),
+                      latex = MathParser.render(ast, 'latex');
+                  MathJax.Hub.Queue(['Text', mjDisplayBox, latex]);
+                } catch (err) {
+                  $(this).css('color', 'red');
+                }
+              }
             });
 
-      p Want to know more? <a href="doc.html">Read the full documentation</a>.
-
-      h2#summary Summary Example
-      p.
-        Here is a comprehensive example that captures input from an HTML text field, displays a
-        "live-updating preview" for immediate feedback, and contains a submit button to send the
-        parsed math to a Sage server.
-      pre(class='brush: js; html-script: true').
-        &lt;!DOCTYPE html&gt;
-        &lt;html lang="en"&gt;
-          &lt;head&gt;
-            &lt;meta charset="utf-8" /&gt;
-          &lt;/head&gt;
-          &lt;body&gt;
-            &lt;input type="text" id="math-input" placeholder="Type math here" /&gt;
-            &lt;input type="button" id="send-math" value="Send to Sage" /&gt;
-            &lt;div id="math-output"&gt;\[ \]&lt;/div&gt;
-
-            &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
-            &lt;script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;
-            &lt;script src="/path/to/mathlex.js"&gt;&lt;/script&gt;
-            &lt;script&gt;
-              $(document).ready(function () {
-                // get MathJax output object
-                var mjOutBox;
-                MathJax.Hub.queue.Push(function () {
-                  mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
-                });
-
-                // "live update" MathJax whenever a key is pressed
-                $('#math-input').on('keyup', function (evt) {
-                  var math = $(this).val();
-                  $(this).css('color', 'black')
-
-                  if (math.length > 0) {
-                    try {
-                      var ast   = MathParser.parse(math),
-                          latex = MathParser.render(ast, 'latex');
-                      MathJax.Hub.queue.Push(['Text', mjOutBox, latex]);
-                    } catch (err) {
-                      $(this).css('color', 'red');
+            // send output to sage server
+            $('#send-math').on('click', function (evt) {
+              var math = $('#math-input').val();
+              if (math.length > 0) {
+                try {
+                  var sageCode = MathParser.render(MathParser.parse(math), 'sage');
+                  $.post('http://aleph.sagemath.org/service?callback=?', {code: 'print latex('+sageCode+')'}, function (data) {
+                    // AJAX success callback
+                    if (data.success) {
+                      MathJax.Hub.Queue(['Text', mjOutBox, data.stdout]);
+                    } else {
+                      MathJax.Hub.Queue(['Text', mjOutBox, '\\text{Sage could not understand that input}']);
                     }
-                  }
-                });
+                  });
+                } catch (err) {
+                  MathJax.Hub.Queue(['Text', mjOutBox, '\\text{Check your syntax and try again}']);
+                }
+              }
+            });
+          });
+        </script>
+      </body>
+    </html>
 
-                // send output to sage server
-                $('#send-math').on('click', function (evt) {
-                  var math = $('#math-input').val();
 
-                  if (math.length > 0) {
-                    try {
-                      var sageCode = MathParser.render(MathParser.parse(math), 'sage');
-                      $.post('http://example.org/sage', {sage: sageCode}, function (data) {
-                        // AJAX success callback
-                        if (data.match(/True/)) {
-                          alert('Correct!');
-                        } else {
-                          alert('Incorrect!');
-                        }
-                      }, function (data) {
-                        // AJAX failure callback
-                        alert('Could not communicate with Sage server.');
-                      });
-                    } catch (err) {
-                      alert('Check your syntax and try again.');
-                    }
-                  }
-                });
-              });
-            &lt;/script&gt;
-          &lt;/body&gt;
-        &lt;/html&gt;
+  offset = 9
+  p.
+    The following HTML snippet creates the screen layout. Lines #{offset} and #{offset+1} create a header,
+    line #{offset+2} makes the input field, line #{offset+3} produces a preview window that will be
+    rendered by MathJax, line #{offset+4} makes the submit button, and line #{offset+5} creates the
+    output window that will alsobe rendered by MathJax.
 
-    footer
-      p Copyright &copy; 2012 Matthew Barry. All rights reserved.
-      p MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.
+  pre(class='brush: html; first-line: #{offset}').
+    <h1>MathLex Sample</h1>
+    <h2>A Simple Calculator</h2>
+    <input type="text" id="math-input" placeholder="Type math here" />
+    <div id="math-display">\[ \]</div>
+    <input type="button" id="send-math" value="Submit to Sage" />
+    <div id="math-output">\[ \]</div>
 
+  offset = offset + 7
+  p.
+    <em>Step 4</em>: To be able to process the math input, you need to include the MathLex JavaScript
+    file in your HTML. I recommend putting JavaScripts just before the closing <code>&lt;/body&gt;</code>
+    tag, but you can put it in your <code>&lt;head&gt;</code> or wherever works best for you. Of course
+    the script <code>src</code> attribute should be replaced by the appropriate path to your MathLex
+    JavaScript file.
+
+  pre(class='brush: html; first-line: #{offset}') <script src="javascripts/mathlex.js"></script>
+
+  offset = offset + 1
+  p.
+    <em>Step 5</em>: If you plan to use <a href="http://www.mathjax.org/download" target="_blank">MathJax</a>,
+    <a href="http://jquery.com" target="_blank">jQuery</a>,
+    <a href="http://mootools.net/download" target="_blank">MooTools</a>,
+    <a href="http://prototypejs.org/download" target="_blank">Prototype</a>,
+    <a href="http://yuilibrary.com/yui/quick-start" target="_blank">YUI</a>,
+    <a href="http://dojotoolkit.org/download" target="_blank">Dojo</a>, or another JavaScript
+    toolkit/library, please refer to the corresponding site for installation instructions. Lines #{offset}
+    and #{offset+1} of the example code load jQuery and MathJax from their respective Content Distribution
+    Network (CDN) URLs:
+
+  pre(class='brush: html; first-line: #{offset}').
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  p.
+    <em>Step 6</em>: The math input from line #{offset-8+2} is processed in two ways:
+  ol
+    li It is automatically parsed and rendered into the math display window on line #{offset-8+3}
+    li It is passed to the Sage processor when the Submit button on line #{offset-8+4} is clicked.
+
+  p.
+    <em>Step 7</em>: Before any processing can be done, we have to create a callback function to
+    execute when the button is clicked. This is simplified in the example by jQuery's DOM
+    event handling system, but for the remainder of this guide, we will use an abstract JavaScript function called
+    <code>renderMathLex</code> that could be used in an HTML <code>onclick</code> attribute. For example:
+
+  pre(class='brush: html').
+    <button onclick="renderMathLex('math-input', 'math-output')">
+      Process MathLex
+    </button>
+
+  offset = 46
+  p.
+    In other words, imagine the contents of the <code>$('#send-math').on('click', function (evt) { ... });</code>
+    block on lines #{offset}&ndash;#{offset+15} refactored into their own <code>renderMathLex()</code>
+    function, which will be responsible for processing the mathematical input. The abstract actions
+    taken by the callback are outlined below
+
+  pre(class='brush: js').
+    var renderMathLex = function (inputID, outputID) {
+      // get MathLex from text field identified by `inputID` parameter
+      // parse MathLex into an abstract syntax tree
+      // render or translate the syntax tree into another format
+      // do something with the translated math code
+    }
+  p.
+    Each step of this function will be discussed in detail below. All discussed JavaScript code
+    and referenced line numbers will now be confined within this function.
+
+  h2 Line 2: Obtaining MathLex input
+  p.
+    The value of the <code>math-input</code> text field is easy to obtain. For example, here
+    is an exhaustive list of several JavaScript toolkits and how they obtain a text field's value.
+    Any one of the following methods could be used (if unsure, use the highlighted <em>standard JS</em> code)
+    in a separate JavaScript file or in your page's HTML inside a
+    <code>&lt;script&gt;</code> tag:
+  pre(class='brush: js; highlight: [4,5]').
+    // get MathLex from text field identified by `inputID` parameter
+    // in the example above, let inputID = 'math-input'
+
+    // standard JS:
+    var mathText = document.getElementById(inputID).value;
+
+    // jQuery (see http://jquery.com):
+    var mathText = $('#' + inputID).val();
+
+    // MooTools (see http://mootools.net):
+    var mathText = document.id(inputID).value;  // OR
+    var mathText = $(inputID).value;            // '$' is aliased to 'document.id'
+
+    // Prototype (see http://prototypejs.org):
+    var mathText = $(inputID).value;
+
+    // YUI (see http://yuilibrary.com):
+    var mathText = Y.one('#' + inputID).get('value');
+
+    // Dojo (see http://dojotoolkit.org):
+    var mathText = dom.byId(inputID).value;
+
+  p.
+    <code>mathText</code> is now the name given to the MathLex input value, but you can use whatever name you want
+    as long as it's not a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words" target="_blank">reserved keyword</a>.
+
+  h2 Line 3: Parsing MathLex Input
+  p Once you have some MathLex input, pass it to the <code>MathParser.parse()</code> function.
+  pre(class='brush: js').
+    // parse MathLex into an abstract syntax tree
+    var syntaxTree = MathParser.parse(mathText);
+  p.
+    This will give back an abstract syntax tree representing the interpreted mathematical
+    meaning that can then be rendered/translated into other formats. To improve your web
+    page's performance, only parse the MathLex input once. The syntax tree can be used
+    multiple times without the overhead of reinterpreting the input's meaning.
+
+  h2 Line 4: Rendering the Syntax Tree
+  p Once you have a syntax tree, it can be rendered into several other formats:
+
+  pre(class='brush: js').
+    // render or translate the syntax tree into another format
+    var formattedMathLex = MathParser.render(syntaxTree, targetFormat);
+  p.
+    Where <code>targetFormat</code> is a string containing the name of a renderer.
+    There are currently three renderers included by default:
+  ul
+    li.
+      <code>'latex'</code>: for use in typesetting (perhaps using
+      <a href="#mathjax-integration">MathJax</a>.)
+    li.
+      <code>'sage'</code> (about 80% complete): Input language for the open source
+      <a href="http://www.sagemanth.org" target="_blank">Sage computer algebra system</a>.
+    li.
+      <code>'text-tree'</code>: outputs a plain text indented tree representation of the abstract
+      syntax tree (intended for debugging purposes).
+  p.
+    Renderers simply walk through the syntax tree recursively, performing a certain action at each
+    node. You can look at the provided renderers in the <code>src/render</code> directory and even
+    build your own. A list of all node types produced by the parser is included in
+    <a href="doc.html#appendix-b">Appendix B</a> of the full documentation.
+
+  h2 Line 5: Doing Something with Rendered MathLex
+  p If you've been coding along, your JavaScript function should look something like this:
+  pre(class='brush: js').
+    var renderMathLex = function (inputID, outputID) {
+      // get MathLex from text field identified by `inputID` parameter
+      var mathText = document.getElementById(inputID).value;
+
+      // parse MathLex into an abstract syntax tree
+      var syntaxTree = MathParser.parse(mathText);
+
+      // render or translate the syntax tree into another format
+      // do something with the translated math code
+    }
+  p.
+    Once you have your desired translation, you can do whatever you want with it.
+    Below is a sample use case for each renderer:
+
+  .tabs
+    nav: ul
+        li: a(href='#text-tree') Simple Text Tree
+        li: a(href='#sage-jquery') Sage and jQuery AJAX
+        li: a(href='#latex-mathjax') LaTeX and MathJax
+    .content
+      #text-tree: pre(class='brush: js').
+        var treeCode  = MathParser.render(syntaxTree, 'text-tree');
+        document.getElementById(outputID).innerHTML = treeCode;
+
+      #sage-jquery: pre(class='brush: js').
+        var sageCode  = MathParser.render(syntaxTree, 'sage');
+        $.post('http://example.com/sage-handler', {sage: sageCode}, function (data) {
+          alert('Sage Code Sent');
+        });
+
+      #latex-mathjax: pre(class='brush: js').
+        var latexCode = MathParser.render(syntaxTree, 'latex');
+
+        var mjQueue = MathJax.Hub.queue;
+        mjQueue.Push(function () {
+          var mjOutBox = MathJax.Hub.getAllJax(outputID)[0];
+          mjQueue.Push(['Text', mjOutBox, latexCode]);
+        });
+
+  p Want to know more? <a href="doc.html">Read the full documentation</a>.
+
+
+block javascripts
     script(src='javascripts/lib/syntaxhighlighter/scripts/XRegExp.js')
     script(src='javascripts/lib/syntaxhighlighter/scripts/shCore.js')
     script(src='javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-    script(src='javascripts/main.js')
     script(src='javascripts/jquery.tabs.js')
     :coffeescript
-      $(document).ready -> $('.tabs').tabs()
+      $ -> $('.tabs').tabs()
+
+    script(src='javascripts/mathlex.js')
+    script(src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
+    :coffeescript
+      $ ->
+        mjDisplayBox = mjOutBox = null
+        MathJax.Hub.Queue ->
+          mjDisplayBox = MathJax.Hub.getAllJax('math-display')[0]
+          mjOutBox = MathJax.Hub.getAllJax('math-output')[0]
+
+        $('#math-input').on 'keyup', (evt) ->
+          math = $(@).val()
+          $(@).css color: 'black'
+          if math.length > 0
+            try
+              ast = MathParser.parse math
+              latex = MathParser.render ast, 'latex'
+              MathJax.Hub.Queue ['Text', mjDisplayBox, latex]
+            catch err
+              $(@).css color: 'red'
+        $('#send-math').on 'click', (evt) ->
+          math = $('#math-input').val()
+          if math.length > 0
+            try
+              sageCode = MathParser.render MathParser.parse(math), 'sage'
+              $.post 'http://aleph.sagemath.org/service?callback=?', {code: "print latex(#{sageCode})"}, (data) ->
+                if data.success
+                  MathJax.Hub.Queue ['Text', mjOutBox, data.stdout]
+                else
+                  MathJax.Hub.Queue ['Text', mjOutBox, '\\text{Sage could not understand that input}']
+            catch err
+              MathJax.Hub.Queue ['Text', mjOutBox, '\\text{Check your syntax and try again}']

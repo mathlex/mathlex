@@ -1,33 +1,12 @@
-!!!5
-html(lang='en')
-  head
-    meta(charset='utf-8')
-    title MathLex | Demo
-    link(rel='stylesheet', href='stylesheets/style.css')
+extends layout
 
-  body.dark
-    a#power-button
-      span.screen-reader-text Toggle light and dark theme
-      span.icon.icon-only(data-icon='&#128161;', aria-hidden='true')
-    header
-      h1 MathLex
-        .subtitle A Web-Based Mathematical Entry System
-      nav: ul
-        li: a(href='index.html'): span Home
-        li: a(href='quick-start.html'): span Quick-Start
-        li: a(href='doc.html'): span Documentation
-        li.current: a.current(href='demo.html'): span Demo
-    article
-      p.
-        Until I have a chance to move it here, the demo page is available
-        <a href="http://mymathapps.com/demos/mathlex">at its original abode</a>.
+block vars
+  page_id = 'demo'
 
-    footer
-      p Copyright &copy; 2012 Matthew Barry. All rights reserved.
-      p MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.
+block append title
+  | - Demo
 
-    script(src='javascripts/lib/syntaxhighlighter/scripts/XRegExp.js')
-    script(src='javascripts/lib/syntaxhighlighter/scripts/shCore.js')
-    script(src='javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-    script(src='javascripts/main.js')
+block content
+  p.
+    Until I have a chance to move it here, the demo page is available
+    <a href="http://mymathapps.com/demos/mathlex">at its original abode</a>.

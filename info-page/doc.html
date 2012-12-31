@@ -2,13 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>MathLex | Documentation</title>
+    <title>
+      MathLex
+      - Documentation</title>
     <link rel="stylesheet" href="stylesheets/style.css">
   </head>
-  <body class="dark"><a id="power-button"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
+  <body class="dark"><a id="power-button" title="Toggle light and dark theme"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
     <header>
       <h1>MathLex
-        <div class="subtitle">A Web-Based Mathematical Entry System</div>
+        <div class="subtitle">A JavaScript Mathematical Entry System</div>
       </h1>
       <nav>
         <ul>
@@ -16,12 +18,18 @@
           <li><a href="quick-start.html"><span>Quick-Start</span></a></li>
           <li class="current"><a href="doc.html" class="current"><span>Documentation</span></a></li>
           <li><a href="demo.html"><span>Demo</span></a></li>
+          <li><a href="contact.html"><span>Contact Us</span></a></li>
         </ul>
       </nav>
     </header>
     <article>
       <h1>Building from Source</h1>
-      <div class="two cols border">
+      <p>
+        While open source, MathLex is currently copyrighted and cannot be used in
+        any project without explicit permission. It will eventually be made available under a free-use
+        license (such as BSD, MIT, Apache, or Creative Commons).
+      </p>
+      <div class="two-alt cols border">
         <div class="col">
           <p class="note">
             <strong>NOTE:</strong> MathLex is distributed in a precompiled, optimized, and minified JS
@@ -29,9 +37,14 @@
             doing and need/want to make changes.
           </p>
         </div>
-        <div class="col align-center"><a data-icon="&#59156;" href="src/mathlex.zip" class="download">Source Code</a></div>
+        <div class="col align-center"><a data-icon="&#59156;" href="src/mathlex.zip" class="download">Download Source Code</a></div>
       </div>
       <h2>Requirements and Dependencies</h2>
+      <p>
+        For simplicity, this documentation assumes you are using a UNIX (including Mac
+        OS X) or GNU/Linux environment and are familiar with basic JavaScript and CoffeeScript programming.
+        
+      </p>
       <p>Make sure you have the following applications and libraries installed:</p>
       <ul>
         <li>
@@ -53,7 +66,7 @@
         compiled JavaScript counterparts.
         
       </p>
-      <p>Type the following into your console to run the automated build script:</p>
+      <p>Type the following into your console to run the automated build script (the <code>%</code> represents your prompt and should be ignored)</p>
       <pre class="brush: shell">% cd /path/to/mathlex-source
 % make</pre>
       <p>
@@ -593,7 +606,7 @@
             <td>Boolean constant <strong>False</strong></td>
           </tr>
           <tr>
-            <td><code>#t</code></td>
+            <td><code>#t #tau</code></td>
             <td><a href="http://tauday.com" target="_blank">&tau; = 2 &pi; &asymp; 6.28318</a></td>
           </tr>
           <tr>
@@ -606,7 +619,7 @@
           </tr>
           <tr>
             <td><code>#infinity infinity</code></td>
-            <td><span class="error">#!ERROR: memory overflow</span></td>
+            <td>&infin; &asymp; <span class="error">#!ERROR: memory overflow</span></td>
           </tr>
           <tr>
             <td><code>#N</code></td>
@@ -773,10 +786,10 @@
       <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
       <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
     </footer>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
     <script src="javascripts/lib/syntaxhighlighter/scripts/XRegExp.js"></script>
     <script src="javascripts/lib/syntaxhighlighter/scripts/shCore.js"></script>
     <script src="javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
   </body>
 </html>
