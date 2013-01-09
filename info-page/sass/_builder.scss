@@ -47,7 +47,6 @@
         }
 
         nav {
-            width: 75%;
             margin: 0 auto 1em;
             border-bottom: 1px solid $bgaccent-dark;
             @include box-shadow(0 1px 0 $bgaccent-light);
@@ -136,7 +135,6 @@
 
 
     article {
-        width: 75%;
         margin: 0 auto;
         .cols {
             &:after {
@@ -269,6 +267,9 @@
     }
 
     ul, ol {
+        &.p > li {
+            margin: 1em 0;
+        }
         ul, ol {
             margin: {top: 0; bottom: 0;};
         }

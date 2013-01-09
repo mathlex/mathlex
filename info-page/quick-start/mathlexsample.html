@@ -3,14 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>MathLex Sample</title>
-    <style>body { text-align: center; }</style>
+    <style>
+      body { text-align: center; }
+      #math-display, #math-output { border: 1px solid #000; margin: 5px 0; }
+    </style>
   </head>
   <body>
     <h1>MathLex Sample</h1>
     <h2>A Simple Calculator</h2>
     <input id="math-input" type="text" placeholder="Type math here">
     <div id="math-display">\[ \]</div>
-    <input id="send-math" type="button" value="Send to Sage">
+    <input id="send-math" type="button" value="Calculate">
     <div id="math-output">\[ \]</div>
     <script src="javascripts/mathlex.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

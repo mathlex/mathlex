@@ -5,12 +5,13 @@ html(lang='en')
     title MathLex Sample
     style
       body { text-align: center; }
+      #math-display, #math-output { border: 1px solid #000; margin: 5px 0; }
   body
     h1 MathLex Sample
     h2 A Simple Calculator
     input#math-input(type='text', placeholder='Type math here')
     #math-display \[ \]
-    input#send-math(type='button', value='Send to Sage')
+    input#send-math(type='button', value='Calculate')
     #math-output \[ \]
 
     script(src='javascripts/mathlex.js')
