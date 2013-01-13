@@ -34,8 +34,8 @@
           
           if (math.length > 0) {
             try {
-              var ast = MathParser.parse(math),
-                  latex = MathParser.render(ast, 'latex');
+              var ast = MathLex.parse(math),
+                  latex = MathLex.render(ast, 'latex');
               MathJax.Hub.Queue(['Text', mjDisplayBox, latex]);
             } catch (err) {
               $(this).css('color', 'red');
@@ -48,7 +48,7 @@
           var math = $('#math-input').val();
           if (math.length > 0) {
             try {
-              var sageCode = MathParser.render(MathParser.parse(math), 'sage');
+              var sageCode = MathLex.render(MathLex.parse(math), 'sage');
               $.post('http://aleph.sagemath.org/service?callback=?', {code: 'print latex('+sageCode+')'}, function (data) {
                 // AJAX success callback
                 if (data.success) {

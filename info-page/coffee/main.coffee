@@ -14,7 +14,7 @@ $ ->
     $('body').addClass('dark').removeClass('light');
 
   path = (args...) ->
-    arg.replace '@', 'javascripts/lib/syntaxhighlighter/scripts/' for arg in args
+    arg.replace '@', "#{PATH_PREFIX}javascripts/lib/syntaxhighlighter/scripts/" for arg in args
 
   if SyntaxHighlighter?
     SyntaxHighlighter.autoloader.apply null, path(

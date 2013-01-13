@@ -6,26 +6,31 @@
     font-weight: 300;
     padding: 2em;
 
-    #power-button {
+    .icon-button {
         @include border-radius(3px);
         @include box-shadow(0 0 4px rgba(black, 0.7), 0 -1px 0 rgba(white, 0.7));
         @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
         color: $fgcolor;
-        position: absolute;
         text-align: center;
         width: 30px;
         height: 30px;
         font-size: 35px;
         line-height: 20px;
-        right: 10px;
-        top: 10px;
         display: block;
+        text-decoration: none;
 
         &:active {
             color: darken($fgcolor, 10%);
             @include background(linear-gradient(top, darken($bgcolor, 10%), darken($bgcolor, 5%)));
             @include box-shadow(inset 0 3px 10px rgba(black, 0.5), 0 -1px 0 rgba(black, 0.7), 0 1px 0 rgba(white, 0.7));
         }
+    }
+
+    #power-button {
+        @extend .icon-button;
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
 
     header {
@@ -240,6 +245,18 @@
         margin: 1em;
         padding: 1em;
         font-size: 0.9em;
+    }
+
+    nav.doc {
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #previous { float: left; }
+        #index { margin: 0 auto; }
+        #next { float: right; }
     }
 
     h1, h2, h3, h4, h5, h6 {

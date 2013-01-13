@@ -1,6 +1,6 @@
 extend layout
 
-block vars
+block append vars
   page_id = 'quickstart'
 
 block append title
@@ -35,7 +35,7 @@ block content
       in the <code>javascripts</code> subfolder <em>relative</em> to the same folder as the
       <code>mathlexsample.html</code> page (thus we can omit the leading <code>/</code>), so its path
       is <code>javascripts/mathlex.js</code>.
-    .col.align-center: a.download(data-icon='&#59256;', href='javascripts/mathlex.js', download='mathlex') Download
+    .col.align-center: a.download(data-icon='&#59256;', href='javascripts/mathlex.js', download='mathlex.js') Download
 
   .two.cols.border
     .col
@@ -76,7 +76,7 @@ block content
         <h2>A Simple Calculator</h2>
         <input id="math-input" type="text" placeholder="Type math here">
         <div id="math-display">\[ \]</div>
-        <input id="send-math" type="button" value="Send to Sage">
+        <input id="send-math" type="button" value="Calculate">
         <div id="math-output">\[ \]</div>
 
         <script src="javascripts/mathlex.js"></script>
@@ -156,10 +156,10 @@ block content
   offset = offset + 7
   p.
     <em>Step 4</em>: To be able to process the math input, you need to include the MathLex JavaScript
-    file in your HTML. I recommend putting JavaScripts just before the closing <code>&lt;/body&gt;</code>
-    tag, but you can put it in your <code>&lt;head&gt;</code> or wherever works best for you. Of course
-    the <code>src</code> attribute should be replaced by the appropriate path to your MathLex
-    JavaScript file.
+    file in your HTML, which is done on line #{offset+7}. I recommend putting JavaScripts just before
+    the closing <code>&lt;/body&gt;</code> tag, but you can put it in your <code>&lt;head&gt;</code>
+    or wherever works best for you. Of course the <code>src</code> attribute should be replaced by
+    the appropriate path to your MathLex JavaScript file.
 
   pre(class='brush: html; first-line: #{offset}') <script src="javascripts/mathlex.js"></script>
 
@@ -182,7 +182,9 @@ block content
   p.
     <em>Step 6</em>: The math input from line #{initOffset+2} is processed in two ways:
   ol
-    li It is automatically parsed and rendered into the math display window on line #{initOffset+3}
+    li.
+      It is automatically parsed and translated into LaTeX by MathLex, and then rendered by MathJax
+      into the math display window on line #{initOffset+3}
     li.
       It is passed to the Sage processor when the Calculate button on line #{initOffset+4} is clicked.
       The result returned by Sage is rendered by MathJax into the math output window on line #{initOffset+5}.
@@ -204,21 +206,18 @@ block content
 
   offset = offset + 7
   p.
-    <em>Step 7</em>: To automatically parse the <code>math-input</code> from line #{initOffset+3}, we
+    <em>Step 7</em>: To automatically parse the <code>math-input</code> from line #{initOffset+2}, we
     use jQuery's DOM event handling systems in lines #{offset}&ndash;#{offset+18}. Line #{offset+1}
     watches for a <code>keyup</code> event in the <code>math-input</code> box. When this occurs, line
     #{offset+2} stores the value of the <code>math-input</code> as a variable <code>math</code>.
-
     Line #{offset+5} checks if <code>math</code> has a non-zero length. If it does, then in lines
     #{offset+6}&ndash;#{offset+8}, MathLex tries to parse it into an abstract syntax <code>tree</code>
     structure and render that structure into <code>latex</code>. Then in line #{offset+9}, MathJax tries
     to display the <code>latex</code> in the <code>mjDisplayBox</code> (previously linked to the
-    <code>math-display</code> box). If this fails, then the <code>math-input</code> box (since
+    <code>math-display</code> box). If this fails, then the <code>math-input</code> box turns red. Here
     <code>this</code> represents the <code>math-input</code> box that's handling the <code>keyup</code>
-    event).
-
-    If <code>math</code> is empty (i.e. has zero length), then lines #{offset+14} to #{offset+16} blank
-    out the <code>math-display</code> and <code>math-output</code> boxes.
+    event. If <code>math</code> is empty (i.e. has zero length), then lines #{offset+14} to #{offset+16}
+    blank out the <code>math-display</code> and <code>math-output</code> boxes.
 
   pre(class='brush: js; first-line: #{offset}').
     // "live update" MathJax whenever a key is pressed
@@ -251,10 +250,10 @@ block content
     stores the value of the <code>math-input</code> as a variable <code>math</code>. Line #{offset+2}
     checks if <code>math</code> has a non-zero length, and if it does, then, in lines
     #{offset+4}&ndash;#{offset+5}, MathLex tries to parse the <code>math</code> into a <code>tree</code>
-    structure, render it into sage, and then store the result in a variable named <code>sageCode</code>.
-    Then in line #{offset+6}, the <code>sageCode</code> is sent to a Sage server as an AJAX request.
-    When the browser receives the AJAX response, it executes the associated function, passing it the
-    received <code>data</code> (more about this in <a href="#step9">Step 9</a>). If the Sage execution
+    structure, translate it into sage, and then store the result in a variable named <code>sageCode</code>.
+    Then in lines #{offset+6}&ndash;#{offset+7}, the <code>sageCode</code> is sent to a Sage server as an AJAX request.
+    When the browser receives the AJAX response, it executes the associated function, which is
+    receiving the associated <code>data</code> (more about this in <a href="#step9">Step 9</a>). If the Sage execution
     was successful, then, on line #{offset+10}, MathJax displays the result (<code>data.stdout</code>)
     in the <code>mjOutBox</code> object (previously linked to the <code>math-output</code> box). If
     the server encountered an error, then line #{offset+12} displays "Sage could not understand that
@@ -284,11 +283,15 @@ block content
     });
 
   p#step9.
-    <em>Step 9</em>: Finally a few words about the Sage processing on line #{offset+8}:<br/>
+    <em>Step 9</em>: Finally a few words about the Sage processing on lines #{offset+6}-#{offset+7}:
+  pre(class='brush: js;first-line=#{offset+6}').
+    $.post('http://aleph.sagemath.org/service?callback=?',
+           {code: 'print latex('+sageCode+')'}, function (data) {
+  p.
     The demo communicates with a Sage Cell server at
     <a href="http://aleph.sagemath.org" target="_blank">http://aleph.sagemath.org</a>
     operated by the Sage Math organization. The POST request sends the Sage code
-    <code>print latex(&lt;sageCode&gt;)</code>, where <code>sageCode</code> is the injected
+    <code>print latex(&lt;sageCode&gt;)</code>, where <code>&lt;sageCode&gt;</code> is the injected
     code generated by MathLex. Sage will evaluate the sent <code>sageCode</code>, simplify the
     result, convert it to LaTeX, and print it to the standard output (hence <code>stdout</code>).
     This output is passed back to the client in the form of a JSON object:
@@ -303,7 +306,7 @@ block content
     This value is stored as the <code>data</code> parameter to the AJAX callback function; so
     <code>data.success</code> on line #{offset+9} yields <code>true</code> or <code>false</code>
     and <code>data.stdout</code> yields the output string in LaTeX form (assuming
-      <code>data.success</code> is true) to be processed by MathJax.
+      <code>data.success</code> is true) to be processed by MathJax on line #{offset+10}.
 
   h2 Additional Comments
   ul.p
@@ -324,12 +327,12 @@ block content
       p.
         where <code>inputID</code> stands for the input test field. In the example, this was
         <code>math-input</code>. However, there are many ways to obtain a text field's value. Here is
-        the corresponding code for standard, plain, vanilla JavaScript and each of the JS libraries
+        the corresponding code for standard JavaScript and each of the JS libraries
         mentioned earlier:
 
       ol
         li
-          p: Standard JavaScript:
+          p Standard JavaScript
           pre(class='brush: js') var math = document.getElementById(inputID).value;
         li
           p: a(href='http://mootools.net', target='_blank') MooTools
@@ -352,9 +355,7 @@ block content
     li
       p.
         Once you have some MathLex input, pass it to the <code>MathLex.parse()</code> function.
-      pre(class='brush: js').
-        // parse MathLex into an abstract syntax tree
-        var syntaxTree = MathLex.parse(mathText);
+      pre(class='brush: js') var syntaxTree = MathLex.parse(mathText);
       p.
         This will give back an abstract syntax tree representing the interpreted mathematical
         meaning that can then be rendered/translated into other formats. To improve your web
@@ -365,8 +366,8 @@ block content
       p Once you have a syntax tree, it can be rendered into several other formats. The general format is
       pre(class='brush: js') var formattedMathLex = MathLex.render(syntaxTree, targetFormat);
       p.
-        Where <code>targetFormat</code> is a string containing the name of a renderer.
-        There are currently three renderers included by default:
+        Where <code>targetFormat</code> is a string containing the name of a renderer/translator.
+        There are currently three renderers/translators included by default:
       ul
         li.
           <code>'latex'</code>: for use in typesetting (perhaps using
@@ -378,7 +379,7 @@ block content
           <code>'text-tree'</code>: outputs a plain text indented tree representation of the abstract
           syntax tree (intended for debugging purposes).
       p.
-        These Renderers simply walk through the syntax tree recursively, performing a certain action
+        These renderers/translators simply walk through the syntax tree recursively, performing a certain action
         at each node. For more information on the provided renderers, please visit the
         <a href="doc.html">full documentation</a>. We are happy to collaborate on writing additional
         renderers or translators.
@@ -387,11 +388,13 @@ block content
       p.
         Once you have your desired translation, you can do whatever you want with it. Examples of the
         use of the <code>latex</code> and <code>sage</code> translations are included in the example
-        above. Here is an example using the text-tree renderer:
+        above. Here is an HTML and JavaScript example using the text-tree renderer/translator:
+
+      pre(class='brush: html') <pre id="text-tree-output"></pre>
 
       pre(class='brush: js').
         var treeCode  = MathLex.render(syntaxTree, 'text-tree');
-        document.getElementById(outputID).innerHTML = treeCode;
+        document.getElementById('text-tree-output').innerHTML = treeCode;
 
   //-
     h2 Line 4: Rendering the Syntax Tree
