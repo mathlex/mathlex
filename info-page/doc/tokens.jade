@@ -1,6 +1,7 @@
 extends layout
 
 block append vars
+  prev_page = {href: 'building.html', title: 'Build Instructions'}
   next_page = {href: 'tree-nodes.html', title: 'Appendix B: List of All Syntax Tree Nodes'}
 
 block append title
@@ -395,69 +396,69 @@ block article
   h2#list-of-constants List of Constants
   table
     thead: tr
-      th Constant
       th Description
+      th Constant
     tbody
       tr
-        td: code #T #true true
         td Boolean constant <strong>True</strong>
+        td: code #T #true true
       tr
-        td: code #F #false false
         td Boolean constant <strong>False</strong>
+        td: code #F #false false
       tr
-        td: code #t #tau
         td: a(href='http://tauday.com', target='_blank') &tau; = 2 &pi; &asymp; 6.28318
+        td: code #t #tau
       tr
-        td: code #p #pi
         td &pi; &asymp; 3.14159
+        td: code #p #pi
       tr
-        td: code #e
         td e &asymp; 2.71828
+        td: code #e
       tr
-        td: code #infinity infinity
         td &infin; &asymp; <span class="error">#!ERROR: memory overflow</span>
+        td: code #infinity infinity
       tr
-        td: code #N
         td Set of Natural Numbers
+        td: code #N
       tr
-        td: code #Z
         td Set of Integers
+        td: code #Z
       tr
-        td: code #Q
         td Set of Rational Numbers
+        td: code #Q
       tr
-        td: code #R
         td Set of Real Numbers
+        td: code #R
       tr
-        td: code #C
         td Set of Complex Numbers
+        td: code #C
       tr
-        td: code #H
         td Set of Quaternion Numbers
+        td: code #H
       tr
-        td: code #O
         td Set of Octonian Numbers
+        td: code #O
       tr
-        td: code #U
         td Universal Set
+        td: code #U
       tr
-        td: code #v0
         td Zero Vector
+        td: code #v0
       tr
-        td: code #vi #ui
         td <em>x</em>-axis unit vector
+        td: code #vi #ui
       tr
-        td: code #vj #uj
         td <em>y</em>-axis unit vector
+        td: code #vj #uj
       tr
-        td: code #vk #uk
         td <em>z</em>-axis unit vector
+        td: code #vk #uk
       tr
-        td: code #0
         td Zero Matrix
+        td: code #0
       tr
-        td: code #1
         td One Matrix
+        td: code #1
       tr
-        td: code #I
         td Identity Matrix
+        td: code #I
