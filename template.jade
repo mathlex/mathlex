@@ -145,7 +145,8 @@ html(lang='en')
         <a href="http://nsf.gov/awardsearch/showAward.do?AwardNumber=0737248">#0737248</a> /
         <a href="http://nsf.gov/awardsearch/showAward.do?AwardNumber=1123255">#1123255</a> (Yasskin)
       p LaTeX Rendered by <a href="http://www.mathjax.org">MathJax</a>.
-    script(src='build/browser/parser.opt.min.js')
+
+    script(src='build/browser/mathlex.js')
 
     // attempt to load jQuery from Google CDN; fall back to local if offline
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
@@ -167,18 +168,26 @@ html(lang='en')
 
         mjQueue.Push -> mjOutBox = MathJax.Hub.getAllJax('math_output')[0]
 
+        class ParserProxy
+          constructor: -> @memo = {}
+          parse: (mlCode) ->
+            if mlCode of @memo then @memo[mlCode]
+            else @memo[mlCode] = MathLex.parse(mlCode);
+
+        pp = new ParserProxy()
+
         updateMath = (math) ->
           mathOutput.css {color: '#000'}
 
           try
             if math.length > 0
               # attempt to parse input and display LaTeX
-              ast = MathParser.parse math
-              latex = MathParser.render ast, 'latex'
+              ast = pp.parse math
+              latex = MathLex.render ast, 'latex'
               mjQueue.Push ['Text', mjOutBox, "\\displaystyle{#{latex}}"]
               rawOutput.html "<pre>#{latex}<\/pre>"
-              astOutput.html "<pre>#{MathParser.render ast, 'text-tree'}<\/pre>"
-              sageOutput.html "<pre>#{MathParser.render ast, 'sage'}<\/pre>"
+              astOutput.html "<pre>#{MathLex.render ast, 'text-tree'}<\/pre>"
+              sageOutput.html "<pre>#{MathLex.render ast, 'sage'}<\/pre>"
             else
               mjQueue.Push ['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]
               rawOutput.html '<code>Raw LaTeX Output<\/code>'

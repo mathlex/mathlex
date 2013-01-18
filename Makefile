@@ -13,7 +13,7 @@ SRC = src
 
 
 .PHONY: all
-all: $(BUILD)/browser/parser.opt.min.js css/normalize.min.css css/style.min.css index.html doc/Symbols.pdf
+all: $(BUILD)/browser/mathlex.js css/normalize.min.css css/style.min.css index.html doc/Symbols.pdf
 
 
 $(BUILD):
@@ -32,13 +32,13 @@ $(BUILD)/parser.js: $(BUILD) $(BUILD)/grammar.js
 	$(NODE) -e "require('fs').writeFileSync('$@', require('./$(BUILD)/grammar.js').parser.generate());"
 
 #Cake
-$(BUILD)/browser/parser.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer main $(addprefix render/,latex sage text-tree)))
+$(BUILD)/browser/mathlex.raw.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer MathLex $(addprefix render/,latex sage text-tree)))
 	$(CAKE) build:browser
 
-$(BUILD)/browser/parser.opt.js: $(BUILD)/browser/parser.js
+$(BUILD)/browser/mathlex.opt.js: $(BUILD)/browser/mathlex.raw.js
 	$(JAVA) -jar $(CLOSURE_LIB) --js=$< --js_output_file=$@
 
-$(BUILD)/browser/parser.opt.min.js: $(BUILD)/browser/parser.opt.js
+$(BUILD)/browser/mathlex.js: $(BUILD)/browser/mathlex.opt.js
 	cat $< | $(JAVA) -jar $(YUI_LIB) --type=js > $@
 
 
@@ -60,7 +60,7 @@ css/style.min.css: css/style.css
 
 
 #Cake
-index.html: Cakefile template.html palettes.js
+index.html: Cakefile template.jade palettes.js
 	$(CAKE) build:html
 
 
