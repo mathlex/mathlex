@@ -167,8 +167,8 @@ exports.render = render = (ast) ->
 
         when 'Integral'
             bounds = [
-                if ast[3].lo? then "_{#{render ast[3].lo}}" else ""
-                if ast[3].hi? then "^{#{render ast[3].hi}}" else ""
+                if ast[3].lo? then "_{#{render unwrap ast[3].lo}}" else ""
+                if ast[3].hi? then "^{#{render unwrap ast[3].hi}}" else ""
             ].join ''
             "\\int#{bounds} #{render ast[1]} \\, \\mathrm{d}#{render ast[2]}"
 
