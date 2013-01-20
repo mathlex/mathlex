@@ -105,7 +105,7 @@ RESERVED = (str) -> switch str
     when '&u' then 'TUnitVectorizer'
     when '&pm', '+/-' then 'TPlusMinus'
     when '&mp', '-/+' then 'TMinusPlus'
-    when '&int', 'int', '&integral', 'integral', '&Int', 'Int', '&Integral', 'Integral' then 'TIntegral'
+    when '&int', '&integral', '&Int', '&Integral' then 'TIntegral'
 
     when '(' then 'TLParen'
     when ')' then 'TRParen'

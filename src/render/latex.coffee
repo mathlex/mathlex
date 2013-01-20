@@ -183,7 +183,7 @@ exports.render = render = (ast) ->
                         "\\#{ast[1][1]}{\\left( #{args} \\right)}"
                     when 'arccsc', 'arcsec', 'arccot', 'csch', 'sech', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth', 'acsc', 'asec', 'acot', 'csch', 'sech', 'asinh', 'acosh', 'atanh', 'acsch', 'asech', 'acoth'
                         "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
-                    when 'int'
+                    when 'int', 'integral', 'Int', 'Integral'
                         bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
                     when 'diff'
