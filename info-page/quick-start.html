@@ -172,7 +172,7 @@
 &lt;h2&gt;A Simple Calculator&lt;/h2&gt;
 &lt;input type=&quot;text&quot; id=&quot;math-input&quot; placeholder=&quot;Type math here&quot; /&gt;
 &lt;div id=&quot;math-display&quot;&gt;\[ \]&lt;/div&gt;
-&lt;input type=&quot;button&quot; id=&quot;send-math&quot; value=&quot;Submit to Sage&quot; /&gt;
+&lt;input type=&quot;button&quot; id=&quot;send-math&quot; value=&quot;Calculate&quot; /&gt;
 &lt;div id=&quot;math-output&quot;&gt;\[ \]&lt;/div&gt;
 </pre>
       <p>
@@ -202,12 +202,13 @@
       <p><em>Step 6</em>: The math input from line 14 is processed in two ways:</p>
       <ol>
         <li>
-          It is automatically parsed and translated into LaTeX by MathLex, and then rendered by MathJax
-          into the math display window on line 15
+          MathLex automatically parses it and translates it into LaTeX which MathJax displays in the
+          <code>math-display</code> window on line 15.
         </li>
         <li>
-          It is passed to the Sage processor when the Calculate button on line 16 is clicked.
-          The result returned by Sage is rendered by MathJax into the math output window on line 17.
+          When the Calculate button on line 16 is clicked, MathLex parses it and translates it into Sage,
+          which transmits to a Sage Cell server. The result returned by Sage is rendered by MathJax into
+          the math-output window on line 17.
           
         </li>
       </ol>
@@ -302,7 +303,7 @@ $('#math-input').on('keyup', function (evt) {
 });
 </pre>
       <p id="step9"><em>Step 9</em>: Finally a few words about the Sage processing on lines 57-58:</p>
-      <pre class="brush: js;first-line=57">$.post('http://aleph.sagemath.org/service?callback=?',
+      <pre class="brush: js; first-line: 57">$.post('http://aleph.sagemath.org/service?callback=?',
        {code: 'print latex('+sageCode+')'}, function (data) {</pre>
       <p>
         The demo communicates with a Sage Cell server at
@@ -422,11 +423,12 @@ var math = $(inputID).value;            // '$' is aliased to 'document.id'</pre>
         <li>
           <p>
             Once you have your desired translation, you can do whatever you want with it. Examples of the
-            use of the <code>latex</code> and <code>sage</code> translations are included in the example
-            above. Here is an HTML and JavaScript example using the text-tree renderer/translator:
+            use of the latex and sage translations are included in the example above. Here is an example
+            using the text-tree renderer. In your HTML, include a line like:
             
           </p>
           <pre class="brush: html">&lt;pre id=&quot;text-tree-output&quot;&gt;&lt;/pre&gt;</pre>
+          <p>Then in the JavaScript, include the lines:</p>
           <pre class="brush: js">var treeCode  = MathLex.render(syntaxTree, 'text-tree');
 document.getElementById('text-tree-output').innerHTML = treeCode;
 </pre>
@@ -438,6 +440,7 @@ document.getElementById('text-tree-output').innerHTML = treeCode;
       <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
       <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
     </footer>
+    <script>window.PATH_PREFIX = '';</script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/lib/syntaxhighlighter/scripts/XRegExp.js"></script>

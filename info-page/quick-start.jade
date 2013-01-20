@@ -150,7 +150,7 @@ block content
     <h2>A Simple Calculator</h2>
     <input type="text" id="math-input" placeholder="Type math here" />
     <div id="math-display">\[ \]</div>
-    <input type="button" id="send-math" value="Submit to Sage" />
+    <input type="button" id="send-math" value="Calculate" />
     <div id="math-output">\[ \]</div>
 
   offset = offset + 7
@@ -183,11 +183,12 @@ block content
     <em>Step 6</em>: The math input from line #{initOffset+2} is processed in two ways:
   ol
     li.
-      It is automatically parsed and translated into LaTeX by MathLex, and then rendered by MathJax
-      into the math display window on line #{initOffset+3}
+      MathLex automatically parses it and translates it into LaTeX which MathJax displays in the
+      <code>math-display</code> window on line #{initOffset+3}.
     li.
-      It is passed to the Sage processor when the Calculate button on line #{initOffset+4} is clicked.
-      The result returned by Sage is rendered by MathJax into the math output window on line #{initOffset+5}.
+      When the Calculate button on line #{initOffset+4} is clicked, MathLex parses it and translates it into Sage,
+      which transmits to a Sage Cell server. The result returned by Sage is rendered by MathJax into
+      the math-output window on line #{initOffset+5}.
 
   offset = offset + 4
   p.
@@ -284,7 +285,7 @@ block content
 
   p#step9.
     <em>Step 9</em>: Finally a few words about the Sage processing on lines #{offset+6}-#{offset+7}:
-  pre(class='brush: js;first-line=#{offset+6}').
+  pre(class='brush: js; first-line: #{offset+6}').
     $.post('http://aleph.sagemath.org/service?callback=?',
            {code: 'print latex('+sageCode+')'}, function (data) {
   p.
@@ -387,10 +388,12 @@ block content
     li
       p.
         Once you have your desired translation, you can do whatever you want with it. Examples of the
-        use of the <code>latex</code> and <code>sage</code> translations are included in the example
-        above. Here is an HTML and JavaScript example using the text-tree renderer/translator:
+        use of the latex and sage translations are included in the example above. Here is an example
+        using the text-tree renderer. In your HTML, include a line like:
 
       pre(class='brush: html') <pre id="text-tree-output"></pre>
+
+      p Then in the JavaScript, include the lines:
 
       pre(class='brush: js').
         var treeCode  = MathLex.render(syntaxTree, 'text-tree');
