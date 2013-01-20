@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MathLex
+      - Documentation</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+  <body class="dark"><a id="power-button" title="Toggle light and dark theme"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
+    <header>
+      <h1>MathLex
+        <div class="subtitle">A JavaScript Mathematical Entry System</div>
+      </h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html"><span>Home</span></a></li>
+          <li><a href="../quick-start.html"><span>Quick-Start</span></a></li>
+          <li class="current"><a href="../doc/index.html" class="current"><span>Documentation</span></a></li>
+          <li><a href="../demo.html"><span>Demo</span></a></li>
+          <li><a href="../contact.html"><span>Contact Us</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <article>
+      <nav class="doc">
+        <ul>
+          <li><a id="next" title="Build Instructions" href="building.html" class="icon-button"><span class="screen-reader-text">Build Instructions</span><span data-icon="&#59230;" aria-hidden="true" class="icon icon-only"></span></a></li>
+          <li><a id="index" title="Table of Contents" href="index.html" class="icon-button"><span class="screen-reader-text">Table of Contents</span><span data-icon="&#9776;" aria-hidden="true" class="icon icon-only"></span></a></li>
+        </ul>
+      </nav>
+      <h1>Section Index</h1>
+      <nav class="toc">
+        <ul>
+          <li><a href="#by-type">Symbols by Type
+              <ul>
+                <li><a href="#constants">Constants</a></li>
+                <li><a href="#unary">Unary Operators</a></li>
+                <li><a href="#binary">Binary Operators</a></li>
+                <li><a href="#relations">Relations</a></li>
+                <li><a href="#delimiters">Delimiters</a></li>
+                <li><a href="#functions">Functions</a></li>
+              </ul></a></li>
+          <li><a href="#by-topic">Symbols by Topic
+              <ul></ul></a></li>
+        </ul>
+      </nav>
+      <section id="language-specs">
+        <h1>Language Specification</h1>
+        <p>
+          Below is a table of all recognized mathematical concepts and their corresponding symbols (similar
+          to a combination of <a href="tokens.html">list of tokens</a> and
+          <a href="tree-nodes.html">list of nodes</a>). This page is meant to be a non-technical reference
+          for the end-user typing MathLex input.
+          
+        </p>
+        <p>
+          For simplicity, the tables have been arranged <a href="#by-type">by type</a> and
+          <a href="#by-topic">by topic</a>.
+          
+        </p>
+      </section>
+      <section id="by-type">
+        <h2>Symbols by Type</h2>
+        <table id="constants">
+          <caption>Constants</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pi</td>
+              <td>\( \pi \)</td>
+              <td><code>#pi, #p</code></td>
+              <td>3.142&hellip;</td>
+            </tr>
+            <tr>
+              <td>Tau</td>
+              <td>\( \tau \)</td>
+              <td><code>#tau, #t</code></td>
+              <td>6.283&hellip;</td>
+            </tr>
+            <tr>
+              <td>E</td>
+              <td>\( \mathrm{e} \)</td>
+              <td><code>#e</code></td>
+              <td>2.718&hellip;, Natural Base, Euler-Napier number</td>
+            </tr>
+            <tr>
+              <td>gamma</td>
+              <td>\( \gamma \)</td>
+              <td><code>#gamma</code></td>
+              <td>0.577&hellip;, Euler-Mascheroni constant</td>
+            </tr>
+            <tr>
+              <td>Imaginary Unit</td>
+              <td>\( i \)</td>
+              <td><code>#i</code></td>
+              <td>\( \sqrt{-1} \)</td>
+            </tr>
+            <tr>
+              <td>True</td>
+              <td>\( \mathbf{T} \)</td>
+              <td><code>#T, #true, true</code></td>
+            </tr>
+            <tr>
+              <td>False</td>
+              <td>\( \mathbf{F} \)</td>
+              <td><code>#F, #false, false</code></td>
+            </tr>
+            <tr>
+              <td>Natural Numbers</td>
+              <td>\( \mathbb{N} \)</td>
+              <td><code>#N</code></td>
+            </tr>
+            <tr>
+              <td>Integer Ring</td>
+              <td>\( \mathbb{Z} \)</td>
+              <td><code>#Z</code></td>
+            </tr>
+            <tr>
+              <td>Rational Field</td>
+              <td>\( \mathbb{Q} \)</td>
+              <td><code>#Q</code></td>
+            </tr>
+            <tr>
+              <td>Real Field</td>
+              <td>\( \mathbb{R} \)</td>
+              <td><code>#R</code></td>
+            </tr>
+            <tr>
+              <td>Complex Field</td>
+              <td>\( \mathbb{C} \)</td>
+              <td><code>#C</code></td>
+            </tr>
+            <tr>
+              <td>Quaternion Ring</td>
+              <td>\( \mathbb{H} \)</td>
+              <td><code>#H</code></td>
+              <td>Hamilton numbers</td>
+            </tr>
+            <tr>
+              <td>Octonian Algebra</td>
+              <td>\( \mathbb{O} \)</td>
+              <td><code>#O</code></td>
+              <td>Cayley numbers, Type "Oh"</td>
+            </tr>
+            <tr>
+              <td>Universal Set</td>
+              <td>\( \mathbb{U} \)</td>
+              <td><code>#U</code></td>
+            </tr>
+            <tr>
+              <td>Empty Set</td>
+              <td>\( \emptyset \)</td>
+              <td><code>#empty {}</code></td>
+            </tr>
+            <tr>
+              <td>Zero Vector</td>
+              <td>\( \vec{0} \)</td>
+              <td><code>#v0</code></td>
+            </tr>
+            <tr>
+              <td>\( x \) Unit Vector</td>
+              <td>\( \vec{\imath} \)</td>
+              <td><code>#ui, #vi</code></td>
+            </tr>
+            <tr>
+              <td>\( y \) Unit Vector</td>
+              <td>\( \vec{\jmath} \)</td>
+              <td><code>#uj, #vj</code></td>
+            </tr>
+            <tr>
+              <td>\( z \) Unit Vector</td>
+              <td>\( \vec{k} \)</td>
+              <td><code>#uk, #vk</code></td>
+            </tr>
+            <tr>
+              <td>Zero Matrix</td>
+              <td>\( \mathbf{0} \)</td>
+              <td><code>#0</code></td>
+              <td>Type "zero"</td>
+            </tr>
+            <tr>
+              <td>Unit Matrix</td>
+              <td>\( \mathbf{I} \)</td>
+              <td><code>#1</code></td>
+              <td>Identity Matrix, Type "one"</td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="unary">
+          <caption>Unary Operators</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Positive</td>
+              <td>\( +a \)</td>
+              <td><code>+a</code></td>
+            </tr>
+            <tr>
+              <td>Negative</td>
+              <td>\( -a \)</td>
+              <td><code>-a</code></td>
+            </tr>
+            <tr>
+              <td>Positive/Negative</td>
+              <td>\( \pm a \)</td>
+              <td><code>&amp;pm a, +/-a</code></td>
+            </tr>
+            <tr>
+              <td>Negative/Positive</td>
+              <td>\( \mp a \)</td>
+              <td><code>&amp;mp a, -/+a</code></td>
+            </tr>
+            <tr>
+              <td>Square Root</td>
+              <td>\( \sqrt{a} \)</td>
+              <td><code>sqrt(a)</code></td>
+            </tr>
+            <tr>
+              <td>Factorial</td>
+              <td>\( n! \)</td>
+              <td><code>a!</code></td>
+            </tr>
+            <tr>
+              <td>Natural Exponential</td>
+              <td>\( \exp(a) \)</td>
+              <td><code>exp(a)</code></td>
+            </tr>
+            <tr>
+              <td>Natural Logarithm</td>
+              <td>\( \ln(a) \)</td>
+              <td><code>ln(a)</code></td>
+            </tr>
+            <tr>
+              <td>Not</td>
+              <td>\( \neg p \)</td>
+              <td><code>not p, ~p, !p</code></td>
+              <td>Logical Negation</td>
+            </tr>
+            <tr>
+              <td>Prime derivative</td>
+              <td>\( f' \)</td>
+              <td><code>f'</code></td>
+              <td>Derivative w.r.t. \( x \) or first or only variable</td>
+            </tr>
+            <tr>
+              <td>Dot derivative</td>
+              <td>\( \dot{f} \)</td>
+              <td><code>f.</code></td>
+              <td>Derivative w.r.t. \( t \) or second variable</td>
+            </tr>
+            <tr>
+              <td>Change</td>
+              <td>\( \Delta x \)</td>
+              <td><code>&amp;D x</code></td>
+              <td>Coordinate Difference</td>
+            </tr>
+            <tr>
+              <td>Differential</td>
+              <td>\( \mathrm{d} x \)</td>
+              <td><code>&amp;d x</code></td>
+            </tr>
+            <tr>
+              <td>Partial Differential</td>
+              <td>\( \partial x \)</td>
+              <td><code>&amp;pd x</code></td>
+            </tr>
+            <tr>
+              <td>Vector</td>
+              <td>\( \vec{a} \)</td>
+              <td><code>&amp;v a</code></td>
+            </tr>
+            <tr>
+              <td>Unit Vector</td>
+              <td>\( \hat{a} \)</td>
+              <td><code>&amp;u a</code></td>
+            </tr>
+            <tr>
+              <td>Gradient</td>
+              <td>\( \vec{\nabla} \), \( \mathrm{grad}(f) \)</td>
+              <td><code>&amp;del f, grad(f)</code></td>
+            </tr>
+            <tr>
+              <td>Divergence</td>
+              <td>\( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \)</td>
+              <td><code>&amp;del. f, div(f)</code></td>
+            </tr>
+            <tr>
+              <td>Curl</td>
+              <td>\( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \)</td>
+              <td><code>&amp;delx f, curl(f)</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="binary">
+          <caption>Binary Operators</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>Plus</td>
+              <td>\( a + b \)</td>
+              <td><code>a + b</code></td>
+              <td>Addition</td>
+            </tr>
+            <tr>
+              <td>Minus</td>
+              <td>\( a - b \)</td>
+              <td><code>a - b</code></td>
+              <td>Subtraction</td>
+            </tr>
+            <tr>
+              <td>Plus/Minus</td>
+              <td>\( a \pm b \)</td>
+              <td><code>a &amp;pm b, a +/- b</code></td>
+            </tr>
+            <tr>
+              <td>Minus/Plus</td>
+              <td>\( a \mp b \)</td>
+              <td><code>a &amp;mp b, a -/+ b</code></td>
+            </tr>
+            <tr>
+              <td>Times</td>
+              <td>\( a \cdot b \)</td>
+              <td><code>a * b</code></td>
+              <td>Multiplication</td>
+            </tr>
+            <tr>
+              <td>Divided by</td>
+              <td>\( \frac{a}{b} \), \( a/b \)</td>
+              <td><code>a/b, a &amp;/ b</code></td>
+              <td>Division</td>
+            </tr>
+            <tr>
+              <td>Power</td>
+              <td>\( a^b \)</td>
+              <td><code>a^b, a**b</code></td>
+              <td>Exponentiation</td>
+            </tr>
+            <tr>
+              <td>\( n \)-th Root</td>
+              <td>\( \sqrt[n]{a} \)</td>
+              <td><code>root(a, n)</code></td>
+            </tr>
+            <tr>
+              <td>Logarithm with Base</td>
+              <td>\( \log_b{a} \)</td>
+              <td><code>log(a, b)</code></td>
+            </tr>
+            <tr>
+              <td>Ratio</td>
+              <td>\( p :: q \)</td>
+              <td><code>p::q</code></td>
+            </tr>
+            <tr>
+              <td>Modulus</td>
+              <td>\( a \pmod{n} \)</td>
+              <td><code>a%n, a mod n</code></td>
+            </tr>
+            <tr>
+              <td>Subscript</td>
+              <td>\( a_b \)</td>
+              <td><code>a&amp;_b</code></td>
+              <td>Indexing</td>
+            </tr>
+            <tr>
+              <td>Multiple Subscript</td>
+              <td>\( a_{i,j,k} \)</td>
+              <td><code>a &amp;_ [i,j,k]</code></td>
+            </tr>
+            <tr>
+              <td>Superscript</td>
+              <td>\( a^b \)</td>
+              <td><code>a&amp;^b</code></td>
+              <td>Indexing</td>
+            </tr>
+            <tr>
+              <td>Multiple Superscript</td>
+              <td>\( a^{i,j,k} \)</td>
+              <td><code>a &amp;^ [i,j,k]</code></td>
+            </tr>
+            <tr>
+              <td>Union</td>
+              <td>\( a \cup b \)</td>
+              <td><code>a union b</code></td>
+            </tr>
+            <tr>
+              <td>Intersection</td>
+              <td>\( a \cap b \)</td>
+              <td><code>a intersect b</code></td>
+            </tr>
+            <tr>
+              <td>Set Difference</td>
+              <td>\( a \setminus b \)</td>
+              <td><code>a \ b</code></td>
+            </tr>
+            <tr>
+              <td>Such That</td>
+              <td>\( p : q \)</td>
+              <td><code>p:q</code></td>
+              <td>Used with set builder and quantifiers</td>
+            </tr>
+            <tr>
+              <td>And</td>
+              <td>\( p \wedge q \)</td>
+              <td><code>p and q, p &amp;&amp; q</code></td>
+              <td>Conjugation</td>
+            </tr>
+            <tr>
+              <td>Or</td>
+              <td>\( p \vee q \)</td>
+              <td><code>p or q, p || q</code></td>
+              <td>Disjunction</td>
+            </tr>
+            <tr>
+              <td>Exclusive Or</td>
+              <td>\( p \oplus q \)</td>
+              <td><code>p xor q</code></td>
+              <td>Exclusion</td>
+            </tr>
+            <tr>
+              <td>Implies</td>
+              <td>\( p \rightarrow q \)</td>
+              <td><code>p implies q, p -> q, if p then q</code></td>
+              <td>Conditional</td>
+            </tr>
+            <tr>
+              <td>Implied By</td>
+              <td>\( q \leftarrow p \)</td>
+              <td><code>q if p, q when p, q whenever p, q <- p</code></td>
+              <td>Reverse Conditional</td>
+            </tr>
+            <tr>
+              <td>If And Only If</td>
+              <td>\( p \leftrightarrow q \)</td>
+              <td><code>p iff q, p <-> q</code></td>
+              <td>Biconditional</td>
+            </tr>
+            <tr>
+              <td>Function Composition</td>
+              <td>\( f \circ g \)</td>
+              <td><code>f @ g</code></td>
+            </tr>
+            <tr>
+              <td>Dot Product</td>
+              <td>\( \vec{a} \cdot \vec{b} \)</td>
+              <td><code>&amp;v a &amp;. &amp;v b</code></td>
+            </tr>
+            <tr>
+              <td>Cross Product</td>
+              <td>\( \vec{a} \times \vec{b} \)</td>
+              <td><code>&amp;v a &amp;x &amp;v b</code></td>
+            </tr>
+            <tr>
+              <td>Wedge Product</td>
+              <td>\( \vec{a} \wedge \vec{b} \)</td>
+              <td><code>&amp;v a &amp;w &amp;v b</code></td>
+            </tr>
+            <tr>
+              <td>Tensor Product</td>
+              <td>\( T \otimes S \)</td>
+              <td><code>T &amp;ox S</code></td>
+            </tr>
+            <tr>
+              <td>Direct Sum</td>
+              <td>\( A \oplus B \)</td>
+              <td><code>A &amp;o+ B</code></td>
+            </tr>
+            <tr>
+              <td>Universal Quantifier</td>
+              <td>\( \forall x P(x) \)</td>
+              <td><code>forall x , P(x)</code></td>
+              <td>"For all &hellip;"</td>
+            </tr>
+            <tr>
+              <td>Existential Quantifier</td>
+              <td>\( \exists x P(x) \)</td>
+              <td><code>exists x : P(x)</code></td>
+              <td>"There exists &hellip; such that"</td>
+            </tr>
+            <tr>
+              <td>Unique Quantifier</td>
+              <td>\( \exists ! x P(x) \)</td>
+              <td><code>unique x : P(x)</code></td>
+              <td>"There exists a unique &hellip; such that"</td>
+            </tr>
+          </thead>
+        </table>
+        <table id="relations">
+          <caption>Relations</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Equal</td>
+              <td>\( = \)</td>
+              <td><code>=, ==</code></td>
+            </tr>
+            <tr>
+              <td>Not Equal</td>
+              <td>\( \ne \)</td>
+              <td><code>!=, /=, &lt;&gt;</code></td>
+            </tr>
+            <tr>
+              <td>Less Than</td>
+              <td>\( &lt; \)</td>
+              <td><code>&lt;</code></td>
+            </tr>
+            <tr>
+              <td>Greater Than</td>
+              <td>\( &gt; \)</td>
+              <td><code>&gt;</code></td>
+            </tr>
+            <tr>
+              <td>Less Than or Equal</td>
+              <td>\( \le \)</td>
+              <td><code>&lt;=</code></td>
+            </tr>
+            <tr>
+              <td>Greater Than or Equal</td>
+              <td>\( \ge \)</td>
+              <td><code>&gt;=</code></td>
+            </tr>
+            <tr>
+              <td>Divides</td>
+              <td>\( p \mid q \)</td>
+              <td><code>p|q, p divides q</code></td>
+            </tr>
+            <tr>
+              <td>Not Divides</td>
+              <td>\( p \nmid q \)</td>
+              <td><code>p!|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q</code></td>
+            </tr>
+            <tr>
+              <td>Ratio Equality</td>
+              <td>\( \mathrm{as} \)</td>
+              <td><code>as</code></td>
+            </tr>
+            <tr>
+              <td>Subset</td>
+              <td>\( \subseteq \)</td>
+              <td><code>subset</code></td>
+            </tr>
+            <tr>
+              <td>Superset</td>
+              <td>\( \supseteq \)</td>
+              <td><code>superset, supset</code></td>
+            </tr>
+            <tr>
+              <td>Proper Subset</td>
+              <td>\( \subset \)</td>
+              <td><code>propersubset, propsubset, psubset</code></td>
+            </tr>
+            <tr>
+              <td>Proper Superset</td>
+              <td>\( \supset \)</td>
+              <td><code>propersuperset, propsuperset, psuperset, propersupset, propsupset, psupset</code></td>
+            </tr>
+            <tr>
+              <td>Inclusion</td>
+              <td>\( \in \)</td>
+              <td><code>in</code></td>
+            </tr>
+            <tr>
+              <td>Congruent</td>
+              <td>\( \cong \)</td>
+              <td><code>~=, congruent</code></td>
+            </tr>
+            <tr>
+              <td>Similar</td>
+              <td>\( \sim \)</td>
+              <td><code>!, sim, similar</code></td>
+            </tr>
+            <tr>
+              <td>Parallel</td>
+              <td>\( \parallel \)</td>
+              <td><code>para, parallel</code></td>
+            </tr>
+            <tr>
+              <td>Perpendicular</td>
+              <td>\( \perp \)</td>
+              <td><code>perp, perpendicular</code></td>
+            </tr>
+            <tr>
+              <td>Equivalent</td>
+              <td>\( \equiv \)</td>
+              <td><code>===, equiv</code></td>
+            </tr>
+            <tr>
+              <td>Not Equivalent</td>
+              <td>\( \not\equiv \)</td>
+              <td><code>!==, /==, nequiv</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="delimiters">
+          <caption>Delimiters</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Parentheses</td>
+              <td>\( \left( \ \right) \)</td>
+              <td><code>( )</code></td>
+              <td>Order of operation</td>
+            </tr>
+            <tr>
+              <td>Square Brackets</td>
+              <td>\( \left[ \ \right] \)</td>
+              <td><code>[ ]</code></td>
+              <td>Lists</td>
+            </tr>
+            <tr>
+              <td>Curly Braces</td>
+              <td>\( \left\{ \ \right\} \)</td>
+              <td><code>{ }</code></td>
+              <td>Sets</td>
+            </tr>
+            <tr>
+              <td>Angle Brackets</td>
+              <td>\( \left\langle \ \right\rangle \)</td>
+              <td><code>&lt; &gt;, &lt;: :&gt;</code></td>
+              <td>Vectors</td>
+            </tr>
+            <tr>
+              <td>Vertical Bars</td>
+              <td>\( \left| \ \right| \)</td>
+              <td><code>| |, |: :|</code></td>
+              <td>Absolute Value, Length, Determinant, Norm</td>
+            </tr>
+            <tr>
+              <td>Double Bars</td>
+              <td>\( \left\| \ \right\| \)</td>
+              <td><code>|| ||, ||: :||</code></td>
+              <td>Length, Norm</td>
+            </tr>
+            <tr>
+              <td>Floor</td>
+              <td>\( \left\lfloor x \right\rfloor \)</td>
+              <td><code>floor(x)</code></td>
+            </tr>
+            <tr>
+              <td>Ceiling</td>
+              <td>\( \left\lceil x \right\rceil \)</td>
+              <td><code>ceil(x), ceiling(x)</code></td>
+            </tr>
+            <tr>
+              <td>Subscript</td>
+              <td>\( a_b \)</td>
+              <td><code>a &amp;_ b</code></td>
+              <td>Indexing</td>
+            </tr>
+            <tr>
+              <td>Multiple Subscript</td>
+              <td>\( a_{i,j,k} \)</td>
+              <td><code>a &amp;_ [i,j,k]</code></td>
+            </tr>
+            <tr>
+              <td>Superscript</td>
+              <td>\( a^b \)</td>
+              <td><code>a &amp;^ b</code></td>
+              <td>Indexing</td>
+            </tr>
+            <tr>
+              <td>Multiple Superscript</td>
+              <td>\( a^{i,j,k} \)</td>
+              <td><code>a &amp;^ [i,j,k]</code></td>
+            </tr>
+            <tr>
+              <td>Such That</td>
+              <td>\( p : q \)</td>
+              <td><code>p:q</code></td>
+              <td>Used with set builder and quantifiers</td>
+            </tr>
+            <tr>
+              <td>Open Interval</td>
+              <td>\( \left( a,b \right) \)</td>
+              <td><code>(:a,b:)</code></td>
+              <td>Exclusive Range Delimiters</td>
+            </tr>
+            <tr>
+              <td>Closed Interval</td>
+              <td>\( \left[ a,b \right] \)</td>
+              <td><code>[:a,b:]</code></td>
+              <td>Inclusive Range Delimiters</td>
+            </tr>
+            <tr>
+              <td>Half-Open Interval</td>
+              <td>\( \left[ a,b \right) \)</td>
+              <td><code>[:a,b:)</code></td>
+              <td>Mixed Range Delimiters</td>
+            </tr>
+            <tr>
+              <td>Bra-Ket Notation</td>
+              <td>\( \left\langle A \mid B \right\rangle \)</td>
+              <td><code>&lt;A||B&gt;, &lt;:A|B:&gt;</code></td>
+            </tr>
+            <tr>
+              <td>Bra</td>
+              <td>\( \left\langle A \right| \)</td>
+              <td><code>&lt;A|</code></td>
+            </tr>
+            <tr>
+              <td>Ket</td>
+              <td>\( \left| A \right\rangle \)</td>
+              <td><code>|A&gt;</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Note that some delimiters have more than one format either with or without colons. Namely, absolute
+          value can be written as <code>| &hellip; |</code> or <code>|: &hellip; :|</code>, norm can be
+          written as <code>|| &hellip; ||</code> or <code>||: &hellip; :||</code>, and vector literals can
+          be surrounded by either <code>&lt; &hellip; &gt;</code> or <code>&lt;: &hellip; :&gt;</code>.
+          Of the listed alternate delimiters, those without colons are <em>context-aware</em> in that they
+          have different meanings and therefore cannot be automatically matched by the Lexer. Additionally,
+          if an expression opened with one type of delimiter, it must be closed with the same type (i.e.
+          context-aware vs. specialized).
+          
+        </p>
+        <table id="functions">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Trig</td>
+              <td>\( \sin(\theta) \), &hellip;</td>
+              <td><code>sin(theta), &hellip;</code></td>
+              <td>Also cos, tan, cot, sec, csc</td>
+            </tr>
+            <tr>
+              <td>Inverse Trig</td>
+              <td>\( \arcsin(x) \), &hellip;</td>
+              <td><code>arcsin(x), &hellip;</code></td>
+              <td>Also arccos, arctan, arccot, arcsec, arccsc</td>
+            </tr>
+            <tr>
+              <td>Hyperbolic Trig</td>
+              <td>\( \sinh(\lambda) \), &hellip;</td>
+              <td><code>sinh(lambda), &hellip;</code></td>
+              <td>Also cosh, tanh, coth, sech, csch</td>
+            </tr>
+            <tr>
+              <td>Inv. Hyp. Trig</td>
+              <td>\( \mathrm{arcsinh}(x) \), &hellip;</td>
+              <td><code>arcsinh(x), &hellip;</code></td>
+              <td>Also arccosh, arctanh, arccoth, arcsech, arccsch</td>
+            </tr>
+            <tr>
+              <td>Absolute Value</td>
+              <td>\( \left| a \right| \)</td>
+              <td><code>abs(a)</code></td>
+            </tr>
+            <tr>
+              <td>Floor</td>
+              <td>\( \left\lfloor x \right\rfloor \)</td>
+              <td><code>floor(x)</code></td>
+            </tr>
+            <tr>
+              <td>Ceiling</td>
+              <td>\( \left\lceil x \right\rceil \)</td>
+              <td><code>ceil(x), ceiling(x)</code></td>
+            </tr>
+            <tr>
+              <td>Square Root</td>
+              <td>\( \sqrt{a} \)</td>
+              <td><code>sqrt(a)</code></td>
+            </tr>
+            <tr>
+              <td>\(n\)th Root</td>
+              <td>\( \sqrt[n]{a} \)</td>
+              <td><code>root(a, n)</code></td>
+            </tr>
+            <tr>
+              <td>Natural Exponential</td>
+              <td>\( \exp(a) \)</td>
+              <td><code>exp(a)</code></td>
+            </tr>
+            <tr>
+              <td>Natural Logarithm</td>
+              <td>\( \ln(a) \)</td>
+              <td><code>ln(a)</code></td>
+            </tr>
+            <tr>
+              <td>Logarithm with Base</td>
+              <td>\( \log_b{a} \)</td>
+              <td><code>log(a, b)</code></td>
+            </tr>
+            <tr>
+              <td>Combination</td>
+              <td>\( \binom{n}{r} \)</td>
+              <td><code>C(n,r)</code></td>
+              <td>Binomial Coefficient, ``choose''</td>
+            </tr>
+            <tr>
+              <td>Permutation</td>
+              <td>\( P(n,r) \)</td>
+              <td><code>P(n,r)</code></td>
+            </tr>
+            <tr>
+              <td>Limit</td>
+              <td>\( \displaystyle\lim_{x\to a} f(x) \)</td>
+              <td><code>lim(f(x), a, x), limit(f(x), x, a)</code></td>
+            </tr>
+            <tr>
+              <td>Derivative</td>
+              <td>\( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \)</td>
+              <td><code>diff(f(x), x)</code></td>
+            </tr>
+            <tr>
+              <td>Partial Derivative</td>
+              <td>\( \displaystyle \frac{\partial}{\partial x} \left( f(x,y) \right) \)</td>
+              <td><code>pdiff(f(x,y), x)</code></td>
+            </tr>
+            <tr>
+              <td>Indefinite Integral</td>
+              <td>\( \displaystyle \int f(x) \,\mathrm{d}x \)</td>
+              <td><code>int(f(x),x), &amp;int f(x) &amp;dx</code></td>
+            </tr>
+            <tr>
+              <td>Definite Integral</td>
+              <td>\( \displaystyle \int_a^b f(x) \,\mathrm{d}x \)</td>
+              <td><code>int(f(x),x,a,b), &amp;int &amp;_a &amp;^b f(x) &amp;dx</code></td>
+            </tr>
+            <tr>
+              <td>Sum Over Set</td>
+              <td>\( \displaystyle \sum_{i \in S} a_i \)</td>
+              <td><code>sum(a&amp;_i, i in S)</code></td>
+            </tr>
+            <tr>
+              <td>Sum Over Range</td>
+              <td>\( \displaystyle \sum_{i=a}^b a_i \)</td>
+              <td><code>sum(a&amp;_i,i,a,b)</code></td>
+            </tr>
+            <tr>
+              <td>Product Over Set</td>
+              <td>\( \displaystyle \prod_{i \in S} a_i \)</td>
+              <td><code>prod(a&amp;_i, i in S), product(a&amp;_i, i in S)</code></td>
+            </tr>
+            <tr>
+              <td>Product Over Range</td>
+              <td>\( \displaystyle \prod_{i=a}^b a_i \)</td>
+              <td><code>prod(a&amp;_i,a,b), product(a&amp;_i,a,b)</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section id="by-topic">
+        <h2>Symbols by Topic</h2>
+      </section>
+    </article>
+    <footer>
+      <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
+      <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
+    </footer>
+    <script>window.PATH_PREFIX = '../';</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="../javascripts/main.js"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </body>
+</html>

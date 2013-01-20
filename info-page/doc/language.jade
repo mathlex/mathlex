@@ -1,0 +1,707 @@
+extends layout
+
+block append vars
+  next_page = {href: 'building.html', title: 'Build Instructions'}
+
+block article
+  h1 Section Index
+  nav.toc
+    ul
+      li: a(href='#by-type') Symbols by Type
+        ul
+          li: a(href='#constants') Constants
+          li: a(href='#unary') Unary Operators
+          li: a(href='#binary') Binary Operators
+          li: a(href='#relations') Relations
+          li: a(href='#delimiters') Delimiters
+          li: a(href='#functions') Functions
+      li: a(href='#by-topic') Symbols by Topic
+        ul
+
+  section#language-specs
+    h1 Language Specification
+
+    p.
+      Below is a table of all recognized mathematical concepts and their corresponding symbols (similar
+      to a combination of <a href="tokens.html">list of tokens</a> and
+      <a href="tree-nodes.html">list of nodes</a>). This page is meant to be a non-technical reference
+      for the end-user typing MathLex input.
+
+    p.
+      For simplicity, the tables have been arranged <a href="#by-type">by type</a> and
+      <a href="#by-topic">by topic</a>.
+
+  section#by-type
+    h2 Symbols by Type
+
+    table#constants
+      caption Constants
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+      tbody
+        tr
+          td Pi
+          td \( \pi \)
+          td: code #pi, #p
+          td 3.142&hellip;
+        tr
+          td Tau
+          td \( \tau \)
+          td: code #tau, #t
+          td 6.283&hellip;
+        tr
+          td E
+          td \( \mathrm{e} \)
+          td: code #e
+          td 2.718&hellip;, Natural Base, Euler-Napier number
+        tr
+          td gamma
+          td \( \gamma \)
+          td: code #gamma
+          td 0.577&hellip;, Euler-Mascheroni constant
+        tr
+          td Imaginary Unit
+          td \( i \)
+          td: code #i
+          td \( \sqrt{-1} \)
+        tr
+          td True
+          td \( \mathbf{T} \)
+          td: code #T, #true, true
+        tr
+          td False
+          td \( \mathbf{F} \)
+          td: code #F, #false, false
+        tr
+          td Natural Numbers
+          td \( \mathbb{N} \)
+          td: code #N
+        tr
+          td Integer Ring
+          td \( \mathbb{Z} \)
+          td: code #Z
+        tr
+          td Rational Field
+          td \( \mathbb{Q} \)
+          td: code #Q
+        tr
+          td Real Field
+          td \( \mathbb{R} \)
+          td: code #R
+        tr
+          td Complex Field
+          td \( \mathbb{C} \)
+          td: code #C
+        tr
+          td Quaternion Ring
+          td \( \mathbb{H} \)
+          td: code #H
+          td Hamilton numbers
+        tr
+          td Octonian Algebra
+          td \( \mathbb{O} \)
+          td: code #O
+          td Cayley numbers, Type "Oh"
+        tr
+          td Universal Set
+          td \( \mathbb{U} \)
+          td: code #U
+        tr
+          td Empty Set
+          td \( \emptyset \)
+          td: code #empty {}
+        tr
+          td Zero Vector
+          td \( \vec{0} \)
+          td: code #v0
+        tr
+          td \( x \) Unit Vector
+          td \( \vec{\imath} \)
+          td: code #ui, #vi
+        tr
+          td \( y \) Unit Vector
+          td \( \vec{\jmath} \)
+          td: code #uj, #vj
+        tr
+          td \( z \) Unit Vector
+          td \( \vec{k} \)
+          td: code #uk, #vk
+        tr
+          td Zero Matrix
+          td \( \mathbf{0} \)
+          td: code #0
+          td Type "zero"
+        tr
+          td Unit Matrix
+          td \( \mathbf{I} \)
+          td: code #1
+          td Identity Matrix, Type "one"
+
+    table#unary
+      caption Unary Operators
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+      tbody
+        tr
+          td Positive
+          td \( +a \)
+          td: code +a
+        tr
+          td Negative
+          td \( -a \)
+          td: code -a
+        tr
+          td Positive/Negative
+          td \( \pm a \)
+          td: code &amp;pm a, +/-a
+        tr
+          td Negative/Positive
+          td \( \mp a \)
+          td: code &amp;mp a, -/+a
+        tr
+          td Square Root
+          td \( \sqrt{a} \)
+          td: code sqrt(a)
+        tr
+          td Factorial
+          td \( n! \)
+          td: code a!
+        tr
+          td Natural Exponential
+          td \( \exp(a) \)
+          td: code exp(a)
+        tr
+          td Natural Logarithm
+          td \( \ln(a) \)
+          td: code ln(a)
+        tr
+          td Not
+          td \( \neg p \)
+          td: code not p, ~p, !p
+          td Logical Negation
+        tr
+          td Prime derivative
+          td \( f' \)
+          td: code f'
+          td Derivative w.r.t. \( x \) or first or only variable
+        tr
+          td Dot derivative
+          td \( \dot{f} \)
+          td: code f.
+          td Derivative w.r.t. \( t \) or second variable
+        tr
+          td Change
+          td \( \Delta x \)
+          td: code &amp;D x
+          td Coordinate Difference
+        tr
+          td Differential
+          td \( \mathrm{d} x \)
+          td: code &amp;d x
+        tr
+          td Partial Differential
+          td \( \partial x \)
+          td: code &amp;pd x
+        tr
+          td Vector
+          td \( \vec{a} \)
+          td: code &amp;v a
+        tr
+          td Unit Vector
+          td \( \hat{a} \)
+          td: code &amp;u a
+        tr
+          td Gradient
+          td \( \vec{\nabla} \), \( \mathrm{grad}(f) \)
+          td: code &amp;del f, grad(f)
+        tr
+          td Divergence
+          td \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \)
+          td: code &amp;del. f, div(f)
+        tr
+          td Curl
+          td \( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \)
+          td: code &amp;delx f, curl(f)
+
+    table#binary
+      caption Binary Operators
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+        tr
+          td Plus
+          td \( a + b \)
+          td: code a + b
+          td Addition
+        tr
+          td Minus
+          td \( a - b \)
+          td: code a - b
+          td Subtraction
+        tr
+          td Plus/Minus
+          td \( a \pm b \)
+          td: code a &amp;pm b, a +/- b
+        tr
+          td Minus/Plus
+          td \( a \mp b \)
+          td: code a &amp;mp b, a -/+ b
+        tr
+          td Times
+          td \( a \cdot b \)
+          td: code a * b
+          td Multiplication
+        tr
+          td Divided by
+          td \( \frac{a}{b} \), \( a/b \)
+          td: code a/b, a &amp;/ b
+          td Division
+        tr
+          td Power
+          td \( a^b \)
+          td: code a^b, a**b
+          td Exponentiation
+        tr
+          td \( n \)-th Root
+          td \( \sqrt[n]{a} \)
+          td: code root(a, n)
+        tr
+          td Logarithm with Base
+          td \( \log_b{a} \)
+          td: code log(a, b)
+        tr
+          td Ratio
+          td \( p :: q \)
+          td: code p::q
+        tr
+          td Modulus
+          td \( a \pmod{n} \)
+          td: code a%n, a mod n
+        tr
+          td Subscript
+          td \( a_b \)
+          td: code a&amp;_b
+          td Indexing
+        tr
+          td Multiple Subscript
+          td \( a_{i,j,k} \)
+          td: code a &amp;_ [i,j,k]
+        tr
+          td Superscript
+          td \( a^b \)
+          td: code a&amp;^b
+          td Indexing
+        tr
+          td Multiple Superscript
+          td \( a^{i,j,k} \)
+          td: code a &amp;^ [i,j,k]
+        tr
+          td Union
+          td \( a \cup b \)
+          td: code a union b
+        tr
+          td Intersection
+          td \( a \cap b \)
+          td: code a intersect b
+        tr
+          td Set Difference
+          td \( a \setminus b \)
+          td: code a \ b
+        tr
+          td Such That
+          td \( p : q \)
+          td: code p:q
+          td Used with set builder and quantifiers
+        tr
+          td And
+          td \( p \wedge q \)
+          td: code p and q, p &amp;&amp; q
+          td Conjugation
+        tr
+          td Or
+          td \( p \vee q \)
+          td: code p or q, p || q
+          td Disjunction
+        tr
+          td Exclusive Or
+          td \( p \oplus q \)
+          td: code p xor q
+          td Exclusion
+        tr
+          td Implies
+          td \( p \rightarrow q \)
+          td: code p implies q, p -> q, if p then q
+          td Conditional
+        tr
+          td Implied By
+          td \( q \leftarrow p \)
+          td: code q if p, q when p, q whenever p, q <- p
+          td Reverse Conditional
+        tr
+          td If And Only If
+          td \( p \leftrightarrow q \)
+          td: code p iff q, p <-> q
+          td Biconditional
+        tr
+          td Function Composition
+          td \( f \circ g \)
+          td: code f @ g
+        tr
+          td Dot Product
+          td \( \vec{a} \cdot \vec{b} \)
+          td: code &amp;v a &amp;. &amp;v b
+        tr
+          td Cross Product
+          td \( \vec{a} \times \vec{b} \)
+          td: code &amp;v a &amp;x &amp;v b
+        tr
+          td Wedge Product
+          td \( \vec{a} \wedge \vec{b} \)
+          td: code &amp;v a &amp;w &amp;v b
+        tr
+          td Tensor Product
+          td \( T \otimes S \)
+          td: code T &amp;ox S
+        tr
+          td Direct Sum
+          td \( A \oplus B \)
+          td: code A &amp;o+ B
+        tr
+          td Universal Quantifier
+          td \( \forall x P(x) \)
+          td: code forall x , P(x)
+          td "For all &hellip;"
+        tr
+          td Existential Quantifier
+          td \( \exists x P(x) \)
+          td: code exists x : P(x)
+          td "There exists &hellip; such that"
+        tr
+          td Unique Quantifier
+          td \( \exists ! x P(x) \)
+          td: code unique x : P(x)
+          td "There exists a unique &hellip; such that"
+
+    table#relations
+      caption Relations
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+      tbody
+        tr
+          td Equal
+          td \( = \)
+          td: code
+            | =, ==
+        tr
+          td Not Equal
+          td \( \ne \)
+          td: code !=, /=, &lt;&gt;
+        tr
+          td Less Than
+          td \( &lt; \)
+          td: code &lt;
+        tr
+          td Greater Than
+          td \( &gt; \)
+          td: code &gt;
+        tr
+          td Less Than or Equal
+          td \( \le \)
+          td: code &lt;=
+        tr
+          td Greater Than or Equal
+          td \( \ge \)
+          td: code &gt;=
+        tr
+          td Divides
+          td \( p \mid q \)
+          td: code p|q, p divides q
+        tr
+          td Not Divides
+          td \( p \nmid q \)
+          td: code p!|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
+        tr
+          td Ratio Equality
+          td \( \mathrm{as} \)
+          td: code as
+        tr
+          td Subset
+          td \( \subseteq \)
+          td: code subset
+        tr
+          td Superset
+          td \( \supseteq \)
+          td: code superset, supset
+        tr
+          td Proper Subset
+          td \( \subset \)
+          td: code propersubset, propsubset, psubset
+        tr
+          td Proper Superset
+          td \( \supset \)
+          td: code propersuperset, propsuperset, psuperset, propersupset, propsupset, psupset
+        tr
+          td Inclusion
+          td \( \in \)
+          td: code in
+        tr
+          td Congruent
+          td \( \cong \)
+          td: code ~=, congruent
+        tr
+          td Similar
+          td \( \sim \)
+          td: code !, sim, similar
+        tr
+          td Parallel
+          td \( \parallel \)
+          td: code para, parallel
+        tr
+          td Perpendicular
+          td \( \perp \)
+          td: code perp, perpendicular
+        tr
+          td Equivalent
+          td \( \equiv \)
+          td: code
+            | ===, equiv
+        tr
+          td Not Equivalent
+          td \( \not\equiv \)
+          td: code !==, /==, nequiv
+
+    table#delimiters
+      caption Delimiters
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+      tbody
+        tr
+          td Parentheses
+          td \( \left( \ \right) \)
+          td: code ( )
+          td Order of operation
+        tr
+          td Square Brackets
+          td \( \left[ \ \right] \)
+          td: code [ ]
+          td Lists
+        tr
+          td Curly Braces
+          td \( \left\{ \ \right\} \)
+          td: code { }
+          td Sets
+        tr
+          td Angle Brackets
+          td \( \left\langle \ \right\rangle \)
+          td: code &lt; &gt;, &lt;: :&gt;
+          td Vectors
+        tr
+          td Vertical Bars
+          td \( \left| \ \right| \)
+          td: code | |, |: :|
+          td Absolute Value, Length, Determinant, Norm
+        tr
+          td Double Bars
+          td \( \left\| \ \right\| \)
+          td: code || ||, ||: :||
+          td Length, Norm
+        tr
+          td Floor
+          td \( \left\lfloor x \right\rfloor \)
+          td: code floor(x)
+        tr
+          td Ceiling
+          td \( \left\lceil x \right\rceil \)
+          td: code ceil(x), ceiling(x)
+        tr
+          td Subscript
+          td \( a_b \)
+          td: code a &amp;_ b
+          td Indexing
+        tr
+          td Multiple Subscript
+          td \( a_{i,j,k} \)
+          td: code a &amp;_ [i,j,k]
+        tr
+          td Superscript
+          td \( a^b \)
+          td: code a &amp;^ b
+          td Indexing
+        tr
+          td Multiple Superscript
+          td \( a^{i,j,k} \)
+          td: code a &amp;^ [i,j,k]
+        tr
+          td Such That
+          td \( p : q \)
+          td: code p:q
+          td Used with set builder and quantifiers
+        tr
+          td Open Interval
+          td \( \left( a,b \right) \)
+          td: code (:a,b:)
+          td Exclusive Range Delimiters
+        tr
+          td Closed Interval
+          td \( \left[ a,b \right] \)
+          td: code [:a,b:]
+          td Inclusive Range Delimiters
+        tr
+          td Half-Open Interval
+          td \( \left[ a,b \right) \)
+          td: code [:a,b:)
+          td Mixed Range Delimiters
+        tr
+          td Bra-Ket Notation
+          td \( \left\langle A \mid B \right\rangle \)
+          td: code &lt;A||B&gt;, &lt;:A|B:&gt;
+        tr
+          td Bra
+          td \( \left\langle A \right| \)
+          td: code &lt;A|
+        tr
+          td Ket
+          td \( \left| A \right\rangle \)
+          td: code |A&gt;
+
+    p.
+      Note that some delimiters have more than one format either with or without colons. Namely, absolute
+      value can be written as <code>| &hellip; |</code> or <code>|: &hellip; :|</code>, norm can be
+      written as <code>|| &hellip; ||</code> or <code>||: &hellip; :||</code>, and vector literals can
+      be surrounded by either <code>&lt; &hellip; &gt;</code> or <code>&lt;: &hellip; :&gt;</code>.
+      Of the listed alternate delimiters, those without colons are <em>context-aware</em> in that they
+      have different meanings and therefore cannot be automatically matched by the Lexer. Additionally,
+      if an expression opened with one type of delimiter, it must be closed with the same type (i.e.
+      context-aware vs. specialized).
+
+    table#functions
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+      tbody
+        tr
+          td Trig
+          td \( \sin(\theta) \), &hellip;
+          td: code sin(theta), &hellip;
+          td Also cos, tan, cot, sec, csc
+        tr
+          td Inverse Trig
+          td \( \arcsin(x) \), &hellip;
+          td: code arcsin(x), &hellip;
+          td Also arccos, arctan, arccot, arcsec, arccsc
+        tr
+          td Hyperbolic Trig
+          td \( \sinh(\lambda) \), &hellip;
+          td: code sinh(lambda), &hellip;
+          td Also cosh, tanh, coth, sech, csch
+        tr
+          td Inv. Hyp. Trig
+          td \( \mathrm{arcsinh}(x) \), &hellip;
+          td: code arcsinh(x), &hellip;
+          td Also arccosh, arctanh, arccoth, arcsech, arccsch
+        tr
+          td Absolute Value
+          td \( \left| a \right| \)
+          td: code abs(a)
+        tr
+          td Floor
+          td \( \left\lfloor x \right\rfloor \)
+          td: code floor(x)
+        tr
+          td Ceiling
+          td \( \left\lceil x \right\rceil \)
+          td: code ceil(x), ceiling(x)
+        tr
+          td Square Root
+          td \( \sqrt{a} \)
+          td: code sqrt(a)
+        tr
+          td \(n\)th Root
+          td \( \sqrt[n]{a} \)
+          td: code root(a, n)
+        tr
+          td Natural Exponential
+          td \( \exp(a) \)
+          td: code exp(a)
+        tr
+          td Natural Logarithm
+          td \( \ln(a) \)
+          td: code ln(a)
+        tr
+          td Logarithm with Base
+          td \( \log_b{a} \)
+          td: code log(a, b)
+        tr
+          td Combination
+          td \( \binom{n}{r} \)
+          td: code C(n,r)
+          td Binomial Coefficient, ``choose''
+        tr
+          td Permutation
+          td \( P(n,r) \)
+          td: code P(n,r)
+        tr
+          td Limit
+          td \( \displaystyle\lim_{x\to a} f(x) \)
+          td: code lim(f(x), a, x), limit(f(x), x, a)
+        tr
+          td Derivative
+          td \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \)
+          td: code diff(f(x), x)
+        tr
+          td Partial Derivative
+          td \( \displaystyle \frac{\partial}{\partial x} \left( f(x,y) \right) \)
+          td: code pdiff(f(x,y), x)
+        tr
+          td Indefinite Integral
+          td \( \displaystyle \int f(x) \,\mathrm{d}x \)
+          td: code int(f(x),x), &amp;int f(x) &amp;dx
+        tr
+          td Definite Integral
+          td \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \)
+          td: code int(f(x),x,a,b), &amp;int &amp;_a &amp;^b f(x) &amp;dx
+        tr
+          td Sum Over Set
+          td \( \displaystyle \sum_{i \in S} a_i \)
+          td: code sum(a&amp;_i, i in S)
+        tr
+          td Sum Over Range
+          td \( \displaystyle \sum_{i=a}^b a_i \)
+          td: code sum(a&amp;_i,i,a,b)
+        tr
+          td Product Over Set
+          td \( \displaystyle \prod_{i \in S} a_i \)
+          td: code prod(a&amp;_i, i in S), product(a&amp;_i, i in S)
+        tr
+          td Product Over Range
+          td \( \displaystyle \prod_{i=a}^b a_i \)
+          td: code prod(a&amp;_i,a,b), product(a&amp;_i,a,b)
+
+  section#by-topic
+    h2 Symbols by Topic
+
+block javascripts
+    script(src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
+

@@ -2,20 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>MathLex | Demo</title>
+    <title>
+      MathLex
+      - Demo</title>
     <link rel="stylesheet" href="stylesheets/style.css">
   </head>
-  <body class="dark"><a id="power-button"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
+  <body class="dark"><a id="power-button" title="Toggle light and dark theme"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
     <header>
       <h1>MathLex
-        <div class="subtitle">A Web-Based Mathematical Entry System</div>
+        <div class="subtitle">A JavaScript Mathematical Entry System</div>
       </h1>
       <nav>
         <ul>
           <li><a href="index.html"><span>Home</span></a></li>
           <li><a href="quick-start.html"><span>Quick-Start</span></a></li>
-          <li><a href="doc.html"><span>Documentation</span></a></li>
+          <li><a href="doc/index.html"><span>Documentation</span></a></li>
           <li class="current"><a href="demo.html" class="current"><span>Demo</span></a></li>
+          <li><a href="contact.html"><span>Contact Us</span></a></li>
         </ul>
       </nav>
     </header>
@@ -23,16 +26,13 @@
       <p>
         Until I have a chance to move it here, the demo page is available
         <a href="http://mymathapps.com/demos/mathlex">at its original abode</a>.
-        
       </p>
     </article>
     <footer>
       <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
       <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
     </footer>
-    <script src="javascripts/lib/syntaxhighlighter/scripts/XRegExp.js"></script>
-    <script src="javascripts/lib/syntaxhighlighter/scripts/shCore.js"></script>
-    <script src="javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+    <script>window.PATH_PREFIX = '';</script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="javascripts/main.js"></script>
   </body>
