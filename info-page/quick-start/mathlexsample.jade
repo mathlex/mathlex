@@ -50,6 +50,8 @@ html(lang='en')
               var sageCode = MathLex.render(MathLex.parse(math), 'sage');
               $.post('http://aleph.sagemath.org/service?callback=?', {code: 'print latex('+sageCode+')'}, function (data) {
                 // AJAX success callback
+                // HACK: Firefox does not convert data to JSON.
+                data = $.parseJSON data if typeof(data) is 'string'
                 if (data.success) {
                   MathJax.Hub.Queue(['Text', mjOutBox, data.stdout]);
                 } else {

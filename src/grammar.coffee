@@ -56,11 +56,6 @@ grammar =
         o 'TQUnique relation TColon quantification',  -> ['Unique', $2, $4]
     ]
 
-    bound_statement: [
-        o 'TColon relation',            -> $2
-        o 'TSemicolon quantification',  -> $2
-    ]
-
     relation: [
         o 'ratio'
         o 'algebraic TEqual algebraic',         -> ['Equal', $1, $3]

@@ -586,6 +586,8 @@ block javascripts
               tree = MathLex.parse math
               sageCode = MathLex.render tree, 'sage'
               $.post 'http://aleph.sagemath.org/service?callback=?', {code: "print latex(#{sageCode})"}, (data) ->
+                // HACK: Firefox does not convert data to JSON.
+                data = $.parseJSON data if typeof(data) is 'string'
                 if data.success
                   MathJax.Hub.Queue ['Text', mjOutBox, data.stdout]
                 else

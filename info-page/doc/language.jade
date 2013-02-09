@@ -4,22 +4,28 @@ block append vars
   next_page = {href: 'building.html', title: 'Build Instructions'}
 
 block article
-  h1 Section Index
-  nav.toc
-    ul
-      li: a(href='#by-type') Symbols by Type
-        ul
-          li: a(href='#constants') Constants
-          li: a(href='#unary') Unary Operators
-          li: a(href='#binary') Binary Operators
-          li: a(href='#relations') Relations
-          li: a(href='#delimiters') Delimiters
-          li: a(href='#functions') Functions
-      li: a(href='#by-topic') Symbols by Topic
-        ul
 
   section#language-specs
     h1 Language Specification
+
+    p.
+      This section describes the syntax used to enter mathematical content into MathLex. For
+      clarity, this information is presented in two ways: the first is organized by how the symbol
+      is used in the language (e.g. unary vs. binary operators)
+
+    h2 Section Contents
+    nav.toc
+      ul
+        li: a(href='#by-type') Symbols by Type
+          ul
+            li: a(href='#constants') Constants
+            li: a(href='#unary') Unary Operators
+            li: a(href='#binary') Binary Operators
+            li: a(href='#relations') Relations
+            li: a(href='#delimiters') Delimiters
+            li: a(href='#functions') Functions
+        li: a(href='#by-topic') Symbols by Topic
+          ul
 
     p.
       Below is a table of all recognized mathematical concepts and their corresponding symbols (similar
@@ -113,7 +119,7 @@ block article
         tr
           td Empty Set
           td \( \emptyset \)
-          td: code #empty {}
+          td: code #empty, {}
         tr
           td Zero Vector
           td \( \vec{0} \)
@@ -141,6 +147,29 @@ block article
           td: code #1
           td Identity Matrix, Type "one"
 
+    p.
+      The values in the <em>Precedence</em> column of operator tables reflect which operations are more
+      tightly bound (e.g. the "<abbr title="Parentheses, Exponents, Multiplication, Division, Addition,
+      Subtraction">PEMDAS</abbr>" order of operations from grade school mathematics). Operators of higher
+      precedence (greater numerical value) will be identified and grouped before operators with lower
+      precedence (lesser numerical value). Operators of equal precedence will be grouped as they are found
+      according to their associativity.
+
+    p.
+      <em>Associativity</em> describes how chained operations would be bound together.
+
+    ul
+      li.
+        Left-associative operators will be grouped from left to right (like addition and subtraction):
+        <code>a + b + c + d = ((a + b) + c) + d</code>
+      li.
+        Right-associative operators will be grouped from right to left (like exponents):
+        <code>a ^ b ^ c ^ d = a ^ (b ^ (c ^ d))</code>
+      li.
+        Non-associative operators cannot be chained (like dot products and, in the case of MathLex,
+        <a href="#relations">relations</a>): <code>a &. b &. c</code> doesn't make any sense since the
+        result of a dot product is a scalar.
+
     table#unary
       caption Unary Operators
       thead
@@ -149,23 +178,32 @@ block article
           th Symbol
           th Code
           th Description
+          th Precedence
       tbody
         tr
           td Positive
           td \( +a \)
           td: code +a
+          td
+          td.center 17
         tr
           td Negative
           td \( -a \)
           td: code -a
+          td
+          td.center 17
         tr
           td Positive/Negative
           td \( \pm a \)
           td: code &amp;pm a, +/-a
+          td
+          td.center 17
         tr
           td Negative/Positive
           td \( \mp a \)
           td: code &amp;mp a, -/+a
+          td
+          td.center 17
         tr
           td Square Root
           td \( \sqrt{a} \)
@@ -174,6 +212,8 @@ block article
           td Factorial
           td \( n! \)
           td: code a!
+          td
+          td.center 21
         tr
           td Natural Exponential
           td \( \exp(a) \)
@@ -187,49 +227,76 @@ block article
           td \( \neg p \)
           td: code not p, ~p, !p
           td Logical Negation
+          td.center 17
         tr
           td Prime derivative
           td \( f' \)
           td: code f'
           td Derivative w.r.t. \( x \) or first or only variable
+          td.center 21
         tr
           td Dot derivative
           td \( \dot{f} \)
           td: code f.
           td Derivative w.r.t. \( t \) or second variable
+          td.center 21
         tr
           td Change
           td \( \Delta x \)
           td: code &amp;D x
           td Coordinate Difference
+          td.center 17
         tr
           td Differential
           td \( \mathrm{d} x \)
           td: code &amp;d x
+          td
+          td.center 17
         tr
           td Partial Differential
           td \( \partial x \)
           td: code &amp;pd x
+          td
+          td.center 17
         tr
           td Vector
           td \( \vec{a} \)
           td: code &amp;v a
+          td
+          td.center 17
         tr
           td Unit Vector
           td \( \hat{a} \)
           td: code &amp;u a
+          td
+          td.center 17
         tr
           td Gradient
-          td \( \vec{\nabla} \), \( \mathrm{grad}(f) \)
+          td \( \vec{\nabla} f \), \( \mathrm{grad}(f) \)
           td: code &amp;del f, grad(f)
+          td
+          td.center 17
         tr
           td Divergence
-          td \( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \)
-          td: code &amp;del. f, div(f)
+          td \( \vec{\nabla} \cdot F \), \( \mathrm{div}(F) \)
+          td: code &amp;del. F, div(F)
+          td
+          td.center 17
         tr
           td Curl
-          td \( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \)
-          td: code &amp;delx f, curl(f)
+          td \( \vec{\nabla} \times F \), \( \mathrm{curl}(F) \)
+          td: code &amp;delx F, curl(F)
+          td
+          td.center 17
+
+    p.
+      Although not listed, the left parenthesis, when used as a suffix in function application, may be
+      considered a unary operator. MathLex treats function application as <strong>left-associative</strong>
+      and a precedence of <strong>18</strong>, just below that of function composition and exponents.
+
+    p.
+      On a similar note, notice that all prefix operators are <strong>right-associative</strong> and
+      all postfix operators are <strong>left-associative</strong>.
 
     table#binary
       caption Binary Operators
@@ -239,39 +306,58 @@ block article
           th Symbol
           th Code
           th Description
+          th Precedence
+          th Associativity
+      tbody
         tr
           td Plus
           td \( a + b \)
           td: code a + b
           td Addition
+          td.center 9
+          td.center Left
         tr
           td Minus
           td \( a - b \)
           td: code a - b
           td Subtraction
+          td.center 9
+          td.center Left
         tr
           td Plus/Minus
           td \( a \pm b \)
           td: code a &amp;pm b, a +/- b
+          td
+          td.center 9
+          td.center Left
         tr
           td Minus/Plus
           td \( a \mp b \)
           td: code a &amp;mp b, a -/+ b
+          td
+          td.center 9
+          td.center Left
         tr
           td Times
           td \( a \cdot b \)
           td: code a * b
           td Multiplication
+          td.center 14
+          td.center Left
         tr
           td Divided by
           td \( \frac{a}{b} \), \( a/b \)
           td: code a/b, a &amp;/ b
           td Division
+          td.center 14
+          td.center Left
         tr
           td Power
           td \( a^b \)
           td: code a^b, a**b
           td Exponentiation
+          td.center 20
+          td.center Right
         tr
           td \( n \)-th Root
           td \( \sqrt[n]{a} \)
@@ -284,15 +370,23 @@ block article
           td Ratio
           td \( p :: q \)
           td: code p::q
+          td
+          td.center 8
+          td.center Non
         tr
           td Modulus
           td \( a \pmod{n} \)
           td: code a%n, a mod n
+          td
+          td.center 14
+          td.center Left
         tr
           td Subscript
           td \( a_b \)
           td: code a&amp;_b
           td Indexing
+          td.center(rowspan=2) 22
+          td.center(rowspan=2) Left
         tr
           td Multiple Subscript
           td \( a_{i,j,k} \)
@@ -302,6 +396,8 @@ block article
           td \( a^b \)
           td: code a&amp;^b
           td Indexing
+          td.center(rowspan=2) 22
+          td.center(rowspan=2) Left
         tr
           td Multiple Superscript
           td \( a^{i,j,k} \)
@@ -310,14 +406,23 @@ block article
           td Union
           td \( a \cup b \)
           td: code a union b
+          td
+          td.center 12
+          td.center Left
         tr
           td Intersection
           td \( a \cap b \)
           td: code a intersect b
+          td
+          td.center 13
+          td.center Left
         tr
           td Set Difference
           td \( a \setminus b \)
           td: code a \ b
+          td
+          td.center 10
+          td.center Left
         tr
           td Such That
           td \( p : q \)
@@ -328,70 +433,119 @@ block article
           td \( p \wedge q \)
           td: code p and q, p &amp;&amp; q
           td Conjugation
+          td.center 5
+          td.center Left
         tr
           td Or
           td \( p \vee q \)
           td: code p or q, p || q
           td Disjunction
+          td.center 3
+          td.center Left
         tr
           td Exclusive Or
           td \( p \oplus q \)
           td: code p xor q
           td Exclusion
+          td.center 4
+          td.center Left
         tr
           td Implies
           td \( p \rightarrow q \)
-          td: code p implies q, p -> q, if p then q
+          td: code p implies q, p -> q, if p then q, p onlyif q
           td Conditional
+          td.center 2
+          td.center Left
         tr
           td Implied By
           td \( q \leftarrow p \)
-          td: code q if p, q when p, q whenever p, q <- p
+          td: code q if p, q when p, q whenever p, q <- p, q impliedby p
           td Reverse Conditional
+          td.center 2
+          td.center Left
         tr
           td If And Only If
           td \( p \leftrightarrow q \)
           td: code p iff q, p <-> q
           td Biconditional
+          td.center 1
+          td.center Non
         tr
           td Function Composition
           td \( f \circ g \)
           td: code f @ g
+          td
+          td.center 19
+          td.center Left
         tr
           td Dot Product
           td \( \vec{a} \cdot \vec{b} \)
           td: code &amp;v a &amp;. &amp;v b
+          td
+          td.center 15
+          td.center Non
         tr
           td Cross Product
           td \( \vec{a} \times \vec{b} \)
           td: code &amp;v a &amp;x &amp;v b
+          td
+          td.center 16
+          td.center Non
         tr
           td Wedge Product
           td \( \vec{a} \wedge \vec{b} \)
           td: code &amp;v a &amp;w &amp;v b
+          td
+          td.center 16
+          td.center Non
         tr
           td Tensor Product
           td \( T \otimes S \)
           td: code T &amp;ox S
+          td
+          td.center 16
+          td.center Non
+        tr
+          td Cartesian Product
+          td \( A \times B \)
+          td code A &amp;* B
+          td
+          td.center 16
+          td.center 16
         tr
           td Direct Sum
           td \( A \oplus B \)
           td: code A &amp;o+ B
+          td
+          td.center 11
+          td.center Left
         tr
           td Universal Quantifier
           td \( \forall x P(x) \)
           td: code forall x , P(x)
           td "For all &hellip;"
+          td.center 6
+          td.center Left
         tr
           td Existential Quantifier
           td \( \exists x P(x) \)
           td: code exists x : P(x)
           td "There exists &hellip; such that"
+          td.center 6
+          td.center Left
         tr
           td Unique Quantifier
           td \( \exists ! x P(x) \)
           td: code unique x : P(x)
           td "There exists a unique &hellip; such that"
+          td.center 6
+          td.center Left
+
+    p.
+      As previously stated, all relations are non-associative since <code>a = b = c = d</code> is
+      <em>NOT</em> the same as <code>((a = b) = c) = d</code> or <code>a = (b = (c = d))</code>. Later
+      versions of MathLex may support such expressions as syntactic sugar for
+      <code>(a = b) and (b = c) and (c = d)</code>
 
     table#relations
       caption Relations
@@ -401,89 +555,151 @@ block article
           th Symbol
           th Code
           th Description
+          th Precedence
+          th Associativity
       tbody
         tr
           td Equal
           td \( = \)
           td: code
             | =, ==
+          td
+          td.center 7
+          td.center Non
         tr
           td Not Equal
           td \( \ne \)
           td: code !=, /=, &lt;&gt;
+          td
+          td.center 7
+          td.center Non
         tr
           td Less Than
           td \( &lt; \)
           td: code &lt;
+          td
+          td.center 7
+          td.center Non
         tr
           td Greater Than
           td \( &gt; \)
           td: code &gt;
+          td
+          td.center 7
+          td.center Non
         tr
           td Less Than or Equal
           td \( \le \)
           td: code &lt;=
+          td
+          td.center 7
+          td.center Non
         tr
           td Greater Than or Equal
           td \( \ge \)
           td: code &gt;=
+          td
+          td.center 7
+          td.center Non
         tr
           td Divides
           td \( p \mid q \)
           td: code p|q, p divides q
+          td
+          td.center 7
+          td.center Non
         tr
           td Not Divides
           td \( p \nmid q \)
           td: code p!|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
+          td
+          td.center 7
+          td.center Non
         tr
           td Ratio Equality
           td \( \mathrm{as} \)
           td: code as
+          td
+          td.center 7
+          td.center Non
         tr
           td Subset
           td \( \subseteq \)
           td: code subset
+          td
+          td.center 7
+          td.center Non
         tr
           td Superset
           td \( \supseteq \)
           td: code superset, supset
+          td
+          td.center 7
+          td.center Non
         tr
           td Proper Subset
           td \( \subset \)
           td: code propersubset, propsubset, psubset
+          td
+          td.center 7
+          td.center Non
         tr
           td Proper Superset
           td \( \supset \)
           td: code propersuperset, propsuperset, psuperset, propersupset, propsupset, psupset
+          td
+          td.center 7
+          td.center Non
         tr
           td Inclusion
           td \( \in \)
           td: code in
+          td
+          td.center 7
+          td.center Non
         tr
           td Congruent
           td \( \cong \)
           td: code ~=, congruent
+          td
+          td.center 7
+          td.center Non
         tr
           td Similar
           td \( \sim \)
           td: code !, sim, similar
+          td
+          td.center 7
+          td.center Non
         tr
           td Parallel
           td \( \parallel \)
           td: code para, parallel
+          td
+          td.center 7
+          td.center Non
         tr
           td Perpendicular
           td \( \perp \)
           td: code perp, perpendicular
+          td
+          td.center 7
+          td.center Non
         tr
           td Equivalent
           td \( \equiv \)
           td: code
             | ===, equiv
+          td
+          td.center 0
+          td.center Non
         tr
           td Not Equivalent
           td \( \not\equiv \)
           td: code !==, /==, nequiv
+          td
+          td.center 0
+          td.center Non
 
     table#delimiters
       caption Delimiters
@@ -592,6 +808,8 @@ block article
       have different meanings and therefore cannot be automatically matched by the Lexer. Additionally,
       if an expression opened with one type of delimiter, it must be closed with the same type (i.e.
       context-aware vs. specialized).
+
+    p All delimiters have "infinite" precedence; any and all contents will be grouped together.
 
     table#functions
       thead

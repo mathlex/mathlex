@@ -29,24 +29,30 @@
           <li><a id="index" title="Table of Contents" href="index.html" class="icon-button"><span class="screen-reader-text">Table of Contents</span><span data-icon="&#9776;" aria-hidden="true" class="icon icon-only"></span></a></li>
         </ul>
       </nav>
-      <h1>Section Index</h1>
-      <nav class="toc">
-        <ul>
-          <li><a href="#by-type">Symbols by Type
-              <ul>
-                <li><a href="#constants">Constants</a></li>
-                <li><a href="#unary">Unary Operators</a></li>
-                <li><a href="#binary">Binary Operators</a></li>
-                <li><a href="#relations">Relations</a></li>
-                <li><a href="#delimiters">Delimiters</a></li>
-                <li><a href="#functions">Functions</a></li>
-              </ul></a></li>
-          <li><a href="#by-topic">Symbols by Topic
-              <ul></ul></a></li>
-        </ul>
-      </nav>
       <section id="language-specs">
         <h1>Language Specification</h1>
+        <p>
+          This section describes the syntax used to enter mathematical content into MathLex. For
+          clarity, this information is presented in two ways: the first is organized by how the symbol
+          is used in the language (e.g. unary vs. binary operators)
+          
+        </p>
+        <h2>Section Contents</h2>
+        <nav class="toc">
+          <ul>
+            <li><a href="#by-type">Symbols by Type
+                <ul>
+                  <li><a href="#constants">Constants</a></li>
+                  <li><a href="#unary">Unary Operators</a></li>
+                  <li><a href="#binary">Binary Operators</a></li>
+                  <li><a href="#relations">Relations</a></li>
+                  <li><a href="#delimiters">Delimiters</a></li>
+                  <li><a href="#functions">Functions</a></li>
+                </ul></a></li>
+            <li><a href="#by-topic">Symbols by Topic
+                <ul></ul></a></li>
+          </ul>
+        </nav>
         <p>
           Below is a table of all recognized mathematical concepts and their corresponding symbols (similar
           to a combination of <a href="tokens.html">list of tokens</a> and
@@ -158,7 +164,7 @@
             <tr>
               <td>Empty Set</td>
               <td>\( \emptyset \)</td>
-              <td><code>#empty {}</code></td>
+              <td><code>#empty, {}</code></td>
             </tr>
             <tr>
               <td>Zero Vector</td>
@@ -194,6 +200,35 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          The values in the <em>Precedence</em> column of operator tables reflect which operations are more
+          tightly bound (e.g. the "<abbr title="Parentheses, Exponents, Multiplication, Division, Addition,
+          Subtraction">PEMDAS</abbr>" order of operations from grade school mathematics). Operators of higher
+          precedence (greater numerical value) will be identified and grouped before operators with lower
+          precedence (lesser numerical value). Operators of equal precedence will be grouped as they are found
+          according to their associativity.
+          
+        </p>
+        <p>
+          <em>Associativity</em> describes how chained operations would be bound together.
+          
+        </p>
+        <ul>
+          <li>
+            Left-associative operators will be grouped from left to right (like addition and subtraction):
+            <code>a + b + c + d = ((a + b) + c) + d</code>
+          </li>
+          <li>
+            Right-associative operators will be grouped from right to left (like exponents):
+            <code>a ^ b ^ c ^ d = a ^ (b ^ (c ^ d))</code>
+          </li>
+          <li>
+            Non-associative operators cannot be chained (like dot products and, in the case of MathLex,
+            <a href="#relations">relations</a>): <code>a &. b &. c</code> doesn't make any sense since the
+            result of a dot product is a scalar.
+            
+          </li>
+        </ul>
         <table id="unary">
           <caption>Unary Operators</caption>
           <thead>
@@ -202,6 +237,7 @@
               <th>Symbol</th>
               <th>Code</th>
               <th>Description</th>
+              <th>Precedence</th>
             </tr>
           </thead>
           <tbody>
@@ -209,21 +245,29 @@
               <td>Positive</td>
               <td>\( +a \)</td>
               <td><code>+a</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Negative</td>
               <td>\( -a \)</td>
               <td><code>-a</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Positive/Negative</td>
               <td>\( \pm a \)</td>
               <td><code>&amp;pm a, +/-a</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Negative/Positive</td>
               <td>\( \mp a \)</td>
               <td><code>&amp;mp a, -/+a</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Square Root</td>
@@ -234,6 +278,8 @@
               <td>Factorial</td>
               <td>\( n! \)</td>
               <td><code>a!</code></td>
+              <td></td>
+              <td class="center">21</td>
             </tr>
             <tr>
               <td>Natural Exponential</td>
@@ -250,62 +296,91 @@
               <td>\( \neg p \)</td>
               <td><code>not p, ~p, !p</code></td>
               <td>Logical Negation</td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Prime derivative</td>
               <td>\( f' \)</td>
               <td><code>f'</code></td>
               <td>Derivative w.r.t. \( x \) or first or only variable</td>
+              <td class="center">21</td>
             </tr>
             <tr>
               <td>Dot derivative</td>
               <td>\( \dot{f} \)</td>
               <td><code>f.</code></td>
               <td>Derivative w.r.t. \( t \) or second variable</td>
+              <td class="center">21</td>
             </tr>
             <tr>
               <td>Change</td>
               <td>\( \Delta x \)</td>
               <td><code>&amp;D x</code></td>
               <td>Coordinate Difference</td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Differential</td>
               <td>\( \mathrm{d} x \)</td>
               <td><code>&amp;d x</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Partial Differential</td>
               <td>\( \partial x \)</td>
               <td><code>&amp;pd x</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Vector</td>
               <td>\( \vec{a} \)</td>
               <td><code>&amp;v a</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Unit Vector</td>
               <td>\( \hat{a} \)</td>
               <td><code>&amp;u a</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Gradient</td>
-              <td>\( \vec{\nabla} \), \( \mathrm{grad}(f) \)</td>
+              <td>\( \vec{\nabla} f \), \( \mathrm{grad}(f) \)</td>
               <td><code>&amp;del f, grad(f)</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Divergence</td>
-              <td>\( \vec{\nabla} \cdot f \), \( \mathrm{div}(f) \)</td>
-              <td><code>&amp;del. f, div(f)</code></td>
+              <td>\( \vec{\nabla} \cdot F \), \( \mathrm{div}(F) \)</td>
+              <td><code>&amp;del. F, div(F)</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
             <tr>
               <td>Curl</td>
-              <td>\( \vec{\nabla} \times f \), \( \mathrm{curl}(f) \)</td>
-              <td><code>&amp;delx f, curl(f)</code></td>
+              <td>\( \vec{\nabla} \times F \), \( \mathrm{curl}(F) \)</td>
+              <td><code>&amp;delx F, curl(F)</code></td>
+              <td></td>
+              <td class="center">17</td>
             </tr>
           </tbody>
         </table>
+        <p>
+          Although not listed, the left parenthesis, when used as a suffix in function application, may be
+          considered a unary operator. MathLex treats function application as <strong>left-associative</strong>
+          and a precedence of <strong>18</strong>, just below that of function composition and exponents.
+          
+        </p>
+        <p>
+          On a similar note, notice that all prefix operators are <strong>right-associative</strong> and
+          all postfix operators are <strong>left-associative</strong>.
+          
+        </p>
         <table id="binary">
           <caption>Binary Operators</caption>
           <thead>
@@ -314,46 +389,66 @@
               <th>Symbol</th>
               <th>Code</th>
               <th>Description</th>
+              <th>Precedence</th>
+              <th>Associativity</th>
             </tr>
+          </thead>
+          <tbody>
             <tr>
               <td>Plus</td>
               <td>\( a + b \)</td>
               <td><code>a + b</code></td>
               <td>Addition</td>
+              <td class="center">9</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Minus</td>
               <td>\( a - b \)</td>
               <td><code>a - b</code></td>
               <td>Subtraction</td>
+              <td class="center">9</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Plus/Minus</td>
               <td>\( a \pm b \)</td>
               <td><code>a &amp;pm b, a +/- b</code></td>
+              <td></td>
+              <td class="center">9</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Minus/Plus</td>
               <td>\( a \mp b \)</td>
               <td><code>a &amp;mp b, a -/+ b</code></td>
+              <td></td>
+              <td class="center">9</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Times</td>
               <td>\( a \cdot b \)</td>
               <td><code>a * b</code></td>
               <td>Multiplication</td>
+              <td class="center">14</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Divided by</td>
               <td>\( \frac{a}{b} \), \( a/b \)</td>
               <td><code>a/b, a &amp;/ b</code></td>
               <td>Division</td>
+              <td class="center">14</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Power</td>
               <td>\( a^b \)</td>
               <td><code>a^b, a**b</code></td>
               <td>Exponentiation</td>
+              <td class="center">20</td>
+              <td class="center">Right</td>
             </tr>
             <tr>
               <td>\( n \)-th Root</td>
@@ -369,17 +464,25 @@
               <td>Ratio</td>
               <td>\( p :: q \)</td>
               <td><code>p::q</code></td>
+              <td></td>
+              <td class="center">8</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Modulus</td>
               <td>\( a \pmod{n} \)</td>
               <td><code>a%n, a mod n</code></td>
+              <td></td>
+              <td class="center">14</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Subscript</td>
               <td>\( a_b \)</td>
               <td><code>a&amp;_b</code></td>
               <td>Indexing</td>
+              <td rowspan="2" class="center">22</td>
+              <td rowspan="2" class="center">Left</td>
             </tr>
             <tr>
               <td>Multiple Subscript</td>
@@ -391,6 +494,8 @@
               <td>\( a^b \)</td>
               <td><code>a&amp;^b</code></td>
               <td>Indexing</td>
+              <td rowspan="2" class="center">22</td>
+              <td rowspan="2" class="center">Left</td>
             </tr>
             <tr>
               <td>Multiple Superscript</td>
@@ -401,16 +506,25 @@
               <td>Union</td>
               <td>\( a \cup b \)</td>
               <td><code>a union b</code></td>
+              <td></td>
+              <td class="center">12</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Intersection</td>
               <td>\( a \cap b \)</td>
               <td><code>a intersect b</code></td>
+              <td></td>
+              <td class="center">13</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Set Difference</td>
               <td>\( a \setminus b \)</td>
               <td><code>a \ b</code></td>
+              <td></td>
+              <td class="center">10</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Such That</td>
@@ -423,87 +537,138 @@
               <td>\( p \wedge q \)</td>
               <td><code>p and q, p &amp;&amp; q</code></td>
               <td>Conjugation</td>
+              <td class="center">5</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Or</td>
               <td>\( p \vee q \)</td>
               <td><code>p or q, p || q</code></td>
               <td>Disjunction</td>
+              <td class="center">3</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Exclusive Or</td>
               <td>\( p \oplus q \)</td>
               <td><code>p xor q</code></td>
               <td>Exclusion</td>
+              <td class="center">4</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Implies</td>
               <td>\( p \rightarrow q \)</td>
-              <td><code>p implies q, p -> q, if p then q</code></td>
+              <td><code>p implies q, p -> q, if p then q, p onlyif q</code></td>
               <td>Conditional</td>
+              <td class="center">2</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Implied By</td>
               <td>\( q \leftarrow p \)</td>
-              <td><code>q if p, q when p, q whenever p, q <- p</code></td>
+              <td><code>q if p, q when p, q whenever p, q <- p, q impliedby p</code></td>
               <td>Reverse Conditional</td>
+              <td class="center">2</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>If And Only If</td>
               <td>\( p \leftrightarrow q \)</td>
               <td><code>p iff q, p <-> q</code></td>
               <td>Biconditional</td>
+              <td class="center">1</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Function Composition</td>
               <td>\( f \circ g \)</td>
               <td><code>f @ g</code></td>
+              <td></td>
+              <td class="center">19</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Dot Product</td>
               <td>\( \vec{a} \cdot \vec{b} \)</td>
               <td><code>&amp;v a &amp;. &amp;v b</code></td>
+              <td></td>
+              <td class="center">15</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Cross Product</td>
               <td>\( \vec{a} \times \vec{b} \)</td>
               <td><code>&amp;v a &amp;x &amp;v b</code></td>
+              <td></td>
+              <td class="center">16</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Wedge Product</td>
               <td>\( \vec{a} \wedge \vec{b} \)</td>
               <td><code>&amp;v a &amp;w &amp;v b</code></td>
+              <td></td>
+              <td class="center">16</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Tensor Product</td>
               <td>\( T \otimes S \)</td>
               <td><code>T &amp;ox S</code></td>
+              <td></td>
+              <td class="center">16</td>
+              <td class="center">Non</td>
+            </tr>
+            <tr>
+              <td>Cartesian Product</td>
+              <td>\( A \times B \)</td>
+              <td>code A &amp;* B</td>
+              <td></td>
+              <td class="center">16</td>
+              <td class="center">16</td>
             </tr>
             <tr>
               <td>Direct Sum</td>
               <td>\( A \oplus B \)</td>
               <td><code>A &amp;o+ B</code></td>
+              <td></td>
+              <td class="center">11</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Universal Quantifier</td>
               <td>\( \forall x P(x) \)</td>
               <td><code>forall x , P(x)</code></td>
               <td>"For all &hellip;"</td>
+              <td class="center">6</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Existential Quantifier</td>
               <td>\( \exists x P(x) \)</td>
               <td><code>exists x : P(x)</code></td>
               <td>"There exists &hellip; such that"</td>
+              <td class="center">6</td>
+              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Unique Quantifier</td>
               <td>\( \exists ! x P(x) \)</td>
               <td><code>unique x : P(x)</code></td>
               <td>"There exists a unique &hellip; such that"</td>
+              <td class="center">6</td>
+              <td class="center">Left</td>
             </tr>
-          </thead>
+          </tbody>
         </table>
+        <p>
+          As previously stated, all relations are non-associative since <code>a = b = c = d</code> is
+          <em>NOT</em> the same as <code>((a = b) = c) = d</code> or <code>a = (b = (c = d))</code>. Later
+          versions of MathLex may support such expressions as syntactic sugar for
+          <code>(a = b) and (b = c) and (c = d)</code>
+          
+        </p>
         <table id="relations">
           <caption>Relations</caption>
           <thead>
@@ -512,6 +677,8 @@
               <th>Symbol</th>
               <th>Code</th>
               <th>Description</th>
+              <th>Precedence</th>
+              <th>Associativity</th>
             </tr>
           </thead>
           <tbody>
@@ -519,101 +686,161 @@
               <td>Equal</td>
               <td>\( = \)</td>
               <td><code>=, ==</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Not Equal</td>
               <td>\( \ne \)</td>
               <td><code>!=, /=, &lt;&gt;</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Less Than</td>
               <td>\( &lt; \)</td>
               <td><code>&lt;</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Greater Than</td>
               <td>\( &gt; \)</td>
               <td><code>&gt;</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Less Than or Equal</td>
               <td>\( \le \)</td>
               <td><code>&lt;=</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Greater Than or Equal</td>
               <td>\( \ge \)</td>
               <td><code>&gt;=</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Divides</td>
               <td>\( p \mid q \)</td>
               <td><code>p|q, p divides q</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Not Divides</td>
               <td>\( p \nmid q \)</td>
               <td><code>p!|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Ratio Equality</td>
               <td>\( \mathrm{as} \)</td>
               <td><code>as</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Subset</td>
               <td>\( \subseteq \)</td>
               <td><code>subset</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Superset</td>
               <td>\( \supseteq \)</td>
               <td><code>superset, supset</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Proper Subset</td>
               <td>\( \subset \)</td>
               <td><code>propersubset, propsubset, psubset</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Proper Superset</td>
               <td>\( \supset \)</td>
               <td><code>propersuperset, propsuperset, psuperset, propersupset, propsupset, psupset</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Inclusion</td>
               <td>\( \in \)</td>
               <td><code>in</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Congruent</td>
               <td>\( \cong \)</td>
               <td><code>~=, congruent</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Similar</td>
               <td>\( \sim \)</td>
               <td><code>!, sim, similar</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Parallel</td>
               <td>\( \parallel \)</td>
               <td><code>para, parallel</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Perpendicular</td>
               <td>\( \perp \)</td>
               <td><code>perp, perpendicular</code></td>
+              <td></td>
+              <td class="center">7</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Equivalent</td>
               <td>\( \equiv \)</td>
               <td><code>===, equiv</code></td>
+              <td></td>
+              <td class="center">0</td>
+              <td class="center">Non</td>
             </tr>
             <tr>
               <td>Not Equivalent</td>
               <td>\( \not\equiv \)</td>
               <td><code>!==, /==, nequiv</code></td>
+              <td></td>
+              <td class="center">0</td>
+              <td class="center">Non</td>
             </tr>
           </tbody>
         </table>
@@ -748,6 +975,7 @@
           context-aware vs. specialized).
           
         </p>
+        <p>All delimiters have "infinite" precedence; any and all contents will be grouped together.</p>
         <table id="functions">
           <thead>
             <tr>

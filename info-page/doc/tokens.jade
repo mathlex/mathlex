@@ -25,8 +25,8 @@ block article
         td: span.token TFloatLit
         td Literal decimal number and/or scientific notation
         td.
-          Any number with a decimal point or 'e' somewhere in it
-          (e.g. <code>0.3 -.125 3.14 6.02e23 1.602E-19</code>)
+          Any positive number (Note: negation is treated  operation) with a decimal point or 'e' somewhere in it
+          (e.g. <code>0.3 .125 3.14 6.02e23 1.602E-19</code>)
       tr
         td: span.token TIntLit
         td Integer
@@ -35,82 +35,66 @@ block article
           (e.g. <code>1234 095 42 7</code>)
       tr
         td: span.token TConstant
-        td A special identifier that has a numeric value
+        td An identifier that has a constant value (number, set, or truth value)
         td.
           Usually preceded by a <code>#</code> sign, but some keywords are recognized.
           See the <a href="#list-of-constants">list of constants</a> below.
       tr
-        td: span.token TQForall
-        td Universal Quantification ("for all")
-        td: code forall
+        td: span.token TPlus
+        td Addition
+        td: code +
       tr
-        td: span.token TQExists
-        td Existential Quantification ("there exists")
-        td: code exists
+        td: span.token TMinus
+        td Subtraction
+        td: code -
       tr
-        td: span.token TQUnique
-        td Unique Quantification ("there exists a unique")
-        td: code unique
+        td: span.token TPlusMinus
+        td "Plus or Minus"
+        td: code &amp;pm +/-
       tr
-        td: span.token TIff
-        td Biconditional Logical Operator ("if and only if")
-        td: code &lt;-&gt; iff
+        td: span.token TMinusPlus
+        td "Minus or Plus"
+        td: code &amp;mp -/+
       tr
-        td: span.token TImplies
-        td Conditional Logical Operator ("implies", "if-then")
-        td: code -&gt; implies
+        td: span.token TTimes
+        td Multiplication
+        td: code *
       tr
-        td: span.token TIf
-        td Reverse Conditional Logical Operator ("implied by")
-        td: code &lt;- if when whenever
+        td: span.token TDivide
+        td Division (vertical notation; \( \tfrac{a}{b} \))
+        td: code /
       tr
-        td: span.token TThen
-        td Keyword used for parsing "if-then" implication
-        td: code then
+        td: span.token TSlash
+        td Division (horizontal notation; \( a / b \))
+        td: code &amp;/
       tr
-        td: span.token TAnd
-        td Logical Conjunction
-        td: code and &amp;&amp;
+        td: span.token TExponent
+        td Exponentiation/Power
+        td: code ^ **
       tr
-        td: span.token TOr
-        td Logical Disjunction
-        td: code or ||
+        td: span.token TRatio
+        td Ratio ("the ratio of a to b")
+        td: code ::
       tr
-        td: span.token TXor
-        td Logical Exclusive-Or
-        td: code xor
+        td: span.token TRatioEqual
+        td Equal Relation Operator for ratios ("(a :: b) as (c :: d)" reads "a is to b as c is to d")
+        td: code as
       tr
-        td: span.token TNot
-        td Logical Negation
-        td: code not
+        td: span.token TModulus
+        td Modular Arithmetic Operator
+        td: code mod %
       tr
-        td: span.token TTilde
-        td Tilde Character (used for negation and similarity)
-        td: code ~
+        td: span.token TBang
+        td Exclamation Point (used for negation and factorial)
+        td: code !
       tr
-        td: span.token TLess
-        td "Less Than" Relation Operator
-        td: code &lt;
+        td: span.token TReal
+        td Real Part Filter Operator
+        td: code &amp;Re
       tr
-        td: span.token TLessEqual
-        td "Less Than or Equal" Relation Operator
-        td: code &lt;=
-      tr
-        td: span.token TEquiv
-        td "Equivalent" Relation Operator
-        td: code| === equiv
-      tr
-        td: span.token TNotEquiv
-        td "Not Equivalent" Relation Operator
-        td: code !== /== nequiv
-      tr
-        td: span.token TCongruent
-        td "Congruent" Relation Operator
-        td: code ~= congruent
-      tr
-        td: span.token TSimilar
-        td "Similar To" Relation Operator
-        td: code similar sim
+        td: span.token TImaginary
+        td Imaginary Part Filter Operator
+        td: code &amp;Im
       tr
         td: span.token TEqual
         td "Equal To" Relation Operator (for algebraic expressions)
@@ -120,9 +104,37 @@ block article
         td "Not Equal To" Relation Operator (for algebraic expressions)
         td: code != /= &lt;&gt;
       tr
-        td: span.token TRatioEqual
-        td Equal Relation Operator for ratios ("[a is to b] as [c is to d]")
-        td: code as
+        td: span.token TLess
+        td "Less Than" Relation Operator
+        td: code &lt;
+      tr
+        td: span.token TLessEqual
+        td "Less Than or Equal" Relation Operator
+        td: code &lt;=
+      tr
+        td: span.token TGreater
+        td "Greater Than" Relation Operator
+        td: code &gt;
+      tr
+        td: span.token TGreaterEqual
+        td "Greater Than or Equal To" Relation Operator
+        td: code &gt;=
+      tr
+        td: span.token TDivides
+        td Divisibility Relation Operator
+        td: code divides
+      tr
+        td: span.token TNotDivides
+        td Negation of Divisibility Relation
+        td: code !| ndivides ndivide notdivides notdivide
+      tr
+        td: span.token TCongruent
+        td "Congruent" Relation Operator
+        td: code ~= congruent
+      tr
+        td: span.token TSimilar
+        td "Similar To" Relation Operator (sometimes also <span class="token">TTilde</span> depending on context)
+        td: code similar sim
       tr
         td: span.token TParallel
         td "Parallel To" Relation Operator
@@ -131,14 +143,6 @@ block article
         td: span.token TPerpendicular
         td "Perpendicular To" Relation Operator
         td: code perpendicular perp
-      tr
-        td: span.token TGreaterEqual
-        td "Greater Than or Equal To" Relation Operator
-        td: code &gt;=
-      tr
-        td: span.token TGreater
-        td "Greater Than" Relation Operator
-        td: code &gt;
       tr
         td: span.token TSubset
         td Subset Relation Operator
@@ -164,14 +168,6 @@ block article
         td Vertical Bar Character
         td: code |
       tr
-        td: span.token TDivides
-        td Divisibility Relation Operator
-        td: code divides
-      tr
-        td: span.token TNotDivides
-        td Negation of Divisibility Relation
-        td: code !| ndivides ndivide notdivides notdivide
-      tr
         td: span.token TUnion
         td Set Union Operator
         td: code union
@@ -181,93 +177,128 @@ block article
         td: code intersect
       tr
         td: span.token TSetDiff
-        td Set difference Operator
-        td: code \\
+        td Set Difference Operator
+        td: code \
       tr
-        td: span.token TPlus
-        td Addition
-        td: code +
+        td: span.token TDirectSum
+        td Direct Sum Operator
+        td: code &amp;o+
       tr
-        td: span.token TMinus
-        td Subtraction
-        td: code -
+        td: span.token TCartesianProduct
+        td Cartesian Product Operator
+        td: code &amp;*
       tr
-        td: span.token TPlusMinus
-        td "Plus or Minus"
-        td: code &amp;pm +/-
+        td: span.token TEquiv
+        td "Equivalent" Relation Operator
+        td: code| === equiv
       tr
-        td: span.token TMinusPlus
-        td "Minus or Plus"
-        td: code &amp;mp -/+
+        td: span.token TNotEquiv
+        td "Not Equivalent" Relation Operator
+        td: code !== /== nequiv
       tr
-        td: span.token TTimes
-        td Multiplication
-        td: code *
+        td: span.token TQForall
+        td Universal Quantification ("for all")
+        td: code forall
       tr
-        td: span.token TDivide
-        td Division
-        td: code /
+        td: span.token TQExists
+        td Existential Quantification ("there exists")
+        td: code exists
       tr
-        td: span.token TSlash
-        td Alternate "slash" division notation
-        td: code &amp;/
+        td: span.token TQUnique
+        td Unique Quantification ("there exists a unique")
+        td: code unique
       tr
-        td: span.token TRatio
-        td Rational comparison
-        td: code ::
+        td: span.token TColon
+        td Colon Character ("such that")
+        td: code :
       tr
-        td: span.token TModulus
-        td Modular Arithmetic Operator
-        td: code mod %
+        td: span.token TIff
+        td Biconditional Logical Operator ("if and only if")
+        td: code &lt;-&gt; iff
       tr
-        td: span.token TExponent
-        td Exponentiation/Power
-        td: code ^ **
+        td: span.token TImplies
+        td Conditional Logical Operator ("implies", "if-then")
+        td: code -&gt; implies onlyif
       tr
-        td: span.token TSuperscript
-        td Superscript Index Selector
-        td: code &amp;^
+        td: span.token TIf
+        td Reverse Conditional Logical Operator ("implied by")
+        td: code &lt;- if when whenever impliedby
       tr
-        td: span.token TSubscript
-        td Subscript Index Selector
-        td: code &amp;_
+        td: span.token TThen
+        td Keyword used for parsing "if-then" implication
+        td: code then
       tr
-        td: span.token TBang
-        td Exclamation Point
-        td: code !
+        td: span.token TAnd
+        td Logical Conjunction
+        td: code and &amp;&amp;
       tr
-        td: span.token TPrime
-        td Differentiation Notation
-        td: code '
+        td: span.token TOr
+        td Logical Disjunction
+        td: code or ||
       tr
-        td: span.token TDotDiff
-        td Alternate Differentiation Notation
-        td: code.
-          .
+        td: span.token TXor
+        td Logical Exclusive-Or
+        td: code xor
+      tr
+        td: span.token TNot
+        td Logical Negation (sometimes also <span class="token">TTilde</span> or <span class="token">TBang</span> depending on context)
+        td: code not
+      tr
+        td: span.token TTilde
+        td Tilde Character (used for negation and similarity)
+        td: code ~
       tr
         td: span.token TCompose
         td Function Composition Operator
         td: code @
       tr
-        td: span.token TReal
-        td Real Part Filter Operator
-        td: code &amp;Re
+        td: span.token TPrime
+        td Prime Differentiation
+        td: code '
       tr
-        td: span.token TImaginary
-        td Imaginary Part Filter Operator
-        td: code &amp;Im
+        td: span.token TDotDiff
+        td Dot Differentiation
+        td: code .
       tr
-        td: span.token TPartial
-        td Partial Differential "D"
-        td: code &amp;pd
+        td: span.token TChangeDelta
+        td Difference Operator
+        td: code &amp;D
       tr
         td: span.token TDifferential
         td Differential "D"
         td: code &amp;d
       tr
-        td: span.token TChangeDelta
-        td Difference Operator
-        td: code &amp;D
+        td: span.token TPartial
+        td Partial Differential "D"
+        td: code &amp;pd
+      tr
+        td: span.token TIntegral
+        td Integration Symbol
+        td: code integral Integral int Int &amp;integral &amp;Integral &amp;int &amp;Int
+      tr
+        td: span.token TVectorizer
+        td Arrow over a vector variable
+        td: code &amp;v
+      tr
+        td: span.token TUnitVectorizer
+        td "Hat" over a unit vector variable
+        td: code &amp;u
+      tr
+        td: span.token TDot
+        td Dot Product Operator
+        td: code &amp;.
+      tr
+        td: span.token TCross
+        td Cross Product Operator
+        td: code &amp;x
+      tr
+        td: span.token TWedge
+        td Wedge Product Operator
+        td: code &amp;w
+      tr
+        td: span.token TTensor
+        td Tensor Product Operator
+        td: code &amp;ox
       tr
         td: span.token TGradient
         td Gradient Operator ("del" or "grad")
@@ -280,42 +311,6 @@ block article
         td: span.token TCurl
         td Curl Operator ("curl")
         td: code &amp;delx &amp;curl
-      tr
-        td: span.token TCross
-        td Cross Product Operator
-        td: code &amp;x
-      tr
-        td: span.token TDot
-        td Dot Product Operator
-        td: code &amp;.
-      tr
-        td: span.token TWedge
-        td Wedge Product Operator
-        td: code &amp;w
-      tr
-        td: span.token TTensor
-        td Tensor Product Operator
-        td: code &amp;ox
-      tr
-        td: span.token TDirectSum
-        td Direct Sum Operator
-        td: code &amp;o+
-      tr
-        td: span.token TCartesianProduct
-        td Cartesian Product Operator
-        td: code &amp;*
-      tr
-        td: span.token TVectorizer
-        td The boldface style or arrow over a vector variable
-        td: code &amp;v
-      tr
-        td: span.token TUnitVectorizer
-        td Unit vector "hat" over a vector variable
-        td: code &amp;u
-      tr
-        td: span.token TIntegral
-        td Integration Symbol
-        td: code integral Integral int Int &amp;integral &amp;Integral &amp;int &amp;Int
       tr
         td: span.token TLParen
         td Left (Open) Parenthesis
@@ -381,17 +376,21 @@ block article
         td Right Angle Bracket
         td: code :&gt;
       tr
-        td: span.token TColon
-        td Colon Character
-        td: code :
+        td: span.token TComma
+        td Comma separator
+        td: code ,
+      tr
+        td: span.token TSuperscript
+        td Superscript Index Selector
+        td: code &amp;^
+      tr
+        td: span.token TSubscript
+        td Subscript Index Selector
+        td: code &amp;_
       tr
         td: span.token TSemicolon
         td Semi-Colon Character
         td: code ;
-      tr
-        td: span.token TComma
-        td Comma separator
-        td: code ,
 
   h2#list-of-constants List of Constants
   table
@@ -406,16 +405,16 @@ block article
         td Boolean constant <strong>False</strong>
         td: code #F #false false
       tr
-        td: a(href='http://tauday.com', target='_blank') &tau; = 2 &pi; &asymp; 6.28318
+        td: a(href='http://tauday.com', target='_blank') \( \tau = 2 \pi \approx 6.28318 \)
         td: code #t #tau
       tr
-        td &pi; &asymp; 3.14159
+        td \( \pi \approx 3.14159 \)
         td: code #p #pi
       tr
-        td e &asymp; 2.71828
+        td \( e \approx 2.71828 \)
         td: code #e
       tr
-        td &infin; &asymp; <span class="error">#!ERROR: memory overflow</span>
+        td \( \infty \approx \) <span class="error">#!ERROR: memory overflow</span>
         td: code #infinity infinity
       tr
         td Set of Natural Numbers
@@ -462,3 +461,6 @@ block article
       tr
         td Identity Matrix
         td: code #I
+
+block javascripts
+    script(src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
