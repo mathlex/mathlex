@@ -26,12 +26,10 @@
           mjDisplayBox = MathJax.Hub.getAllJax('math-display')[0];
           mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
         });
-
         // "live update" MathJax whenever a key is pressed
         $('#math-input').on('keyup', function (evt) {
           var math = $(this).val();
           $(this).css('color', 'black');
-
           if (math.length > 0) {
             try {
               var ast = MathLex.parse(math),
@@ -42,7 +40,6 @@
             }
           }
         });
-
         // send output to sage server
         $('#send-math').on('click', function (evt) {
           var math = $('#math-input').val();
