@@ -11,7 +11,10 @@ block article
     p.
       This section describes the syntax used to enter mathematical content into MathLex. For
       clarity, this information is presented in two ways: the first is organized by how the symbol
-      is used in the language (e.g. unary vs. binary operators)
+      is used in the language (e.g. unary vs. binary operators); the second is organized by the
+      topic which uses the symbol (e.g. calculus vs. set theory). This page is meant to be a
+      non-technical reference for the end-user (i.e. student) typing MathLex input.
+
 
     h2 Section Contents
     nav.toc
@@ -25,17 +28,39 @@ block article
             li: a(href='#delimiters') Delimiters
             li: a(href='#functions') Functions
         li: a(href='#by-topic') Symbols by Topic
-          ul
 
-    p.
-      Below is a table of all recognized mathematical concepts and their corresponding symbols (similar
-      to a combination of <a href="tokens.html">list of tokens</a> and
-      <a href="tree-nodes.html">list of nodes</a>). This page is meant to be a non-technical reference
-      for the end-user typing MathLex input.
+  h2 Summary
 
-    p.
-      For simplicity, the tables have been arranged <a href="#by-type">by type</a> and
-      <a href="#by-topic">by topic</a>.
+  p.
+    The basic types of tokens in MathLex are Numbers (further subdivided into Integers and
+    Floats/Decimals), Identifiers, Constants, and Operators. Numbers are exactly as they seem:
+    <code>42</code>, <code>3.14</code>, etc. Scientific notation is also allowed: <code>5e-2</code>
+    <code>3.0E8</code>. In either case, decimal points do not need a leading or trailing zero:
+    <code>.5</code>, <code>78.</code>, <code>9.E-4</code>, <code>.22e7</code>.  Note that negative
+    numbers are treated as a negation operation on the positive value of the number (in continuity
+    with algebraic notation).
+
+  p.
+    An <em>Identifier</em> is an upper- or lowercase letter followed by any number of upper- or
+    lowercase letters, numbers, or underscores (<code>_</code>). All of the following are valid
+    identifiers: <code>x</code>, <code>A</code>, <code>b0</code>, <code>my_var</code> Identifiers
+    fall under two categories: reserved keywords and variables. Reserved keywords are listed in the
+    tables below, and all other identifiers are treated as variables. Since none of the above
+    identifiers are reserved keywords, they also qualify as valid variable names.
+
+  p.
+    Similar to identifiers, <em>Constants</em> are globally defined values or constructs. In
+    MathLex, constants are typed as a number sign (<code>#</code>) followed by the name of the
+    constant. For example, "pi" (\( \pi \)) is defined as the value 3.14159&hellip;. In MathLex, you
+    would type <code>#pi</code> (or <code>#p</code> for short) to represent this constant. See the
+    <a href="#constants">table of constants</a> below for a comprehensive list.
+
+  p.
+    <em>Operators</em> is just a catch-all term for any symbol that is not a Number, Identifier,
+    or Constant. With the exception of a few reserved keywords, operators usually consist of a few
+    non-alphanumeric characters. Some mathematical operators can be represented in many ways in
+    MathLex. The tables below outline all mathematical operators understood by MathLex and all ways
+    to represent them. Pick your favorite.
 
   section#by-type
     h2 Symbols by Type
@@ -58,7 +83,7 @@ block article
           td Tau
           td \( \tau \)
           td: code #tau, #t
-          td 6.283&hellip;
+          td \( 2 \pi \approx 6.283 \ldots \);
         tr
           td E
           td \( \mathrm{e} \)
@@ -70,6 +95,11 @@ block article
           td: code #gamma
           td 0.577&hellip;, Euler-Mascheroni constant
         tr
+          td infinity
+          td \( \infty \)
+          td: code #infinity, infinity
+          td \( \infty \approx \) <span class="error">#!ERROR: memory overflow</span>
+        tr
           td Imaginary Unit
           td \( i \)
           td: code #i
@@ -78,30 +108,37 @@ block article
           td True
           td \( \mathbf{T} \)
           td: code #T, #true, true
+          td
         tr
           td False
           td \( \mathbf{F} \)
           td: code #F, #false, false
+          td
         tr
           td Natural Numbers
           td \( \mathbb{N} \)
           td: code #N
+          td
         tr
           td Integer Ring
           td \( \mathbb{Z} \)
           td: code #Z
+          td
         tr
           td Rational Field
           td \( \mathbb{Q} \)
           td: code #Q
+          td
         tr
           td Real Field
           td \( \mathbb{R} \)
           td: code #R
+          td
         tr
           td Complex Field
           td \( \mathbb{C} \)
           td: code #C
+          td
         tr
           td Quaternion Ring
           td \( \mathbb{H} \)
@@ -116,26 +153,32 @@ block article
           td Universal Set
           td \( \mathbb{U} \)
           td: code #U
+          td
         tr
           td Empty Set
           td \( \emptyset \)
           td: code #empty, {}
+          td
         tr
           td Zero Vector
           td \( \vec{0} \)
           td: code #v0
+          td
         tr
           td \( x \) Unit Vector
-          td \( \vec{\imath} \)
+          td \( \hat{\imath} \)
           td: code #ui, #vi
+          td
         tr
           td \( y \) Unit Vector
-          td \( \vec{\jmath} \)
+          td \( \hat{\jmath} \)
           td: code #uj, #vj
+          td
         tr
           td \( z \) Unit Vector
-          td \( \vec{k} \)
+          td \( \hat{k} \)
           td: code #uk, #vk
+          td
         tr
           td Zero Matrix
           td \( \mathbf{0} \)
@@ -169,6 +212,7 @@ block article
         Non-associative operators cannot be chained (like dot products and, in the case of MathLex,
         <a href="#relations">relations</a>): <code>a &. b &. c</code> doesn't make any sense since the
         result of a dot product is a scalar.
+
 
     table#unary
       caption Unary Operators
@@ -218,10 +262,14 @@ block article
           td Natural Exponential
           td \( \exp(a) \)
           td: code exp(a)
+          td
+          td
         tr
           td Natural Logarithm
           td \( \ln(a) \)
           td: code ln(a)
+          td
+          td
         tr
           td Not
           td \( \neg p \)
@@ -362,10 +410,16 @@ block article
           td \( n \)-th Root
           td \( \sqrt[n]{a} \)
           td: code root(a, n)
+          td
+          td
+          td
         tr
           td Logarithm with Base
           td \( \log_b{a} \)
           td: code log(a, b)
+          td
+          td
+          td
         tr
           td Ratio
           td \( p :: q \)
@@ -381,10 +435,24 @@ block article
           td.center 14
           td.center Left
         tr
+          td Combination
+          td \( \binom{n}{r} \)
+          td: code C(n,r)
+          td
+          td
+          td
+        tr
+          td Permutation
+          td \( P(n,r) \)
+          td: code P(n,r)
+          td
+          td
+          td
+        tr
           td Subscript
           td \( a_b \)
           td: code a&amp;_b
-          td Indexing
+          td(rowspan=2) Indexing
           td.center(rowspan=2) 22
           td.center(rowspan=2) Left
         tr
@@ -395,13 +463,20 @@ block article
           td Superscript
           td \( a^b \)
           td: code a&amp;^b
-          td Indexing
+          td(rowspan=2) Indexing
           td.center(rowspan=2) 22
           td.center(rowspan=2) Left
         tr
           td Multiple Superscript
           td \( a^{i,j,k} \)
           td: code a &amp;^ [i,j,k]
+        tr
+          td Mixed Subscripts and Superscripts
+          td \( T{}^i{}_j{}}^k \)
+          td
+          td
+          td
+          td
         tr
           td Union
           td \( a \cup b \)
@@ -428,6 +503,8 @@ block article
           td \( p : q \)
           td: code p:q
           td Used with set builder and quantifiers
+          td
+          td
         tr
           td And
           td \( p \wedge q \)
@@ -444,7 +521,7 @@ block article
           td.center Left
         tr
           td Exclusive Or
-          td \( p \oplus q \)
+          td \( p \veebar q \)
           td: code p xor q
           td Exclusion
           td.center 4
@@ -452,21 +529,21 @@ block article
         tr
           td Implies
           td \( p \rightarrow q \)
-          td: code p implies q, p -> q, if p then q, p onlyif q
+          td: code p -> q, p implies q, p onlyif q, if p then q
           td Conditional
           td.center 2
           td.center Left
         tr
           td Implied By
-          td \( q \leftarrow p \)
-          td: code q if p, q when p, q whenever p, q <- p, q impliedby p
+          td \( p \leftarrow q \)
+          td: code p <- q, p imqliedby q, p if q, p when q, p whenever q
           td Reverse Conditional
           td.center 2
           td.center Left
         tr
           td If And Only If
           td \( p \leftrightarrow q \)
-          td: code p iff q, p <-> q
+          td: code p <-> q, p iff q
           td Biconditional
           td.center 1
           td.center Non
@@ -477,6 +554,11 @@ block article
           td
           td.center 19
           td.center Left
+        tr
+          td Function Repeated Composition
+          td \( f^{\circ n} \)
+          td: code f @@ n
+          td(colspan=3) (Not implemented)
         tr
           td Dot Product
           td \( \vec{a} \cdot \vec{b} \)
@@ -508,7 +590,7 @@ block article
         tr
           td Cartesian Product
           td \( A \times B \)
-          td code A &amp;* B
+          td: code A &amp;* B
           td
           td.center 16
           td.center 16
@@ -520,23 +602,26 @@ block article
           td.center 11
           td.center Left
         tr
-          td Universal Quantifier
-          td \( \forall x P(x) \)
-          td: code forall x , P(x)
-          td "For all &hellip;"
-          td.center 6
-          td.center Left
+          td(rowspan=2) Universal Quantifier
+          td \( \forall x \) (we have) \( P(x) \)
+          td: code forall x -> P(x)
+          td(rowspan=2) "For all &hellip;"
+          td.center(rowspan=2) 6
+          td.center(rowspan=2) Left
+        tr
+          td \( \forall x \) (such that) \( Q(x) \) (we have) \( P(x) \)
+          td: code forall x : Q(x) -&gt; P(x)
         tr
           td Existential Quantifier
-          td \( \exists x P(x) \)
-          td: code exists x : P(x)
+          td \( \exists x \) (such that) \( Q(x) \)
+          td: code exists x : Q(x)
           td "There exists &hellip; such that"
           td.center 6
           td.center Left
         tr
           td Unique Quantifier
-          td \( \exists ! x P(x) \)
-          td: code unique x : P(x)
+          td \( \exists ! x \) (such that) \( Q(x) \)
+          td: code unique x : Q(x)
           td "There exists a unique &hellip; such that"
           td.center 6
           td.center Left
@@ -611,7 +696,7 @@ block article
         tr
           td Not Divides
           td \( p \nmid q \)
-          td: code p!|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
+          td: code p~|q, p/|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
           td
           td.center 7
           td.center Non
@@ -667,7 +752,7 @@ block article
         tr
           td Similar
           td \( \sim \)
-          td: code !, sim, similar
+          td: code ~, sim, similar
           td
           td.center 7
           td.center Non
@@ -702,7 +787,7 @@ block article
           td.center Non
 
     table#delimiters
-      caption Delimiters
+      caption Delimiters and Indexing
       thead
         tr
           th Name
@@ -748,11 +833,12 @@ block article
           td Ceiling
           td \( \left\lceil x \right\rceil \)
           td: code ceil(x), ceiling(x)
+          td
         tr
           td Subscript
           td \( a_b \)
           td: code a &amp;_ b
-          td Indexing
+          td(rowspan=2) Indexing
         tr
           td Multiple Subscript
           td \( a_{i,j,k} \)
@@ -761,16 +847,16 @@ block article
           td Superscript
           td \( a^b \)
           td: code a &amp;^ b
-          td Indexing
+          td(rowspan=2) Indexing
         tr
           td Multiple Superscript
           td \( a^{i,j,k} \)
           td: code a &amp;^ [i,j,k]
         tr
-          td Such That
-          td \( p : q \)
-          td: code p:q
-          td Used with set builder and quantifiers
+          td Mixed Subscripts and Superscripts
+          td \( T{}^i{}_j{}}^k \)
+          td
+          td
         tr
           td Open Interval
           td \( \left( a,b \right) \)
@@ -790,28 +876,33 @@ block article
           td Bra-Ket Notation
           td \( \left\langle A \mid B \right\rangle \)
           td: code &lt;A||B&gt;, &lt;:A|B:&gt;
+          td
         tr
           td Bra
           td \( \left\langle A \right| \)
           td: code &lt;A|
+          td
         tr
           td Ket
           td \( \left| A \right\rangle \)
           td: code |A&gt;
+          td
 
     p.
       Note that some delimiters have more than one format either with or without colons. Namely, absolute
       value can be written as <code>| &hellip; |</code> or <code>|: &hellip; :|</code>, norm can be
-      written as <code>|| &hellip; ||</code> or <code>||: &hellip; :||</code>, and vector literals can
+      written as <code>|| &hellip; ||</code> or <code>||: &hellip; :||</code>, and vectors can
       be surrounded by either <code>&lt; &hellip; &gt;</code> or <code>&lt;: &hellip; :&gt;</code>.
-      Of the listed alternate delimiters, those without colons are <em>context-aware</em> in that they
+      Those with colons are <em>matched pairs</em> and should be used whenever there might be a chance
+      of confusion about pairing. Those without colons are <em>context-sensitive</em> in that they
       have different meanings and therefore cannot be automatically matched by the Lexer. Additionally,
       if an expression opened with one type of delimiter, it must be closed with the same type (i.e.
-      context-aware vs. specialized).
+      context-aware vs. matched).
 
     p All delimiters have "infinite" precedence; any and all contents will be grouped together.
 
     table#functions
+      caption Functions
       thead
         tr
           th Name

@@ -66,7 +66,7 @@ RESERVED = (str) -> switch str
     when 'in' then 'TIn'
     when '|' then 'TPipe'
     when 'divides' then 'TDivides'
-    when '!|', 'ndivides', 'notdivides', 'ndivide', 'notdivide' then 'TNotDivides'
+    when '~|', '/|', 'ndivides', 'notdivides', 'ndivide', 'notdivide' then 'TNotDivides'
 
     when 'union' then 'TUnion'
     when 'intersect' then 'TIntersect'

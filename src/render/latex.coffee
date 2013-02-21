@@ -31,7 +31,7 @@ exports.render = render = (ast) ->
             else
                 "#{render ast[1]} \\rightarrow #{render ast[2]}"
         when 'And' then "#{render ast[1]} \\wedge #{render ast[2]}"
-        when 'Xor' then "#{render ast[1]} \\oplus #{render ast[2]}"
+        when 'Xor' then "#{render ast[1]} \\veebar #{render ast[2]}"
         when 'Or' then "#{render ast[1]} \\vee #{render ast[2]}"
         when 'Not' then "\\neg #{render ast[1]}"
 
@@ -83,7 +83,7 @@ exports.render = render = (ast) ->
                 sup = elements.join " ,\\, "
             else
                 sup = render rhs
-            "{#{render ast[1]}^{#{sup}}}"
+            "#{render ast[1]}{}^{#{sup}}"
         when 'Subscript'
             rhs = unwrap ast[2]
             if rhs[0] is 'List'
@@ -91,7 +91,7 @@ exports.render = render = (ast) ->
                 sub = elements.join " ,\\, "
             else
                 sub = render rhs
-            "{#{render ast[1]}_{#{sub}}}"
+            "#{render ast[1]}{}_{#{sub}}"
         when 'DotProduct' then "#{render ast[1]} \\cdot #{render ast[2]}"
         when 'CrossProduct' then "#{render ast[1]} \\times #{render ast[2]}"
         when 'WedgeProduct' then "#{render ast[1]} \\wedge #{render ast[2]}"

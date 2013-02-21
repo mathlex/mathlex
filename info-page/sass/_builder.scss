@@ -307,7 +307,7 @@
         font-size: 0.9em;
         border-collapse: collapse;
         border: 1px solid $bgaccent-dark;
-        margin: 0 auto;
+        margin: 1em auto;
 
         tr:nth-child(2n) {
             background: darken($bgcolor, 4%);
@@ -320,6 +320,12 @@
 
         thead {
             @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
+        }
+
+        caption {
+            text-align: center;
+            font-weight: bold;
+            padding: 0.3em;
         }
     }
 

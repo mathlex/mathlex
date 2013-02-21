@@ -51,7 +51,8 @@ grammar =
 
     quantification: [
         o 'relation'
-        o 'TQForall relation TComma quantification',  -> ['Forall', $2, $4]
+        o 'TQForall relation TImplies quantification',  -> ['Forall', $2, $4]
+        o 'TQForall relation TColon relation Implies quantification',   -> ['Forall', $2, ['Implies', $4, $6, false]]
         o 'TQExists relation TColon quantification',  -> ['Exists', $2, $4]
         o 'TQUnique relation TColon quantification',  -> ['Unique', $2, $4]
     ]
@@ -157,6 +158,7 @@ grammar =
         o 'TLDoublePipe opt_algebraic TRDoublePipe',                -> ['Norm', $2]
         o 'TLParen opt_expression TRParen',                         -> ['Parentheses', $2]
         o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Integral', $3, $5, $2]
+        # o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Function', ['Variable', 'int'], [$2, $5]]
     ]
 
     int_bounds: [
@@ -192,11 +194,12 @@ grammar =
 operators = [
     ['left', 'TSubscript', 'TSuperscript']
     ['left', 'TBang', 'TPrime', 'TDotDiff']
-    ['left', 'TCompose']
     ['right', 'TExponent']
+    ['left', 'TCompose']
     ['left', 'TLParen', 'TRParen']
     ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TChangeDelta', 'TVectorizer', 'TUnitVectorizer', 'TGradient', 'TDivergence', 'TCurl']
-    ['left', 'TCross', 'TWedge', 'TTensor', 'TCartesianProduct']
+    ['left', 'TWedge']
+    ['left', 'TCross', 'TTensor', 'TCartesianProduct']
     ['nonassoc', 'TDot']
     ['left', 'TTimes', 'TSlash', 'TDivide', 'TModulus']
     ['left', 'TIntersect']
