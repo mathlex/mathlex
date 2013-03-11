@@ -1,42 +1,14 @@
-!!!5
-html(lang='en')
-  head
-    meta(charset='utf-8')
-    title MathLex
-    link(rel='stylesheet', href='stylesheets/style.css')
+extend layout
 
-  body.dark
-    a#power-button
-      span.screen-reader-text Toggle light and dark theme
-      span.icon.icon-only(data-icon='&#128161;', aria-hidden='true')
-    header
-      h1 MathLex
-        .subtitle A Web-Based Mathematical Entry System
-      nav: ul
-        li.current: a.current(href='index.html'): span Home
-        li: a(href='quick-start.html'): span Quick-Start
-        li: a(href='doc.html'): span Documentation
-        li: a(href='demo.html'): span Demo
-    article
-      .two.cols.border
-        .col: p.
-            MathLex is a quick and easy way to start accepting math input on your
-            website. Just download the <code>mathlex.js</code> file and follow the
-            <a href="quick-start.html">quick start</a> instructions.
-        .col.align-center: a.download(data-icon='&#59256;', href='javascripts/mathlex.js', download='mathlex') Download
+block content
+  .two.cols.border
+    .col: p.
+        MathLex is a quick and easy way to start accepting math input on your
+        website. Just download the <code>mathlex.js</code> file, place it in your
+        site's JS directory, and follow the <a href="quick-start.html">quick start</a> instructions.
+    .col.align-center: a.download(data-icon='&#59256;', href='javascripts/mathlex.js', download='mathlex.js') Download
 
-      h2#demo See MathLex in Action
-      p.
-        Check out our <a href="demo.html">demo page</a> for a taste of what
-        MathLex can do.
-
-
-    footer
-      p Copyright &copy; 2012 Matthew Barry. All rights reserved.
-      p MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.
-
-    script(src='javascripts/lib/syntaxhighlighter/scripts/XRegExp.js')
-    script(src='javascripts/lib/syntaxhighlighter/scripts/shCore.js')
-    script(src='javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-    script(src='javascripts/main.js')
+  h2#demo See MathLex in Action
+  p.
+    Check out our <a href="demo.html">demo page</a> for a taste of what
+    MathLex can do.

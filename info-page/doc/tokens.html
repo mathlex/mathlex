@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MathLex
+      - Documentation
+      - Tokens</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+  <body class="dark"><a id="power-button" title="Toggle light and dark theme"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
+    <header>
+      <h1>MathLex
+        <div class="subtitle">A JavaScript Mathematical Entry System</div>
+      </h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html"><span>Home</span></a></li>
+          <li><a href="../quick-start.html"><span>Quick-Start</span></a></li>
+          <li class="current"><a href="../doc/index.html" class="current"><span>Documentation</span></a></li>
+          <li><a href="../demo.html"><span>Demo</span></a></li>
+          <li><a href="../contact.html"><span>Contact Us</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <article>
+      <nav class="doc">
+        <ul>
+          <li><a id="previous" title="Build Instructions" href="building.html" class="icon-button"><span class="screen-reader-text">Build Instructions</span><span data-icon="&#59229;" aria-hidden="true" class="icon icon-only"></span></a></li>
+          <li><a id="next" title="Appendix B: List of All Syntax Tree Nodes" href="tree-nodes.html" class="icon-button"><span class="screen-reader-text">Appendix B: List of All Syntax Tree Nodes</span><span data-icon="&#59230;" aria-hidden="true" class="icon icon-only"></span></a></li>
+          <li><a id="index" title="Table of Contents" href="index.html" class="icon-button"><span class="screen-reader-text">Table of Contents</span><span data-icon="&#9776;" aria-hidden="true" class="icon icon-only"></span></a></li>
+        </ul>
+      </nav>
+      <h1>Appendix A: List of All Recognized Symbols and Tokens</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Description</th>
+            <th>Recognized Symbol(s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="token">TIdent</span></td>
+            <td>Identifier (variable or function name)</td>
+            <td>
+              A letter followed by zero or more letters, numbers, or underscores
+              (e.g. <code>x Fn example_ident p2</code>)
+            </td>
+          </tr>
+          <tr>
+            <td><span class="token">TFloatLit</span></td>
+            <td>Literal decimal number and/or scientific notation</td>
+            <td>
+              Any positive number (Note: negation is treated  operation) with a decimal point or 'e' somewhere in it
+              (e.g. <code>0.3 .125 3.14 6.02e23 1.602E-19</code>)
+            </td>
+          </tr>
+          <tr>
+            <td><span class="token">TIntLit</span></td>
+            <td>Integer</td>
+            <td>
+              One or more decimal digits
+              (e.g. <code>1234 095 42 7</code>)
+            </td>
+          </tr>
+          <tr>
+            <td><span class="token">TConstant</span></td>
+            <td>An identifier that has a constant value (number, set, or truth value)</td>
+            <td>
+              Usually preceded by a <code>#</code> sign, but some keywords are recognized.
+              See the <a href="#list-of-constants">list of constants</a> below.
+            </td>
+          </tr>
+          <tr>
+            <td><span class="token">TPlus</span></td>
+            <td>Addition</td>
+            <td><code>+</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TMinus</span></td>
+            <td>Subtraction</td>
+            <td><code>-</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPlusMinus</span></td>
+            <td>"Plus or Minus"</td>
+            <td><code>&amp;pm +/-</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TMinusPlus</span></td>
+            <td>"Minus or Plus"</td>
+            <td><code>&amp;mp -/+</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TTimes</span></td>
+            <td>Multiplication</td>
+            <td><code>*</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDivide</span></td>
+            <td>Division (vertical notation; \( \tfrac{a}{b} \))</td>
+            <td><code>/</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSlash</span></td>
+            <td>Division (horizontal notation; \( a / b \))</td>
+            <td><code>&amp;/</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TExponent</span></td>
+            <td>Exponentiation/Power</td>
+            <td><code>^ **</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRatio</span></td>
+            <td>Ratio ("the ratio of a to b")</td>
+            <td><code>::</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRatioEqual</span></td>
+            <td>Equal Relation Operator for ratios ("(a :: b) as (c :: d)" reads "a is to b as c is to d")</td>
+            <td><code>as</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TModulus</span></td>
+            <td>Modular Arithmetic Operator</td>
+            <td><code>mod %</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TBang</span></td>
+            <td>Exclamation Point (used for negation and factorial)</td>
+            <td><code>!</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TReal</span></td>
+            <td>Real Part Filter Operator</td>
+            <td><code>&amp;Re</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TImaginary</span></td>
+            <td>Imaginary Part Filter Operator</td>
+            <td><code>&amp;Im</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TEqual</span></td>
+            <td>"Equal To" Relation Operator (for algebraic expressions)</td>
+            <td><code>= ==</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TNotEqual</span></td>
+            <td>"Not Equal To" Relation Operator (for algebraic expressions)</td>
+            <td><code>!= /= &lt;&gt;</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLess</span></td>
+            <td>"Less Than" Relation Operator</td>
+            <td><code>&lt;</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLessEqual</span></td>
+            <td>"Less Than or Equal" Relation Operator</td>
+            <td><code>&lt;=</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TGreater</span></td>
+            <td>"Greater Than" Relation Operator</td>
+            <td><code>&gt;</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TGreaterEqual</span></td>
+            <td>"Greater Than or Equal To" Relation Operator</td>
+            <td><code>&gt;=</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDivides</span></td>
+            <td>Divisibility Relation Operator</td>
+            <td><code>divides</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TNotDivides</span></td>
+            <td>Negation of Divisibility Relation</td>
+            <td><code>!| ndivides ndivide notdivides notdivide</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TCongruent</span></td>
+            <td>"Congruent" Relation Operator</td>
+            <td><code>~= congruent</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSimilar</span></td>
+            <td>"Similar To" Relation Operator (sometimes also <span class="token">TTilde</span> depending on context)</td>
+            <td><code>similar sim</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TParallel</span></td>
+            <td>"Parallel To" Relation Operator</td>
+            <td><code>parallel para</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPerpendicular</span></td>
+            <td>"Perpendicular To" Relation Operator</td>
+            <td><code>perpendicular perp</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSubset</span></td>
+            <td>Subset Relation Operator</td>
+            <td><code>subset</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPropSubset</span></td>
+            <td>Proper Subset Relation Operator</td>
+            <td><code>propersubset propsubset psubset</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSuperset</span></td>
+            <td>Superset Relation Operator</td>
+            <td><code>superset supset</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPropSuperset</span></td>
+            <td>Proper Superset Relation Operator</td>
+            <td><code>propersuperset propersupset propsuperset propsupset psuperset psupset</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TIn</span></td>
+            <td>Inclusion Relation Operator</td>
+            <td><code>in</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPipe</span></td>
+            <td>Vertical Bar Character</td>
+            <td><code>|</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TUnion</span></td>
+            <td>Set Union Operator</td>
+            <td><code>union</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TIntersect</span></td>
+            <td>Set Intersection Operator</td>
+            <td><code>intersect</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSetDiff</span></td>
+            <td>Set Difference Operator</td>
+            <td><code>\</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDirectSum</span></td>
+            <td>Direct Sum Operator</td>
+            <td><code>&amp;o+</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TCartesianProduct</span></td>
+            <td>Cartesian Product Operator</td>
+            <td><code>&amp;*</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TEquiv</span></td>
+            <td>"Equivalent" Relation Operator</td>
+            <td><code>=== equiv</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TNotEquiv</span></td>
+            <td>"Not Equivalent" Relation Operator</td>
+            <td><code>!== /== nequiv</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TQForall</span></td>
+            <td>Universal Quantification ("for all")</td>
+            <td><code>forall</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TQExists</span></td>
+            <td>Existential Quantification ("there exists")</td>
+            <td><code>exists</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TQUnique</span></td>
+            <td>Unique Quantification ("there exists a unique")</td>
+            <td><code>unique</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TColon</span></td>
+            <td>Colon Character ("such that")</td>
+            <td><code>:</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TIff</span></td>
+            <td>Biconditional Logical Operator ("if and only if")</td>
+            <td><code>&lt;-&gt; iff</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TImplies</span></td>
+            <td>Conditional Logical Operator ("implies", "if-then")</td>
+            <td><code>-&gt; implies onlyif</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TIf</span></td>
+            <td>Reverse Conditional Logical Operator ("implied by")</td>
+            <td><code>&lt;- if when whenever impliedby</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TThen</span></td>
+            <td>Keyword used for parsing "if-then" implication</td>
+            <td><code>then</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TAnd</span></td>
+            <td>Logical Conjunction</td>
+            <td><code>and &amp;&amp;</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TOr</span></td>
+            <td>Logical Disjunction</td>
+            <td><code>or ||</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TXor</span></td>
+            <td>Logical Exclusive-Or</td>
+            <td><code>xor</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TNot</span></td>
+            <td>Logical Negation (sometimes also <span class="token">TTilde</span> or <span class="token">TBang</span> depending on context)</td>
+            <td><code>not</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TTilde</span></td>
+            <td>Tilde Character (used for negation and similarity)</td>
+            <td><code>~</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TCompose</span></td>
+            <td>Function Composition Operator</td>
+            <td><code>@</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPrime</span></td>
+            <td>Prime Differentiation</td>
+            <td><code>'</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDotDiff</span></td>
+            <td>Dot Differentiation</td>
+            <td><code></code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TChangeDelta</span></td>
+            <td>Difference Operator</td>
+            <td><code>&amp;D</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDifferential</span></td>
+            <td>Differential "D"</td>
+            <td><code>&amp;d</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TPartial</span></td>
+            <td>Partial Differential "D"</td>
+            <td><code>&amp;pd</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TIntegral</span></td>
+            <td>Integration Symbol</td>
+            <td><code>integral Integral int Int &amp;integral &amp;Integral &amp;int &amp;Int</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TVectorizer</span></td>
+            <td>Arrow over a vector variable</td>
+            <td><code>&amp;v</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TUnitVectorizer</span></td>
+            <td>"Hat" over a unit vector variable</td>
+            <td><code>&amp;u</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDot</span></td>
+            <td>Dot Product Operator</td>
+            <td><code>&amp;.</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TCross</span></td>
+            <td>Cross Product Operator</td>
+            <td><code>&amp;x</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TWedge</span></td>
+            <td>Wedge Product Operator</td>
+            <td><code>&amp;w</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TTensor</span></td>
+            <td>Tensor Product Operator</td>
+            <td><code>&amp;ox</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TGradient</span></td>
+            <td>Gradient Operator ("del" or "grad")</td>
+            <td><code>&amp;del &amp;grad</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TDivergence</span></td>
+            <td>Divergence Operator ("div")</td>
+            <td><code>&amp;del. &amp;div</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TCurl</span></td>
+            <td>Curl Operator ("curl")</td>
+            <td><code>&amp;delx &amp;curl</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLParen</span></td>
+            <td>Left (Open) Parenthesis</td>
+            <td><code>(</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRParen</span></td>
+            <td>Right (Close) Parenthesis</td>
+            <td><code>)</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLCurlyBrace</span></td>
+            <td>Left (Open) Curly Brace</td>
+            <td><code>{</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRCurlyBrace</span></td>
+            <td>Right (Close) Curly Brace</td>
+            <td><code>}</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLSqBracket</span></td>
+            <td>Left (Open) Square Bracket</td>
+            <td><code>[</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRSqBracket</span></td>
+            <td>Right (Close) Square Bracket</td>
+            <td><code>]</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLRangeInclusive</span></td>
+            <td>Left Delimiter for Inclusive Range</td>
+            <td><code>[:</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRRangeInclusive</span></td>
+            <td>Right Delimiter for Inclusive Range</td>
+            <td><code>:]</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLRangeExclusive</span></td>
+            <td>Left Delimiter for Exclusive Range</td>
+            <td><code>(:</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRRangeExclusive</span></td>
+            <td>Right Delimiter for Exclusive Range</td>
+            <td><code>:)</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLPipe</span></td>
+            <td>Left Pipe Delimiter</td>
+            <td><code>|:</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRPipe</span></td>
+            <td>Right Pipe Delimiter</td>
+            <td><code>:|</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLDoublePipe</span></td>
+            <td>Left Double-Pipe ("Norm") Delimiter</td>
+            <td><code>||:</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRDoublePipe</span></td>
+            <td>Right Double-Pipe ("Norm") Delimiter</td>
+            <td><code>:||</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TLVector</span></td>
+            <td>Left Angle Bracket</td>
+            <td><code>&lt;:</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TRVector</span></td>
+            <td>Right Angle Bracket</td>
+            <td><code>:&gt;</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TComma</span></td>
+            <td>Comma separator</td>
+            <td><code>,</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSuperscript</span></td>
+            <td>Superscript Index Selector</td>
+            <td><code>&amp;^</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSubscript</span></td>
+            <td>Subscript Index Selector</td>
+            <td><code>&amp;_</code></td>
+          </tr>
+          <tr>
+            <td><span class="token">TSemicolon</span></td>
+            <td>Semi-Colon Character</td>
+            <td><code>;</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2 id="list-of-constants">List of Constants</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Constant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Boolean constant <strong>True</strong></td>
+            <td><code>#T #true true</code></td>
+          </tr>
+          <tr>
+            <td>Boolean constant <strong>False</strong></td>
+            <td><code>#F #false false</code></td>
+          </tr>
+          <tr>
+            <td><a href="http://tauday.com" target="_blank">\( \tau = 2 \pi \approx 6.28318 \)</a></td>
+            <td><code>#t #tau</code></td>
+          </tr>
+          <tr>
+            <td>\( \pi \approx 3.14159 \)</td>
+            <td><code>#p #pi</code></td>
+          </tr>
+          <tr>
+            <td>\( e \approx 2.71828 \)</td>
+            <td><code>#e</code></td>
+          </tr>
+          <tr>
+            <td>\( \infty \approx \) <span class="error">#!ERROR: memory overflow</span></td>
+            <td><code>#infinity infinity</code></td>
+          </tr>
+          <tr>
+            <td>Set of Natural Numbers</td>
+            <td><code>#N</code></td>
+          </tr>
+          <tr>
+            <td>Set of Integers</td>
+            <td><code>#Z</code></td>
+          </tr>
+          <tr>
+            <td>Set of Rational Numbers</td>
+            <td><code>#Q</code></td>
+          </tr>
+          <tr>
+            <td>Set of Real Numbers</td>
+            <td><code>#R</code></td>
+          </tr>
+          <tr>
+            <td>Set of Complex Numbers</td>
+            <td><code>#C</code></td>
+          </tr>
+          <tr>
+            <td>Set of Quaternion Numbers</td>
+            <td><code>#H</code></td>
+          </tr>
+          <tr>
+            <td>Set of Octonian Numbers</td>
+            <td><code>#O</code></td>
+          </tr>
+          <tr>
+            <td>Universal Set</td>
+            <td><code>#U</code></td>
+          </tr>
+          <tr>
+            <td>Zero Vector</td>
+            <td><code>#v0</code></td>
+          </tr>
+          <tr>
+            <td><em>x</em>-axis unit vector</td>
+            <td><code>#vi #ui</code></td>
+          </tr>
+          <tr>
+            <td><em>y</em>-axis unit vector</td>
+            <td><code>#vj #uj</code></td>
+          </tr>
+          <tr>
+            <td><em>z</em>-axis unit vector</td>
+            <td><code>#vk #uk</code></td>
+          </tr>
+          <tr>
+            <td>Zero Matrix</td>
+            <td><code>#0</code></td>
+          </tr>
+          <tr>
+            <td>One Matrix</td>
+            <td><code>#1</code></td>
+          </tr>
+          <tr>
+            <td>Identity Matrix</td>
+            <td><code>#I</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+    <footer>
+      <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
+      <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
+    </footer>
+    <script>window.PATH_PREFIX = '../';</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="../javascripts/main.js"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </body>
+</html>

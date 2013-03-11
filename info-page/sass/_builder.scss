@@ -6,26 +6,31 @@
     font-weight: 300;
     padding: 2em;
 
-    #power-button {
+    .icon-button {
         @include border-radius(3px);
         @include box-shadow(0 0 4px rgba(black, 0.7), 0 -1px 0 rgba(white, 0.7));
         @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
         color: $fgcolor;
-        position: absolute;
         text-align: center;
         width: 30px;
         height: 30px;
         font-size: 35px;
         line-height: 20px;
-        right: 10px;
-        top: 10px;
         display: block;
+        text-decoration: none;
 
         &:active {
             color: darken($fgcolor, 10%);
             @include background(linear-gradient(top, darken($bgcolor, 10%), darken($bgcolor, 5%)));
             @include box-shadow(inset 0 3px 10px rgba(black, 0.5), 0 -1px 0 rgba(black, 0.7), 0 1px 0 rgba(white, 0.7));
         }
+    }
+
+    #power-button {
+        @extend .icon-button;
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
 
     header {
@@ -47,7 +52,6 @@
         }
 
         nav {
-            width: 75%;
             margin: 0 auto 1em;
             border-bottom: 1px solid $bgaccent-dark;
             @include box-shadow(0 1px 0 $bgaccent-light);
@@ -136,7 +140,6 @@
 
 
     article {
-        width: 75%;
         margin: 0 auto;
         .cols {
             &:after {
@@ -148,6 +151,10 @@
             .col {
                 @include box-sizing(border-box);
                 padding: 1em;
+                float: left;
+
+                &:first-child { padding-left: 0; }
+                &:last-child { padding-right: 0; }
             }
 
             &.border .col {
@@ -156,21 +163,20 @@
                 &:last-child { border-right: none; }
             }
 
+            &.two-alt {
+                .col { width: 50%; }
+            }
+
             &.two {
                 .col {
-                    float: left;
                     width: 33%;
 
-                    &:first-child {
-                        float: left;
-                        width: 66%;
-                    }
+                    &:first-child { width: 66%; }
                 }
             }
 
             &.four {
                 .col {
-                    float: left;
                     width: 25%;
                     border-left: 1px solid $bgaccent-light;
                 }
@@ -241,6 +247,18 @@
         font-size: 0.9em;
     }
 
+    nav.doc {
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #previous { float: left; }
+        #index { margin: 0 auto; }
+        #next { float: right; }
+    }
+
     h1, h2, h3, h4, h5, h6 {
         font-family: ChunkFive;
         font-weight: normal;
@@ -265,8 +283,17 @@
         &:last-child { margin-bottom: 0; }
     }
 
-    li {
-        line-height: 1.3em;
+    ul, ol {
+        &.p > li {
+            margin: 1em 0;
+        }
+        ul, ol {
+            margin: {top: 0; bottom: 0;};
+        }
+
+        li {
+            line-height: 1.3em;
+        }
     }
 
     code, tt {
@@ -333,9 +360,10 @@
         @include box-sizing(border-box);
         @include border-radius(5px);
         @include box-shadow(inset 0 0 5px rgba(black, 0.7), 0 1px 0 rgba(white, 0.3), 0 -1px 0 rgba(black, 0.8));
+        border: 1px solid $bgaccent-dark;
         padding: 5px;
+        max-height: 500px;
 
-        .toolbar { display: none; }
         table { @include box-shadow(none);}
     }
 }

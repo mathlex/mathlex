@@ -1,0 +1,26 @@
+extends ../layout
+
+block append vars
+  page_id = 'doc'
+  path_prefix = '../'
+  prev_page = null
+  next_page = null
+
+block append title
+  | - Documentation
+
+block content
+  nav.doc
+    ul
+      if prev_page
+        li: a#previous.icon-button(title=prev_page.title, href=prev_page.href)
+          span.screen-reader-text= prev_page.title
+          span.icon.icon-only(data-icon='&#59229;', aria-hidden='true')
+      if next_page
+        li: a#next.icon-button(title=next_page.title, href=next_page.href)
+          span.screen-reader-text= next_page.title
+          span.icon.icon-only(data-icon='&#59230;', aria-hidden='true')
+      li: a#index.icon-button(title='Table of Contents', href='index.html')
+          span.screen-reader-text Table of Contents
+          span.icon.icon-only(data-icon='&#9776;', aria-hidden='true')
+  block article
