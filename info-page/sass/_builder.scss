@@ -263,12 +263,15 @@
         font-family: ChunkFive;
         font-weight: normal;
         letter-spacing: 1px;
-        border-bottom: 1px solid $bgaccent-light;
         margin-bottom: 0.5em;
 
         & + p {
             margin-top: 0;
         }
+    }
+
+    h1, h2 {
+        border-bottom: 1px solid $bgaccent-light;
     }
 
     a {

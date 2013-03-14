@@ -46,7 +46,7 @@ exports.render = render = (ast) ->
         when 'LessEqual' then "#{render ast[1]} \\le #{render ast[2]}"
         when 'Equal' then "#{render ast[1]} = #{render ast[2]}"
         when 'NotEqual' then "#{render ast[1]} \\ne #{render ast[2]}"
-        when 'RatioEqual' then "#{render ast[1]} \\ \\mathrm{as}\\ #{render ast[2]}"
+        when 'RatioEqual' then "#{render ast[1]} :: #{render ast[2]}"
         when 'Congruent' then "#{render ast[1]} \\cong #{render ast[2]}"
         when 'Similar' then "#{render ast[1]} \\sim #{render ast[2]}"
         when 'Parallel' then "#{render ast[1]} \\parallel #{render ast[2]}"
@@ -73,7 +73,7 @@ exports.render = render = (ast) ->
                 "\\frac{#{render unwrap ast[1]}}{#{render unwrap ast[2]}}"
             else
                 "#{render ast[1]} / #{render ast[2]}"
-        when 'Ratio' then "#{render ast[1]} :: #{render ast[2]}"
+        when 'Ratio' then "#{render ast[1]} : #{render ast[2]}"
         when 'Modulus' then "#{render ast[1]} \\pmod{#{render unwrap ast[2]}}"
         when 'Exponent' then "#{render ast[1]}^{#{render unwrap ast[2]}}"
         when 'Superscript'

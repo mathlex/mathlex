@@ -54,7 +54,7 @@ RESERVED = (str) -> switch str
     when 'similar', 'sim' then 'TSimilar'
     when '=', '==' then 'TEqual'
     when '!=', '/=', '<>' then 'TNotEqual'
-    when 'as' then 'TRatioEqual'
+    when '::', 'as' then 'TRatioEqual'
     when 'para', 'parallel' then 'TParallel'
     when 'perp', 'perpendicular' then 'TPerpendicular'
     when '>=' then 'TGreaterEqual'
@@ -70,14 +70,14 @@ RESERVED = (str) -> switch str
 
     when 'union' then 'TUnion'
     when 'intersect' then 'TIntersect'
-    when '\\' then 'TSetDiff'
+    when '\\', 'minus' then 'TSetDiff'
 
     when '+' then 'TPlus'
     when '-' then 'TMinus'
     when '*' then 'TTimes'
     when '/' then 'TDivide'
     when '&/' then 'TSlash'
-    when '::' then 'TRatio'
+    when '&:' then 'TRatio'
     when 'mod', '%' then 'TModulus'
     when '^', '**' then 'TExponent'
     when '&^' then 'TSuperscript'
@@ -187,7 +187,6 @@ exports.Lexer = class Lexer
 
         @token tag, op
         len
-
 
     pair: (tag) ->
         if tag not in @delims
