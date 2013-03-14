@@ -52,16 +52,24 @@ grammar =
     quantification: [
         o 'relation'
         o 'TQForall relation TImplies quantification',  -> ['Forall', $2, $4]
-        o 'TQForall relation TColon relation Implies quantification',   -> ['Forall', $2, ['Implies', $4, $6, false]]
-        o 'TQExists relation TColon quantification',  -> ['Exists', $2, $4]
-        o 'TQUnique relation TColon quantification',  -> ['Unique', $2, $4]
+        o 'TQForall relation TSuchThat relation TImplies quantification',   -> ['Forall', $2, ['Implies', $4, $6, false]]
+        o 'TQExists relation TSuchThat quantification',  -> ['Exists', $2, $4]
+        o 'TQUnique relation TSuchThat quantification',  -> ['Unique', $2, $4]
     ]
 
     relation: [
+        o 'equality'
+        o 'inequality'
         o 'ratio'
+    ]
+
+    equality: [
         o 'algebraic TEqual algebraic',         -> ['Equal', $1, $3]
-        o 'algebraic TNotEqual algebraic',      -> ['NotEqual', $1, $3]
         o 'ratio TRatioEqual ratio',            -> ['RatioEqual', $1, $3]
+    ]
+
+    inequality: [
+        o 'algebraic TNotEqual algebraic',      -> ['NotEqual', $1, $3]
         o 'algebraic TCongruent algebraic',     -> ['Congruent', $1, $3]
         o 'algebraic TSimilar algebraic',       -> ['Similar', $1, $3]
         o 'algebraic TTilde algebraic',         -> ['Similar', $1, $3]
@@ -98,8 +106,14 @@ grammar =
         o 'algebraic TPlus algebraic',                  -> ['Plus', $1, $3]
         o 'algebraic TMinus algebraic',                 -> ['Minus', $1, $3]
         o 'algebraic TTimes algebraic',                 -> ['Times', $1, $3]
-        o 'algebraic TDivide algebraic',                -> ['Divide', $1, $3, true]
-        o 'algebraic TSlash algebraic',                 -> ['Divide', $1, $3, false]
+        o 'algebraic TDivide algebraic', ->
+            # return ['Function', ['Variable', 'diff'], [$1[1], $3[1]]] if $1[0] == 'Differential' and $3[0] == 'Differential'
+            # return ['Function', ['Variable', 'pdiff'], [$1[1], $3[1]]] if $1[0] == 'Partial' and $3[0] == 'Partial'
+            ['Divide', $1, $3, true]
+        o 'algebraic TSlash algebraic', ->
+            # return ['Function', ['Variable', 'diff'], [$1[1], $3[1]]] if $1[0] == 'Differential' and $3[0] == 'Differential'
+            # return ['Function', ['Variable', 'pdiff'], [$1[1], $3[1]]] if $1[0] == 'Partial' and $3[0] == 'Partial'
+            ['Divide', $1, $3, false]
         o 'algebraic TModulus algebraic',               -> ['Modulus', $1, $3]
         o 'algebraic TExponent algebraic',              -> ['Exponent', $1, $3]
         o 'algebraic TSuperscript algebraic',           -> ['Superscript', $1, $3]
@@ -121,15 +135,26 @@ grammar =
         o 'TVectorizer algebraic',                      -> ['Vectorizer', $2]
         o 'TUnitVectorizer algebraic',                  -> ['UnitVectorizer', $2]
         o 'TPartial algebraic',                         -> ['Partial', $2]
+        o 'TPartial algebraic TDivPartial algebraic',   -> ['Function', ['Variable', 'pdiff'], [$2, $4]]
         o 'TDifferential algebraic',                    -> ['Differential', $2]
+        o 'TDifferential algebraic TDivDiff algebraic', -> ['Function', ['Variable', 'diff'], [$2, $4]]
         o 'TChangeDelta algebraic',                     -> ['Change', $2]
         o 'TGradient algebraic',                        -> ['Gradient', $2]
         o 'TDivergence algebraic',                      -> ['Divergence', $2]
         o 'TCurl algebraic',                            -> ['Curl', $2]
+        o 'TSum range_bounds algebraic',                -> ['Function', ['Variable', 'sum'], [$3].concat($2)]
+        o 'TProduct range_bounds algebraic',            -> ['Function', ['Variable', 'prod'], [$3].concat($2)]
+        o 'TLimit TSubscript TLParen primary TImplies algebraic TRParen algebraic', -> ['Function', ['Variable', 'lim'], [$8, $4, $6]]
         o 'algebraic TBang',                            -> ['Factorial', $1]
         o 'algebraic TPrime',                           -> ['Prime', $1]
         o 'algebraic TDotDiff',                         -> ['DotDiff', $1]
         o 'algebraic TLParen expression_list TRParen',  -> ['Function', $1, $3]
+    ]
+
+    range_bounds: [
+        o 'TSubscript TLParen primary TEqual algebraic TRParen TSuperscript primary',  -> [$3, $5, $8]
+        o 'TSuperscript primary TSubscript TLParen primary TEqual expression TRParen',  -> [$5, $7, $2]
+        o 'TSubscript TLParen inequality TRParen',                                      -> [$3]
     ]
 
     algebraic_list: [
@@ -138,7 +163,6 @@ grammar =
     ]
 
     primary: [
-        o 'TEmpty',                                                 -> ['Empty']
         o 'TIdent',                                                 -> ['Variable', $1]
         o 'TIntLit',                                                -> ['Literal', 'Int', $1]
         o 'TFloatLit',                                              -> ['Literal', 'Float', $1]
@@ -157,8 +181,8 @@ grammar =
         o 'TOr algebraic TOr',                                      -> ['Norm', $2]
         o 'TLDoublePipe opt_algebraic TRDoublePipe',                -> ['Norm', $2]
         o 'TLParen opt_expression TRParen',                         -> ['Parentheses', $2]
-        o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Integral', $3, $5, $2]
-        # o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Function', ['Variable', 'int'], [$2, $5]]
+        o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Function', ['Variable', 'int'], [$2, $5]]
+        # o '',                                                       -> ['Empty']
     ]
 
     int_bounds: [
@@ -180,9 +204,9 @@ grammar =
     ]
 
     set: [
-        o '',                               -> ['EmptySet']
-        o 'expression_list',                -> ['Set', $1]
-        o 'relation TColon logical_list',   -> ['SetBuilder', $1, $3]
+        o '',                                   -> ['EmptySet']
+        o 'expression_list',                    -> ['Set', $1]
+        o 'relation TSuchThat logical_list',    -> ['SetBuilder', $1, $3]
     ]
 
     list: [
@@ -197,11 +221,14 @@ operators = [
     ['right', 'TExponent']
     ['left', 'TCompose']
     ['left', 'TLParen', 'TRParen']
-    ['right', 'UnaryPrefix', 'TNot', 'TPartial', 'TDifferential', 'TChangeDelta', 'TVectorizer', 'TUnitVectorizer', 'TGradient', 'TDivergence', 'TCurl']
+    ['non', 'TDivDiff', 'TDivPartial']
+    ['right', 'TPartial', 'TDifferential', 'TChangeDelta']
+    ['right', 'UnaryPrefix', 'TNot', 'TVectorizer', 'TUnitVectorizer', 'TGradient', 'TDivergence', 'TCurl']
     ['left', 'TWedge']
     ['left', 'TCross', 'TTensor', 'TCartesianProduct']
     ['nonassoc', 'TDot']
     ['left', 'TTimes', 'TSlash', 'TDivide', 'TModulus']
+    ['right', 'TSum', 'TProduct', 'TLimit']
     ['left', 'TIntersect']
     ['left', 'TUnion']
     ['left', 'TDirectSum']

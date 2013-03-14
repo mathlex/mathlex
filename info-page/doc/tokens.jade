@@ -12,455 +12,571 @@ block article
   table
     thead: tr
       th Token
+      th Handwritten Symbol <br/> (if applicable)
       th Description
-      th Recognized Symbol(s)
+      th Recognized String(s)
     tbody
       tr
         td: span.token TIdent
+        td
         td Identifier (variable or function name)
         td.
           A letter followed by zero or more letters, numbers, or underscores
           (e.g. <code>x Fn example_ident p2</code>)
       tr
         td: span.token TFloatLit
+        td
         td Literal decimal number and/or scientific notation
         td.
           Any positive number (Note: negation is treated  operation) with a decimal point or 'e' somewhere in it
           (e.g. <code>0.3 .125 3.14 6.02e23 1.602E-19</code>)
       tr
         td: span.token TIntLit
+        td
         td Integer
         td.
           One or more decimal digits
           (e.g. <code>1234 095 42 7</code>)
       tr
         td: span.token TConstant
+        td
         td An identifier that has a constant value (number, set, or truth value)
         td.
           Usually preceded by a <code>#</code> sign, but some keywords are recognized.
           See the <a href="#list-of-constants">list of constants</a> below.
       tr
         td: span.token TPlus
+        td \( + \)
         td Addition
         td: code +
       tr
         td: span.token TMinus
+        td \( - \)
         td Subtraction
         td: code -
       tr
         td: span.token TPlusMinus
+        td \( \pm \)
         td "Plus or Minus"
         td: code &amp;pm +/-
       tr
         td: span.token TMinusPlus
+        td \( \mp \)
         td "Minus or Plus"
         td: code &amp;mp -/+
       tr
         td: span.token TTimes
+        td \( \cdot \)
         td Multiplication
         td: code *
       tr
         td: span.token TDivide
-        td Division (vertical notation; \( \tfrac{a}{b} \))
+        td \( \tfrac{a}{b} \)
+        td Division (vertical notation)
         td: code /
       tr
         td: span.token TSlash
-        td Division (horizontal notation; \( a / b \))
+        td \( a/b \)
+        td Division (horizontal notation)
         td: code &amp;/
       tr
         td: span.token TExponent
+        td \( a^b \)
         td Exponentiation/Power
         td: code ^ **
       tr
         td: span.token TRatio
+        td \( a:b \)
         td Ratio ("the ratio of a to b")
-        td: code ::
+        td: code &amp;:
       tr
         td: span.token TRatioEqual
-        td Equal Relation Operator for ratios ("(a :: b) as (c :: d)" reads "a is to b as c is to d")
+        td \( a:b :: c:d \)
+        td Equal Relation Operator for ratios ("a is to b as c is to d")
         td: code as
       tr
         td: span.token TModulus
+        td \( \mathrm{mod} \)
         td Modular Arithmetic Operator
         td: code mod %
       tr
         td: span.token TBang
+        td \( ! \)
         td Exclamation Point (used for negation and factorial)
         td: code !
       tr
         td: span.token TReal
+        td \( \Re \)
         td Real Part Filter Operator
         td: code &amp;Re
       tr
         td: span.token TImaginary
+        td \( \Im \)
         td Imaginary Part Filter Operator
         td: code &amp;Im
       tr
         td: span.token TEqual
+        td \( = \)
         td "Equal To" Relation Operator (for algebraic expressions)
         td: code| = ==
       tr
         td: span.token TNotEqual
+        td \( \ne \)
         td "Not Equal To" Relation Operator (for algebraic expressions)
         td: code != /= &lt;&gt;
       tr
         td: span.token TLess
+        td \( &lt; \)
         td "Less Than" Relation Operator
         td: code &lt;
       tr
-        td: span.token TLessEqual
-        td "Less Than or Equal" Relation Operator
-        td: code &lt;=
-      tr
         td: span.token TGreater
+        td \( &gt; \)
         td "Greater Than" Relation Operator
         td: code &gt;
       tr
+        td: span.token TLessEqual
+        td \( \le \)
+        td "Less Than or Equal" Relation Operator
+        td: code &lt;=
+      tr
         td: span.token TGreaterEqual
+        td \( \ge \)
         td "Greater Than or Equal To" Relation Operator
         td: code &gt;=
       tr
         td: span.token TDivides
+        td \( \mid \)
         td Divisibility Relation Operator
         td: code divides
       tr
         td: span.token TNotDivides
+        td \( \nmid \)
         td Negation of Divisibility Relation
         td: code !| ndivides ndivide notdivides notdivide
       tr
         td: span.token TCongruent
+        td \( \cong \)
         td "Congruent" Relation Operator
         td: code ~= congruent
       tr
         td: span.token TSimilar
+        td \( \sim \)
         td "Similar To" Relation Operator (sometimes also <span class="token">TTilde</span> depending on context)
         td: code similar sim
       tr
         td: span.token TParallel
+        td \( \parallel \)
         td "Parallel To" Relation Operator
         td: code parallel para
       tr
         td: span.token TPerpendicular
+        td \( \perp \)
         td "Perpendicular To" Relation Operator
         td: code perpendicular perp
       tr
         td: span.token TSubset
+        td \( \subseteq \)
         td Subset Relation Operator
         td: code subset
       tr
         td: span.token TPropSubset
+        td \( \subset \)
         td Proper Subset Relation Operator
         td: code propersubset propsubset psubset
       tr
         td: span.token TSuperset
+        td \( \supseteq \)
         td Superset Relation Operator
         td: code superset supset
       tr
         td: span.token TPropSuperset
+        td \( \supset \)
         td Proper Superset Relation Operator
         td: code propersuperset propersupset propsuperset propsupset psuperset psupset
       tr
         td: span.token TIn
+        td \( \in \)
         td Inclusion Relation Operator
         td: code in
       tr
         td: span.token TPipe
+        td \( \mid \)
         td Vertical Bar Character
         td: code |
       tr
         td: span.token TUnion
+        td \( \cup \)
         td Set Union Operator
         td: code union
       tr
         td: span.token TIntersect
+        td \( \cap \)
         td Set Intersection Operator
         td: code intersect
       tr
         td: span.token TSetDiff
+        td \( \setminus \)
         td Set Difference Operator
         td: code \
       tr
         td: span.token TDirectSum
+        td \( \oplus \)
         td Direct Sum Operator
         td: code &amp;o+
       tr
         td: span.token TCartesianProduct
+        td \( \times \)
         td Cartesian Product Operator
         td: code &amp;*
       tr
         td: span.token TEquiv
+        td \( \equiv \)
         td "Equivalent" Relation Operator
         td: code| === equiv
       tr
         td: span.token TNotEquiv
+        td \( \not\equiv \)
         td "Not Equivalent" Relation Operator
         td: code !== /== nequiv
       tr
         td: span.token TQForall
+        td \( \forall \)
         td Universal Quantification ("for all")
         td: code forall
       tr
         td: span.token TQExists
+        td \( \exists \)
         td Existential Quantification ("there exists")
         td: code exists
       tr
         td: span.token TQUnique
+        td \( \exists ! \)
         td Unique Quantification ("there exists a unique")
         td: code unique
       tr
-        td: span.token TColon
+        td: span.token TSuchThat
+        td \( : \)
         td Colon Character ("such that")
         td: code :
       tr
         td: span.token TIff
+        td \( \leftrightarrow \)
         td Biconditional Logical Operator ("if and only if")
         td: code &lt;-&gt; iff
       tr
         td: span.token TImplies
+        td \( \rightarrow \)
         td Conditional Logical Operator ("implies", "if-then")
         td: code -&gt; implies onlyif
       tr
         td: span.token TIf
+        td \( \leftarrow \)
         td Reverse Conditional Logical Operator ("implied by")
         td: code &lt;- if when whenever impliedby
       tr
         td: span.token TThen
+        td
         td Keyword used for parsing "if-then" implication
         td: code then
       tr
         td: span.token TAnd
+        td \( \wedge \)
         td Logical Conjunction
         td: code and &amp;&amp;
       tr
         td: span.token TOr
+        td \( \vee \)
         td Logical Disjunction
         td: code or ||
       tr
         td: span.token TXor
+        td \( \veebar \)
         td Logical Exclusive-Or
         td: code xor
       tr
         td: span.token TNot
+        td \( \neg \)
         td Logical Negation (sometimes also <span class="token">TTilde</span> or <span class="token">TBang</span> depending on context)
         td: code not
       tr
         td: span.token TTilde
+        td \( \sim \)
         td Tilde Character (used for negation and similarity)
         td: code ~
       tr
         td: span.token TCompose
+        td \( \circ \)
         td Function Composition Operator
         td: code @
       tr
         td: span.token TPrime
+        td \( ' \)
         td Prime Differentiation
         td: code '
       tr
         td: span.token TDotDiff
+        td \( \dot{} \)
         td Dot Differentiation
-        td: code .
+        td: code
+          | .
       tr
         td: span.token TChangeDelta
+        td \( \Delta \)
         td Difference Operator
         td: code &amp;D
       tr
         td: span.token TDifferential
+        td \( \mathrm{d} \)
         td Differential "D"
         td: code &amp;d
       tr
         td: span.token TPartial
+        td \( \partial \)
         td Partial Differential "D"
         td: code &amp;pd
       tr
         td: span.token TIntegral
+        td \( \int \)
         td Integration Symbol
-        td: code integral Integral int Int &amp;integral &amp;Integral &amp;int &amp;Int
+        td: code &amp;integral &amp;Integral &amp;int &amp;Int
       tr
         td: span.token TVectorizer
+        td \( \vec{} \)
         td Arrow over a vector variable
         td: code &amp;v
       tr
         td: span.token TUnitVectorizer
+        td \( \hat{} \)
         td "Hat" over a unit vector variable
         td: code &amp;u
       tr
         td: span.token TDot
+        td \( \cdot \)
         td Dot Product Operator
         td: code &amp;.
       tr
         td: span.token TCross
+        td \( \times \)
         td Cross Product Operator
         td: code &amp;x
       tr
         td: span.token TWedge
+        td \( \wedge \)
         td Wedge Product Operator
         td: code &amp;w
       tr
         td: span.token TTensor
+        td \( \otimes \)
         td Tensor Product Operator
         td: code &amp;ox
       tr
         td: span.token TGradient
+        td \( \vec{\nabla} \)
         td Gradient Operator ("del" or "grad")
         td: code &amp;del &amp;grad
       tr
         td: span.token TDivergence
+        td \( \vec{\nabla} \cdot \)
         td Divergence Operator ("div")
         td: code &amp;del. &amp;div
       tr
         td: span.token TCurl
+        td \( \vec{\nabla} \times \)
         td Curl Operator ("curl")
         td: code &amp;delx &amp;curl
       tr
         td: span.token TLParen
+        td \( \left( \ \right. \)
         td Left (Open) Parenthesis
         td: code (
       tr
         td: span.token TRParen
+        td \( \left. \ \right) \)
         td Right (Close) Parenthesis
         td: code )
       tr
         td: span.token TLCurlyBrace
+        td \( \left\{ \ \right. \)
         td Left (Open) Curly Brace
         td: code {
       tr
         td: span.token TRCurlyBrace
+        td \( \left. \ \right\} \)
         td Right (Close) Curly Brace
         td: code }
       tr
         td: span.token TLSqBracket
+        td \( \left[ \ \right. \)
         td Left (Open) Square Bracket
         td: code [
       tr
         td: span.token TRSqBracket
+        td \( \left. \ \right] \)
         td Right (Close) Square Bracket
         td: code ]
       tr
         td: span.token TLRangeInclusive
+        td \( \left[ \ \right. \)
         td Left Delimiter for Inclusive Range
         td: code [:
       tr
         td: span.token TRRangeInclusive
+        td \( \left. \ \right] \)
         td Right Delimiter for Inclusive Range
         td: code :]
       tr
         td: span.token TLRangeExclusive
+        td \( \left( \ \right. \)
         td Left Delimiter for Exclusive Range
         td: code (:
       tr
         td: span.token TRRangeExclusive
+        td \( \left. \ \right) \)
         td Right Delimiter for Exclusive Range
         td: code :)
       tr
         td: span.token TLPipe
+        td \( \left| \ \right. \)
         td Left Pipe Delimiter
         td: code |:
       tr
         td: span.token TRPipe
+        td \( \left. \ \right| \)
         td Right Pipe Delimiter
         td: code :|
       tr
         td: span.token TLDoublePipe
+        td \( \left\| \ \right. \)
         td Left Double-Pipe ("Norm") Delimiter
         td: code ||:
       tr
         td: span.token TRDoublePipe
+        td \( \left. \ \right\| \)
         td Right Double-Pipe ("Norm") Delimiter
         td: code :||
       tr
         td: span.token TLVector
+        td \( \left\langle \ \right. \)
         td Left Angle Bracket
         td: code &lt;:
       tr
         td: span.token TRVector
+        td \( \left. \ \right\rangle \)
         td Right Angle Bracket
         td: code :&gt;
       tr
         td: span.token TComma
+        td \( , \)
         td Comma separator
         td: code ,
       tr
         td: span.token TSuperscript
+        td \( a^b \)
         td Superscript Index Selector
         td: code &amp;^
       tr
         td: span.token TSubscript
+        td \( a_b \)
         td Subscript Index Selector
         td: code &amp;_
       tr
         td: span.token TSemicolon
+        td \( ; \)
         td Semi-Colon Character
         td: code ;
 
   h2#list-of-constants List of Constants
   table
     thead: tr
+      th Symbol
       th Description
       th Constant
     tbody
       tr
+        td \( \mathbf{T} \)
         td Boolean constant <strong>True</strong>
         td: code #T #true true
       tr
+        td \( \mathbf{F} \)
         td Boolean constant <strong>False</strong>
         td: code #F #false false
       tr
-        td: a(href='http://tauday.com', target='_blank') \( \tau = 2 \pi \approx 6.28318 \)
-        td: code #t #tau
-      tr
-        td \( \pi \approx 3.14159 \)
+        td \( \pi \)
+        td \( \approx 3.14159 \)
         td: code #p #pi
       tr
-        td \( e \approx 2.71828 \)
+        td \( \tau \)
+        td: a(href='http://tauday.com', target='_blank') \( = 2 \pi \approx 6.28318 \)
+        td: code #t #tau
+      tr
+        td \( \mathrm{e} \)
+        td \( \approx 2.71828 \)
         td: code #e
       tr
-        td \( \infty \approx \) <span class="error">#!ERROR: memory overflow</span>
+        td \( \gamma \)
+        td \( \approx 0.57722 \)
+        td: code #gamma
+      tr
+        td \( \infty \)
+        td &asymp; <span class="error">#!ERROR: memory overflow</span>
         td: code #infinity infinity
       tr
+        td \( \mathbb{N} \)
         td Set of Natural Numbers
         td: code #N
       tr
+        td \( \mathbb{Z} \)
         td Set of Integers
         td: code #Z
       tr
+        td \( \mathbb{Q} \)
         td Set of Rational Numbers
         td: code #Q
       tr
+        td \( \mathbb{R} \)
         td Set of Real Numbers
         td: code #R
       tr
+        td \( \mathbb{C} \)
         td Set of Complex Numbers
         td: code #C
       tr
+        td \( \mathbb{H} \)
         td Set of Quaternion Numbers
         td: code #H
       tr
+        td \( \mathbb{O} \)
         td Set of Octonian Numbers
         td: code #O
       tr
+        td \( \mathbb{U} \)
         td Universal Set
         td: code #U
       tr
+        td \( \vec{0} \)
         td Zero Vector
         td: code #v0
       tr
+        td \( \hat\imath \)
         td <em>x</em>-axis unit vector
         td: code #vi #ui
       tr
+        td \( \hat\jmath \)
         td <em>y</em>-axis unit vector
         td: code #vj #uj
       tr
+        td \( \hat{k} \)
         td <em>z</em>-axis unit vector
         td: code #vk #uk
       tr
+        td \( \mathbf{0} \)
         td Zero Matrix
         td: code #0
       tr
-        td One Matrix
+        td \( \mathbf{I} \)
+        td Identity/Unit Matrix
         td: code #1
-      tr
-        td Identity Matrix
-        td: code #I
 
 block javascripts
     script(src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')

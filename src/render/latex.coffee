@@ -190,12 +190,12 @@ exports.render = render = (ast) ->
                         if ast[2][0][0] in ['Variable', 'Constant']
                             "\\frac{\\mathrm{d}#{render ast[2][0]}}{\\mathrm{d}#{render ast[2][1]}}"
                         else
-                            "\\frac{\\mathrm{d}}{\\mathrm{d}#{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
+                            "\\frac{\\mathrm{d}}{\\mathrm{d}#{render ast[2][1]}} \\left( #{render unwrap ast[2][0]} \\right)"
                     when 'pdiff'
                         if ast[2][0][0] in ['Variable', 'Constant']
                             "\\frac{\\partial #{render ast[2][0]}}{\\partial #{render ast[2][1]}}"
                         else
-                            "\\frac{\\partial}{\\partial #{render ast[2][1]}} \\left( #{render ast[2][0]} \\right)"
+                            "\\frac{\\partial}{\\partial #{render ast[2][1]}} \\left( #{render unwrap ast[2][0]} \\right)"
                     when 'grad', 'div', 'curl'
                         "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
                     when 'log'

@@ -261,7 +261,7 @@ block article
         tr
           td Negative/Positive
           td \( \mp a \)
-          td: code &amp;mp a, -/+a
+          td: code -/+, &amp;mp a
           td
           td.center 17
         tr
@@ -291,7 +291,7 @@ block article
         tr
           td Not
           td \( \neg p \)
-          td: code not p, ~p, !p
+          td: code ~p, !p, not p
           td Logical Negation
           td.center 17
         tr
@@ -653,7 +653,6 @@ block article
           th Name
           th Symbol
           th Code
-          th Description
           th Precedence
       tbody
         tr
@@ -661,122 +660,102 @@ block article
           td \( a = b \)
           td: code
             | a = b, a == b
-          td
           td.center 7
         tr
           td Not Equal
           td \( a \ne b \)
           td: code a != b, a /= b, a &lt;&gt; b
-          td
           td.center 7
         tr
           td Less Than
           td \( a &lt; b \)
           td: code a &lt; b
-          td
           td.center 7
         tr
           td Greater Than
           td \( a &gt; b \)
           td: code a &gt; b
-          td
           td.center 7
         tr
           td Less Than or Equal
           td \( a \le b \)
           td: code a &lt;= b
-          td
           td.center 7
         tr
           td Greater Than or Equal
           td \( a \ge b \)
           td: code a &gt;= b
-          td
           td.center 7
         tr
           td Divides
           td \( p \mid q \)
           td: code p|q, p divides q
-          td
           td.center 7
         tr
           td Not Divides
           td \( p \nmid q \)
           td: code p~|q, p/|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
-          td
           td.center 7
         tr
           td Ratio Equality
           td \( a:b :: c:d\)
           td: code a&amp;:b :: c&amp;:d, a&amp;:b as c&amp;:d
-          td
           td.center 7
         tr
           td Subset
           td \( A \subseteq B \)
           td: code A subset B
-          td
           td.center 7
         tr
           td Superset
           td \( A \supseteq B \)
           td: code A superset B, A supset B
-          td
           td.center 7
         tr
           td Proper Subset
           td \( A \subset B \)
           td: code A propersubset B, A propsubset B, A psubset B
-          td
           td.center 7
         tr
           td Proper Superset
           td \( A \supset B \)
           td: code A propersuperset B, A propsuperset B, A psuperset B, A propersupset B, A propsupset B, A psupset B
-          td
           td.center 7
         tr
           td Inclusion
           td \( a \in A \)
           td: code a in A
-          td
           td.center 7
         tr
           td Congruent
           td \( A \cong B \)
           td: code A ~= B, A congruent B
-          td
           td.center 7
         tr
           td Similar
           td \( A \sim B \)
           td: code A ~ B, A sim B, A similar B
-          td
           td.center 7
         tr
           td Parallel
           td \( A \parallel B \)
           td: code A para B, A parallel B
-          td
           td.center 7
         tr
           td Perpendicular
           td \( A \perp B \)
           td: code A perp B, A perpendicular B
-          td
           td.center 7
         tr
           td Equivalent
           td \( A \equiv B \)
           td: code
             | A === B, A equiv B
-          td
           td.center 0
         tr
           td Not Equivalent
           td \( A \not\equiv B \)
           td: code A !== B, A /== B, A nequiv B
-          td
           td.center 0
 
     p.
@@ -1724,15 +1703,11 @@ block article
           td \( A \times B \)
           td: code A &amp;* B, A &amp;x B
           td
-          td.center 16
-          td.center Left
         tr
           td Direct Sum
           td \( A \oplus B \)
           td: code A &amp;o+ B
           td
-          td.center 11
-          td.center Left
         tr
           td Union Over Range
           td \( \displaystyle \bigcup_{i=m}^n S_i \)

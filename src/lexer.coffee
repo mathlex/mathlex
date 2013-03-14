@@ -90,7 +90,9 @@ RESERVED = (str) -> switch str
     when '&Re' then 'TReal'
     when '&Im' then 'TImaginary'
     when '&pd' then 'TPartial'
+    when '/&pd' then 'TDivPartial'
     when '&d' then 'TDifferential'
+    when '/&d' then 'TDivDiff'
     when '&D' then 'TChangeDelta'
     when '&del', '&grad' then 'TGradient'
     when '&del.', '&div' then 'TDivergence'
@@ -105,6 +107,9 @@ RESERVED = (str) -> switch str
     when '&u' then 'TUnitVectorizer'
     when '&pm', '+/-' then 'TPlusMinus'
     when '&mp', '-/+' then 'TMinusPlus'
+    when '&sum' then 'TSum'
+    when '&prod', '&product' then 'TProduct'
+    when '&lim', '&limit' then 'TLimit'
     when '&int', '&integral', '&Int', '&Integral' then 'TIntegral'
 
     when '(' then 'TLParen'
@@ -123,7 +128,7 @@ RESERVED = (str) -> switch str
     when ':||' then 'TRDoublePipe'
     when '<:' then 'TLVector'
     when ':>' then 'TRVector'
-    when ':' then 'TColon'
+    when ':' then 'TSuchThat'
     when ';' then 'TSemicolon'
     when ',' then 'TComma'
 
@@ -141,6 +146,9 @@ exports.Lexer = class Lexer
                     @identifierOrKeywordToken() or
                     @constantToken() or
                     @opOrSep(9) or
+                    @opOrSep(8) or
+                    @opOrSep(7) or
+                    @opOrSep(6) or
                     @opOrSep(5) or
                     @opOrSep(4) or
                     @opOrSep(3) or

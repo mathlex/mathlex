@@ -331,7 +331,7 @@
             <tr>
               <td>Negative/Positive</td>
               <td>\( \mp a \)</td>
-              <td><code>&amp;mp a, -/+a</code></td>
+              <td><code>-/+, &amp;mp a</code></td>
               <td></td>
               <td class="center">17</td>
             </tr>
@@ -366,7 +366,7 @@
             <tr>
               <td>Not</td>
               <td>\( \neg p \)</td>
-              <td><code>not p, ~p, !p</code></td>
+              <td><code>~p, !p, not p</code></td>
               <td>Logical Negation</td>
               <td class="center">17</td>
             </tr>
@@ -785,7 +785,6 @@
               <th>Name</th>
               <th>Symbol</th>
               <th>Code</th>
-              <th>Description</th>
               <th>Precedence</th>
             </tr>
           </thead>
@@ -794,140 +793,120 @@
               <td>Equal</td>
               <td>\( a = b \)</td>
               <td><code>a = b, a == b</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Not Equal</td>
               <td>\( a \ne b \)</td>
               <td><code>a != b, a /= b, a &lt;&gt; b</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Less Than</td>
               <td>\( a &lt; b \)</td>
               <td><code>a &lt; b</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Greater Than</td>
               <td>\( a &gt; b \)</td>
               <td><code>a &gt; b</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Less Than or Equal</td>
               <td>\( a \le b \)</td>
               <td><code>a &lt;= b</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Greater Than or Equal</td>
               <td>\( a \ge b \)</td>
               <td><code>a &gt;= b</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Divides</td>
               <td>\( p \mid q \)</td>
               <td><code>p|q, p divides q</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Not Divides</td>
               <td>\( p \nmid q \)</td>
               <td><code>p~|q, p/|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Ratio Equality</td>
               <td>\( a:b :: c:d\)</td>
               <td><code>a&amp;:b :: c&amp;:d, a&amp;:b as c&amp;:d</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Subset</td>
               <td>\( A \subseteq B \)</td>
               <td><code>A subset B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Superset</td>
               <td>\( A \supseteq B \)</td>
               <td><code>A superset B, A supset B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Proper Subset</td>
               <td>\( A \subset B \)</td>
               <td><code>A propersubset B, A propsubset B, A psubset B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Proper Superset</td>
               <td>\( A \supset B \)</td>
               <td><code>A propersuperset B, A propsuperset B, A psuperset B, A propersupset B, A propsupset B, A psupset B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Inclusion</td>
               <td>\( a \in A \)</td>
               <td><code>a in A</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Congruent</td>
               <td>\( A \cong B \)</td>
               <td><code>A ~= B, A congruent B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Similar</td>
               <td>\( A \sim B \)</td>
               <td><code>A ~ B, A sim B, A similar B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Parallel</td>
               <td>\( A \parallel B \)</td>
               <td><code>A para B, A parallel B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Perpendicular</td>
               <td>\( A \perp B \)</td>
               <td><code>A perp B, A perpendicular B</code></td>
-              <td></td>
               <td class="center">7</td>
             </tr>
             <tr>
               <td>Equivalent</td>
               <td>\( A \equiv B \)</td>
               <td><code>A === B, A equiv B</code></td>
-              <td></td>
               <td class="center">0</td>
             </tr>
             <tr>
               <td>Not Equivalent</td>
               <td>\( A \not\equiv B \)</td>
               <td><code>A !== B, A /== B, A nequiv B</code></td>
-              <td></td>
               <td class="center">0</td>
             </tr>
           </tbody>
@@ -2070,16 +2049,12 @@
               <td>\( A \times B \)</td>
               <td><code>A &amp;* B, A &amp;x B</code></td>
               <td></td>
-              <td class="center">16</td>
-              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Direct Sum</td>
               <td>\( A \oplus B \)</td>
               <td><code>A &amp;o+ B</code></td>
               <td></td>
-              <td class="center">11</td>
-              <td class="center">Left</td>
             </tr>
             <tr>
               <td>Union Over Range</td>
