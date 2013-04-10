@@ -102,7 +102,7 @@ render = (ast) ->
         when 'Vector' # ****
             components = (render component for component in ast[1])
             "vector([#{components.join ","}])"
-        when 'EmptySet' then "Set(None)"
+        when 'EmptySet' then "Set([ ])"
         when 'Set'
             elements = (render elem for elem in ast[1])
             "Set([#{elements.join ","}])"
@@ -171,7 +171,7 @@ render = (ast) ->
             when 'p', 'pi' then "pi"
             when 'gamma' then "euler_gamma"
             when 'e' then "e"
-            when 'infinity' then "infinity"
+            when 'infinity', 'oo' then "infinity"
             when 'true', 'T' then "True"
             when 'false', 'F' then "False"
             when 'O' then "\\mathbb{O}" # ***

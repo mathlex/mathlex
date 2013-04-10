@@ -97,6 +97,7 @@ exports.render = render = (ast) ->
         when 'WedgeProduct' then "#{render ast[1]} \\wedge #{render ast[2]}"
         when 'TensorProduct' then "#{render ast[1]} \\otimes #{render ast[2]}"
         when 'Compose' then "#{render ast[1]} \\circ #{render ast[2]}"
+        when 'SelfCompose' then "#{render ast[1]}^{\\circ #{render ast[2]}}"
         when 'Union' then "#{render ast[1]} \\cup #{render ast[2]}"
         when 'Intersection' then "#{render ast[1]} \\cap #{render ast[2]}"
         when 'SetDiff' then "#{render ast[1]} \\setminus #{render ast[2]}"
@@ -175,15 +176,25 @@ exports.render = render = (ast) ->
         when 'Function'
             args = (render arg for arg in ast[2])
             if ast[1][0] is 'Variable'
+                # replace with 'arc' variants
+                ast[1][1] = 'arc' + ast[1][1].substring(1) if ast[1][1] in ['asin','acos','atan','acsc','asec','acot','asinh','acosh','atanh','acsch','asech','acoth']
+
+                # case-insensitive functions
+                ast[1][1] = ast[1][1].toLowerCase() if ast[1][1].match /^(lim(it)?|int(egral)?|sum|prod(uct)?)$/i
+
                 switch ast[1][1]
                     when 'abs' then "\\left| #{render ast[2][0]} \\right|"
-                    when 'sqrt' then "\\sqrt{#{render ast[2][0]}}"
                     when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
-                    when 'sin','cos','tan','csc','sec','cot', 'ln', 'arcsin', 'arccos', 'arctan', 'sinh', 'cosh', 'tanh', 'coth'
+
+                    # understood by LaTeX
+                    when 'ln', 'sqrt', 'sin', 'cos', 'tan', 'csc', 'sec', 'cot', 'arcsin', 'arccos', 'arctan', 'sinh', 'cosh', 'tanh', 'coth'
                         "\\#{ast[1][1]}{\\left( #{args} \\right)}"
-                    when 'arccsc', 'arcsec', 'arccot', 'csch', 'sech', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth', 'acsc', 'asec', 'acot', 'csch', 'sech', 'asinh', 'acosh', 'atanh', 'acsch', 'asech', 'acoth'
+
+                    # explicit mathrm
+                    when 'arccsc', 'arcsec', 'arccot', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth', 'csch', 'sech'
                         "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
-                    when 'int', 'integral', 'Int', 'Integral'
+
+                    when 'int', 'integral'
                         bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
                     when 'diff'
@@ -212,8 +223,17 @@ exports.render = render = (ast) ->
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
                         "\\prod_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                    when 'Union'
+                        lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
+                        upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
+                        "\\bigcup_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                    when 'Intersect'
+                        lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
+                        upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
+                        "\\bigcap_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
                     when 'Gamma' then "\\Gamma{\\left( #{render ast[2][0]} \\right)}"
-                    when 'C' then "\\binom{#{render ast[2][0]}}{#{render ast[2][1]}}"
+                    when 'C', 'combination', 'comb' then "\\binom{#{render ast[2][0]}}{#{render ast[2][1]}}"
+                    when 'C', 'permutation', 'perm' then "P \\left( #{render ast[2][0]}, #{render ast[2][1]} \\right)"
                     when 'floor' then "\\left\\lfloor #{render ast[2][0]} \\right\\rfloor"
                     when 'ceil', 'ceiling' then "\\left\\lceil #{render ast[2][0]} \\right\\rceil"
                     else "#{ast[1][1]} \\left( #{args} \\right)"
@@ -278,30 +298,33 @@ exports.render = render = (ast) ->
             when 'omega' then "\\omega"
             else ast[1].replace /_/g, '\\_'
 
-        when 'Constant' then switch ast[1]
-            when 't', 'tau' then "\\tau"
-            when 'p', 'pi' then "\\pi"
-            when 'gamma' then "\\gamma"
-            when 'e' then "\\mathrm{e}"
-            when 'infinity' then "\\infty"
-            when 'true', 'T' then "\\mathbf{T}"
-            when 'false', 'F' then "\\mathbf{F}"
-            when 'O' then "\\mathbb{O}"
-            when 'H' then "\\mathbb{H}"
-            when 'C' then "\\mathbb{C}"
-            when 'R' then "\\mathbb{R}"
-            when 'Q' then "\\mathbb{Q}"
-            when 'Z' then "\\mathbb{Z}"
-            when 'N' then "\\mathbb{N}"
-            when 'U' then "\\mathbb{U}"
-            when 'v0' then "\\vec{0}"
-            when 'vi', 'ui' then "\\hat\\imath"
-            when 'vj', 'uj' then "\\hat\\jmath"
-            when 'vk', 'uk' then "\\hat{k}"
-            when '0' then "\\mathbf{O}"
-            when '1' then "\\mathbf{I}"
-            when 'I' then "I"
-            when 'empty' then "\\emptyset"
-            else ast[1]
+        when 'Constant' then switch ast[1].toLowerCase()
+            # case-insensitive constants
+            when 't', 'true' then "\\mathbf{T}"
+            when 'f', 'false' then "\\mathbf{F}"
+            else switch ast[1]
+                # case-sensitive constants
+                when 'tau' then "\\tau"
+                when 'p', 'pi' then "\\pi"
+                when 'gamma' then "\\gamma"
+                when 'e' then "\\mathrm{e}"
+                when 'infinity', 'oo' then "\\infty"
+                when 'O' then "\\mathbb{O}"
+                when 'H' then "\\mathbb{H}"
+                when 'C' then "\\mathbb{C}"
+                when 'R' then "\\mathbb{R}"
+                when 'Q' then "\\mathbb{Q}"
+                when 'Z' then "\\mathbb{Z}"
+                when 'N' then "\\mathbb{N}"
+                when 'U' then "\\mathbb{U}"
+                when 'v0' then "\\vec{0}"
+                when 'vi', 'ui' then "\\hat\\imath"
+                when 'vj', 'uj' then "\\hat\\jmath"
+                when 'vk', 'uk' then "\\hat{k}"
+                when '0' then "\\mathbf{O}"
+                when '1' then "\\mathbf{I}"
+                when 'I' then "I"
+                when 'empty' then "\\emptyset"
+                else ast[1]
 
         else " (? #{ast[0]} ?) "
