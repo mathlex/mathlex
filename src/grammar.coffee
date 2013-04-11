@@ -185,7 +185,13 @@ grammar =
         o 'TOr algebraic TOr',                                      -> ['Norm', $2]
         o 'TLDoublePipe opt_algebraic TRDoublePipe',                -> ['Norm', $2]
         o 'TLParen opt_expression TRParen',                         -> ['Parentheses', $2]
-        o 'TIntegral int_bounds algebraic TDifferential algebraic', -> ['Function', ['Variable', 'int'], [$2, $5]]
+        o 'TIntegral int_bounds algebraic TDifferential algebraic', ->
+            if $2.lo? and $2.hi?
+                params = [$3, $5, $2.lo, $2.hi]
+            else
+                params = [$3, $5]
+            ['Function', ['Variable', 'int'], params]
+
         # o '',                                                       -> ['Empty']
     ]
 
