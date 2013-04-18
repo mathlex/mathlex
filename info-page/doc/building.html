@@ -54,7 +54,7 @@
               doing and need/want to make changes.
             </p>
           </div>
-          <div class="col align-center"><a data-icon="&#59156;" href="../src/mathlex.zip" download="mathlex-source.zip" class="download">Download Source Code</a></div>
+          <div class="col align-center"><a data-icon="&amp;#59156;" href="../src/mathlex.zip" download="mathlex-source.zip" class="download">Download Source Code</a></div>
         </div>
         <section id="requirements-and-dependencies">
           <h2>Requirements and Dependencies</h2>
@@ -143,11 +143,11 @@
             instead:
             
           </p>
-          <pre class="brush: coffeescript">evalExpression = (tree) -&gt; switch tree[0]
+          <pre class="brush: coffeescript">evalExpression = (tree) -> switch tree[0]
   when 'Literal' then tree[2]
   when 'Plus' then evalExpression(tree[1]) + evalExpression(tree[2])
   else
-    message = &quot;unknown tree node: #{tree[0]}&quot;
+    message = "unknown tree node: #{tree[0]}"
     console.log message
     </pre>
           <p>
