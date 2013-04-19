@@ -9,11 +9,11 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
-                        { content: '#t', label: '\\tau', tooltip: 'tau = 2*pi' },
+                        { content: '#tau', label: '\\tau', tooltip: 'tau = 2*pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
-                        { content: '#i', label: 'i', tooltip: 'imaginary unit' },
                         { content: 'infinity', label: '\\infty', tooltip: 'infinity' },
+                        { content: '#i', label: 'i', tooltip: 'imaginary unit' },
                         { content: 'true', label: '\\mathbf{T}', tooltip: 'true' },
                         { content: 'false', label: '\\mathbf{F}', tooltip: 'false' },
                         { content: '#N', label: '\\mathbb{N}', tooltip: 'natural numbers' },
@@ -105,12 +105,15 @@ module.exports.palettes = [
                     [
                         { content: '+', label: '+', tooltip: 'positive' },
                         { content: '-', label: '-', tooltip: 'negative' },
-                        { content: '&pm', label: '\\pm', tooltip: 'positive or negative' },
-                        { content: '&mp', label: '\\mp', tooltip: 'negative or positive' },
+                        { content: '+/-', label: '\\pm', tooltip: 'positive or negative' },
+                        { content: '-/+', label: '\\mp', tooltip: 'negative or positive' },
                         { content: 'sqrt('+CRSR+')', label: '\\sqrt{}', tooltip: 'square root' },
+                        { content: '|: '+CRSR+' :|', label: '\\left| \\Box \\right|', tooltip: 'absolute value'},
                         { content: '!', label: '!', tooltip: 'factorial' },
                         { content: 'exp('+CRSR+')', label: '\\exp{}', tooltip: 'natural exponentiation' },
                         { content: 'ln('+CRSR+')', label: '\\ln{}', tooltip: 'natural log' },
+                        { content: '&Re', label: '\\Re', tooltip: 'real part' },
+                        { content: '&Im', label: '\\Im', tooltip: 'imaginary part' },
                         { content: '~', label: '\\neg', tooltip: 'logical negation' },
                         { content: 'f \'', label: 'f\'', tooltip: 'prime derivative' },
                         { content: 'x .', label: '\\dot{x}', tooltip: 'dot derivative' },
@@ -132,37 +135,48 @@ module.exports.palettes = [
                     [
                         { content: '+', label: '+', tooltip: 'plus' },
                         { content: '-', label: '-', tooltip: 'minus' },
-                        { content: '&pm', label: '\\pm', tooltip: 'plus or minus' },
-                        { content: '&mp', label: '\\mp', tooltip: 'minus or plus' },
+                        { content: '+/-', label: '\\pm', tooltip: 'plus or minus' },
+                        { content: '-/+', label: '\\mp', tooltip: 'minus or plus' },
                         { content: '*', label: '*', tooltip: 'times' },
                         { content: '/', label: '/', tooltip: 'divided by' },
                         { content: '^', label: '{}^\\wedge', tooltip: 'power' },
                         { content: 'root(a,n)', label: '\\sqrt[n]{}', tooltip: 'nth root' },
                         { content: 'log(a,b)', label: '\\log_b{a}', tooltip: 'log with base' },
-                        { content: '::', label: '::', tooltip: 'ratio' },
+                        { content: '&:', label: ':', tooltip: 'ratio' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
+                        { content: 'n choose r', label: '\\binom{n}{r}', tooltip: 'binomial coefficient' },
+                        { content: 'P(n, r)', label: 'P(n,r)', tooltip: 'permutation' },
+                        { content: '@', label: '\\circ', tooltip: 'function composition' },
+                        { content: '@@', label: 'f^{\circ n}', tooltip: 'function self-composition' },
+                        { content: '&.', label: '\\cdot', tooltip: 'dot product' },
+                        { content: '&x', label: '\\times', tooltip: 'cross product' },
+                        { content: '&w', label: '\\wedge', tooltip: 'wedge product' },
+                        { content: '&ox', label: '\\otimes', tooltip: 'tensor product' },
+                        { content: '&*', label: '\\times', tooltip: 'cartesian product' },
+                        { content: '&o+', label: '\\oplus', tooltip: 'direct sum' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
                         { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
                         { content: ' union ', label: '\\cup', tooltip: 'union' },
                         { content: ' intersect ', label: '\\cap', tooltip: 'intersection' },
-                        { content: '\\', label: '\\setminus', tooltip: 'set difference' },
-                        { content: '&*', label: '\\times', tooltip: 'cartesian product' },
-                        { content: '&o+', label: '\\oplus', tooltip: 'direct sum' },
-                        { content: ':', label: ':', tooltip: 'such that' },
+                        { content: '\\', label: '\\setminus', tooltip: 'set difference' }
+                    ]
+                ]
+            },
+
+            {
+                name: 'Logical Connectives',
+                buttonGroups: [
+                    [
                         { content: '&&', label: '\\wedge', tooltip: 'logical and' },
                         { content: '||', label: '\\vee', tooltip: 'logical or' },
-                        { content: ' xor ', label: '\\oplus', tooltip: 'logical exclusive or' },
+                        { content: ' xor ', label: '\\veebar', tooltip: 'logical exclusive or' },
                         { content: '->', label: '\\rightarrow', tooltip: 'implies' },
                         { content: '<-', label: '\\leftarrow', tooltip: 'implied by' },
                         { content: '<->', label: '\\leftrightarrow', tooltip: 'if and only if' },
-                        { content: ' forall '+CRSR+' , ', label: '\\forall', tooltip: 'universal quantification ("for all")' },
+                        { content: ':', label: ':', tooltip: 'such that' },
+                        { content: ' forall '+CRSR+' -> ', label: '\\forall', tooltip: 'universal quantification ("for all")' },
                         { content: ' exists '+CRSR+' : ', label: '\\exists', tooltip: 'existential quantification ("there exists")' },
-                        { content: ' unique '+CRSR+' : ', label: '\\exists !', tooltip: 'unique quantification ("there exists a unique")' },
-                        { content: '@', label: '\\circ', tooltip: 'function composition' },
-                        { content: '&.', label: '\\cdot', tooltip: 'dot product' },
-                        { content: '&x', label: '\\times', tooltip: 'cross product' },
-                        { content: '&w', label: '\\wedge', tooltip: 'wedge product' },
-                        { content: '&ox', label: '\\otimes', tooltip: 'tensor product' }
+                        { content: ' unique '+CRSR+' : ', label: '\\exists !', tooltip: 'unique quantification ("there exists a unique")' }
                     ]
                 ]
             },
@@ -172,25 +186,25 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '=', label: '=', tooltip: 'equal' },
-                        { content: '!=', label: '\\ne', tooltip: 'not equal' },
+                        { content: '/=', label: '\\ne', tooltip: 'not equal' },
                         { content: '<', label: '<', tooltip: 'less than' },
                         { content: '>', label: '>', tooltip: 'greater than' },
                         { content: '<=', label: '\\le', tooltip: 'less than or equal' },
                         { content: '>=', label: '\\ge', tooltip: 'greater than or equal' },
                         { content: '|', label: '\\mid', tooltip: 'divides' },
-                        { contetn: '!|', label: '\\nmid', tooltip: 'does not divide' },
-                        { content: ' as ', label: '\\mathrm{as}', tooltip: 'ratio equality' },
+                        { content: '/|', label: '\\nmid', tooltip: 'does not divide' },
+                        { content: ' :: ', label: '::', tooltip: 'ratio equality' },
+                        { content: '~=', label: '\\cong', tooltip: 'congruent'},
+                        { content: '~', label: '\\sim', tooltip: 'similar' },
+                        { content: ' parallel ', label: '\\parallel', tooltip: 'parallel' },
+                        { content: ' perp ', label: '\\perp', tooltip: 'perpendicular' },
                         { content: ' subset ', label: '\\subseteq', tooltip: 'subset' },
                         { content: ' superset ', label: '\\supseteq', tooltip: 'super set' },
                         { content: ' propsubset ', label: '\\subset', tooltip: 'proper subset' },
                         { content: ' propsuperset ', label: '\\supset ', tooltip: 'proper superset' },
                         { content: ' in ', label: '\\in', tooltip: 'inclusion' },
-                        { content: '~=', label: '\\cong', tooltip: 'congruent' },
-                        { content: '~', label: '\\sim', tooltip: 'similar' },
-                        { content: ' parallel ', label: '\\parallel', tooltip: 'parallel' },
-                        { content: ' perp ', label: '\\perp', tooltip: 'perpendicular' },
                         { content: '===', label: '\\equiv', tooltip: 'equivalent' },
-                        { content: '!==', label: '\\not\\equiv', tooltip: 'not equivalent' }
+                        { content: '/==', label: '\\not\\equiv', tooltip: 'not equivalent' }
                     ]
                 ]
             },
@@ -200,16 +214,17 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '('+CRSR+')', label: '(\\,)', tooltip: 'parentheses' },
-                        { content: '['+CRSR+']', label: '[\\,]', tooltip: 'square brackets (list)' },
                         { content: '{'+CRSR+'}', label: '\\{\\,\\}', tooltip: 'curly braces (set)' },
+                        { content: '['+CRSR+']', label: '[\\,]', tooltip: 'square brackets (list)' },
                         { content: '<: '+CRSR+' :>', label: '\\langle\\,\\rangle', tooltip: 'angle brackets (vector)' },
                         { content: '|: '+CRSR+' :|', label: '|\\,|', tooltip: 'vertical bars (abs val, length, det, norm)' },
                         { content: '||: '+CRSR+' :||', label: '\\|\\,\\|', tooltip: 'double vertical bars (norm, length)' },
                         { content: 'floor('+CRSR+')', label: '\\left\\lfloor\\,\\right\\rfloor', tooltip: 'floor' },
                         { content: 'ceil('+CRSR+')', label: '\\left\\lceil\\,\\right\\rceil', tooltip: 'ceiling' },
+                        { content: ':', label: ':', tooltip: 'such that' },
                         { content: '&_', label: '\\square_\\square', tooltip: 'subscript' },
                         { content: '&^', label: '\\square^\\square', tooltip: 'superscript' },
-                        { content: '<: '+CRSR+' | :>', label: '\\left\\langle\\,\\mid\\,\\right\\rangle', tooltip: 'bra-ket' },
+                        { content: '<: '+CRSR+' |  :>', label: '\\left\\langle\\,\\mid\\,\\right\\rangle', tooltip: 'bra-ket' },
                         { content: '< '+CRSR+' |', label: '\\left\\langle\\,\\right|', tooltip: 'bra' },
                         { content: '| '+CRSR+' >', label: '\\left|\\,\\right\\rangle', tooltip: 'ket' }
                     ]
@@ -276,18 +291,22 @@ module.exports.palettes = [
                         { content: 'log(a'+CRSR+',n)', label: '\\log_n{a}', tooltip: 'log with base' },
                         { content: 'C(n'+CRSR+',r)', label: '\\binom{c}{r}', tooltip: 'bonimal coefficient (choose/combination)' },
                         { content: 'P(n'+CRSR+',r)', label: 'P(n,r)', tooltip: 'permutation' },
-                        { content: 'lim(f'+CRSR+',x,a)', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
-                        { content: 'diff(f'+CRSR+',x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
-                        { content: 'pdiff(f'+CRSR+',x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
-                        { content: 'grad('+CRSR+')', label: '\\mathrm{grad}{\\left( f \\right)}', tooltip: 'gradient' },
-                        { content: 'div(&vF'+CRSR+')', label: '\\mathrm{div}{\\left( f \\right)}', tooltip: 'divergence' },
-                        { content: 'curl(&vF'+CRSR+')', label: '\\mathrm{curl}{\\left( f \\right)}', tooltip: 'curl' },
-                        { content: 'int f'+CRSR+' &dx', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
-                        { content: 'int &_a &^b f'+CRSR+' &dx', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
-                        { content: 'sum(f'+CRSR+',i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
-                        { content: 'sum(f'+CRSR+',i,a,b)', label: '\\sum_{i=a}^b f', tooltip: 'sum over range' },
-                        { content: 'prod(f'+CRSR+',i)', label: '\\prod_i f', tooltip: 'product over domain set' },
-                        { content: 'prod(f'+CRSR+',i,a,b)', label: '\\prod_{i=a}^b f', tooltip: 'product over range' },
+                        { content: '&lim &_(x=a) f', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
+                        { content: '&df'+CRSR+'/&dx', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'differentiation' },
+                        { content: '&pdf'+CRSR+'/&pdx', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial differentiation' },
+                        { content: 'grad(&vf'+CRSR+')', label: '\\mathrm{grad}{\\left( \\vec{f} \\right)}', tooltip: 'gradient' },
+                        { content: 'div(&vF'+CRSR+')', label: '\\mathrm{div}{\\left( \\vec{F} \\right)}', tooltip: 'divergence' },
+                        { content: 'curl(&vF'+CRSR+')', label: '\\mathrm{curl}{\\left( \\vec{F} \\right)}', tooltip: 'curl' },
+                        { content: '&int f'+CRSR+' &dx', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
+                        { content: '&int &_a &^b f'+CRSR+' &dx', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
+                        { content: '&sum &_i f', label: '\\sum_i f', tooltip: 'sum over domain set' },
+                        { content: '&sum &_(i=m) &^n f', label: '\\sum_{i=m}^n f', tooltip: 'sum over range' },
+                        { content: '&prod &_i f', label: '\\prod_i f', tooltip: 'product over domain set' },
+                        { content: '&prod &_(i=m) &^n f', label: '\\prod_{i=m}^n f', tooltip: 'product over range' },
+                        { content: '&Union &_i f', label: '\\bigcup_i f', tooltip: 'union over domain set' },
+                        { content: '&Union &_(i=m) &^n f', label: '\\bigcup_{i=m}^n f', tooltip: 'union over range' },
+                        { content: '&Intersect &_i f', label: '\\bigcap_i f', tooltip: 'intersection over domain set' },
+                        { content: '&Intersect &_(i=m) &^n f', label: '\\bigcap_{i=m}^n f', tooltip: 'intersection over range' }
                     ]
                 ]
             }
@@ -302,11 +321,10 @@ module.exports.palettes = [
                 name: 'Arithmetic',
                 buttonGroups: [
                     [
-                        { content: '#i', label: 'i', tooltip: 'imaginary unit' },
                         { content: '+', label: '+', tooltip: 'plus/positive' },
                         { content: '-', label: '-', tooltip: 'minus/negative' },
-                        { content: '&pm', label: '\\pm', tooltip: 'plus or minus / positive or negative' },
-                        { content: '&mp', label: '\\mp', tooltip: 'minus or plus / negative or positive' },
+                        { content: '+/-', label: '\\pm', tooltip: 'plus or minus / positive or negative' },
+                        { content: '-/+', label: '\\mp', tooltip: 'minus or plus / negative or positive' },
                         { content: '*', label: '*', tooltip: 'times' },
                         { content: '/', label: '/', tooltip: 'divided by' },
                         { content: '^', label: '{}^\\wedge', tooltip: 'power' },
@@ -317,11 +335,13 @@ module.exports.palettes = [
                         { content: 'ln('+CRSR+')', label: '\\ln{}', tooltip: 'natural log' },
                         { content: '|: '+CRSR+' :|', label: '|\\,|', tooltip: 'absolute value' },
                         { content: '!', label: '!', tooltip: 'factorial' },
-                        { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
-                        { content: '::', label: '::', tooltip: 'ratio' },
-                        { content: ' as ', label: '\\mathrm{as}', tooltip: 'ratio equality' },
+                        { content: '#i', label: 'i', tooltip: 'imaginary unit' },
+                        { content: '&Re', label: '\\Re', tooltip: 'real part' },
+                        { content: '&Im', label: '\\Im', tooltip: 'imaginary part' },
+                        { content: '&:', label: ':', tooltip: 'ratio' },
+                        { content: '::', label: '::', tooltip: 'ratio equality' },
                         { content: '=', label: '=', tooltip: 'equal' },
-                        { content: '!=', label: '\\ne', tooltip: 'not equal' },
+                        { content: '/=', label: '\\ne', tooltip: 'not equal' },
                         { content: '<', label: '<', tooltip: 'less than' },
                         { content: '>', label: '>', tooltip: 'greater than' },
                         { content: '<=', label: '\\le', tooltip: 'less than or equal' },
@@ -341,10 +361,11 @@ module.exports.palettes = [
                         { content: '#R', label: '\\mathbb{R}', tooltip: 'real numbers' },
                         { content: '#C', label: '\\mathbb{C}', tooltip: 'complex numbers' },
                         { content: '@', label: '\\circ', tooltip: 'function composition' },
-                        { content: 'sum(f,i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
-                        { content: 'sum(f,i,a,b)', label: '\\sum_{i=a}^b f', tooltip: 'sum over range' },
-                        { content: 'prod(f,i)', label: '\\prod_i f', tooltip: 'product over domain set' },
-                        { content: 'prod(f,i,a,b)', label: '\\prod_{i=a}^b f', tooltip: 'product over range' }
+                        { content: '@@', label: 'f^{\circ n}', tooltip: 'function self-composition' },
+                        { content: '&sum &_i f', label: '\\sum_i f', tooltip: 'sum over domain set' },
+                        { content: '&sum &_(i=m) &^n f', label: '\\sum_{i=m}^n f', tooltip: 'sum over range' },
+                        { content: '&prod &_i f', label: '\\prod_i f', tooltip: 'product over domain set' },
+                        { content: '&prod &_(i=m) &^n f', label: '\\prod_{i=m}^n f', tooltip: 'product over range' }
                     ]
                 ]
             },
@@ -354,14 +375,11 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
-                        { content: '#t', label: '\\tau', tooltip: 'tau = 2*pi' },
+                        { content: '#tau', label: '\\tau', tooltip: 'tau = 2*pi' },
                         { content: '(: '+CRSR+' :)', label: '\\left(\\,\\right)', tooltip: 'open interval' },
                         { content: '(: '+CRSR+' :]', label: '\\left(\\,\\right]', tooltip: 'half-open interval (left)' },
                         { content: '[: '+CRSR+' :)', label: '\\left[\\,\\right)', tooltip: 'half-open interval (right)' },
                         { content: '[: '+CRSR+' :]', label: '\\left[\\,\\right]', tooltip: 'closed interval' },
-                        { content: '&D', label: '\\Delta', tooltip: 'coordinate difference' },
-                        { content: '::', label: '::', tooltip: 'ratio' },
-                        { content: ' as ', label: '\\mathrm{as}', tooltip: 'ratio equality' },
                         { content: '~=', label: '\\cong', tooltip: 'congruent' },
                         { content: '~', label: '\\sim', tooltip: 'similar' },
                         { content: ' para ', label: '\\parallel', tooltip: 'parallel' },
@@ -426,13 +444,17 @@ module.exports.palettes = [
                         { content: 'ceil('+CRSR+')', label: '\\left\\lceil\\,\\right\\rceil', tooltip: 'ceiling' },
                         { content: ' mod ', label: '\\mathrm{mod}', tooltip: 'modulus' },
                         { content: '|', label: '\\mid', tooltip: 'divides' },
-                        { content: '!|', label: '\\nmid', tooltip: 'does not divide' },
-                        { content: 'C(n,r)', label: '\\binom{c}{r}', tooltip: 'bonimal coefficient (choose/combination)' },
+                        { content: '/|', label: '\\nmid', tooltip: 'does not divide' },
+                        { content: 'n choose r', label: '\\binom{c}{r}', tooltip: 'bonimal coefficient (choose/combination)' },
                         { content: 'P(n,r)', label: 'P(n,r)', tooltip: 'permutation' },
-                        { content: 'sum(f'+CRSR+',i)', label: '\\sum_i f', tooltip: 'sum over domain set' },
-                        { content: 'sum(f'+CRSR+',i,a,b)', label: '\\sum_{i=a}^b f', tooltip: 'sum over range' },
-                        { content: 'prod(f'+CRSR+',i)', label: '\\prod_i f', tooltip: 'product over domain set' },
-                        { content: 'prod(f'+CRSR+',i,a,b)', label: '\\prod_{i=a}^b f', tooltip: 'product over range' }
+                        { content: '&sum &_i f', label: '\\sum_i f', tooltip: 'sum over domain set' },
+                        { content: '&sum &_(i=m) &^n f', label: '\\sum_{i=m}^n f', tooltip: 'sum over range' },
+                        { content: '&prod &_i f', label: '\\prod_i f', tooltip: 'product over domain set' },
+                        { content: '&prod &_(i=m) &^n f', label: '\\prod_{i=m}^n f', tooltip: 'product over range' },
+                        { content: '&Union &_i f', label: '\\bigcup_i f', tooltip: 'union over domain set' },
+                        { content: '&Union &_(i=m) &^n f', label: '\\bigcup_{i=m}^n f', tooltip: 'union over range' },
+                        { content: '&Intersect &_i f', label: '\\bigcap_i f', tooltip: 'intersection over domain set' },
+                        { content: '&Intersect &_(i=m) &^n f', label: '\\bigcap_{i=m}^n f', tooltip: 'intersection over range' }
                     ]
                 ]
             },
@@ -442,30 +464,50 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '#pi', label: '\\pi', tooltip: 'pi' },
-                        { content: '#t', label: '\\tau', tooltip: 'tau = 2*pi' },
+                        { content: '#tau', label: '\\tau', tooltip: 'tau = 2*pi' },
                         { content: '#e', label: '\\mathrm{e}', tooltip: 'e' },
                         { content: '#gamma', label: '\\gamma', tooltip: 'gamma constant' },
                         { content: ' infinity ', label: '\\infty', tooltip: 'infinity' },
-                        { content: '#R', label: '\\mathbb{R}', tooltip: 'real numbers' },
-                        { content: '#C', label: '\\mathbb{C}', tooltip: 'complex numbers' },
-                        { content: 'lim(f'+CRSR+',x,a)', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
-                        { content: 'diff(f'+CRSR+',x)', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'derivative' },
-                        { content: 'pdiff(f'+CRSR+',x)', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial derivative' },
+                        { content: '&lim &_(x->a) f', label: '\\displaystyle\\lim_{x\\to a} f', tooltip: 'limit' },
+                        { content: '&df'+CRSR+'/&dx', label: '\\frac{\\mathrm{d}f}{\\mathrm{d}x}', tooltip: 'derivative' },
+                        { content: '&pdf'+CRSR+'/&pdx', label: '\\frac{\\partial f}{\\partial x}', tooltip: 'partial derivative' },
                         { content: '\'', label: 'f\'', tooltip: 'prime derivative' },
                         { content: '.', label: '\\dot{x}', tooltip: 'dot derivative' },
-                        { content: 'sum(f(x&_i)*&Dx&_i,i,1,n)', label: '\\sum_{i=1}^n f(x_i) \\Delta x_i', tooltip: 'finite sum' },
-                        { content: 'int f'+CRSR+' &dx', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
-                        { content: 'int &_a &^b f'+CRSR+', &dx', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
                         { content: '&D', label: '\\Delta', tooltip: 'change' },
                         { content: '&d', label: '\\mathrm{d}', tooltip: 'differential' },
                         { content: '&pd', label: '\\partial', tooltip: 'partial differential' },
-                        { content: 'sum(a&_i'+CRSR+',i,1,infinity)', label: '\\sum_{i=1}^\\infty a_i', tooltip: 'infinite series' },
+                        { content: '&sum &_(i=1) &^n f(x&_i)*&Dx&_i', label: '\\sum_{i=1}^n f(x_i) \\Delta x_i', tooltip: 'finite sum' },
+                        { content: '&int f'+CRSR+' &dx', label: '\\int f \\mathrm{d}x', tooltip: 'indefinite integration' },
+                        { content: '&int &_a &^b f'+CRSR+' &dx', label: '\\int_a^b f \\mathrm{d}x', tooltip: 'definite integration' },
+                        { content: '&sum &_(i=1) &^infinity a&_i', label: '\\sum_{i=1}^\\infty a_i', tooltip: 'infinite series' },
                         { content: '&.', label: '\\cdot', tooltip: 'dot product' },
                         { content: '&x', label: '\\times', tooltip: 'cross product' },
                         { content: '&w', label: '\\wedge', tooltip: 'wedge product' },
                         { content: '&del', label: '\\vec\\nabla', tooltip: 'gradient' },
                         { content: '&del.', label: '\\vec\\nabla \\cdot', tooltip: 'divergence' },
                         { content: '&delx', label: '\\vec\\nabla \\times', tooltip: 'curl' }
+                    ]
+                ]
+            },
+
+            {
+                name: 'Logic',
+                buttonGroups: [
+                    [
+                        { content: 'true', label: '\\mathbf{T}', tooltip: 'true' },
+                        { content: 'false', label: '\\mathbf{F}', tooltip: 'false' },
+                        { content: ' and ', label: '\\wedge', tooltip: 'and' },
+                        { content: ' or ', label: '\\vee', tooltip: 'or' },
+                        { content: ' xor ', label: '\\veebar', tooltip: 'exclusive or' },
+                        { content: '~', label: '\\neg', tooltip: 'negation' },
+                        { content: '->', label: '\\rightarrow', tooltip: 'implies' },
+                        { content: '<-', label: '\\leftarrow', tooltip: 'implied by' },
+                        { content: '<->', label: '\\leftrightarrow', tooltip: 'if and only if' },
+                        { content: '===', label: '\\equiv', tooltip: 'equivalent' },
+                        { content: '/==', label: '\\not\\equiv', tooltip: 'not equivalent' },
+                        { content: ' forall '+CRSR+' -> ', label: '\\forall', tooltip: 'universal quantification ("for all")' },
+                        { content: ' exists '+CRSR+' : ', label: '\\exists', tooltip: 'existential quantification ("there exists")' },
+                        { content: ' unique '+CRSR+' : ', label: '\\exists !', tooltip: 'unique quantification ("there exists a unique")' }
                     ]
                 ]
             },
@@ -494,29 +536,11 @@ module.exports.palettes = [
                         { content: ' intersect ', label: '\\cap', tooltip: 'intersection' },
                         { content: '\\', label: '\\setminus', tooltip: 'set difference' },
                         { content: '&*', label: '\\times', tooltip: 'cartesian product' },
-                        { content: '&o+', label: '\\oplus', tooltip: 'direct sum' }
-                    ]
-                ]
-            },
-
-            {
-                name: 'Logic',
-                buttonGroups: [
-                    [
-                        { content: 'true', label: '\\mathbf{T}', tooltip: 'true' },
-                        { content: 'false', label: '\\mathbf{F}', tooltip: 'false' },
-                        { content: '&&', label: '\\wedge', tooltip: 'and' },
-                        { content: '||', label: '\\vee', tooltip: 'or' },
-                        { content: ' xor ', label: '\\oplus', tooltip: 'exclusive or' },
-                        { content: '~', label: '\\neg', tooltip: 'negation' },
-                        { content: '->', label: '\\rightarrow', tooltip: 'implies' },
-                        { content: '<-', label: '\\leftarrow', tooltip: 'implied by' },
-                        { content: '<->', label: '\\leftrightarrow', tooltip: 'if and only if' },
-                        { content: '===', label: '\\equiv', tooltip: 'equivalent' },
-                        { content: '!==', label: '\\not\\equiv', tooltip: 'not equivalent' },
-                        { content: ' forall '+CRSR+' , ', label: '\\forall', tooltip: 'universal quantification ("for all")' },
-                        { content: ' exists '+CRSR+' : ', label: '\\exists', tooltip: 'existential quantification ("there exists")' },
-                        { content: ' unique '+CRSR+' : ', label: '\\exists !', tooltip: 'unique quantification ("there exists a unique")' }
+                        { content: '&o+', label: '\\oplus', tooltip: 'direct sum' },
+                        { content: '&Union &_i f', label: '\\bigcup_i f', tooltip: 'union over domain set' },
+                        { content: '&Union &_(i=m) &^n f', label: '\\bigcup_{i=m}^n f', tooltip: 'union over range' },
+                        { content: '&Intersect &_i f', label: '\\bigcap_i f', tooltip: 'intersection over domain set' },
+                        { content: '&Intersect &_(i=m) &^n f', label: '\\bigcap_{i=m}^n f', tooltip: 'intersection over range' }
                     ]
                 ]
             },
@@ -526,18 +550,13 @@ module.exports.palettes = [
                 buttonGroups: [
                     [
                         { content: '<: '+CRSR+' :>', label: '\\langle\\,\\rangle', tooltip: 'vector delimiter' },
+                        { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
                         { content: '#ui', label: '\\hat\\imath', tooltip: 'x unit vector' },
                         { content: '#uj', label: '\\hat\\jmath', tooltip: 'y unit vector' },
                         { content: '#uk', label: '\\hat{k}', tooltip: 'z unit vector' },
                         { content: '[ '+CRSR+' ]', label: '[\\,]', tooltip: 'list/matrix delimiter' },
                         { content: '#0', label: '\\mathbf{0}', tooltip: 'zero matrix' },
-                        { content: '#1', label: '\\mathbf{I}', tooltip: 'identity/unit matrix' },
-                        { content: '<: '+CRSR+' | :>', label: '\\left\\langle\\,\\mid\\,\\right\\rangle', tooltip: 'bra-ket' },
-                        { content: '< '+CRSR+' |', label: '\\left\\langle\\,\\right|', tooltip: 'bra' },
-                        { content: '| '+CRSR+' >', label: '\\left|\\,\\right\\rangle', tooltip: 'ket' },
-                        { content: '#v0', label: '\\vec{0}', tooltip: 'zero vector' },
-                        { content: '&w', label: '\\wedge', tooltip: 'wedge product' },
-                        { content: '&ox', label: '\\otimes', tooltip: 'tensor product' }
+                        { content: '#1', label: '\\mathbf{I}', tooltip: 'identity/unit matrix' }
                     ]
                 ]
             }
