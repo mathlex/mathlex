@@ -18,7 +18,6 @@ grammar =
         o '',           -> ['Empty']
     ]
 
-
     expression: [
         o 'logical'
         o 'logical TEquiv logical',     -> ['Equivalent', $1, $3]
@@ -188,11 +187,14 @@ grammar =
         o 'TIntegral int_bounds algebraic TDifferential algebraic', ->
             if $2.lo? and $2.hi?
                 params = [$3, $5, $2.lo, $2.hi]
+            else if $2.lo?
+                params = [$3, $5, $2.lo]
             else
                 params = [$3, $5]
             ['Function', ['Variable', 'int'], params]
-
-        # o '',                                                       -> ['Empty']
+        # o 'error',                                                  ->
+        #     console.log 'EMPTY'
+        #     ['Empty']
     ]
 
     int_bounds: [

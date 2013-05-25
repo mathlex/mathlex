@@ -23,7 +23,7 @@ implicitMultiplication = (ast, immediateDir) ->
 
 exports.render = render = (ast) ->
     switch ast[0]
-        when 'Empty' then "{}"
+        when 'Empty' then "{\\Box}"
         when 'Iff' then "#{render ast[1]} \\leftrightarrow #{render ast[2]}"
         when 'Implies'
             if ast[3]
@@ -195,7 +195,11 @@ exports.render = render = (ast) ->
                         "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
 
                     when 'int', 'integral'
-                        bounds = if ast[2].length == 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}" else ''
+                        if ast[2].length == 4
+                            bounds = "_{#{render ast[2][2]}}^{#{render ast[2][3]}}"
+                        else if ast[2].length == 3
+                            bounds = "_{#{render ast[2][2]}}"
+                        else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
                     when 'diff'
                         if ast[2][0][0] in ['Variable', 'Constant']
