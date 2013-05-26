@@ -314,8 +314,8 @@ primary
 
             $$ = ['Function', ['Variable', 'int'], params];
         }
-    /*| error
-        { $$ = ['Empty']; }*/
+    | error
+        { $$ = ['Empty']; }
 ;
 
 int_bounds
