@@ -1,6 +1,7 @@
 COFFEE = coffee
 CAKE = cake
 NODE = node
+JISON = jison
 COMPASS = compass compile
 JAVA = java
 PDFLATEX = pdflatex
@@ -28,8 +29,8 @@ $(BUILD)/browser: $(BUILD)
 $(BUILD)/%.js: $(SRC)/%.coffee $(BUILD)
 	$(COFFEE) -c -o $(@D) $<
 
-$(BUILD)/parser.js: $(BUILD) $(BUILD)/grammar.js
-	$(NODE) -e "require('fs').writeFileSync('$@', require('./$(BUILD)/grammar.js').parser.generate());"
+$(BUILD)/parser.js: $(SRC)/grammar.yy $(BUILD)
+	$(JISON) $< -o $@
 
 #Cake
 $(BUILD)/browser/mathlex.raw.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer MathLex $(addprefix render/,latex sage text-tree)))
