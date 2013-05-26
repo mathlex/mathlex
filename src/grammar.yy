@@ -1,4 +1,3 @@
-
 %nonassoc TIff
 %left TImplies, TIf
 %left TOr
@@ -34,9 +33,10 @@
 
 start
     : expression
+        { return $1; }
     ;
 
-expresion
+expression
     : logical
     | logical TEquiv logical
         { $$ = ['Equivalent', $1, $3]; }
@@ -314,8 +314,8 @@ primary
 
             $$ = ['Function', ['Variable', 'int'], params];
         }
-    | error
-        { $$ = ['Empty']; }
+    /*| error
+        { $$ = ['Empty']; }*/
 ;
 
 int_bounds
