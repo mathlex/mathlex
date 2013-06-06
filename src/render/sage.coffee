@@ -27,7 +27,7 @@ render = (ast) ->
         when 'Xor' then "(#{render ast[1]} ^^ #{render ast[2]})"
         when 'Or' then "(#{render ast[1]} or #{render ast[2]})"
         when 'Not' then "(not #{render ast[1]})"
-        
+
         when 'Forall' then "all((#{render ast[1]}) for x in #{render ast[2]})"
         when 'Exists' then "any((#{render ast[1]}) for x in #{render ast[2]})"
         when 'Unique' then "[(#{render ast[1]}) for x in #{render ast[2]}].count(True)==1" # Ex: [(x^2>70) for x in xrange(10)].count(True)==1 where ast[1] = x^2>70 and ast[2] is [0..9]
@@ -48,16 +48,16 @@ render = (ast) ->
         when 'ProperSubset' then "(Set(#{render ast[1]}).issubset(Set(#{render ast[2]})) and Set(#{render ast[1]})!=Set(#{render ast[2]}))"
         when 'ProperSuperset' then "(Set(#{render ast[1]}).issuperset(Set(#{render ast[2]})) and Set(#{render ast[1]})!=Set(#{render ast[2]}))"
         when 'Inclusion' then "#{render ast[1]} in #{render ast[2]}"
-        
+
         # a|b === b is divisible by a
         when 'Divides' then "(#{render ast[2]})%(#{render ast[1]})==0"
         when 'NotDivides' then "(#{render ast[2]})%(#{render ast[1]})!=0"
-        
+
 
         when 'Plus' then "#{render ast[1]} + #{render ast[2]}"
         when 'Minus' then "#{render ast[1]} - #{render ast[2]}"
         when 'Times' then "#{render ast[1]} * #{render ast[2]}"
-        
+
         # a::b as c::d  <==> a/b == c/d
         when 'Divide', 'Ratio' then "(#{render unwrap ast[1]})/(#{render unwrap ast[2]})"
 
@@ -102,7 +102,7 @@ render = (ast) ->
         when 'Vector' # ****
             components = (render component for component in ast[1])
             "vector([#{components.join ","}])"
-        when 'EmptySet' then "Set(None)" 
+        when 'EmptySet' then "Set([ ])"
         when 'Set'
             elements = (render elem for elem in ast[1])
             "Set([#{elements.join ","}])"
@@ -115,6 +115,13 @@ render = (ast) ->
         when 'Bra' then "" #TODO: bra
         when 'Ket' then "" #TODO: ket
         when 'BraKet' then "" #TODO: bra-ket
+
+        when 'Integral'
+            bounds = [
+                if ast[3].lo? then render ast[3].lo else 'None'
+                if ast[3].hi? then render ast[3].hi else 'None'
+            ].join ','
+            "integral(#{render ast[1]},#{render ast[2]},#{bounds})"
 
         when 'Function'
             args = (render arg for arg in ast[2])
@@ -130,7 +137,7 @@ render = (ast) ->
                         "integral(#{render ast[2][0]},#{render ast[2][1]},#{bounds})"
                     when 'diff' then "diff(#{render ast[2][0]},#{render ast[2][1]})"
                     when 'pdiff' then "diff(#{render ast[2][0]},#{render ast[2][1]})"
-                    
+
                     when 'log'
                         base = if ast[2].length == 2 then "_{#{render ast[2][1]}}" else ''
                         "log(#{render ast[2][0]},#{base})"
@@ -156,16 +163,17 @@ render = (ast) ->
 
         when 'Literal' then ast[2]
         when 'Variable'
-            variables.push if ast[1] not in variables 
+            variables.push if ast[1] not in variables
             ast[1]
 
         when 'Constant' then switch ast[1]
+            when 't', 'tau' then "(2*pi)"
             when 'p', 'pi' then "pi"
             when 'gamma' then "euler_gamma"
             when 'e' then "e"
-            when 'infinity' then "infinity"
-            when 'true', 't', 'T' then "True"
-            when 'false', 'f', 'F' then "False"
+            when 'infinity', 'oo' then "infinity"
+            when 'true', 'T' then "True"
+            when 'false', 'F' then "False"
             when 'O' then "\\mathbb{O}" # ***
             when 'H' then "\\mathbb{H}" # ***
             when 'C' then "Set(CC)"

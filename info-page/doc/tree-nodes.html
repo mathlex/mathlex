@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MathLex
+      - Documentation
+      Tree Nodes</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+  <body class="dark"><a id="power-button" title="Toggle light and dark theme"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
+    <header>
+      <h1>MathLex
+        <div class="subtitle">A JavaScript Mathematical Entry System</div>
+      </h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html"><span>Home</span></a></li>
+          <li><a href="../thesis.pdf"><span>Thesis [PDF]</span></a></li>
+          <li><a href="../quick-start.html"><span>Quick-Start</span></a></li>
+          <li class="current"><a href="../doc/index.html" class="current"><span>Documentation</span></a></li>
+          <li><a href="../demo.html"><span>Demo</span></a></li>
+          <li><a href="../contact.html"><span>Contact Us</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <article>
+      <nav class="doc">
+        <ul>
+          <li><a id="previous" title="Appendix A: List of All Recognized Symbols and Tokens" href="tokens.html" class="icon-button"><span class="screen-reader-text">Appendix A: List of All Recognized Symbols and Tokens</span><span data-icon="&#59229;" aria-hidden="true" class="icon icon-only"></span></a></li>
+          <li><a id="index" title="Table of Contents" href="index.html" class="icon-button"><span class="screen-reader-text">Table of Contents</span><span data-icon="&#9776;" aria-hidden="true" class="icon icon-only"></span></a></li>
+        </ul>
+      </nav>
+      <h1>Appendix B: List of All Syntax Tree Nodes</h1>
+      <p>
+        This is a comprehensive list of all math operations that MathLex recognizes. In JavaScript,
+        each node is represented as an Array, the 0<sup>th</sup> index of which is a string ID.
+        Any additional information is stored in the indices as described by each node type below.
+      </p>
+      <p>Note that most of the tree nodes correspond to their <a href="tokens.html">operator tokens</a>.</p>
+      <p>Unless otherwise noted, each purple "slot" is a (recursive) container for other node types.</p>
+      <dl class="nodes">
+        <dt><span class="node">Empty</span></dt>
+        <dt><span class="node">Equivalent<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Iff<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Implies<span>hypothesis</span><span>conclusion</span><span>syntax_used</span></span></dt>
+        <dd>
+          <code>systax_used</code> is a boolean variable indicating whether the "implies" (true)
+          or "implied by" (false) syntax was used
+        </dd>
+        <dt><span class="node">Or<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Xor<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">And<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Not<span>clause</span></span></dt>
+        <dt><span class="node">Forall<span>relation</span><span>quantified_statement</span></span></dt>
+        <dt><span class="node">Exists<span>relation</span><span>quantified_statement</span></span></dt>
+        <dt><span class="node">Unique<span>relation</span><span>quantified_statement</span></span></dt>
+        <dt><span class="node">Equal<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">NotEqual<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">RatioEqual<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Congruent<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Similar<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Parallel<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Perpendicular<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Less<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">LessEqual<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">GreaterEqual<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Greater<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Subset<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Superset<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">ProperSubset<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">ProperSuperset<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Inclusion<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Divides<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">NotDivides<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Ratio<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">PlusMinus<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">MinusPlus<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Plus<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Minus<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Times<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Divide<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Modulus<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Exponent<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Superscript<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Subscript<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">DotProduct<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">CrossProduct<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">WedgeProduct<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">TensorProduct<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Compose<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Union<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">Intersection<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">SetDiff<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">DirectSum<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">CartesianProduct<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">PosNeg<span>expr</span></span></dt>
+        <dt><span class="node">NegPos<span>expr</span></span></dt>
+        <dt><span class="node">Positive<span>expr</span></span></dt>
+        <dt><span class="node">Negative<span>expr</span></span></dt>
+        <dt><span class="node">Vectorizer<span>expr</span></span></dt>
+        <dt><span class="node">UnitVectorizer<span>expr</span></span></dt>
+        <dt><span class="node">Partial<span>expr</span></span></dt>
+        <dt><span class="node">Differential<span>expr</span></span></dt>
+        <dt><span class="node">Change<span>expr</span></span></dt>
+        <dt><span class="node">Gradient<span>expr</span></span></dt>
+        <dt><span class="node">Divergence<span>expr</span></span></dt>
+        <dt><span class="node">Curl<span>expr</span></span></dt>
+        <dt><span class="node">Factorial<span>expr</span></span></dt>
+        <dt><span class="node">Prime<span>expr</span></span></dt>
+        <dt><span class="node">DotDiff<span>expr</span></span></dt>
+        <dt><span class="node">Function<span>func_builder</span><span>arguments</span></span></dt>
+        <dt><span class="node">Variable<span>name</span></span></dt>
+        <dt><span class="node">Literal<span>type</span><span>value</span></span></dt>
+        <dd><code>type</code> is either 'Int' or 'Float'</dd>
+        <dt><span class="node">Constant<span>name</span></span></dt>
+        <dt><span class="node">Vector<span>components</span></span></dt>
+        <dt><span class="node">Bra<span>expr</span></span></dt>
+        <dt><span class="node">Ket<span>expr</span></span></dt>
+        <dt><span class="node">BraKet<span>lhs</span><span>rhs</span></span></dt>
+        <dt><span class="node">List<span>elements</span></span></dt>
+        <dt><span class="node">Range<span>left_inclusive</span><span>lower_bound</span><span>upper_bound</span><span>right_inclusive</span></span></dt>
+        <dd><code>left_inclusive</code> and <code>right_inclusive</code> parameters are boolean values</dd>
+        <dt><span class="node">AbsVal<span>expr</span></span></dt>
+        <dt><span class="node">Norm<span>expr</span></span></dt>
+        <dt><span class="node">Parentheses<span>expr</span></span></dt>
+        <dt><span class="node">Integral<span>expr</span><span>differential</span><span>bounds</span></span></dt>
+        <dd><code>bounds</code> is a JS object containing a <code>lo</code> index, <code>hi</code> index, both, or none</dd>
+        <dt><span class="node">EmptySet</span></dt>
+        <dt><span class="node">Set<span>components</span></span></dt>
+        <dt><span class="node">SetBuilder<span>build_expr</span><span>predicates</span></span></dt>
+      </dl>
+    </article>
+    <footer>
+      <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
+      <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
+    </footer>
+    <script>window.PATH_PREFIX = '../';</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="../javascripts/main.js"></script>
+  </body>
+</html>

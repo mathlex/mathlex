@@ -1,8 +1,9 @@
-index.html
 /build
 /css
 /doc/*.pdf
+/node_modules
 
+.sass-cache
 .dropbox
 Icon?
 

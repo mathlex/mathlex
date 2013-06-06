@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      MathLex
+      - Documentation
+      - Building from Source</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+  <body class="dark"><a id="power-button" title="Toggle light and dark theme"><span class="screen-reader-text">Toggle light and dark theme</span><span data-icon="&#128161;" aria-hidden="true" class="icon icon-only"></span></a>
+    <header>
+      <h1>MathLex
+        <div class="subtitle">A JavaScript Mathematical Entry System</div>
+      </h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html"><span>Home</span></a></li>
+          <li><a href="../thesis.pdf"><span>Thesis [PDF]</span></a></li>
+          <li><a href="../quick-start.html"><span>Quick-Start</span></a></li>
+          <li class="current"><a href="../doc/index.html" class="current"><span>Documentation</span></a></li>
+          <li><a href="../demo.html"><span>Demo</span></a></li>
+          <li><a href="../contact.html"><span>Contact Us</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <article>
+      <nav class="doc">
+        <ul>
+          <li><a id="previous" title="MathLex Language Specification" href="language.html" class="icon-button"><span class="screen-reader-text">MathLex Language Specification</span><span data-icon="&#59229;" aria-hidden="true" class="icon icon-only"></span></a></li>
+          <li><a id="next" title="Appendix A: List of All Recognized Symbols and Tokens" href="tokens.html" class="icon-button"><span class="screen-reader-text">Appendix A: List of All Recognized Symbols and Tokens</span><span data-icon="&#59230;" aria-hidden="true" class="icon icon-only"></span></a></li>
+          <li><a id="index" title="Table of Contents" href="index.html" class="icon-button"><span class="screen-reader-text">Table of Contents</span><span data-icon="&#9776;" aria-hidden="true" class="icon icon-only"></span></a></li>
+        </ul>
+      </nav>
+      <h1>Section Index</h1>
+      <nav class="toc">
+        <ul>
+          <li><a href="#requirements-and-dependencies">Requirements and Dependencies</a></li>
+          <li><a href="#build-instructions">Build Instructions</a></li>
+          <li><a href="#writing-your-own-translator">Writing Your own Translator</a></li>
+        </ul>
+      </nav>
+      <section id="building-from-source">
+        <h1>Building from Source</h1>
+        <p>
+          Although it is open source, MathLex is currently copyrighted and cannot be used in
+          any project without explicit permission. It will eventually be made available under a
+          non-commercial, free-use license (such as BSD, MIT, Apache, or Creative Commons).
+        </p>
+        <div class="two-alt cols border">
+          <div class="col">
+            <p class="note">
+              <strong>NOTE:</strong> MathLex is distributed in a precompiled, optimized, and minified JS
+              file. Building MathLex from source should not be necessary unless you know what you are
+              doing and need/want to make changes.
+            </p>
+          </div>
+          <div class="col align-center"><a data-icon="&#59156;" href="../src/mathlex.zip" download="mathlex-source.zip" class="download">Download Source Code</a></div>
+        </div>
+        <section id="requirements-and-dependencies">
+          <h2>Requirements and Dependencies</h2>
+          <p>
+            For simplicity, this documentation assumes you are using a UNIX (including Mac
+            OS X) or GNU/Linux environment and are familiar with basic JavaScript and CoffeeScript programming.
+            
+          </p>
+          <p>Make sure you have the following applications and libraries installed:</p>
+          <ul>
+            <li>
+              <a href="http://nodejs.org" target="_blank">Node.js</a> with the following modules:
+              <a href="http://coffeescript.org" target="_blank">CoffeeScript</a>,
+              <a href="http://handlebarsjs.com" target="_blank">Handlebars</a>,
+              <a href="http://zaach.github.com/jison" target="_blank">Jison</a>, and
+              <a href="http://github.com/mishoo/UglifyJS2" target="_blank">UglifyJS</a>
+            </li>
+            <li>
+              <a href="http://ruby-lang.org" target="_blank">Ruby</a> with the <a href="compass-style.org" target="_blank">Compass</a> gem.
+              
+            </li>
+          </ul>
+        </section>
+        <section id="build-instructions">
+          <h2>Build Instructions</h2>
+          <p>
+            Download and extract the MathLex source code. MathLex is written in CoffeeScript files located
+            in the <code>src</code> directory. These files are easier to read and understand than their
+            compiled JavaScript counterparts.
+            
+          </p>
+          <p>Type the following into your console to run the automated build script (the <code>%</code> represents your prompt and should be ignored)</p>
+          <pre class="brush: shell">% cd /path/to/mathlex-source
+% make
+</pre>
+          <p>
+            The compiled JS files will be written to <code>build/browser</code>. Individual components
+            will be saved to the <code>build</code> directory and mimic the structure of the CoffeeScript
+            files.
+            
+          </p>
+        </section>
+        <section id="writing-your-own-translator">
+          <h2>Writing Your own Translator</h2>
+          <p>
+            Translators or renderers are nothing more than recursive tree iterators. In other words,
+            they perform an action at each tree node by calling itself for each of that node's children.
+            For example, a translator for the simple expression tree <code>['Plus', ['Literal', 'Int', 5],
+            ['Literal', 'Int', 10]]</code> could be evaluated with the following simple function:
+            
+          </p>
+          <pre class="brush: js">var evalExpression = function (tree) {
+  if (tree[0] === 'Literal') {
+    // return the value of the node to the previous level
+    return tree[2];
+  } else if (tree[0] === 'Plus') {
+    // return the sum of each child node to the previous level
+    return evalExpression(tree[1]) + evalExpression(tree[2]);
+  } else {
+    // tree node ID is not known
+    var message = 'unknown tree node: ' + tree[0];
+    console.log(message);
+    throw message;
+  }
+}
+</pre>
+          <p>Or equivalently,</p>
+          <pre class="brush: js">var evalExpression = function (tree) {
+  switch (tree[0]) {
+    case 'Literal':
+      return tree[2];
+    case 'Plus':
+      return evalExpression(tree[1]) + evalExpression(tree[2]);
+    default:
+      var message = 'unknown tree node: ' + tree[0];
+      console.log(message);
+      throw message;
+  }
+}
+</pre>
+          <p>
+            Notice how the function calls itself in the <tt>if (tree[0] === 'Plus')</tt> case to
+            determine the value of each child node before adding them together. Writing large
+            <code>if</code> or <code>switch</code> statements in JavaScript can be messy due to all the
+            extra syntax, so I recommend using <a href="http://coffeescript.org" target="_blank">CoffeeScript</a>
+            instead:
+            
+          </p>
+          <pre class="brush: coffeescript">evalExpression = (tree) -> switch tree[0]
+  when 'Literal' then tree[2]
+  when 'Plus' then evalExpression(tree[1]) + evalExpression(tree[2])
+  else
+    message = "unknown tree node: #{tree[0]}"
+    console.log message
+    </pre>
+          <p>
+            Your language choice does not matter since CoffeeScript will be compiled into JavaScript
+            anyway. Before you start writing, you need to do some initial setup.
+            
+          </p>
+          <section id="initial-setup">Initial Setup
+            <h3>Initial Setup</h3>
+          </section>
+        </section>
+      </section>
+    </article>
+    <footer>
+      <p>Copyright &copy; 2012 Matthew Barry. All rights reserved.</p>
+      <p>MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.</p>
+    </footer>
+    <script>window.PATH_PREFIX = '../';</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="../javascripts/main.js"></script>
+    <script src="../javascripts/lib/syntaxhighlighter/scripts/XRegExp.js"></script>
+    <script src="../javascripts/lib/syntaxhighlighter/scripts/shCore.js"></script>
+    <script src="../javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+  </body>
+</html>

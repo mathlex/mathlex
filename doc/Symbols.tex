@@ -297,8 +297,16 @@
         \end{tabular} &  \\[2pt]
       Derivative & \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \) & \texttt{diff(f(x), x)} & \\[8pt]
       Partial Derivative & \( \displaystyle \frac{\partial}{\partial x} \left( f(x,y) \right) \) & \texttt{pdiff(f(x,y), x)} & \\[8pt]
-      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x)} & \\[8pt]
-      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x,a,b)} & \\[8pt]
+      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) &
+        \begin{tabular}{c}
+          \texttt{int(f(x),x)} \\
+          \texttt{\&int f(x) \&dx}
+        \end{tabular} & \\[8pt]
+      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) &
+        \begin{tabular}{c}
+          \texttt{int(f(x),x,a,b)} \\
+          \texttt{\&int \&\_a \&\^{}b f(x) \&dx}
+        \end{tabular} & \\[8pt]
       Sum Over Set & \( \displaystyle \sum_{i \in S} a_i \) & \texttt{sum(a\&\_i, i in S)} & \\[8pt]
       Sum Over Range & \( \displaystyle \sum_{i=a}^b a_i \) & \texttt{sum(a\&\_i,i,a,b)} & \\[8pt]
       Product Over Set & \( \displaystyle \prod_{i \in S} a_i \) &
@@ -516,8 +524,16 @@
       Prime derivative & \( f' \) & \texttt{f'} & Derivative w.r.t. x or first or only variable \\
       Dot derivative & \( \dot{f} \) & \texttt{f.} & Derivative w.r.t. t or second variable \\
       Finite Sum & \( \displaystyle \sum_{i=1}^n f(x_i) \Delta_i  \) & \texttt{sum(f(x\&\_i)*Delta\&\_i,i,1,n)} & \\[8pt]
-      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x)} & \\[8pt]
-      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) & \texttt{int(f(x),x,a,b)} & \\[4pt]
+      Indefinite Integral & \( \displaystyle \int f(x) \,\mathrm{d}x \) &
+        \begin{tabular}{c}
+          \texttt{int(f(x),x)} \\
+          \texttt{\&int f(x) \&dx}
+        \end{tabular} & \\[8pt]
+      Definite Integral & \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \) &
+        \begin{tabular}{c}
+          \texttt{int(f(x),x,a,b)} \\
+          \texttt{\&int \&\_a \&\^{}b f(x) \&dx}
+        \end{tabular} & \\[4pt]
       Change & \( \Delta x \) & \texttt{\&D x} & Coordinate Difference \\
       Differential & \( \mathrm{d}x \) & \texttt{\&d x} & \\
       Partial Differential & \( \partial x \) & \texttt{\&pd x} & \\
@@ -608,7 +624,7 @@
       Universal Quantifier & \( \forall x P(x) \) & \texttt{forall x ,~P(x)} & ``For all \ldots'' \\
       Existential Quantifier & \( \exists x P(x) \) & \texttt{exists x :~P(x)} & ``There exists \ldots such that'' \\
       Unique Quantifier & \( \exists ! x P(x) \) & \texttt{unique x :~P(x)} & ``There exists a unique \ldots such that'' \\
-      \hline  
+      \hline
     \end{tabular}
   \end{table}
   % subsection Logic (end)

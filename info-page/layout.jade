@@ -1,0 +1,38 @@
+block vars
+  page_id = 'home'
+  path_prefix = ''
+
+!!!
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title
+      block title
+        | MathLex
+    link(rel='stylesheet', href='#{path_prefix}stylesheets/style.css')
+    block stylesheets
+
+  body.dark
+    a#power-button(title='Toggle light and dark theme')
+      span.screen-reader-text Toggle light and dark theme
+      span.icon.icon-only(data-icon!='&#128161;', aria-hidden='true')
+    header
+      h1 MathLex
+        .subtitle A JavaScript Mathematical Entry System
+      nav: ul
+        nav = [['home','index.html','Home'], ['thesis', 'thesis.pdf', 'Thesis [PDF]'], ['quickstart','quick-start.html','Quick-Start'], ['doc','doc/index.html','Documentation'], ['demo','demo.html','Demo'], ['contact','contact.html','Contact Us']]
+        each item in nav
+          if page_id === item[0]
+            li.current: a.current(href=path_prefix + item[1]): span= item[2]
+          else
+            li: a(href=path_prefix + item[1]): span= item[2]
+    article
+      block content
+    footer
+      p Copyright &copy; 2012 Matthew Barry. All rights reserved.
+      p MathLex is to be used for testing purposes only. It is not to be used in any product without explicit permission from the author.
+
+    script window.PATH_PREFIX = '#{path_prefix}';
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+    script(src='#{path_prefix}javascripts/main.js')
+    block javascripts

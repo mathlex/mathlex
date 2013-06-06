@@ -1,0 +1,49 @@
+extends ../layout
+
+block append vars
+  page_id = 'doc'
+  path_prefix = '../'
+
+block append title
+  | - Documentation
+
+block content
+  h1 Table of Contents
+  nav.toc
+    ul
+      li: a(href='language.html') Language Specification
+        ul
+          li: a(href='language.html#by-type') Symbols by Type
+            ul
+              li: a(href='language.html#constants') Constants
+              li: a(href='language.html#unary') Unary Operators
+              li: a(href='language.html#binary') Binary Operators
+              li: a(href='language.html#relations') Relations
+              li: a(href='language.html#delimiters') Delimiters
+              li: a(href='language.html#functions') Functions
+          li: a(href='language.html#by-topic') Symbols by Topic
+            ul
+              li: a(href='language.html#arithmetic') Arithmetic
+              li: a(href='language.html#algebra') Algebra
+              li: a(href='language.html#geometry') Geometry
+              li: a(href='language.html#trigonometry') Trigonometry
+              li: a(href='language.html#discrete') Discrete
+              li: a(href='language.html#calculus') Calculus
+              li: a(href='language.html#set-theory') Set Theory
+              li: a(href='language.html#logic') Logic
+              li: a(href='language.html#linear-algebra') Linear Algebra
+      li: a(href='how-mathlex-works.html') How MathLex Works
+        ul
+          li: a(href='how-mathlex-works.html#ml2tree') MathLex &rarr; Syntax Tree
+          li: a(href='how-mathlex-works.html#tree2output') Syntax Tree &rarr; Output
+      li: a(href='building.html') Building from Source
+        ul
+          li: a(href='building.html#requirements-and-dependencies') Requirements and Dependencies
+          li: a(href='building.html#parser') Parser
+          li: a(href='building.html#renderers') Renderers
+            ul
+              li: a(href='building.html#writing-your-own-translator') Writing your own Translator
+      li Appendices
+        ol(type='A')
+          li: a(href='tokens.html') List of Tokens
+          li: a(href='tree-nodes.html') List of Syntax Nodes

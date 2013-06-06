@@ -1,0 +1,73 @@
+.dark {
+  .syntaxhighlighter {
+    background-color: #1b2426 !important;
+    .line {
+      &.alt1 { background-color: #1b2426 !important; }
+      &.alt2 { background-color: #1b2426 !important; }
+      &.highlighted {
+        &.alt1, &.alt2 { background-color: #323e41 !important; }
+        &.number { color: #b9bdb6 !important; }
+      }
+    }
+
+    table caption { color: #b9bdb6 !important; }
+
+    .gutter {
+      color: #afafaf !important;
+      .line {
+        border-right: 3px solid #435a5f !important;
+        &.highlighted {
+          background-color: #435a5f !important;
+          color: #1b2426 !important;
+        }
+      }
+    }
+
+    &.printing .line .content { border: none !important; }
+
+    &.collapsed {
+      overflow: visible !important;
+      .toolbar {
+        color: #5ba1cf !important;
+        background: black !important;
+        border: 1px solid #435a5f !important;
+        a {
+          color: #5ba1cf !important;
+          &:hover {
+            color: #5ce638 !important;
+          }
+        }
+      }
+    }
+
+    .toolbar {
+      color: white !important;
+      background: #435a5f !important;
+      border: none !important;
+      a {
+        color: white !important;
+        &:hover { color: #e0e8ff !important; }
+      }
+    }
+
+    .plain, .plain a { color: #b9bdb6 !important; }
+    .comments, .comments a { color: #878a85 !important; }
+    .string, .string a { color: #5ce638 !important; }
+    .keyword { color: #5ba1cf !important; }
+    .preprocessor { color: #435a5f !important; }
+    .variable { color: #ffaa3e !important; }
+    .value { color: #009900 !important; }
+    .functions { color: #ffaa3e !important; }
+    .constants { color: #e0e8ff !important; }
+
+    .script {
+      font-weight: bold !important;
+      color: #5ba1cf !important;
+      background-color: none !important;
+    }
+
+    .color1, .color1 a { color: #e0e8ff !important; }
+    .color2, .color2 a { color: white !important; }
+    .color3, .color3 a { color: #ffaa3e !important; }
+  }
+}
