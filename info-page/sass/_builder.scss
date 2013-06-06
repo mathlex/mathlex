@@ -324,11 +324,19 @@
         thead {
             @include background(linear-gradient(top, lighten($bgcolor, 5%), darken($bgcolor, 5%)));
         }
+    }
 
-        caption {
-            text-align: center;
-            font-weight: bold;
-            padding: 0.3em;
+    table caption, figure figcaption {
+        text-align: center;
+        font-weight: bold;
+        padding: 0.3em;
+    }
+
+    figure {
+        margin: 0 auto;
+        max-width: 400px;
+        img {
+            width: 100%;
         }
     }
 

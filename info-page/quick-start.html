@@ -27,6 +27,7 @@
       <nav>
         <ul>
           <li><a href="index.html"><span>Home</span></a></li>
+          <li><a href="thesis.pdf"><span>Thesis [PDF]</span></a></li>
           <li class="current"><a href="quick-start.html" class="current"><span>Quick-Start</span></a></li>
           <li><a href="doc/index.html"><span>Documentation</span></a></li>
           <li><a href="demo.html"><span>Demo</span></a></li>
@@ -39,7 +40,7 @@
         This page is meant to be a 10-minute crash-course on how to use the MathLex JavaScript library.
         In the process, you will learn how to produce a sample page called <code>mathlexsample.html</code>,
         which contains a simple numerical calculator. For more information, please visit the
-        <a href="doc.html">full documentation</a>.
+        <a href="doc/index.html">full documentation</a>.
         
       </p>
       <h1 id="quick-start">Quick Start</h1>
@@ -85,28 +86,28 @@
           </div>
         </div>
       </div>
-      <pre class="brush: js; html-script: true">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-  &lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;MathLex Sample&lt;/title&gt;
-    &lt;style&gt;
+      <pre class="brush: js; html-script: true"><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MathLex Sample</title>
+    <style>
       body { text-align: center; }
       #math-display, #math-output { border: 1px solid #000; margin: 5px 0; }
-    &lt;/style&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;MathLex Sample&lt;/h1&gt;
-    &lt;h2&gt;A Simple Calculator&lt;/h2&gt;
-    &lt;input id=&quot;math-input&quot; type=&quot;text&quot; placeholder=&quot;Type math here&quot;&gt;
-    &lt;div id=&quot;math-display&quot;&gt;\[ \]&lt;/div&gt;
-    &lt;input id=&quot;send-math&quot; type=&quot;button&quot; value=&quot;Calculate&quot;&gt;
-    &lt;div id=&quot;math-output&quot;&gt;\[ \]&lt;/div&gt;
+    </style>
+  </head>
+  <body>
+    <h1>MathLex Sample</h1>
+    <h2>A Simple Calculator</h2>
+    <input id="math-input" type="text" placeholder="Type math here">
+    <div id="math-display">\[ \]</div>
+    <input id="send-math" type="button" value="Calculate">
+    <div id="math-output">\[ \]</div>
     
-    &lt;script src=&quot;javascripts/mathlex.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;&lt;/script&gt;
-    &lt;script&gt;
+    <script src="javascripts/mathlex.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
       $(document).ready(function () {
         // get MathJax output object
         var mjDisplayBox, mjOutBox;
@@ -115,12 +116,12 @@
           mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
         });
         
-        // &quot;live update&quot; MathJax whenever a key is pressed
+        // "live update" MathJax whenever a key is pressed
         $('#math-input').on('keyup', function (evt) {
           var math = $(this).val();
           $(this).css('color', 'black');
           
-          if (math.length &gt; 0) {
+          if (math.length > 0) {
             try {
               var tree = MathLex.parse(math),
                   latex = MathLex.render(tree, 'latex');
@@ -138,13 +139,15 @@
         // send output to sage server
         $('#send-math').on('click', function (evt) {
           var math = $('#math-input').val();
-          if (math.length &gt; 0) {
+          if (math.length > 0) {
             try {
               var tree = MathLex.parse(math),
                   sageCode = MathLex.render(tree, 'sage');
               $.post('http://aleph.sagemath.org/service?callback=?',
                      { code: 'print latex('+sageCode+')' }, function (data) {
-              // AJAX success callback
+              // HACK: Firefox does not convert data to JSON
+                if (typeof(data) === 'string') { data = $.parseJSON(data);
+                // AJAX success callback
                 if (data.success) {
                   MathJax.Hub.Queue(['Text', mjOutBox, data.stdout]);
                 } else {
@@ -157,9 +160,9 @@
           }
         });
       });
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+    </script>
+  </body>
+</html>
 </pre>
       <p>
         <em>Step 3</em>: The following HTML snippet creates the screen layout. Lines 12 and 13 create a header,
@@ -168,12 +171,12 @@
         output window that will also be rendered by MathJax.
         
       </p>
-      <pre class="brush: html; first-line: 12">&lt;h1&gt;MathLex Sample&lt;/h1&gt;
-&lt;h2&gt;A Simple Calculator&lt;/h2&gt;
-&lt;input type=&quot;text&quot; id=&quot;math-input&quot; placeholder=&quot;Type math here&quot; /&gt;
-&lt;div id=&quot;math-display&quot;&gt;\[ \]&lt;/div&gt;
-&lt;input type=&quot;button&quot; id=&quot;send-math&quot; value=&quot;Calculate&quot; /&gt;
-&lt;div id=&quot;math-output&quot;&gt;\[ \]&lt;/div&gt;
+      <pre class="brush: html; first-line: 12"><h1>MathLex Sample</h1>
+<h2>A Simple Calculator</h2>
+<input type="text" id="math-input" placeholder="Type math here" />
+<div id="math-display">\[ \]</div>
+<input type="button" id="send-math" value="Calculate" />
+<div id="math-output">\[ \]</div>
 </pre>
       <p>
         <em>Step 4</em>: To be able to process the math input, you need to include the MathLex JavaScript
@@ -183,7 +186,7 @@
         the appropriate path to your MathLex JavaScript file.
         
       </p>
-      <pre class="brush: html; first-line: 19">&lt;script src=&quot;javascripts/mathlex.js&quot;&gt;&lt;/script&gt;</pre>
+      <pre class="brush: html; first-line: 19"><script src="javascripts/mathlex.js"></script></pre>
       <p>
         <em>Step 5</em>: If you plan to use <a href="http://www.mathjax.org/download" target="_blank">MathJax</a>,
         <a href="http://jquery.com" target="_blank">jQuery</a>,
@@ -196,8 +199,8 @@
         Network (CDN) URLs:
         
       </p>
-      <pre class="brush: html; first-line: 20">&lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;&lt;/script&gt;
+      <pre class="brush: html; first-line: 20"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </pre>
       <p><em>Step 6</em>: The math input from line 14 is processed in two ways:</p>
       <ol>
@@ -241,12 +244,12 @@ MathJax.Hub.Queue(function () {
         blank out the <code>math-display</code> and <code>math-output</code> boxes.
         
       </p>
-      <pre class="brush: js; first-line: 31">// &quot;live update&quot; MathJax whenever a key is pressed
+      <pre class="brush: js; first-line: 31">// "live update" MathJax whenever a key is pressed
 $('#math-input').on('keyup', function (evt) {
   var math = $(this).val();
   $(this).css('color', 'black');
   
-  if (math.length &gt; 0) {
+  if (math.length > 0) {
     try {
       var tree = MathLex.parse(math),
           latex = MathLex.render(tree, 'latex');
@@ -265,31 +268,34 @@ $('#math-input').on('keyup', function (evt) {
         <em>Step 8:</em> The last thing to do is listen to the <strong>Calculate</strong>
         button to send the <code>math-input</code> from line 14 to a Sage processor
         and display the result in the <code>math-output</code> box. We again use jQuery's DOM event
-        handling system in lines 51 through 70. Line 51 watches for a
-        <code>click</code> event in the <code>send-math</code> button. When this occurs, line 52
-        stores the value of the <code>math-input</code> as a variable <code>math</code>. Line 53
+        handling system in lines 52 through 71. Line 52 watches for a
+        <code>click</code> event in the <code>send-math</code> button. When this occurs, line 53
+        stores the value of the <code>math-input</code> as a variable <code>math</code>. Line 54
         checks if <code>math</code> has a non-zero length, and if it does, then, in lines
-        55&ndash;56, MathLex tries to parse the <code>math</code> into a <code>tree</code>
+        56&ndash;57, MathLex tries to parse the <code>math</code> into a <code>tree</code>
         structure, translate it into sage, and then store the result in a variable named <code>sageCode</code>.
-        Then in lines 57&ndash;58, the <code>sageCode</code> is sent to a Sage server as an AJAX request.
+        Then in lines 58&ndash;59, the <code>sageCode</code> is sent to a Sage server as an AJAX request.
         When the browser receives the AJAX response, it executes the associated function, which is
         receiving the associated <code>data</code> (more about this in <a href="#step9">Step 9</a>). If the Sage execution
-        was successful, then, on line 61, MathJax displays the result (<code>data.stdout</code>)
+        was successful, then, on line 64, MathJax displays the result (<code>data.stdout</code>)
         in the <code>mjOutBox</code> object (previously linked to the <code>math-output</code> box). If
-        the server encountered an error, then line 63 displays "Sage could not understand that
+        the server encountered an error, then line 66 displays "Sage could not understand that
         input" in the <code>mjOutBox</code>. If anything else fails (most likely a syntax error), line
-        67 displays "Check your syntax and try again" in the <code>mjOutBox</code>
+        70 displays "Check your syntax and try again" in the <code>mjOutBox</code>
         
       </p>
-      <pre class="brush: js; first-line: 51">$('#send-math').on('click', function (evt) {
+      <pre class="brush: js; first-line: 51">// send output to sage server
+$('#send-math').on('click', function (evt) {
   var math = $('#math-input').val();
-  if (math.length &gt; 0) {
+  if (math.length > 0) {
     try {
       var tree = MathLex.parse(math),
           sageCode = MathLex.render(tree, 'sage');
       $.post('http://aleph.sagemath.org/service?callback=?',
              {code: 'print latex('+sageCode+')'}, function (data) {
-      // AJAX success callback
+      // HACK: Firefox does not convert data to JSON
+        if (typeof(data) === 'string') { data = $.parseJSON(data); }
+        // AJAX success callback
         if (data.success) {
           MathJax.Hub.Queue(['Text', mjOutBox, data.stdout]);
         } else {
@@ -302,8 +308,8 @@ $('#math-input').on('keyup', function (evt) {
   }
 });
 </pre>
-      <p id="step9"><em>Step 9</em>: Finally a few words about the Sage processing on lines 57-58:</p>
-      <pre class="brush: js; first-line: 57">$.post('http://aleph.sagemath.org/service?callback=?',
+      <p id="step9"><em>Step 9</em>: Finally a few words about the Sage processing on lines 58-59:</p>
+      <pre class="brush: js; first-line: 58">$.post('http://aleph.sagemath.org/service?callback=?',
        {code: 'print latex('+sageCode+')'}, function (data) {</pre>
       <p>
         The demo communicates with a Sage Cell server at
@@ -427,7 +433,7 @@ var math = $(inputID).value;            // '$' is aliased to 'document.id'</pre>
             using the text-tree renderer. In your HTML, include a line like:
             
           </p>
-          <pre class="brush: html">&lt;pre id=&quot;text-tree-output&quot;&gt;&lt;/pre&gt;</pre>
+          <pre class="brush: html"><pre id="text-tree-output"></pre></pre>
           <p>Then in the JavaScript, include the lines:</p>
           <pre class="brush: js">var treeCode  = MathLex.render(syntaxTree, 'text-tree');
 document.getElementById('text-tree-output').innerHTML = treeCode;
@@ -448,7 +454,6 @@ document.getElementById('text-tree-output').innerHTML = treeCode;
     <script src="javascripts/lib/syntaxhighlighter/scripts/shAutoloader.js"></script>
     <script src="javascripts/jquery.tabs.js"></script><script type="text/javascript">
 (function() {
-
   $(function() {
     return $('.tabs').tabs();
   });
@@ -458,16 +463,17 @@ document.getElementById('text-tree-output').innerHTML = treeCode;
     <script src="javascripts/mathlex.js"></script>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/javascript">
 (function() {
-
   $(function() {
     var mjDisplayBox, mjOutBox;
+
     mjDisplayBox = mjOutBox = null;
     MathJax.Hub.Queue(function() {
       mjDisplayBox = MathJax.Hub.getAllJax('math-display')[0];
       return mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
     });
     $('#math-input').on('keyup', function(evt) {
-      var latex, math, tree;
+      var err, latex, math, tree;
+
       math = $(this).val();
       $(this).css({
         color: 'black'
@@ -477,7 +483,8 @@ document.getElementById('text-tree-output').innerHTML = treeCode;
           tree = MathLex.parse(math);
           latex = MathLex.render(tree, 'latex');
           return MathJax.Hub.Queue(['Text', mjDisplayBox, latex]);
-        } catch (err) {
+        } catch (_error) {
+          err = _error;
           return $(this).css({
             color: 'red'
           });
@@ -488,7 +495,8 @@ document.getElementById('text-tree-output').innerHTML = treeCode;
       }
     });
     return $('#send-math').on('click', function(evt) {
-      var math, sageCode, tree;
+      var err, math, sageCode, tree;
+
       math = $('#math-input').val();
       if (math.length > 0) {
         try {
@@ -506,7 +514,8 @@ document.getElementById('text-tree-output').innerHTML = treeCode;
               return MathJax.Hub.Queue(['Text', mjOutBox, '\\text{Sage could not understand that input}']);
             }
           });
-        } catch (err) {
+        } catch (_error) {
+          err = _error;
           return MathJax.Hub.Queue(['Text', mjOutBox, '\\text{Check your syntax and try again}']);
         }
       }

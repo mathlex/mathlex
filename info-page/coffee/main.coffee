@@ -23,6 +23,8 @@ $ ->
       'js @shBrushJScript.js'
       'shell @shBrushBash.js'
       'coffeescript %shBrushCoffeeScript.js'
+      'python @shBrushPython.js'
+      'latex %shBrushLatex.js'
     )
 
     $.extend SyntaxHighlighter.defaults,

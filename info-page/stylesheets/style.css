@@ -355,50 +355,53 @@ body {
   font-family: ChunkFive;
   font-weight: normal;
   letter-spacing: 1px;
-  border-bottom: 1px solid #777777;
   margin-bottom: 0.5em;
 }
-/* line 269, ../sass/_builder.scss */
+/* line 268, ../sass/_builder.scss */
 .dark h1 + p, .dark h2 + p, .dark h3 + p, .dark h4 + p, .dark h5 + p, .dark h6 + p {
   margin-top: 0;
 }
-/* line 274, ../sass/_builder.scss */
+/* line 273, ../sass/_builder.scss */
+.dark h1, .dark h2 {
+  border-bottom: 1px solid #777777;
+}
+/* line 277, ../sass/_builder.scss */
 .dark a {
   color: #ccffcc;
 }
-/* line 278, ../sass/_builder.scss */
+/* line 281, ../sass/_builder.scss */
 .dark p {
   margin: 1em 0;
   line-height: 1.5em;
 }
-/* line 282, ../sass/_builder.scss */
+/* line 285, ../sass/_builder.scss */
 .dark p:first-child {
   margin-top: 0;
 }
-/* line 283, ../sass/_builder.scss */
+/* line 286, ../sass/_builder.scss */
 .dark p:last-child {
   margin-bottom: 0;
 }
-/* line 287, ../sass/_builder.scss */
+/* line 290, ../sass/_builder.scss */
 .dark ul.p > li, .dark ol.p > li {
   margin: 1em 0;
 }
-/* line 290, ../sass/_builder.scss */
+/* line 293, ../sass/_builder.scss */
 .dark ul ul, .dark ul ol, .dark ol ul, .dark ol ol {
   margin-top: 0;
   margin-bottom: 0;
 }
-/* line 294, ../sass/_builder.scss */
+/* line 297, ../sass/_builder.scss */
 .dark ul li, .dark ol li {
   line-height: 1.3em;
 }
-/* line 299, ../sass/_builder.scss */
+/* line 302, ../sass/_builder.scss */
 .dark code, .dark .token, .dark .nodes .node, .dark .error, .dark body.light .token, body.light .dark .token, .dark body.light .nodes .node, body.light .nodes .dark .node, .dark body.light .error, body.light .dark .error, .dark tt {
   font-family: "Ubuntu Mono", Monaco, monospace;
   color: #9cb5da;
   font-weight: normal;
 }
-/* line 305, ../sass/_builder.scss */
+/* line 308, ../sass/_builder.scss */
 .dark table {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
@@ -408,16 +411,16 @@ body {
   border: 1px solid #111111;
   margin: 1em auto;
 }
-/* line 312, ../sass/_builder.scss */
+/* line 315, ../sass/_builder.scss */
 .dark table tr:nth-child(2n) {
   background: #3a3a3a;
 }
-/* line 316, ../sass/_builder.scss */
+/* line 319, ../sass/_builder.scss */
 .dark table th, .dark table td {
   border: 1px solid #111111;
   padding: 5px 10px;
 }
-/* line 321, ../sass/_builder.scss */
+/* line 324, ../sass/_builder.scss */
 .dark table thead {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #515151), color-stop(100%, #373737));
   background: -webkit-linear-gradient(top, #515151, #373737);
@@ -425,13 +428,22 @@ body {
   background: -o-linear-gradient(top, #515151, #373737);
   background: linear-gradient(top, #515151, #373737);
 }
-/* line 325, ../sass/_builder.scss */
-.dark table caption {
+/* line 329, ../sass/_builder.scss */
+.dark table caption, .dark figure figcaption {
   text-align: center;
   font-weight: bold;
   padding: 0.3em;
 }
-/* line 332, ../sass/_builder.scss */
+/* line 335, ../sass/_builder.scss */
+.dark figure {
+  margin: 0 auto;
+  max-width: 400px;
+}
+/* line 338, ../sass/_builder.scss */
+.dark figure img {
+  width: 100%;
+}
+/* line 343, ../sass/_builder.scss */
 .dark .token, .dark .nodes .node {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -453,7 +465,7 @@ body {
   display: inline-block;
   margin: 5px;
 }
-/* line 344, ../sass/_builder.scss */
+/* line 355, ../sass/_builder.scss */
 .dark .token span, .dark .nodes .node span {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -472,15 +484,15 @@ body {
   color: white;
   display: inline-block;
 }
-/* line 356, ../sass/_builder.scss */
+/* line 367, ../sass/_builder.scss */
 .dark .error {
   color: #ee3333;
 }
-/* line 361, ../sass/_builder.scss */
+/* line 372, ../sass/_builder.scss */
 .dark .align-center {
   text-align: center;
 }
-/* line 365, ../sass/_builder.scss */
+/* line 376, ../sass/_builder.scss */
 .dark .syntaxhighlighter {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -497,7 +509,7 @@ body {
   padding: 5px;
   max-height: 500px;
 }
-/* line 373, ../sass/_builder.scss */
+/* line 384, ../sass/_builder.scss */
 .dark .syntaxhighlighter table {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -897,50 +909,53 @@ body.light h1, body.light h2, body.light h3, body.light h4, body.light h5, body.
   font-family: ChunkFive;
   font-weight: normal;
   letter-spacing: 1px;
-  border-bottom: 1px solid #bbbbbb;
   margin-bottom: 0.5em;
 }
-/* line 269, ../sass/_builder.scss */
+/* line 268, ../sass/_builder.scss */
 body.light h1 + p, body.light h2 + p, body.light h3 + p, body.light h4 + p, body.light h5 + p, body.light h6 + p {
   margin-top: 0;
 }
-/* line 274, ../sass/_builder.scss */
+/* line 273, ../sass/_builder.scss */
+body.light h1, body.light h2 {
+  border-bottom: 1px solid #bbbbbb;
+}
+/* line 277, ../sass/_builder.scss */
 body.light a {
   color: #5555bb;
 }
-/* line 278, ../sass/_builder.scss */
+/* line 281, ../sass/_builder.scss */
 body.light p {
   margin: 1em 0;
   line-height: 1.5em;
 }
-/* line 282, ../sass/_builder.scss */
+/* line 285, ../sass/_builder.scss */
 body.light p:first-child {
   margin-top: 0;
 }
-/* line 283, ../sass/_builder.scss */
+/* line 286, ../sass/_builder.scss */
 body.light p:last-child {
   margin-bottom: 0;
 }
-/* line 287, ../sass/_builder.scss */
+/* line 290, ../sass/_builder.scss */
 body.light ul.p > li, body.light ol.p > li {
   margin: 1em 0;
 }
-/* line 290, ../sass/_builder.scss */
+/* line 293, ../sass/_builder.scss */
 body.light ul ul, body.light ul ol, body.light ol ul, body.light ol ol {
   margin-top: 0;
   margin-bottom: 0;
 }
-/* line 294, ../sass/_builder.scss */
+/* line 297, ../sass/_builder.scss */
 body.light ul li, body.light ol li {
   line-height: 1.3em;
 }
-/* line 299, ../sass/_builder.scss */
+/* line 302, ../sass/_builder.scss */
 body.light code, body.light .dark .token, .dark body.light .token, body.light .dark .nodes .node, .dark .nodes body.light .node, body.light .dark .error, .dark body.light .error, body.light .token, body.light .nodes .node, body.light .error, body.light tt {
   font-family: "Ubuntu Mono", Monaco, monospace;
   color: #204a87;
   font-weight: normal;
 }
-/* line 305, ../sass/_builder.scss */
+/* line 308, ../sass/_builder.scss */
 body.light table {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
@@ -950,16 +965,16 @@ body.light table {
   border: 1px solid #888888;
   margin: 1em auto;
 }
-/* line 312, ../sass/_builder.scss */
+/* line 315, ../sass/_builder.scss */
 body.light table tr:nth-child(2n) {
   background: #e4e4e4;
 }
-/* line 316, ../sass/_builder.scss */
+/* line 319, ../sass/_builder.scss */
 body.light table th, body.light table td {
   border: 1px solid #888888;
   padding: 5px 10px;
 }
-/* line 321, ../sass/_builder.scss */
+/* line 324, ../sass/_builder.scss */
 body.light table thead {
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #e1e1e1));
   background: -webkit-linear-gradient(top, #fbfbfb, #e1e1e1);
@@ -967,13 +982,22 @@ body.light table thead {
   background: -o-linear-gradient(top, #fbfbfb, #e1e1e1);
   background: linear-gradient(top, #fbfbfb, #e1e1e1);
 }
-/* line 325, ../sass/_builder.scss */
-body.light table caption {
+/* line 329, ../sass/_builder.scss */
+body.light table caption, body.light figure figcaption {
   text-align: center;
   font-weight: bold;
   padding: 0.3em;
 }
-/* line 332, ../sass/_builder.scss */
+/* line 335, ../sass/_builder.scss */
+body.light figure {
+  margin: 0 auto;
+  max-width: 400px;
+}
+/* line 338, ../sass/_builder.scss */
+body.light figure img {
+  width: 100%;
+}
+/* line 343, ../sass/_builder.scss */
 body.light .token, body.light .nodes .node {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -995,7 +1019,7 @@ body.light .token, body.light .nodes .node {
   display: inline-block;
   margin: 5px;
 }
-/* line 344, ../sass/_builder.scss */
+/* line 355, ../sass/_builder.scss */
 body.light .token span, body.light .nodes .node span {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1014,15 +1038,15 @@ body.light .token span, body.light .nodes .node span {
   color: white;
   display: inline-block;
 }
-/* line 356, ../sass/_builder.scss */
+/* line 367, ../sass/_builder.scss */
 body.light .error {
   color: #aa0000;
 }
-/* line 361, ../sass/_builder.scss */
+/* line 372, ../sass/_builder.scss */
 body.light .align-center {
   text-align: center;
 }
-/* line 365, ../sass/_builder.scss */
+/* line 376, ../sass/_builder.scss */
 body.light .syntaxhighlighter {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1039,7 +1063,7 @@ body.light .syntaxhighlighter {
   padding: 5px;
   max-height: 500px;
 }
-/* line 373, ../sass/_builder.scss */
+/* line 384, ../sass/_builder.scss */
 body.light .syntaxhighlighter table {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;

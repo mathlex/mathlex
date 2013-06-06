@@ -15,12 +15,12 @@ html(lang='en')
   body.dark
     a#power-button(title='Toggle light and dark theme')
       span.screen-reader-text Toggle light and dark theme
-      span.icon.icon-only(data-icon='&#128161;', aria-hidden='true')
+      span.icon.icon-only(data-icon!='&#128161;', aria-hidden='true')
     header
       h1 MathLex
         .subtitle A JavaScript Mathematical Entry System
       nav: ul
-        nav = [['home','index.html','Home'], ['quickstart','quick-start.html','Quick-Start'], ['doc','doc/index.html','Documentation'], ['demo','demo.html','Demo'], ['contact','contact.html','Contact Us']]
+        nav = [['home','index.html','Home'], ['thesis', 'thesis.pdf', 'Thesis [PDF]'], ['quickstart','quick-start.html','Quick-Start'], ['doc','doc/index.html','Documentation'], ['demo','demo.html','Demo'], ['contact','contact.html','Contact Us']]
         each item in nav
           if page_id === item[0]
             li.current: a.current(href=path_prefix + item[1]): span= item[2]

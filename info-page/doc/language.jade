@@ -4,14 +4,23 @@ block append vars
   next_page = {href: 'how-mathlex-works.html', title: 'How MathLex Works'}
 
 block article
-  h1 Language Specification
+  :markdown
+    # Language Specification
 
-  p.
-    This section describes the syntax used to enter mathematical content into MathLex. For clarity, this information is
-    presented in two ways: the first is organized by how the symbol is used in the language (e.g. binary operators,
-    relations, etc.); the second is organized by the topic (e.g.  calculus, set theory, etc.). This page is meant to be
-    a non-technical reference for the end-user (i.e. student) typing MathLex input.
+    This section describes the syntax used to enter mathematical content into MathLex. All input consists of
+    _Tokens_ or strings of characters representing mathematical symbols or quantities. For example, the token
+    '`>=`' represents the mathematical symbol &ge; and the concept "greater than or equal to". Tokens in
+    the input string may be separated by spaces, but MathLex is intelligent enough to automatically separate tokens in
+    _most_ cases. MathLex looks for tokens in a greedy fashion in which it tries to match the largest token
+    possible. For example `5!=120` would be interpreted as 5 &ne; 120 even though the intended meaning might
+    have been 5! = 120. Therefore, it is necessary to insert spaces to separate tokens that might be part of other
+    tokens.
 
+    The basic types of tokens in MathLex are Numbers (further subdivided into Integers and Floats/Decimals), Identifiers
+    (further subdivided into Keywords and Variables), Constants, and Operators. After these basic types are defined, the
+    collection of all tokens is presented in two sets of tables: the first is organized by how symbols are used in
+    mathematics (e.g. binary operators, relations, etc.); the second is organized by topic (e.g. calculus, set theory,
+    etc.). The second set of tables is redundant but included for clarity.
 
   h2 Section Contents
   nav.toc
@@ -42,65 +51,89 @@ block article
           li: a(href='#logic') Logic
           li: a(href='#linear-algebra') Linear Algebra
 
-  h2#summary Summary
-  p.
-    The basic types of tokens in MathLex are Numbers (further subdivided into Integers and Floats/Decimals),
-    Identifiers, Constants, and Operators.
+  :markdown
+    ## Numbers
 
-  h3#numbers Numbers
-  p.
-    A <em>Number</em> is exactly as it seems: <code>42</code>, <code>3.14</code>, etc. Scientific notation is also
-    allowed: <code>5e-2</code> <code>3.0E8</code>. In either case, decimal points do not need a leading or trailing
-    zero: <code>.5</code>, <code>78.</code>, <code>9.E-4</code>, <code>.22e7</code>.
+    A _Number_ is exactly as it seems: `42`, `3.14`, etc. Scientific notation is also allowed: `5e-2`, `3.0E8`. In
+    either case, decimal points do not need a leading or trailing zero: `.5`, `78.`, `9.E-4`, `.22E7`.
 
-    Note that negative numbers are treated as a negation operation on the positive value of the number (in continuity
-    with algebraic notation).  Likewise, fractions are treated as division on whole numbers.
+    Note that negative numbers are treated as a negation operation on the positive value of the number (consistent with
+    algebraic notation). Likewise, fractions are treated as division operations on whole numbers.
 
-  h3#identifiers Identifiers
-  p.
-    An <em>Identifier</em> is an upper- or lowercase letter followed by any number of upper- or lowercase letters,
-    numbers, or underscores (<code>_</code>). All of the following are valid identifiers: <code>x</code>,
-    <code>A</code>, <code>b0</code>, <code>my_var</code> Identifiers fall under two categories: reserved keywords and
-    variables. Reserved keywords are listed in the tables below, and all other identifiers are treated as variables.
-    Since none of the example identifiers are reserved keywords, they also qualify as valid variable names.
+    ## Identifiers
 
-  h3#constants Constants
-  p.
-    Similar to identifiers, <em>Constants</em> are globally defined values or constructs. In MathLex, constants are
-    typed as a number sign (<code>#</code>; also called <em>hash</em> or <em>pound</em>) followed by the name of the
-    constant. For example, in Mathlex, one would type <code>#pi</code> (or <code>#p</code> for short) to represent "pi"
-    (\( \pi \)) and <code>#R</code> to represent the set of real numbers (\( \mathbb{R} \)). See the table of
-    <a href="#constants">Constants</a> below for a comprehensive list.
+    An _Identifier_ is an upper- or lowercase letter followed by any number of upper- or lowercase letters, numbers, or
+    underscores (`_`). All of the following are valid identifiers: `x`, `A`, `b0`, `my_var`, `infinity`, `union`, and
+    `arccos`. Identifiers fall under two categories: reserved and unreserved. Reserved identifiers, also called
+    keywords, may be synonyms for certain constants or operators or may be the names of known functions. Each keyword for
+    a constant or operator has its own token. They are listed in the
+    [Table of Reserved Constant and Operator Keywords](#reserved-constant-and-operator-keywords) below and again later
+    in the [Table of Constants](#constants) and the [Operator Tables](#unary). The keywords for known functions are
+    assigned as _TIdentifier_ tokens and are treated as general functions by the parser. They only get treated as
+    specific functions by the translators and renderers. These function names are listed in the
+    [Table of Reserved Function Name Keywords](#reserved-function-name-keywords) below and again later in the
+    [Table of Functions](#functions) (and occasionally in other tables). Unreserved identifiers may be used as variables
+    or user-defined functions. Of the above identifiers, `infinity` is a constant keyword, `union` is an operator
+    keyword, and `arccos` is a known function keyword, while the rest are valid variable or user-defined function names.
 
-  h3#operators Operators
-  p.
-    <em>Operators</em> is just a catch-all term for any symbol that is not a Number, Identifier, or Constant, but is
+  table#reserved-constant-and-operator-keywords
+    caption Reserved Constant and Operator Keywords
+    for row in [['and', 'as', 'congruent', 'divides', 'equiv', 'exists', 'false' ], ['forall', 'if', 'iff', 'impliedby', 'implies', 'in', 'infinity' ], ['intersect', 'minus', 'mod', 'ndivide', 'ndivides', 'nequiv', 'not' ], ['notdivide', 'notdivides', 'onlyif', 'or', 'para', 'parallel', 'perp' ], ['perpendicular', 'propersubset', 'propersuperset', 'propersupset', 'propsubset', 'propsuperset', 'propsupset' ], ['psubset', 'psuperset', 'psupset', 'sim', 'similar', 'subset', 'superset' ], ['supset', 'then', 'true', 'union', 'unique', 'when', '&nbsp;' ]]
+      tr: for word in row
+        td!= word
+
+  table#reserved-function-name-keywords
+    caption Reserved Function Name Keywords
+    for row in [['abs', 'acos', 'acosh', 'acot', 'acoth', 'acsc', 'acsch',], ['arccos', 'arccosh', 'arccot', 'arccoth', 'arccsc', 'arccsch', 'arcsec',], ['arcsech', 'arcsin', 'arcsinh', 'arctan', 'arctanh', 'asec', 'asech',], ['asin', 'asinh', 'atan', 'atanh', 'C', 'ceil', 'ceiling',], ['cos', 'cosh', 'cot', 'coth', 'csc', 'csch', 'curl',], ['diff', 'div', 'exp', 'floor', 'gamma', 'grad', 'int',], ['int', 'Integral', 'integral', 'Intersect', 'lim', 'limit', 'ln',], ['log', 'P', 'pdiff', 'prod', 'product', 'root', 'sec',], ['sech', 'sin', 'sinh', 'sqrt', 'sum', 'tan', 'tanh',], ['Union', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;']]
+      tr: for word in row
+        td!= word
+  :markdown
+    ## Constants
+
+    Similar to identifiers, _Constants_ are globally defined values or constructs. In MathLex, constants are typed as a
+    number sign (`#`; also called _hash_, _sharp_, or _pound_) followed by the name of the constant. For example, in MathLex, one
+    would type `#pi` (or `#p` for short) to represent "pi" (\\( \pi \\)) and `#R` to represent the set of real numbers
+    (\\( \mathbb{R} \\)). See the [Table of Constants](#constants) below for a comprehensive list.
+
+    ## Operators
+
+    An _Operator_ is just a catch-all term for any symbol that is not a Number, Identifier, or Constant, but is
     generally a mathematical operation or delimiter. With the exception of a few reserved keywords, operators usually
-    consist of a few non-alphanumeric characters. Some operators start with an ampersand to distinguish them from
-    similar symbols Some mathematical operators can be represented in multiple ways in MathLex. The tables below outline
-    all mathematical operators understood by MathLex and all ways to represent them. Pick your favorite.
+    consist of a few non-alphanumeric characters. Some operators start with an ampersand (`&`) to distinguish them from
+    similar symbols. Some mathematical operators can be represented in multiple ways in MathLex. The following tables
+    outline all mathematical operators understood by MathLex and all ways to represent them. Pick your favorite.
 
-  p.
-    The values in the <em>Precedence</em> column of operator tables reflect which operations are more tightly bound
+    The numbers in the `Precedence` column of operator tables reflect which operations are more tightly bound
     (e.g. the "<abbr title="Parentheses, Exponents, Multiplication, Division, Addition, Subtraction">PEMDAS</abbr>"
     order of operations from grade school mathematics). Operators of higher precedence (greater numerical value) will be
     identified and grouped before operators with lower precedence (lesser numerical value). Operators of equal
     precedence will be grouped as they are found according to their associativity.
 
-  p.
-    <em>Associativity</em> describes how chained operations would be bound together.
+    for unary and binary operators, the precedence number is followed by an indicator of _Associativity_, i.e. how
+    chained operations would be bound together:
 
-  ul
-    li.
-      Left-associative operators will be grouped from left to right (like addition and subtraction):
-      <code>a + b + c + d = ((a + b) + c) + d</code>
-    li.
-      Right-associative operators will be grouped from right to left (like exponents):
-      <code>a ^ b ^ c ^ d = a ^ (b ^ (c ^ d))</code>
-    li.
-      Non-associative operators cannot be chained. For example, the triple dot product <code>a &. b &. c</code> doesn't
-      make any sense since the result of a dot product is a scalar. At present, MathLex does not allow chaining of
-      <a href="#relations">relations</a>.
+    * Left-associative operators will be grouped from left to right (like subtraction and division):
+      `a-b-c-d = ((a-b)-c)-d`
+    * Right-associative operators will be grouped from right to left (like exponents): `a^b^c^d = a^(b^(c^d))`.
+    * Non-associative operators cannot be chained. For example, the triple dot product `&v a &. &v b &. &v c` does not
+      make any sense since the result of a dot product is a scalar.
+    * Associative operators (like addition and multiplication) may be considered left- or right-associative without loss
+      of meaning. However, MathLex handles such operators as left-associative for definiteness.
+
+    At present, MathLex cannot chain relations, so they are regarded as non-associative.
+
+    **A special note about Functions.** Functions receive special treatment in that a majority of them are tokenized
+    initially as unreserved identifiers and then interpreted after being parsed, but some functions have special tokens
+    and syntax. Traditionally, functions are identifiers appended with a parenthesized list of parameters, e.g.
+    `f(x,yz)`. Some functions like _sum_, _product_, and _limit_ have alternate notations that closely mimic handwritten
+    notation and are thus called "written syntax". For example, the traditional CAS-like function to represent
+    \\( \displaystyle \sum\_{x=0}^n \frac{1}{x} \\) in MathLex is `sum(1/x, x, 0, n)` and MathLex's alternate written
+    syntax is `&sum &_(x=0) &^n 1/x`. Both are accepted by MathLex.
+
+    Function operators like composition and builder notation, e.g. \\( (f \circ g + h)(x) \\), are allowed, so function
+    application is parsed as a parenthetical postfix. See the note below the [Table of Unary Operators](#unary) for more
+    information.
+
 
   section#by-type
     h2 Symbols by Type
@@ -122,7 +155,7 @@ block article
         tr
           td Tau
           td \( \tau \)
-          td: code #tau, #t
+          td: code #tau
           td \( 2 \pi \) &asymp; 6.28&hellip;
         tr
           td E
@@ -148,12 +181,12 @@ block article
           td True
           td \( \mathbf{T} \)
           td: code #T, #true, true
-          td
+          td Case-insensitive
         tr
           td False
           td \( \mathbf{F} \)
           td: code #F, #false, false
-          td
+          td Case-insensitive
         tr
           td Natural Numbers
           td \( \mathbb{N} \)
@@ -239,6 +272,7 @@ block article
           th Code
           th Description
           th Precedence
+          th Associativity
       tbody
         tr
           td Positive
@@ -246,29 +280,34 @@ block article
           td: code +a
           td
           td.center 17
+          td.center Right
         tr
           td Negative
           td \( -a \)
           td: code -a
           td
           td.center 17
+          td.center Right
         tr
           td Positive/Negative
           td \( \pm a \)
           td: code +/-a, &amp;pm a
           td
           td.center 17
+          td.center Right
         tr
           td Negative/Positive
           td \( \mp a \)
           td: code -/+, &amp;mp a
           td
           td.center 17
+          td.center Right
         tr
           td Square Root
           td \( \sqrt{a} \)
           td: code sqrt(a)
           td
+          td.center *
           td.center *
         tr
           td Factorial
@@ -276,11 +315,13 @@ block article
           td: code a!
           td
           td.center 21
+          td.center Left
         tr
           td Natural Exponential
           td \( \exp(a) \)
           td: code exp(a)
           td
+          td.center *
           td.center *
         tr
           td Natural Logarithm
@@ -288,72 +329,91 @@ block article
           td: code ln(a)
           td
           td.center *
+          td.center *
+        tr
+          td Real Part
+          td \( \Re a \)
+          td: code &amp;Re a
+          td
+          td.center 17
+          td.center Right
         tr
           td Not
           td \( \neg p \)
           td: code ~p, !p, not p
           td Logical Negation
           td.center 17
+          td.center Right
         tr
           td Prime derivative
           td \( f' \)
           td: code f'
           td Derivative w.r.t. \( x \) or first or only variable
           td.center 21
+          td.center Left
         tr
           td Dot derivative
           td \( \dot{f} \)
           td: code f.
           td Derivative w.r.t. \( t \) or second variable
           td.center 21
+          td.center Left
         tr
           td Change
           td \( \Delta x \)
           td: code &amp;D x
           td Coordinate Difference
           td.center 17
+          td.center Non
         tr
           td Differential
           td \( \mathrm{d} x \)
           td: code &amp;d x
           td
           td.center 17
+          td.center Non
         tr
           td Partial Differential
           td \( \partial x \)
           td: code &amp;pd x
           td
           td.center 17
+          td.center Non
         tr
           td Vector
           td \( \vec{a} \)
           td: code &amp;v a
           td
           td.center 17
+          td.center Non
         tr
           td Unit Vector
           td \( \hat{a} \)
           td: code &amp;u a
           td
           td.center 17
+          td.center Non
         tr
           td Gradient
           td \( \vec{\nabla} f \), \( \mathrm{grad}(f) \)
           td: code &amp;del f, grad(f)
           td
           td.center 17
+          td.center Right
         tr
           td Divergence
           td \( \vec{\nabla} \cdot F \), \( \mathrm{div}(F) \)
           td: code &amp;del. F, div(F)
           td
           td.center 17
+          td.center Non
         tr
           td Curl
           td \( \vec{\nabla} \times F \), \( \mathrm{curl}(F) \)
           td: code &amp;delx F, curl(F)
           td
           td.center 17
+          td.center Right
 
     p.
       Note that all prefix operators are <strong>right-associative</strong> and all postfix operators are
@@ -429,15 +489,15 @@ block article
           td \( \sqrt[n]{a} \)
           td: code root(a, n)
           td
-          td
-          td
+          td.center *
+          td.center *
         tr
           td Logarithm with Base
           td \( \log_b{a} \)
           td: code log(a, b)
           td
-          td
-          td
+          td.center *
+          td.center *
         tr
           td Ratio
           td \( p : q \)
@@ -455,17 +515,17 @@ block article
         tr
           td Combination
           td \( \binom{n}{r} \)
-          td: code C(n,r)
-          td Binomial Coefficient; choose
-          td
-          td
+          td: code C(n,r), combination(n,r), n choose r
+          td Binomial Coefficient; choose; <tt>comb</tt> for short
+          td.center *
+          td.center *
         tr
           td Permutation
           td \( P(n,r) \)
-          td: code P(n,r)
-          td
-          td
-          td
+          td: code P(n,r), permutation(n,r)
+          td <tt>perm</tt> for short
+          td.center *
+          td.center *
         tr
           td Function Composition
           td \( f \circ g \)
@@ -572,13 +632,18 @@ block article
           td
           td.center 10
           td.center Left
+
+    h3#logical-connectives Logical Connectives and Quantifiers
+    table
+      thead
         tr
-          td Such That
-          td \( p : q \)
-          td: code p:q
-          td Used with set builder and quantifiers
-          td
-          td
+          th Name
+          th Symbol
+          th Code
+          th Description
+          th Precedence
+          th Associativity
+      tbody
         tr
           td And
           td \( p \wedge q \)
@@ -622,6 +687,13 @@ block article
           td.center 1
           td.center Non
         tr
+          td Such That
+          td \( p : q \)
+          td: code p:q
+          td Used with set builder and quantifiers
+          td
+          td
+        tr
           td(rowspan=2) Universal Quantifier
           td \( \forall x \) (we have) \( P(x) \)
           td: code forall x -> P(x)
@@ -664,7 +736,7 @@ block article
         tr
           td Not Equal
           td \( a \ne b \)
-          td: code a != b, a /= b, a &lt;&gt; b
+          td: code a /= b, a != b, a &lt;&gt; b
           td.center 7
         tr
           td Less Than
@@ -694,12 +766,32 @@ block article
         tr
           td Not Divides
           td \( p \nmid q \)
-          td: code p~|q, p/|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
+          td: code p/|q, p~|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
           td.center 7
         tr
           td Ratio Equality
           td \( a:b :: c:d\)
           td: code a&amp;:b :: c&amp;:d, a&amp;:b as c&amp;:d
+          td.center 7
+        tr
+          td Congruent
+          td \( A \cong B \)
+          td: code A ~= B, A congruent B
+          td.center 7
+        tr
+          td Similar
+          td \( A \sim B \)
+          td: code A ~ B, A sim B, A similar B
+          td.center 7
+        tr
+          td Parallel
+          td \( A \parallel B \)
+          td: code A para B, A parallel B
+          td.center 7
+        tr
+          td Perpendicular
+          td \( A \perp B \)
+          td: code A perp B, A perpendicular B
           td.center 7
         tr
           td Subset
@@ -727,26 +819,6 @@ block article
           td: code a in A
           td.center 7
         tr
-          td Congruent
-          td \( A \cong B \)
-          td: code A ~= B, A congruent B
-          td.center 7
-        tr
-          td Similar
-          td \( A \sim B \)
-          td: code A ~ B, A sim B, A similar B
-          td.center 7
-        tr
-          td Parallel
-          td \( A \parallel B \)
-          td: code A para B, A parallel B
-          td.center 7
-        tr
-          td Perpendicular
-          td \( A \perp B \)
-          td: code A perp B, A perpendicular B
-          td.center 7
-        tr
           td Equivalent
           td \( A \equiv B \)
           td: code
@@ -755,7 +827,7 @@ block article
         tr
           td Not Equivalent
           td \( A \not\equiv B \)
-          td: code A !== B, A /== B, A nequiv B
+          td: code A /== B, A !== B, A nequiv B
           td.center 0
 
     p.
@@ -887,13 +959,12 @@ block article
 
     p.
       Note that some delimiters have more than one format either with or without colons. Namely, absolute value can be
-      written as <code>| &hellip; |</code> or <code>|: &hellip; :|</code>, norm can be written as <code>|| &hellip;
-      ||</code> or <code>||: &hellip; :||</code>, and vectors can be surrounded by either <code>&lt; &hellip;
-      &gt;</code> or <code>&lt;: &hellip; :&gt;</code>.  Those with colons are <em>matched pairs</em> and should be used
-      whenever there might be a chance of confusion about pairing. Those without colons are <em>context-sensitive</em>
-      in that they have multiple meanings and therefore may not be automatically matched by the Lexer. Additionally, if
-      an expression opened with one type of delimiter, it must be closed with the same type (i.e.  context-aware vs.
-      matched).
+      written as <code>| |</code> or <code>|: :|</code>, norm can be written as <code>|| ||</code> or
+      <code>||: :||</code>, and vectors can be surrounded by either <code>&lt; &gt;</code> or <code>&lt;: :&gt;</code>.
+      Those with colons are <em>matched pairs</em> and should be used whenever there might be a chance of confusion
+      about pairing. Those without colons are <em>context-sensitive</em> in that they have multiple meanings and
+      therefore may not be automatically matched by the Lexer. Additionally, if an expression opened with one type of
+      delimiter, it must be closed with the same type (i.e. matched vs. context-sensitive).
 
     p All delimiters have "infinite" precedence; any and all contents will be grouped together.
 
@@ -914,8 +985,8 @@ block article
         tr
           td Inverse Trig
           td \( \arcsin(x) \), &hellip;
-          td: code arcsin(x), &hellip;
-          td Also arccos, arctan, arccot, arcsec, arccsc
+          td: code arcsin(x), asin(x), &hellip;
+          td Also arccos, acos, arctan, atan, arccot, acot, arcsec, asec, arccsc, acsc
         tr
           td Hyperbolic Trig
           td \( \sinh(\lambda) \), &hellip;
@@ -924,8 +995,8 @@ block article
         tr
           td Inv. Hyp. Trig
           td \( \mathrm{arcsinh}(x) \), &hellip;
-          td: code arcsinh(x), &hellip;
-          td Also arccosh, arctanh, arccoth, arcsech, arccsch
+          td: code arcsinh(x), asinh(x), &hellip;
+          td Also arccosh, acosh, arctanh, atanh, arccoth, acoth, arcsech, asech, arccsch, acsch
         tr
           td Absolute Value
           td \( \left| a \right| \)
@@ -969,18 +1040,18 @@ block article
         tr
           td Combination
           td \( \binom{n}{r} \)
-          td: code C(n,r)
+          td: code C(n,r), combination(n,r), comb(n,r)
           td Binomial Coefficient, choose
         tr
           td Permutation
           td \( P(n,r) \)
-          td: code P(n,r)
+          td: code P(n,r), permutation(n,r), perm(n,r)
           td
         tr
           td Limit
           td \( \displaystyle\lim_{x\to a} f(x) \)
           td: code lim(f(x), a, x), limit(f(x), x, a), &amp;lim &amp;_(x -&gt; a) f(x)
-          td <code>&amp;lim</code> notation not implemented
+          td Also <tt>limit</tt>, <tt>Lim</tt>, <tt>Limit</tt>, &hellip;
         tr
           td Derivative
           td \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \)
@@ -995,52 +1066,52 @@ block article
           td Indefinite Integral
           td \( \displaystyle \int f(x) \,\mathrm{d}x \)
           td: code int(f(x),x), &amp;int f(x) &amp;dx
-          td
+          td Also <tt>Int</tt>, <tt>integral</tt>, <tt>Integral</tt>, &hellip;
         tr
           td Definite Integral
           td \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \)
           td: code int(f(x),x,a,b), &amp;int &amp;_a &amp;^b f(x) &amp;dx
-          td
+          td (see note above)
         tr
           td Sum Over Range
           td \( \displaystyle \sum_{i=m}^n a_i \)
           td: code sum(a&amp;_i,i,m,n), &amp;sum &amp;_(i=m) &amp;^n a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td Also <tt>Sum</tt>
         tr
           td Sum Over Set
           td \( \displaystyle \sum_{i \in S} a_i \)
           td: code sum(a&amp;_i, i in S), &amp;sum &amp;_(i in S) a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td (see note above)
         tr
           td Product Over Range
           td \( \displaystyle \prod_{i=m}^n a_i \)
           td: code prod(a&amp;_i,m,n), product(a&amp;_i,m,n), &amp;prod &amp;_(i=m) &amp;^n a&amp;_i
-          td <code>&amp;prod</code> notation not implemented
+          td Also <tt>product</tt>, <tt>Prod</tt>, <tt>Product</tt>, &hellip;
         tr
           td Product Over Set
           td \( \displaystyle \prod_{i \in S} a_i \)
           td: code prod(a&amp;_i, i in S), product(a&amp;_i, i in S), &amp;prod &amp;_(i in S) a&amp;_i
-          td <code>&amp;prod</code> notation not implemented
+          td (see note above)
         tr
           td Union Over Range
           td \( \displaystyle \bigcup_{i=m}^n S_i \)
-          td: code union(S&amp;_i,m,n), &amp;union &amp;_(i=m) &amp;^n S&amp;_i
-          td not implemented
+          td: code Union(S&amp;_i,m,n), &amp;Union &amp;_(i=m) &amp;^n S&amp;_i
+          td
         tr
           td Union Over Set
           td \( \displaystyle \bigcup_{i \in T} S_i \)
-          td: code union(S&amp;_i, i in T), &amp;union &amp;_(i in T) S&amp;_i
-          td not implemented
+          td: code Union(S&amp;_i, i in T), &amp;Union &amp;_(i in T) S&amp;_i
+          td
         tr
           td Intersection Over Range
           td \( \displaystyle \bigcap_{i=m}^n S_i \)
-          td: code intersect(S&amp;_i,m,n), &amp;intersect &amp;_(i=m) &amp;^n S&amp;_i
-          td not implemented
+          td: code Intersect(S&amp;_i,m,n), &amp;Intersect &amp;_(i=m) &amp;^n S&amp;_i
+          td
         tr
           td Intersection Over Set
           td \( \displaystyle \bigcap_{i \in T} S_i \)
-          td: code intersect(S&amp;_i, i in T), &amp;intersect &amp;_(i in T) S&amp;_i
-          td not implemented
+          td: code Intersect(S&amp;_i, i in T), &amp;Intersect &amp;_(i in T) S&amp;_i
+          td
 
   section#by-topic
     h2 Symbols by Topic
@@ -1059,11 +1130,6 @@ block article
           th Code
           th Description
       tbody
-        tr
-          td Imaginary Unit
-          td \( i \)
-          td: code #i
-          td \( \sqrt{-1} \)
         tr
           td Plus, Positive
           td \( + \)
@@ -1135,6 +1201,21 @@ block article
           td: code a!
           td
         tr
+          td Imaginary Unit
+          td \( i \)
+          td: code #i
+          td \( \sqrt{-1} \)
+        tr
+          td Real Part
+          td \( \Re a \)
+          td: code &amp;Re a
+          td
+        tr
+          td Imaginary Part
+          td \( \Im a \)
+          td: code &amp;Im a
+          td
+        tr
           td Ratio
           td \( a:b \)
           td: code a&amp;:b
@@ -1153,7 +1234,7 @@ block article
         tr
           td Not Equal
           td \( \ne \)
-          td: code !=, /=, &lt;&gt;
+          td: code /=, !=, &lt;&gt;
           td
         tr
           td Less Than
@@ -1224,27 +1305,27 @@ block article
           td Function Repeated Composition
           td \( f^{\circ n} \)
           td: code f @@ n
-          td not implemented
+          td
         tr
           td Sum Over Range
           td \( \displaystyle \sum_{i=m}^n a_i \)
           td: code sum(a&amp;_i,i,m,n), &amp;sum &amp;_(i=m) &amp;^n a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td Also <tt>Sum</tt>
         tr
           td Sum Over Set
           td \( \displaystyle \sum_{i \in S} a_i \)
           td: code sum(a&amp;_i, i in S), &amp;sum &amp;_(i in S) a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td (see note above)
         tr
           td Product Over Range
           td \( \displaystyle \prod_{i=m}^n a_i \)
           td: code prod(a&amp;_i,m,n), product(a&amp;_i,m,n), &amp;prod &amp;_(i=m) &amp;^n a&amp;_i
-          td <code>&amp;prod</code> notation not implemented
+          td Also <tt>product</tt>, <tt>Prod</tt>, <tt>Product</tt>
         tr
           td Product Over Set
           td \( \displaystyle \prod_{i \in S} a_i \)
           td: code prod(a&amp;_i, i in S), product(a&amp;_i, i in S), &amp;prod &amp;_(i in S) a&amp;_i
-          td <code>&amp;prod</code> notation not implemented
+          td (see note above)
 
     h3#geometry Geometry
     table
@@ -1263,7 +1344,7 @@ block article
         tr
           td Tau
           td \( \tau \)
-          td: code #tau, #t
+          td: code #tau
           td \( 2 \pi \) &asymp; 6.28&hellip;
         tr
           td Open Interval
@@ -1372,8 +1453,8 @@ block article
         tr
           td Inverse Trig
           td \( \arcsin(x) \), &hellip;
-          td: code arcsin(x), &hellip;
-          td Also arccos, arctan, arccot, arcsec, arccsc
+          td: code arcsin(x), asin(x), &hellip;
+          td Also arccos, acos, arctan, atan, arccot, acot, arcsec, asec, arccsc, acsc
         tr
           td Hyperbolic Trig
           td \( \sinh(\lambda) \), &hellip;
@@ -1382,8 +1463,8 @@ block article
         tr
           td Inv. Hyp. Trig
           td \( \mathrm{arcsinh}(x) \), &hellip;
-          td: code arcsinh(x), &hellip;
-          td Also arccosh, arctanh, arccoth, arcsech, arccsch
+          td: code arcsinh(x), asinh(x), &hellip;
+          td Also arccosh, acosh, arctanh, atanh, arccoth, acoth, arcsech, asech, arccsch, acsch
 
     h3#discrete Discrete
     table
@@ -1431,7 +1512,7 @@ block article
         tr
           td Not Divides
           td \( p \nmid q \)
-          td: code p~|q, p/|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
+          td: code p/|q, p~|q, p ndivides q, p ndivide q, p notdivides q, p notdivide q
           td
         tr
           td Combination
@@ -1447,42 +1528,42 @@ block article
           td Sum Over Range
           td \( \displaystyle \sum_{i=m}^n a_i \)
           td: code sum(a&amp;_i,i,m,n), &amp;sum &amp;_(i=m) &amp;^n a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td Also <tt>Sum</tt>
         tr
           td Sum Over Set
           td \( \displaystyle \sum_{i \in S} a_i \)
           td: code sum(a&amp;_i, i in S), &amp;sum &amp;_(i in S) a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td (see note above)
         tr
           td Product Over Range
           td \( \displaystyle \prod_{i=m}^n a_i \)
           td: code prod(a&amp;_i,m,n), product(a&amp;_i,m,n), &amp;prod &amp;_(i=m) &amp;^n a&amp;_i
-          td <code>&amp;prod</code> notation not implemented
+          td Also <tt>product</tt>, <tt>Prod</tt>, <tt>Product</tt>
         tr
           td Product Over Set
           td \( \displaystyle \prod_{i \in S} a_i \)
           td: code prod(a&amp;_i, i in S), product(a&amp;_i, i in S), &amp;prod &amp;_(i in S) a&amp;_i
-          td <code>&amp;prod</code> notation not implemented
+          td (see note above)
         tr
           td Union Over Range
           td \( \displaystyle \bigcup_{i=m}^n S_i \)
-          td: code union(S&amp;_i,m,n), &amp;union &amp;_(i=m) &amp;^n S&amp;_i
-          td not implemented
+          td: code Union(S&amp;_i,m,n), &amp;Union &amp;_(i=m) &amp;^n S&amp;_i
+          td
         tr
           td Union Over Set
           td \( \displaystyle \bigcup_{i \in T} S_i \)
-          td: code union(S&amp;_i, i in T), &amp;union &amp;_(i in T) S&amp;_i
-          td not implemented
+          td: code Union(S&amp;_i, i in T), &amp;Union &amp;_(i in T) S&amp;_i
+          td
         tr
           td Intersection Over Range
           td \( \displaystyle \bigcap_{i=m}^n S_i \)
-          td: code intersect(S&amp;_i,m,n), &amp;intersect &amp;_(i=m) &amp;^n S&amp;_i
-          td not implemented
+          td: code Intersect(S&amp;_i,m,n), &amp;Intersect &amp;_(i=m) &amp;^n S&amp;_i
+          td
         tr
           td Intersection Over Set
           td \( \displaystyle \bigcap_{i \in T} S_i \)
-          td: code intersect(S&amp;_i, i in T), &amp;intersect &amp;_(i in T) S&amp;_i
-          td not implemented
+          td: code Intersect(S&amp;_i, i in T), &amp;Intersect &amp;_(i in T) S&amp;_i
+          td
 
     h3#calculus Calculus
     table
@@ -1501,7 +1582,7 @@ block article
         tr
           td Tau
           td \( \tau \)
-          td: code #tau, #t
+          td: code #tau
           td \( 2 \pi \) &asymp; 6.28&hellip;
         tr
           td E
@@ -1522,7 +1603,7 @@ block article
           td Limit
           td \( \displaystyle\lim_{x\to a} f(x) \)
           td: code lim(f(x), a, x), limit(f(x), x, a), &amp;lim &amp;_(x -&gt; a) f(x)
-          td <code>&amp;lim</code> notation not implemented
+          td Also <tt>limit</tt>, <tt>Lim</tt>, <tt>Limit</tt>
         tr
           td Derivative
           td \( \displaystyle \frac{\mathrm{d}}{\mathrm{d}x} \left( f(x) \right) \)
@@ -1562,22 +1643,22 @@ block article
           td Riemann Sum
           td \( \displaystyle \sum_{i=1}^n f(x_i) \, \Delta x_i \)
           td: code sum(f(x&amp;_i)*&amp;Dx&amp;_i, i, 1, n), &amp;sum &amp;_(i=1) &amp;^n F(x&amp;_i)*&amp;Dx&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td Also <tt>Sum</tt>
         tr
           td Indefinite Integral
           td \( \displaystyle \int f(x) \,\mathrm{d}x \)
           td: code int(f(x),x), &amp;int f(x) &amp;dx
-          td
+          td Also <tt>Int</tt>, <tt>integral</tt>, <tt>Integral</tt>
         tr
           td Definite Integral
           td \( \displaystyle \int_a^b f(x) \,\mathrm{d}x \)
           td: code int(f(x),x,a,b), &amp;int &amp;_a &amp;^b f(x) &amp;dx
-          td
+          td (see note above)
         tr
           td Infinite Series
           td \( \displaystyle \sum_{i=1}^\infty a_i \)
           td: code sum(a&amp;_i, i, 1, infinity), &amp;sum &amp;_(i=1) &amp;^infinity a&amp;_i
-          td <code>&amp;sum</code> notation not implemented
+          td (see note above)
         tr
           td Gradient
           td \( \vec{\nabla} f \), \( \mathrm{grad}(f) \)
@@ -1593,6 +1674,89 @@ block article
           td \( \vec{\nabla} \times F \), \( \mathrm{curl}(F) \)
           td: code &amp;delx F, curl(F)
           td
+
+    h3#logic Logic
+    table
+      thead
+        tr
+          th Name
+          th Symbol
+          th Code
+          th Description
+      tbody
+        tr
+          td True
+          td \( \mathbf{T} \)
+          td: code #T, #true, true
+          td Case-insensitive
+        tr
+          td False
+          td \( \mathbf{F} \)
+          td: code #F, #false, false
+          td Case-insensitive
+        tr
+          td And
+          td \( p \wedge q \)
+          td: code p &amp;&amp; q, p and q
+          td Conjugation
+        tr
+          td Or
+          td \( p \vee q \)
+          td: code p || q, p or q
+          td Disjunction
+        tr
+          td Exclusive Or
+          td \( p \veebar q \)
+          td: code p xor q
+          td Exclusion
+        tr
+          td Not
+          td \( \neg p \)
+          td: code ~p, !p, not p
+        tr
+          td Implies
+          td \( p \rightarrow q \)
+          td: code p -&gt; q, p implies q, p onlyif q, if p then q
+          td Conditional
+        tr
+          td Implied By
+          td \( p \leftarrow q \)
+          td: code p &lt;- q, p imqliedby q, p if q, p when q, p whenever q
+          td Reverse Conditional
+        tr
+          td If And Only If
+          td \( p \leftrightarrow q \)
+          td: code p &lt;-&gt; q, p iff q
+          td Biconditional
+        tr
+          td Equivalent
+          td \( \equiv \)
+          td: code
+            | ===, equiv
+          td
+        tr
+          td Not Equivalent
+          td \( \not\equiv \)
+          td: code !==, /==, nequiv
+          td
+        tr
+          td(rowspan=2) Universal Quantifier
+          td \( \forall x \) (we have) \( P(x) \)
+          td: code forall x -> P(x)
+          td(rowspan=2) "For all &hellip;"
+        tr
+          td \( \forall x :~Q(x) \) (we have) \( P(x) \)
+          td: code forall x : Q(x) -&gt; P(x)
+        tr
+          td Existential Quantifier
+          td \( \exists x :~Q(x) \)
+          td: code exists x : Q(x)
+          td "There exists &hellip; such that &hellip;"
+        tr
+          td Unique Quantifier
+          td \( \exists ! x :~Q(x) \)
+          td: code unique x : Q(x)
+          td "There exists a unique &hellip; such that &hellip;"
 
     h3#set-theory Set Theory
     table
@@ -1711,102 +1875,23 @@ block article
         tr
           td Union Over Range
           td \( \displaystyle \bigcup_{i=m}^n S_i \)
-          td: code union(S&amp;_i,m,n), &amp;union &amp;_(i=m) &amp;^n S&amp;_i
-          td not implemented
+          td: code Union(S&amp;_i,m,n), &amp;Union &amp;_(i=m) &amp;^n S&amp;_i
+          td
         tr
           td Union Over Set
           td \( \displaystyle \bigcup_{i \in T} S_i \)
-          td: code union(S&amp;_i, i in T), &amp;union &amp;_(i in T) S&amp;_i
-          td not implemented
+          td: code Union(S&amp;_i, i in T), &amp;Union &amp;_(i in T) S&amp;_i
+          td
         tr
           td Intersection Over Range
           td \( \displaystyle \bigcap_{i=m}^n S_i \)
-          td: code intersect(S&amp;_i,m,n), &amp;intersect &amp;_(i=m) &amp;^n S&amp;_i
-          td not implemented
+          td: code Intersect(S&amp;_i,m,n), &amp;Intersect &amp;_(i=m) &amp;^n S&amp;_i
+          td
         tr
           td Intersection Over Set
           td \( \displaystyle \bigcap_{i \in T} S_i \)
-          td: code intersect(S&amp;_i, i in T), &amp;intersect &amp;_(i in T) S&amp;_i
-          td not implemented
-
-    h3#logic Logic
-    table
-      thead
-        tr
-          th Name
-          th Symbol
-          th Code
-          th Description
-      tbody
-        tr
-          td True
-          td \( \mathbf{T} \)
-          td: code #T, #true, true
+          td: code Intersect(S&amp;_i, i in T), &amp;Intersect &amp;_(i in T) S&amp;_i
           td
-        tr
-          td False
-          td \( \mathbf{F} \)
-          td: code #F, #false, false
-          td
-        tr
-          td And
-          td \( p \wedge q \)
-          td: code p &amp;&amp; q, p and q
-          td Conjugation
-        tr
-          td Or
-          td \( p \vee q \)
-          td: code p || q, p or q
-          td Disjunction
-        tr
-          td Exclusive Or
-          td \( p \veebar q \)
-          td: code p xor q
-          td Exclusion
-        tr
-          td Implies
-          td \( p \rightarrow q \)
-          td: code p -&gt; q, p implies q, p onlyif q, if p then q
-          td Conditional
-        tr
-          td Implied By
-          td \( p \leftarrow q \)
-          td: code p &lt;- q, p imqliedby q, p if q, p when q, p whenever q
-          td Reverse Conditional
-        tr
-          td If And Only If
-          td \( p \leftrightarrow q \)
-          td: code p &lt;-&gt; q, p iff q
-          td Biconditional
-        tr
-          td Equivalent
-          td \( \equiv \)
-          td: code
-            | ===, equiv
-          td
-        tr
-          td Not Equivalent
-          td \( \not\equiv \)
-          td: code !==, /==, nequiv
-          td
-        tr
-          td(rowspan=2) Universal Quantifier
-          td \( \forall x \) (we have) \( P(x) \)
-          td: code forall x -> P(x)
-          td(rowspan=2) "For all &hellip;"
-        tr
-          td \( \forall x :~Q(x) \) (we have) \( P(x) \)
-          td: code forall x : Q(x) -&gt; P(x)
-        tr
-          td Existential Quantifier
-          td \( \exists x :~Q(x) \)
-          td: code exists x : Q(x)
-          td "There exists &hellip; such that &hellip;"
-        tr
-          td Unique Quantifier
-          td \( \exists ! x :~Q(x) \)
-          td: code unique x : Q(x)
-          td "There exists a unique &hellip; such that &hellip;"
 
     h3#linear-algebra Linear Algebra
     table
@@ -1845,11 +1930,11 @@ block article
         tr
           td(rowspan=2) Matrix Delimiters
           td \( \left[ \left\langle \ \right\rangle, \left\langle \ \right\rangle \right] \)
-          td: code [ < >, < > ]
+          td: code [ &lt; &gt;, &lt; &gt; ]
           td Row of Columns
         tr
           td \( \left\langle \left[ \ \right], \left[ \ \right] \right\rangle \)
-          td: code < [ ], [ ] >
+          td: code &lt; [ ], [ ] &gt;
           td Column of Rows
         tr
           td Zero Matrix

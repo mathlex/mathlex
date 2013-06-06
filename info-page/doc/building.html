@@ -16,6 +16,7 @@
       <nav>
         <ul>
           <li><a href="../index.html"><span>Home</span></a></li>
+          <li><a href="../thesis.pdf"><span>Thesis [PDF]</span></a></li>
           <li><a href="../quick-start.html"><span>Quick-Start</span></a></li>
           <li class="current"><a href="../doc/index.html" class="current"><span>Documentation</span></a></li>
           <li><a href="../demo.html"><span>Demo</span></a></li>
@@ -143,11 +144,11 @@
             instead:
             
           </p>
-          <pre class="brush: coffeescript">evalExpression = (tree) -&gt; switch tree[0]
+          <pre class="brush: coffeescript">evalExpression = (tree) -> switch tree[0]
   when 'Literal' then tree[2]
   when 'Plus' then evalExpression(tree[1]) + evalExpression(tree[2])
   else
-    message = &quot;unknown tree node: #{tree[0]}&quot;
+    message = "unknown tree node: #{tree[0]}"
     console.log message
     </pre>
           <p>

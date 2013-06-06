@@ -16,6 +16,7 @@ BALANCED_PAIRS = [
     ['TLPipe', 'TRPipe']
     ['TLDoublePipe', 'TRDoublePipe']
     ['TLVector', 'TRVector']
+    ['TIntegral', 'TDifferential']
 ]
 
 INVERSES = {}
