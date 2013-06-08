@@ -13,8 +13,9 @@ BUILD = build
 SRC = src
 
 
-.PHONY: all
-all: $(BUILD)/browser/mathlex.js css/normalize.min.css css/style.min.css index.html
+
+.PHONY: mathlex
+mathlex: $(BUILD)/browser/mathlex.js css/normalize.min.css css/style.min.css
 
 
 $(BUILD):
@@ -60,9 +61,15 @@ css/style.min.css: css/style.css
 	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
 
 
+
+.PHONY: demo
+demo: index.html
+
+
 #Cake
 index.html: Cakefile template.jade palettes.js
 	$(CAKE) build:html
+
 
 
 .PHONY: docs
