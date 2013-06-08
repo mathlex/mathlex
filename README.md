@@ -292,13 +292,13 @@ parsed code to a Sage server.
 
 License
 =======
-<!-- This software is licensed under {{{...}}}. -->
+MathLex is licensed under a [Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported License][cc-by-nc-sa].
 
-Copyright (C) 2012 Matthew J. Barry. All rights reserved.
+MathLex may be used for free in any personal or academic resource. If you would
+like to use MathLex in a commercial product, please contact us.
 
-This code is not to be used for any product without explicit permission from the
-author.
-
+For more information, please see our website at http://www.mathlex.org/license.
 
 <!--
 To-Dos
