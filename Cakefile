@@ -1,14 +1,15 @@
 fs = require 'fs'
 BUILD_DIR = './build'
+DEMO_DIR = './demo'
 
 
 task 'build:html', 'compile HTML page', ->
-    console.log 'building index.html...'
-    fs.readFile './template.jade', (err, source) ->
+    console.log "building #{DEMO_DIR}/index.html..."
+    fs.readFile "#{DEMO_DIR}/template.jade", (err, source) ->
         throw err if err
         jade = require 'jade'
-        context = require './palettes'
-        fs.writeFile 'index.html', jade.compile(source)(context)
+        context = require "#{DEMO_DIR}/palettes"
+        fs.writeFile "#{DEMO_DIR}/index.html", jade.compile(source)(context)
 
 
 task 'build:browser', 'merge scripts for inclusion in browser', ->

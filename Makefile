@@ -11,11 +11,12 @@ YUI_LIB = ./vendor/yui/yuicompressor-2.4.7.jar
 
 BUILD = build
 SRC = src
+DEMO = demo
 
 
 
 .PHONY: mathlex
-mathlex: $(BUILD)/browser/mathlex.js css/normalize.min.css css/style.min.css
+mathlex: $(BUILD)/browser/mathlex.js
 
 
 $(BUILD):
@@ -44,30 +45,25 @@ $(BUILD)/browser/mathlex.js: $(BUILD)/browser/mathlex.opt.js
 	cat $< | $(JAVA) -jar $(YUI_LIB) --type=js > $@
 
 
-css:
-	mkdir -p $@
-
-
-css/normalize.css: css scss/normalize.scss
-	$(COMPASS) scss/normalize.scss
-
-css/normalize.min.css: css/normalize.css
-	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
-
-css/style.css: css scss/style.scss
-	$(COMPASS) scss/style.scss
-
-css/style.min.css: css/style.css
-	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
-
-
 
 .PHONY: demo
-demo: index.html
+demo: $(addprefix $(DEMO)/,css/normalize.min.css css/style.min.css index.html)
 
+
+$(DEMO)/css:
+	mkdir -p $@
+
+$(DEMO)/css/normalize.css: $(DEMO)/scss/normalize.scss $(DEMO)/css
+	cd $(@D) && $(COMPASS) $<
+
+$(DEMO)/css/style.css: $(DEMO)/css/style.scss, $(DEMO)/css
+	cd $(@D) && $(COMPASS) $<
+
+$(DEMO)/css/%.min.css: $(DEMO)/css/%.css
+	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
 
 #Cake
-index.html: Cakefile template.jade palettes.js
+$(DEMO)/index.html: Cakefile $(DEMO)/template.jade $(DEMO)/palettes.js
 	$(CAKE) build:html
 
 
@@ -76,10 +72,10 @@ index.html: Cakefile template.jade palettes.js
 docs: doc/Symbols.pdf
 
 doc/Symbols.pdf: doc/Symbols.tex
-	cd doc && $(PDFLATEX) Symbols.tex && $(PDFLATEX) Symbols.tex
+	cd $(@D) && $(PDFLATEX) $< && $(PDFLATEX) $<
 
 
 
 .PHONY: clean
 clean:
-	rm -rf $(BUILD) css index.html doc/*.{aux,log,pdf,synctex.gz}
+	rm -rf $(BUILD) $(DEMO)/{css,index.html} doc/*.{aux,log,pdf,synctex.gz}
