@@ -1,7 +1,7 @@
 COFFEE = coffee
 CAKE = cake
-NODE = node
 JISON = jison
+NPM = npm
 COMPASS = compass compile
 JAVA = java
 PDFLATEX = pdflatex
@@ -35,7 +35,7 @@ $(BUILD)/parser.js: $(SRC)/grammar.yy $(BUILD)
 	$(JISON) $< -o $@
 
 #Cake
-$(BUILD)/browser/mathlex.raw.js: Cakefile $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer MathLex $(addprefix render/,latex sage text-tree)))
+$(BUILD)/browser/mathlex.raw.js: Cakefile node_modules $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer MathLex $(addprefix render/,latex sage text-tree)))
 	$(CAKE) build:browser
 
 $(BUILD)/browser/mathlex.opt.js: $(BUILD)/browser/mathlex.raw.js
@@ -44,6 +44,8 @@ $(BUILD)/browser/mathlex.opt.js: $(BUILD)/browser/mathlex.raw.js
 $(BUILD)/browser/mathlex.js: $(BUILD)/browser/mathlex.opt.js
 	cat $< | $(JAVA) -jar $(YUI_LIB) --type=js > $@
 
+node_modules: package.json
+	$(NPM) install
 
 
 .PHONY: demo
@@ -53,17 +55,14 @@ demo: $(addprefix $(DEMO)/,css/normalize.min.css css/style.min.css index.html)
 $(DEMO)/css:
 	mkdir -p $@
 
-$(DEMO)/css/normalize.css: $(DEMO)/scss/normalize.scss $(DEMO)/css
-	cd $(@D) && $(COMPASS) $<
-
-$(DEMO)/css/style.css: $(DEMO)/css/style.scss, $(DEMO)/css
-	cd $(@D) && $(COMPASS) $<
+$(DEMO)/css/%.css: $(DEMO)/scss/%.scss $(DEMO)/css
+	cd $(DEMO) && $(COMPASS) $(subst $(DEMO)/,,$<)
 
 $(DEMO)/css/%.min.css: $(DEMO)/css/%.css
 	cat $^ | $(JAVA) -jar $(YUI_LIB) --type=css > $@
 
 #Cake
-$(DEMO)/index.html: Cakefile $(DEMO)/template.jade $(DEMO)/palettes.js
+$(DEMO)/index.html: Cakefile node_modules $(DEMO)/template.jade $(DEMO)/palettes.js
 	$(CAKE) build:html
 
 
