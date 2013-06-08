@@ -321,3 +321,4 @@ To-Dos
 [Compass]: http://compass-style.org "Compass Stylesheet Framework"
 [MathJax]: http://www.mathjax.org "MathJax: Beautiful math in all browsers"
 [js reserved]: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words "Reserved JavaScript keywords"
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
