@@ -14,7 +14,7 @@ SRC = src
 
 
 .PHONY: all
-all: $(BUILD)/browser/mathlex.js css/normalize.min.css css/style.min.css index.html doc/Symbols.pdf
+all: $(BUILD)/browser/mathlex.js css/normalize.min.css css/style.min.css index.html
 
 
 $(BUILD):
@@ -65,6 +65,8 @@ index.html: Cakefile template.jade palettes.js
 	$(CAKE) build:html
 
 
+.PHONY: docs
+docs: doc/Symbols.pdf
 
 doc/Symbols.pdf: doc/Symbols.tex
 	cd doc && $(PDFLATEX) Symbols.tex && $(PDFLATEX) Symbols.tex
