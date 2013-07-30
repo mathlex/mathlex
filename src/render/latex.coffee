@@ -195,11 +195,10 @@ exports.render = render = (ast) ->
                         "\\mathrm{#{ast[1][1]}}{\\left( #{args} \\right)}"
 
                     when 'int', 'integral'
-                        if ast[2].length == 4
-                            bounds = "_{#{render ast[2][2]}}^{#{render ast[2][3]}}"
-                        else if ast[2].length == 3
-                            bounds = "_{#{render ast[2][2]}}"
-                        else ''
+                        bounds = switch ast[2].length
+                            when 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}"
+                            when 3 then "_{#{render ast[2][2]}}"
+                            else ''
                         "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
                     when 'diff'
                         if ast[2][0][0] in ['Variable', 'Constant']
