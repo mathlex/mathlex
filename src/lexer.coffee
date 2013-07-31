@@ -9,25 +9,28 @@ IDENTIFIER = /^[a-zA-Z][a-zA-Z0-9_]*/
 CONSTANT = /^#([a-zA-Z0-9]*)/
 
 # Pipe not included since it can be used as a "such that" operator
+# auto match/pair behavior:
+#   [0]: automatically add {right} if {left} is found without matching {right}
+#   [1]: automatically add {left} if {right} is found without matching {left}
 BALANCED_PAIRS = [
-    ['TLParen', 'TRParen']
-    ['TLSqBracket', 'TRSqBracket']
-    ['TLCurlyBrace', 'TRCurlyBrace']
-    ['TLPipe', 'TRPipe']
-    ['TLDoublePipe', 'TRDoublePipe']
-    ['TLVector', 'TRVector']
-    ['TIntegral', 'TDifferential']
+    { l: 'TLParen',      r: 'TRParen',       b: [true, true] }
+    { l: 'TLSqBracket',  r: 'TRSqBracket',   b: [true, true] }
+    { l: 'TLCurlyBrace', r: 'TRCurlyBrace',  b: [true, true] }
+    { l: 'TLPipe',       r: 'TRPipe',        b: [true, true] }
+    { l: 'TLDoublePipe', r: 'TRDoublePipe',  b: [true, true] }
+    { l: 'TLVector',     r: 'TRVector',      b: [true, true] }
+    { l: 'TIntegral',    r: 'TDifferential', b: [true, false] }
 ]
 
 INVERSES = {}
 LEFT_DELIMS = []
 RIGHT_DELIMS = []
 
-for [l,r] in BALANCED_PAIRS
+for {l,r,b} in BALANCED_PAIRS
     INVERSES[r] = l
     INVERSES[l] = r
-    LEFT_DELIMS.push l
-    RIGHT_DELIMS.push r
+    LEFT_DELIMS.push l if b[0]
+    RIGHT_DELIMS.push r if b[1]
 
 RESERVED = (str) ->
     # case-insensitive tokens
