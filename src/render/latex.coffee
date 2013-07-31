@@ -186,9 +186,12 @@ exports.render = render = (ast) ->
                     when 'abs' then "\\left| #{render ast[2][0]} \\right|"
                     when 'root' then "\\sqrt[#{render ast[2][1]}]{#{render ast[2][0]}}"
 
-                    # understood by LaTeX
-                    when 'ln', 'sqrt', 'sin', 'cos', 'tan', 'csc', 'sec', 'cot', 'arcsin', 'arccos', 'arctan', 'sinh', 'cosh', 'tanh', 'coth'
+                    # understood by LaTeX (wrap in parentheses)
+                    when 'ln', 'sin', 'cos', 'tan', 'csc', 'sec', 'cot', 'arcsin', 'arccos', 'arctan', 'sinh', 'cosh', 'tanh', 'coth'
                         "\\#{ast[1][1]}{\\left( #{args} \\right)}"
+
+                    # understood by LaTeX (don't wrap in parentheses)
+                    when 'sqrt' then "\\#{ast[1][1]}{#{args}}"
 
                     # explicit mathrm
                     when 'arccsc', 'arcsec', 'arccot', 'arcsinh', 'arccosh', 'arctanh', 'arccsch', 'arcsech', 'arccoth', 'csch', 'sech'
