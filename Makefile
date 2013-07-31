@@ -1,6 +1,7 @@
-COFFEE = coffee
-CAKE = cake
-JISON = jison
+COFFEE = node_modules/.bin/coffee
+CAKE = node_modules/.bin/cake
+JISON = node_modules/.bin/jison
+
 NPM = npm
 COMPASS = compass compile
 JAVA = java
@@ -12,6 +13,9 @@ YUI_LIB = ./vendor/yui/yuicompressor-2.4.7.jar
 BUILD = build
 SRC = src
 DEMO = demo
+
+
+OBJECTS = parser.js lexer.js MathLex.js render/latex.js render/sage.js render/text-tree.js
 
 
 
@@ -35,7 +39,7 @@ $(BUILD)/parser.js: $(SRC)/grammar.yy $(BUILD)
 	$(JISON) $< -o $@
 
 #Cake
-$(BUILD)/browser/mathlex.raw.js: Cakefile node_modules $(BUILD)/browser $(addprefix $(BUILD)/,$(addsuffix .js,parser lexer MathLex $(addprefix render/,latex sage text-tree)))
+$(BUILD)/browser/mathlex.raw.js: Cakefile node_modules $(BUILD)/browser $(addprefix $(BUILD)/,$(OBJECTS))
 	$(CAKE) build:browser
 
 $(BUILD)/browser/mathlex.opt.js: $(BUILD)/browser/mathlex.raw.js
@@ -46,6 +50,7 @@ $(BUILD)/browser/mathlex.js: $(BUILD)/browser/mathlex.opt.js
 
 node_modules: package.json
 	$(NPM) install
+
 
 
 .PHONY: demo
@@ -78,3 +83,8 @@ doc/Symbols.pdf: doc/Symbols.tex
 .PHONY: clean
 clean:
 	rm -rf $(BUILD) $(DEMO)/{css,index.html} doc/*.{aux,log,pdf,synctex.gz}
+
+
+.PHONY: clobber
+clobber: clean
+	rm -rf node_modules demo/.sass-cache
