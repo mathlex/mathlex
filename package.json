@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "author": "Matthew Barry <mbarry@tamu.edu>",
     "dependencies": {
-        "jison": "0.3.x",
+        "jison": "0.4.x",
         "browserify": "1.16.x",
         "jade": "0.27.x",
         "coffee-script": "1.6.x"

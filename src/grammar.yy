@@ -293,13 +293,13 @@ primary
         { $$ = ['Range', $1, $2, $4, $5]; }
     | TPipe algebraic TPipe
         { $$ = ['AbsVal', $2]; }
-    | TLPipe opt_algebraic TRPipe
+    | TLPipe algebraic TRPipe
         { $$ = ['AbsVal', $2]; }
     | TOr algebraic TOr
         { $$ = ['Norm', $2]; }
-    | TLDoublePipe opt_algebraic TRDoublePipe
+    | TLDoublePipe algebraic TRDoublePipe
         { $$ = ['Norm', $2]; }
-    | TLParen opt_expression TRParen
+    | TLParen expression TRParen
         { $$ = ['Parentheses', $2]; }
     | TIntegral int_bounds algebraic TDifferential algebraic
         {
