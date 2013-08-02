@@ -24,13 +24,17 @@ BALANCED_PAIRS = [
 
 INVERSES = {}
 LEFT_DELIMS = []
+LEFT_DELIMS_AUTOMATCH = []
 RIGHT_DELIMS = []
+RIGHT_DELIMS_AUTOMATCH = []
 
 for {l,r,b} in BALANCED_PAIRS
     INVERSES[r] = l
     INVERSES[l] = r
-    LEFT_DELIMS.push l if b[0]
-    RIGHT_DELIMS.push r if b[1]
+    LEFT_DELIMS.push l
+    LEFT_DELIMS_AUTOMATCH.push l if b[0]
+    RIGHT_DELIMS.push r
+    RIGHT_DELIMS_AUTOMATCH.push r if b[1]
 
 RESERVED = (str) ->
     # case-insensitive tokens
@@ -154,6 +158,13 @@ exports.Lexer = class Lexer
 
         i = 0
         while @chunk = @str.slice i
+            consumed =
+                @spaceToken or
+                @numLiteral or
+                @identifierOrKeywordToken or
+                @constantToken
+
+            lengths = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
             throw SyntaxError unless consumed = @spaceToken() or
                     @numLiteral() or
                     @identifierOrKeywordToken() or
@@ -204,14 +215,14 @@ exports.Lexer = class Lexer
         op = @chunk[0...len]
         return 0 unless tag = RESERVED op
 
-        @delims.push INVERSES[tag] if tag in LEFT_DELIMS
+        @delims.push INVERSES[tag] if tag in LEFT_DELIMS_AUTOMATCH
         @pair tag if tag in RIGHT_DELIMS
 
         @token tag, op
         len
 
     pair: (tag) ->
-        if tag not in @delims
+        if tag not in @delims and tag in RIGHT_DELIMS_AUTOMATCH
             inverse = INVERSES[tag]
             @tokens.unshift [inverse, "auto-ins2-#{inverse}"]
             @delims.unshift tag
