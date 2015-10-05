@@ -6,6 +6,7 @@
         "jison": "0.3.x",
         "uglify-js": "2.2.x",
         "browserify": "1.16.x",
-        "jade": "0.27.x"
+        "jade": "0.27.x",
+        "coffee-script": "1.10.0"
     }
 }
