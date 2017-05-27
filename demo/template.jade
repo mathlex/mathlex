@@ -8,7 +8,7 @@ html(lang='en')
     link(rel='stylesheet', href='css/style.min.css')
 
     // attempt to load MathJax from CDN; fall back to local if offline
-    script(src='//d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
     :coffeescript
       window.MathJax or document.write '<script src="js/libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>';
   body
@@ -149,7 +149,7 @@ html(lang='en')
     script(src='../build/browser/mathlex.js')
 
     // attempt to load jQuery from Google CDN; fall back to local if offline
-    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     :coffeescript
       window.jQuery or document.write '<script src="js/libs/jquery-1.7.1.min.js"><\/script>';
     script(src='js/jquery.textarea-expander.js')
