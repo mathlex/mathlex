@@ -230,9 +230,9 @@ algebraic
         { $$ = ['Function', ['Variable', 'sum'], [$3].concat($2)]; }
     | TProduct range_bounds algebraic
         { $$ = ['Function', ['Variable', 'prod'], [$3].concat($2)]; }
-    | TBigUnion range_bounds algebraic
+    | TUnion range_bounds algebraic
         { $$ = ['Function', ['Variable', 'Union'], [$3].concat($2)]; }
-    | TBigIntersect range_bounds algebraic
+    | TIntersect range_bounds algebraic
         { $$ = ['Function', ['Variable', 'Intersect'], [$3].concat($2)]; }
     | TLimit TSubscript TLParen primary TImplies algebraic TRParen algebraic
         { $$ = ['Function', ['Variable', 'lim'], [$8, $4, $6]]; }

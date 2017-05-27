@@ -36,120 +36,134 @@ for {l,r,b} in BALANCED_PAIRS
     RIGHT_DELIMS.push r
     RIGHT_DELIMS_AUTOMATCH.push r if b[1]
 
-RESERVED = (str) ->
-    # case-insensitive tokens
+KEYWORD = (str) ->
     switch str.toLowerCase()
-        when 'false' then 'TConstant'
-        when 'true' then 'TConstant'
-        when '&int', '&integral' then 'TIntegral'
-        when '&lim', '&limit' then 'TLimit'
-        when '&sum' then 'TSum'
-        when '&prod', '&product' then 'TProduct'
-        else  switch str
-            when 'infinity' then 'TConstant'
+        when 'false', 'true' then 'TConstant'
+        when 'int', 'integral' then 'TIntegral'
+        when 'lim', 'limit' then 'TLimit'
+        when 'sum' then 'TSum'
+        when 'prod', 'product' then 'TProduct'
+        when 'infty', 'infin', 'infinity', 'oo' then 'TInfinity'
+        when 'forall' then 'TQForall'
+        when 'exists' then 'TQExists'
+        when 'unique' then 'TQUnique'
+        when 'iff' then 'TIff'
+        when 'onlyif', 'implies' then 'TImplies'
+        when 'if', 'impliedby', 'when', 'whenever' then 'TIf'
+        when 'then' then 'TThen'
+        when 'and' then 'TAnd'
+        when 'or' then 'TOr'
+        when 'xor' then 'TXor'
+        when 'not' then 'TNot'
+        when 'equiv', 'equivalent' then 'TEquiv'
+        when 'nequiv', 'nequivalent' then 'TNotEquiv'
+        when 'as' then 'TRatioEqual'
+        when 'congruent' then 'TCongruent'
+        when 'sim', 'similar' then 'TSimilar'
+        when 'para', 'parallel' then 'TParallel'
+        when 'perp', 'perpendicular' then 'TPerpendicular'
+        when 'subset' then 'TSubset'
+        when 'psubset', 'propsubset', 'propersubset' then 'TPropSubset'
+        when 'supset', 'superset' then 'TSuperset'
+        when 'psuperset', 'psupset', 'propsuperset', 'propsupset', 'propersuperset', 'propersupset' then 'TPropSuperset'
+        when 'in' then 'TIn'
+        when 'divides' then 'TDivides'
+        when 'ndivides', 'notdivides', 'ndivide', 'notdivide' then 'TNotDivides'
+        when 'union' then 'TUnion'
+        when 'intersect' then 'TIntersect'
+        when 'minus' then 'TSetDiff'
+        when 'choose' then 'TChoose'
+        when 'mod' then 'TModulus'
+        else 'TIdent'
 
-            when 'forall' then 'TQForall'
-            when 'exists' then 'TQExists'
-            when 'unique' then 'TQUnique'
-            when '<->', 'iff' then 'TIff'
-            when '->', 'onlyif', 'implies' then 'TImplies'
-            when '<-', 'if', 'impliedby', 'when', 'whenever' then 'TIf'
-            when 'then' then 'TThen'
-            when '&&', 'and' then 'TAnd'
-            when '||', 'or' then 'TOr'
-            when 'xor' then 'TXor'
-            when 'not' then 'TNot'
-            when '~' then 'TTilde'
-
-            when '<' then 'TLess'
-            when '<=' then 'TLessEqual'
-            when '===', 'equiv' then 'TEquiv'
-            when '!==', '/==', 'nequiv' then 'TNotEquiv'
-            when '~=', 'congruent' then 'TCongruent'
-            when 'similar', 'sim' then 'TSimilar'
-            when '=', '==' then 'TEqual'
-            when '!=', '/=', '<>' then 'TNotEqual'
-            when '::', 'as' then 'TRatioEqual'
-            when 'para', 'parallel' then 'TParallel'
-            when 'perp', 'perpendicular' then 'TPerpendicular'
-            when '>=' then 'TGreaterEqual'
-            when '>' then 'TGreater'
-            when 'subset' then 'TSubset'
-            when 'psubset', 'propsubset', 'propersubset' then 'TPropSubset'
-            when 'superset', 'supset' then 'TSuperset'
-            when 'psuperset', 'psupset', 'propsuperset', 'propsupset', 'propersuperset', 'propersupset' then 'TPropSuperset'
-            when 'in' then 'TIn'
-            when '|' then 'TPipe'
-            when 'divides' then 'TDivides'
-            when '~|', '/|', 'ndivides', 'notdivides', 'ndivide', 'notdivide' then 'TNotDivides'
-
-            when 'union' then 'TUnion'
-            when 'intersect' then 'TIntersect'
-            when '\\', 'minus' then 'TSetDiff'
-
-            when 'choose' then 'TChoose'
-
-            when '+' then 'TPlus'
-            when '-' then 'TMinus'
-            when '*' then 'TTimes'
-            when '/' then 'TDivide'
-            when '&/' then 'TSlash'
-            when '&:' then 'TRatio'
-            when 'mod', '%' then 'TModulus'
-            when '^', '**' then 'TExponent'
-            when '&^' then 'TSuperscript'
-            when '&_' then 'TSubscript'
-            when '!' then 'TBang'
-            when '\'' then 'TPrime'
-            when '.' then 'TDotDiff'
-            when '@' then 'TCompose'
-            when '@@' then 'TSelfCompose'
-
-            when '&Re' then 'TReal'
-            when '&Im' then 'TImaginary'
-            when '&pd' then 'TPartial'
-            when '/&pd' then 'TDivPartial'
-            when '&d' then 'TDifferential'
-            when '/&d' then 'TDivDiff'
-            when '&D' then 'TChangeDelta'
-            when '&del', '&grad' then 'TGradient'
-            when '&del.', '&div' then 'TDivergence'
-            when '&delx', '&curl' then 'TCurl'
-            when '&x' then 'TCross'
-            when '&.' then 'TDot'
-            when '&w' then 'TWedge'
-            when '&ox' then 'TTensor'
-            when '&o+' then 'TDirectSum'
-            when '&*' then 'TCartesianProduct'
-            when '&v' then 'TVectorizer'
-            when '&u' then 'TUnitVectorizer'
-            when '&pm', '+/-' then 'TPlusMinus'
-            when '&mp', '-/+' then 'TMinusPlus'
-            when '&Union' then 'TBigUnion'
-            when '&Intersect' then 'TBigIntersect'
-
-
-            when '(' then 'TLParen'
-            when ')' then 'TRParen'
-            when '{' then 'TLCurlyBrace'
-            when '}' then 'TRCurlyBrace'
-            when '[' then 'TLSqBracket'
-            when ']' then 'TRSqBracket'
-            when '[:' then 'TLRangeInclusive'
-            when ':]' then 'TRRangeInclusive'
-            when '(:' then 'TLRangeExclusive'
-            when ':)' then 'TRRangeExclusive'
-            when '|:' then 'TLPipe'
-            when ':|' then 'TRPipe'
-            when '||:' then 'TLDoublePipe'
-            when ':||' then 'TRDoublePipe'
-            when '<:' then 'TLVector'
-            when ':>' then 'TRVector'
-            when ':' then 'TSuchThat'
-            when ';' then 'TSemicolon'
-            when ',' then 'TComma'
-
-            else false
+SYMBOLS = [
+    { symbol: '<->', token: 'TIff' }
+    { symbol: '->', token: 'TImplies' }
+    { symbol: '<-', token: 'TIf' }
+    { symbol: '&&', token: 'TAnd' }
+    { symbol: '||', token: 'TOr' }
+    { symbol: '~', token: 'TTilde' }
+    { symbol: '<', token: 'TLess' }
+    { symbol: '<=', token: 'TLessEqual' }
+    { symbol: '===', token: 'TEquiv' }
+    { symbol: '!==', token: 'TNotEquiv' }
+    { symbol: '/==', token: 'TNotEquiv' }
+    { symbol: '~=', token: 'TCongruent' }
+    { symbol: '=', token: 'TEqual' }
+    { symbol: '==', token: 'TEqual' }
+    { symbol: '!=', token: 'TNotEqual' }
+    { symbol: '/=', token: 'TNotEqual' }
+    { symbol: '<>', token: 'TNotEqual' }
+    { symbol: '::', token: 'TRatioEqual' }
+    { symbol: '>=', token: 'TGreaterEqual' }
+    { symbol: '>', token: 'TGreater' }
+    { symbol: '|', token: 'TPipe' }
+    { symbol: '~|', token: 'TNotDivides' }
+    { symbol: '/|', token: 'TNotDivides' }
+    { symbol: '\\', token: 'TSetDiff' }
+    { symbol: '+', token: 'TPlus' }
+    { symbol: '-', token: 'TMinus' }
+    { symbol: '*', token: 'TTimes' }
+    { symbol: '/', token: 'TDivide' }
+    { symbol: '&/', token: 'TSlash' }
+    { symbol: '&:', token: 'TRatio' }
+    { symbol: '%', token: 'TModulus' }
+    { symbol: '^', token: 'TExponent' }
+    { symbol: '**', token: 'TExponent' }
+    { symbol: '&^', token: 'TSuperscript' }
+    { symbol: '&_', token: 'TSubscript' }
+    { symbol: '!', token: 'TBang' }
+    { symbol: '\'', token: 'TPrime' }
+    { symbol: '.', token: 'TDotDiff' }
+    { symbol: '@', token: 'TCompose' }
+    { symbol: '@@', token: 'TSelfCompose' }
+    { symbol: '&Re', token: 'TReal' }
+    { symbol: '&Im', token: 'TImaginary' }
+    { symbol: '&pd', token: 'TPartial' }
+    { symbol: '/&pd', token: 'TDivPartial' }
+    { symbol: '&d', token: 'TDifferential' }
+    { symbol: '/&d', token: 'TDivDiff' }
+    { symbol: '&D', token: 'TChangeDelta' }
+    { symbol: '&del', token: 'TGradient' }
+    { symbol: '&grad', token: 'TGradient' }
+    { symbol: '&del.', token: 'TDivergence' }
+    { symbol: '&div', token: 'TDivergence' }
+    { symbol: '&delx', token: 'TCurl' }
+    { symbol: '&curl', token: 'TCurl' }
+    { symbol: '&x', token: 'TCross' }
+    { symbol: '&.', token: 'TDot' }
+    { symbol: '&w', token: 'TWedge' }
+    { symbol: '&ox', token: 'TTensor' }
+    { symbol: '&o+', token: 'TDirectSum' }
+    { symbol: '&*', token: 'TCartesianProduct' }
+    { symbol: '&v', token: 'TVectorizer' }
+    { symbol: '&u', token: 'TUnitVectorizer' }
+    { symbol: '&pm', token: 'TPlusMinus' }
+    { symbol: '+/-', token: 'TPlusMinus' }
+    { symbol: '&mp', token: 'TMinusPlus' }
+    { symbol: '-/+', token: 'TMinusPlus' }
+    { symbol: '&Union', token: 'TUnion' }
+    { symbol: '&Intersect', token: 'TIntersect' }
+    { symbol: '(', token: 'TLParen' }
+    { symbol: ')', token: 'TRParen' }
+    { symbol: '{', token: 'TLCurlyBrace' }
+    { symbol: '}', token: 'TRCurlyBrace' }
+    { symbol: '[', token: 'TLSqBracket' }
+    { symbol: ']', token: 'TRSqBracket' }
+    { symbol: '[:', token: 'TLRangeInclusive' }
+    { symbol: ':]', token: 'TRRangeInclusive' }
+    { symbol: '(:', token: 'TLRangeExclusive' }
+    { symbol: ':)', token: 'TRRangeExclusive' }
+    { symbol: '|:', token: 'TLPipe' }
+    { symbol: ':|', token: 'TRPipe' }
+    { symbol: '||:', token: 'TLDoublePipe' }
+    { symbol: ':||', token: 'TRDoublePipe' }
+    { symbol: '<:', token: 'TLVector' }
+    { symbol: ':>', token: 'TRVector' }
+    { symbol: ':', token: 'TSuchThat' }
+    { symbol: ';', token: 'TSemicolon' }
+    { symbol: ',', token: 'TComma' }
+]
 
 exports.Lexer = class Lexer
     tokenize: (@str) ->
@@ -158,27 +172,11 @@ exports.Lexer = class Lexer
 
         i = 0
         while @chunk = @str.slice i
-            consumed =
-                @spaceToken or
-                @numLiteral or
-                @identifierOrKeywordToken or
-                @constantToken
-
-            lengths = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
             throw SyntaxError unless consumed = @spaceToken() or
                     @numLiteral() or
                     @identifierOrKeywordToken() or
                     @constantToken() or
-                    @opOrSep(10) or
-                    @opOrSep(9) or
-                    @opOrSep(8) or
-                    @opOrSep(7) or
-                    @opOrSep(6) or
-                    @opOrSep(5) or
-                    @opOrSep(4) or
-                    @opOrSep(3) or
-                    @opOrSep(2) or
-                    @opOrSep(1)
+                    @opOrSep()
             i += consumed
 
         @token tok, "auto-ins1-#{tok}" while tok = @delims.pop()
@@ -186,6 +184,8 @@ exports.Lexer = class Lexer
         @tokens
 
     token: (tag, val) ->
+        @delims.push INVERSES[tag] if tag in LEFT_DELIMS_AUTOMATCH
+        @pair tag if tag in RIGHT_DELIMS
         @tokens.push [tag, val]
 
     spaceToken: ->
@@ -202,7 +202,7 @@ exports.Lexer = class Lexer
     identifierOrKeywordToken: ->
         return 0 unless match = IDENTIFIER.exec @chunk
         ident = match[0]
-        tag = if RESERVED ident then RESERVED ident else 'TIdent'
+        tag = KEYWORD ident
         @token tag, ident
         ident.length
 
@@ -211,20 +211,17 @@ exports.Lexer = class Lexer
         @token 'TConstant', match[1]
         match[0].length
 
-    opOrSep: (len) ->
-        op = @chunk[0...len]
-        return 0 unless tag = RESERVED op
+    opOrSep: ->
+        for x in SYMBOLS
+            continue if @chunk[0...x.symbol.length] != x.symbol
+            @token x.token, x.symbol
+            return x.symbol.length
 
-        @delims.push INVERSES[tag] if tag in LEFT_DELIMS_AUTOMATCH
-        @pair tag if tag in RIGHT_DELIMS
-
-        @token tag, op
-        len
 
     pair: (tag) ->
         if tag not in @delims and tag in RIGHT_DELIMS_AUTOMATCH
             inverse = INVERSES[tag]
             @tokens.unshift [inverse, "auto-ins2-#{inverse}"]
             @delims.unshift tag
-        while tag isnt expected = @delims.pop()
+        while @delims.length > 0 and tag isnt expected = @delims.pop()
             @token expected, "auto-ins3-#{expected}"
