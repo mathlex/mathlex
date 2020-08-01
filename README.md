@@ -295,22 +295,6 @@ like to use MathLex in a commercial product, please contact us.
 
 For more information, please see our website at http://www.mathlex.org/license.
 
-<!--
-To-Dos
-======
-* LESS has been deprecated in favor of Compass: remove `~/less` directory and
-  all LESS-related build rules.
-
-* CoffeeScript make (cake) has been deprecated in favor of Make: Clean up
-  `cakefile`
-
-* `uglify-js` has been deprecated. use `uglify-js2`
-
-* Look into `browserify` module instead of rolling my own
-
-* Use jade template instead of handlebars?
--->
-
 
 [Node.js]: http://nodejs.org "Standalone V8 JavaScript runtime"
 [Handlebars]: http://handlebarsjs.com "Handlebars - Node.js templating system"
