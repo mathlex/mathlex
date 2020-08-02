@@ -5,27 +5,24 @@ MathLex Parser and Renderer
 Build Instructions
 ------------------
 
-**NOTE:** MathLex is distributed in a precompiled, optimized, and minified file. Building
-MathLex from source should not be necessary unless you know what you are doing.
+```bash
+yarn
+yarn build
+```
 
-Make sure you have the following applications and libraries installed:
+Or, if you use NPM:
 
-* [Node.js][] with following modules: [CoffeeScript][], [Handlebars][],
-  [Jison][], [uglify-js2][]
+```bash
+npm install
+npm run build
+```
 
-* [Ruby][] with the [Compass][] gem
+The compiled JS files will be output in the `build` directory:
 
-run `make` from your console:
+* `build/mathlex.js` contains the MathLex library.
+* `build/demo/index.js` is a demonstration page that makes use of the library.
 
-    % make
-
-The compiled JS files will be output in the `build/browser` directory.
-
-To build additional targets, please run one of the corresponding commands:
-
-* `make demo` (the HTML page demostrating MathLex's capabilities)
-* `make docs` (old LaTeX table of symbols and keyword/tokens)
-
+If you so desire, you can build the symbol list in `docs` using LaTeX.
 
 Usage Documentation
 -------------------
@@ -292,7 +289,7 @@ parsed code to a Sage server.
 
 License
 =======
-MathLex is licensed under a [Creative Commons
+MathLex is licensed under the [MIT License][] and [Creative Commons
 Attribution-NonCommercial-ShareAlike 3.0 Unported License][cc-by-nc-sa].
 
 MathLex may be used for free in any personal or academic resource. If you would
@@ -327,3 +324,4 @@ To-Dos
 [MathJax]: http://www.mathjax.org "MathJax: Beautiful math in all browsers"
 [js reserved]: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words "Reserved JavaScript keywords"
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
+[mit license]: https://opensource.org/licenses/MIT
