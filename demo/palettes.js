@@ -1,6 +1,8 @@
+// NOTE: this file is included as part of template compilation
+
 var CRSR = '{%-CURSOR-%}';
 
-module.exports.palettes = [
+module.exports = [
     {
         name: 'Syntax',
         toolbars: [

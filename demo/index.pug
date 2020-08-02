@@ -1,4 +1,4 @@
-!!!
+doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
@@ -7,10 +7,7 @@ html(lang='en')
     link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Inconsolata')
     link(rel='stylesheet', href='css/style.min.css')
 
-    // attempt to load MathJax from CDN; fall back to local if offline
     script(src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
-    :coffeescript
-      window.MathJax or document.write '<script src="js/libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>';
   body
     header
       h1 MathLex
@@ -18,12 +15,12 @@ html(lang='en')
       span.subtitle Math Parser and Renderer <br/>Matthew J. Barry and Philip B. Yasskin
     div(role='main')
       .toolbars
-        each palette in palettes
+        each palette in htmlWebpackPlugin.options.palettes
           .ribbon
             .tabs
               strong #{palette.name}:
               each toolbar in palette.toolbars
-                a(href='#', data-target='.#{toolbar.name.toLowerCase().replace(/\s+/g, '_')}')= toolbar.name
+                a(href='#', data-target='.#{toolbar.name.toLowerCase().replace(/\s+/g, "_")}')= toolbar.name
             each toolbar in palette.toolbars
               .toolbar(class=toolbar.name.toLowerCase().replace(/\s+/g, '_'))
                 each buttonGroup in toolbar.buttonGroups
@@ -146,93 +143,5 @@ html(lang='en')
         <a href="http://nsf.gov/awardsearch/showAward.do?AwardNumber=1123255">#1123255</a> (Yasskin)
       p LaTeX Rendered by <a href="http://www.mathjax.org">MathJax</a>.
 
-    script(src='../build/browser/mathlex.js')
-
-    // attempt to load jQuery from Google CDN; fall back to local if offline
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
-    :coffeescript
-      window.jQuery or document.write '<script src="js/libs/jquery-1.7.1.min.js"><\/script>';
-    script(src='js/jquery.textarea-expander.js')
-    script(src='js/cursor.js')
-    :coffeescript
-      CURSOR_ID = '{%-CURSOR-%}'
-
-      $(document).ready ->
-        mathInput  = $ '#math_input'
-        mathOutput = $ '#math_output'
-        astOutput  = $ '#ast_output'
-        sageOutput = $ '#sage_output'
-        rawOutput  = $ '#tex_output'
-        mjQueue  = MathJax.Hub.queue
-        mjOutBox   = null
-
-        mjQueue.Push -> mjOutBox = MathJax.Hub.getAllJax('math_output')[0]
-
-        class ParserProxy
-          constructor: -> @memo = {}
-          parse: (mlCode) ->
-            if mlCode of @memo then @memo[mlCode]
-            else @memo[mlCode] = MathLex.parse(mlCode);
-
-        pp = new ParserProxy()
-
-        updateMath = (math) ->
-          mathOutput.css {color: '#000'}
-
-          try
-            if math.length > 0
-              # attempt to parse input and display LaTeX
-              ast = pp.parse math
-              latex = MathLex.render ast, 'latex'
-              mjQueue.Push ['Text', mjOutBox, "\\displaystyle{#{latex}}"]
-              rawOutput.html "<pre>#{latex}<\/pre>"
-              astOutput.html "<pre>#{MathLex.render ast, 'text-tree'}<\/pre>"
-              sageOutput.html "<pre>#{MathLex.render ast, 'sage'}<\/pre>"
-            else
-              mjQueue.Push ['Text', mjOutBox, "\\displaystyle{\\mathrm{\\LaTeX\\ Output}}"]
-              rawOutput.html '<code>Raw LaTeX Output<\/code>'
-              astOutput.html '<code>Parse Tree<\/code>'
-              sageOutput.html '<code>Sage Output<\/code>'
-          catch err
-            # if we encounter a parse error, change color of output box
-            mathOutput.css {color: '#f00'}
-            throw err
-
-        $('code.math a').on 'click', (evt) ->
-          math = $(@).text()
-          mathInput.val math
-          updateMath math
-
-        # keyup binding to input text box
-        mathInput.on 'keyup', (evt) -> updateMath $(@).val()
-        mathInput.val ''
-        #mathInput.focus()
-
-        # clear button
-        $('a.delete-icon').on 'click', (evt) ->
-          evt.preventDefault()
-          mathInput.val ''
-          mathInput.TextAreaExpander();
-          updateMath ''
-
-        # toolbars
-        $('.toolbars .ribbon .tabs a').on 'click', (evt) ->
-          evt.preventDefault()
-          thiz = $ @
-          thiz.toggleClass('open').parent().siblings(thiz.data('target')).toggleClass('open').slideToggle(200)
-
-        $('.toolbar a[data-content]').on 'click', (evt) ->
-          evt.preventDefault()
-          element = document.getElementById('math_input')
-          math = $(@).data('content')
-
-          # is there a cursor position?
-          cursorOffset = math.indexOf CURSOR_ID
-          math = math.replace CURSOR_ID, ''
-
-          insertPos = insertAtCursor element, math, false
-
-          cursorOffset = math.length if cursorOffset <= 0
-          setCursorPosition element, insertPos + cursorOffset
-
-          updateMath mathInput.val()
+    script(src='../mathlex.js')
+    script(src='http://code.jquery.com/jquery-3.5.1.min.js', integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', crossorigin='anonymous')

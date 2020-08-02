@@ -14,7 +14,7 @@ parser.lexer =
     setInput: (@tokens) -> @pos = 0
     upcomingInput: -> ""
 
-MathLex = exports.MathLex =
+module.exports =
     parse: (input) ->
         @lastInput = input
         return [] if input.length == 0
@@ -27,5 +27,3 @@ MathLex = exports.MathLex =
             when 'sage' then Sage.render ast
             when 'text-tree' then TextTree.render ast
             else throw "Invalid Format: #{fmt}"
-
-window?.MathLex = MathLex
