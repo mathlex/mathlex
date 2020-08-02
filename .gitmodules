@@ -1,6 +1,0 @@
-[submodule "demo/js/libs/MathJax"]
-	path = demo/js/libs/MathJax
-	url = git://github.com/mathjax/MathJax.git
-[submodule "info-page/javascripts/lib/syntaxhighlighter"]
-	path = info-page/javascripts/lib/syntaxhighlighter
-	url = git://github.com/alexgorbatchev/SyntaxHighlighter
