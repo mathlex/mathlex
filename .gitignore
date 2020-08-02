@@ -1,5 +1,6 @@
 /build
-/css
+/demo/css
+/demo/index.html
 /doc/*.pdf
 /node_modules
 

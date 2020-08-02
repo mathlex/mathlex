@@ -21,6 +21,11 @@ run `make` from your console:
 
 The compiled JS files will be output in the `build/browser` directory.
 
+To build additional targets, please run one of the corresponding commands:
+
+* `make demo` (the HTML page demostrating MathLex's capabilities)
+* `make docs` (old LaTeX table of symbols and keyword/tokens)
+
 
 Usage Documentation
 -------------------
