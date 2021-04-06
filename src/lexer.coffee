@@ -144,6 +144,7 @@ SYMBOLS = [
     { symbol: '-/+', token: 'TMinusPlus' }
     { symbol: '&Union', token: 'TUnion' }
     { symbol: '&Intersect', token: 'TIntersect' }
+    { symbol: '&int', token: 'TIntegral' }
     { symbol: '(', token: 'TLParen' }
     { symbol: ')', token: 'TRParen' }
     { symbol: '{', token: 'TLCurlyBrace' }

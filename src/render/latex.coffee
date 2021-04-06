@@ -171,7 +171,7 @@ exports.render = render = (ast) ->
                 if ast[3].lo? then "_{#{render unwrap ast[3].lo}}" else ""
                 if ast[3].hi? then "^{#{render unwrap ast[3].hi}}" else ""
             ].join ''
-            "\\int#{bounds} #{render ast[1]} \\, \\mathrm{d}#{render ast[2]}"
+            "\\int#{if bounds then "\\limits #{bounds}" else ""} #{render ast[1]} \\, \\mathrm{d}#{render ast[2]}"
 
         when 'Function'
             args = (render arg for arg in ast[2])
@@ -202,7 +202,7 @@ exports.render = render = (ast) ->
                             when 4 then "_{#{render ast[2][2]}}^{#{render ast[2][3]}}"
                             when 3 then "_{#{render ast[2][2]}}"
                             else ''
-                        "\\int#{bounds} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
+                        "\\int#{if bounds then "\\limits #{bounds}" else ""} #{render ast[2][0]} \\, \\mathrm{d}#{render ast[2][1]}"
                     when 'diff'
                         if ast[2][0][0] in ['Variable', 'Constant']
                             "\\frac{\\mathrm{d}#{render ast[2][0]}}{\\mathrm{d}#{render ast[2][1]}}"
@@ -220,23 +220,23 @@ exports.render = render = (ast) ->
                         "\\log#{base}{\\left( #{render ast[2][0]} \\right)}"
                     when 'exp'
                         "\\exp{\\left( #{render ast[2][0]} \\right)}"
-                    when 'lim', 'limit' then "\\lim_{#{render ast[2][1]} \\to #{render ast[2][2]}} #{render ast[2][0]}"
+                    when 'lim', 'limit' then "\\lim\\limits_{#{render ast[2][1]} \\to #{render ast[2][2]}} #{render ast[2][0]}"
                     when 'sum'
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
-                        "\\sum_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                        "\\sum\\limits_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
                     when 'prod', 'product'
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
-                        "\\prod_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                        "\\prod\\limits_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
                     when 'Union'
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
-                        "\\bigcup_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                        "\\bigcup\\limits_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
                     when 'Intersect'
                         lowerBound = if ast[2].length == 4 then "#{render ast[2][1]} = #{render ast[2][2]}" else render ast[2][1]
                         upperBound = if ast[2].length == 4 then "^{#{render ast[2][3]}}" else ''
-                        "\\bigcap_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
+                        "\\bigcap\\limits_{#{lowerBound}}#{upperBound} #{render ast[2][0]}"
                     when 'Gamma' then "\\Gamma{\\left( #{render ast[2][0]} \\right)}"
                     when 'C', 'combination', 'comb' then "\\binom{#{render ast[2][0]}}{#{render ast[2][1]}}"
                     when 'C', 'permutation', 'perm' then "P \\left( #{render ast[2][0]}, #{render ast[2][1]} \\right)"
